@@ -1,0 +1,49 @@
+meta {
+	title: "Power QA";
+	version: "0.1";
+	description: "Validation ruleset for power features";
+	author: "nlehuby";
+}
+
+
+way[power=~/line|minor_line|cable/] > node[power=~/tower|pole|insulator|portal|terminal/] {
+	set .connected_ok_supports;
+} 
+
+node[power=~/tower|pole/]!.connected_ok_supports {
+	throwWarning: "[Power] Lone power tower or pole. Try to connect it to a power=line";
+}
+
+node[power=~/insulator|portal/]!.connected_ok_supports {
+	throwWarning: "[Power] Lone power portal or insulator. Try to connect it to a power=line";
+}
+
+node[power=~/terminal/]!.connected_ok_supports {
+	throwWarning: "[Power] Lone power terminal. Try to connect it to a power=line";
+}
+
+
+way[power=~/line|minor_line|cable/] >[index=-1] node[power],
+way[power=~/line|minor_line|cable/] >[index=1] node[power] {
+	set .end_of_power_lines;
+} 
+
+node.end_of_power_lines!:connection[power!~/transformer|generator|portal|terminal|insulator/][location:transition!=yes][substation!=minor_distribution][transformer!~/distribution|main/][line_management!~/transition|termination/] {
+	throwWarning: "[Power] Unfinished power line";
+}
+
+node.end_of_power_lines:connection[count(parent_tags("voltage")) > 1][power!=transformer][!transformer] {
+	throwWarning: "[Power] Connection between different voltages";
+}
+
+node.end_of_power_lines:connection[count(parent_tags("cables")) > 1][line_management!=split] {
+	throwWarning: "[Power] Connection between different number of cables. Check the cables on incoming lines and the line_management tag on the intersecting tower";
+}
+
+area[power=substation] ∈ area[power=substation] {
+  throwError: "[Power] Substation inside another substation";
+}
+
+*[power][power!~/cable|catenary_mast|compensator|connection|converter|generator|heliostat|insulator|inverter|line|minor_line|plant|pole|portal|substation|switch|switchgear|terminal|tower|transformer/] {
+  throwError: "[Power] Unsuitable value for power=* tag";
+}
