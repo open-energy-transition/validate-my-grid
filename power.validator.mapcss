@@ -41,9 +41,54 @@ node.end_of_power_lines:connection[count(parent_tags("cables")) > 1][line_manage
 }
 
 area[power=substation] ∈ area[power=substation] {
-  throwError: "[Power] Substation inside another substation";
+	throwError: "[Power] Substation inside another substation";
 }
 
-*[power][power!~/cable|catenary_mast|compensator|connection|converter|generator|heliostat|insulator|inverter|line|minor_line|plant|pole|portal|substation|switch|switchgear|terminal|tower|transformer/] {
-  throwError: "[Power] Unsuitable value for power=* tag";
+*[power][power!~/cable|catenary_mast|circuit|compensator|connection|converter|generator|heliostat|insulator|inverter|line|minor_line|plant|pole|portal|substation|switch|switchgear|terminal|tower|transformer/] {
+	throwError: "[Power] Unsuitable value for power=* tag";
+}
+
+way!:closed[power=substation],
+relation[power=substation] {
+	throwError: "[Power] power=substation must be a node or an area";
+}
+
+node[power=cable],
+area:closed[power=cable] {
+	throwError: "[Power] power=cable must be a way";
+}
+
+node[power=minor_line],
+area:closed[power=minor_line] {
+	throwError: "[Power] power=minor_line must be a way";
+}
+
+way[power=circuit],
+node[power=circuit],
+area:closed[power=circuit] {
+	throwError: "[Power] power=circuit must be a relation";
+}
+
+area:closed[power=portal],
+relation[power=portal] {
+	throwError: "[Power] power=portal must be a node or an way";
+}
+
+area:closed[power=insulator],
+relation[power=insulator] {
+	throwError: "[Power] power=insulator must be a node or an way";
+}
+
+way[power=~/line|minor_line|cable/][circuits][circuits !~ /^[0-9]+$/] {
+	throwError: "[Power] circuits tag should contain a number";
+}
+
+way[power=~/line|minor_line|cable/][cables][cables !~ /^[0-9]+$/] {
+	throwError: "[Power] cables tag should contain a number";
+}
+
+node[power=transformer][!frequency] {
+    throwWarning: "[Power] Transformers should have a frequency tag";
+    assertMatch: "node power=transformer";
+    assertNoMatch: "node power=transformer frequency=50";
 }
