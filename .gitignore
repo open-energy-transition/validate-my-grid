@@ -1,0 +1,3 @@
+translations/i18n.pl
+translations/*.po~
+power.validator/
