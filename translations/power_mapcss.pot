@@ -1,0 +1,74 @@
+# power validation ruleset translation template
+#: ../power.validator.mapcss:13
+msgid "Validation ruleset for power features (power=*)"
+msgstr ""
+
+#: ../power.validator.mapcss:26
+msgid "Lone power tower or pole. Try to connect it to a power=line"
+msgstr ""
+
+#: ../power.validator.mapcss:30
+msgid "Lone power portal or insulator. Try to connect it to a power=line"
+msgstr ""
+
+#: ../power.validator.mapcss:34
+msgid "Lone power terminal. Try to connect it to a power=line"
+msgstr ""
+
+#: ../power.validator.mapcss:44
+msgid "Unfinished power line"
+msgstr ""
+
+#: ../power.validator.mapcss:48
+msgid "Connection between different voltages"
+msgstr ""
+
+#: ../power.validator.mapcss:52
+msgid ""
+"Connection between different number of cables. Check the cables on incoming "
+"lines and the line_management tag on the intersecting tower"
+msgstr ""
+
+#: ../power.validator.mapcss:56
+msgid "Substation inside another substation"
+msgstr ""
+
+#: ../power.validator.mapcss:60
+msgid "Unsuitable value for power=* tag"
+msgstr ""
+
+#: ../power.validator.mapcss:65
+msgid "power=substation must be a node or an area"
+msgstr ""
+
+#: ../power.validator.mapcss:70
+msgid "power=cable must be a way"
+msgstr ""
+
+#: ../power.validator.mapcss:75
+msgid "power=minor_line must be a way"
+msgstr ""
+
+#: ../power.validator.mapcss:81
+msgid "power=circuit must be a relation"
+msgstr ""
+
+#: ../power.validator.mapcss:86
+msgid "power=portal must be a node or an way"
+msgstr ""
+
+#: ../power.validator.mapcss:91
+msgid "power=insulator must be a node or an way"
+msgstr ""
+
+#: ../power.validator.mapcss:95
+msgid "circuits tag should contain a number"
+msgstr ""
+
+#: ../power.validator.mapcss:99
+msgid "cables tag should contain a number"
+msgstr ""
+
+#: ../power.validator.mapcss:103
+msgid "Transformers should have a frequency tag"
+msgstr ""
