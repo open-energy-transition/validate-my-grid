@@ -3,6 +3,18 @@ meta {
 	version: "0.1";
 	description: "Validation ruleset for power features";
 	author: "nlehuby";
+	link: "https://wiki.openstreetmap.org/wiki/Power_networks/Quality_Assurance";
+	baselanguage: "en";
+	-osmoseTags: list("tag", "power");
+}
+
+meta[lang=en] /* unused meta, only set so that tr() can catch string for translation */
+{
+	description: tr("Validation ruleset for power features (power=*)");
+}
+meta[lang=fr]
+{
+	description: "Règles de validation pour les réseaux électriques (power=*)";
 }
 
 
@@ -11,15 +23,15 @@ way[power=~/line|minor_line|cable/] > node[power=~/tower|pole|insulator|portal|t
 } 
 
 node[power=~/tower|pole/]!.connected_ok_supports {
-	throwWarning: "[Power] Lone power tower or pole. Try to connect it to a power=line";
+	throwWarning: tr("Lone power tower or pole. Try to connect it to a power=line");
 }
 
 node[power=~/insulator|portal/]!.connected_ok_supports {
-	throwWarning: "[Power] Lone power portal or insulator. Try to connect it to a power=line";
+	throwWarning: tr("Lone power portal or insulator. Try to connect it to a power=line");
 }
 
 node[power=~/terminal/]!.connected_ok_supports {
-	throwWarning: "[Power] Lone power terminal. Try to connect it to a power=line";
+	throwWarning: tr("Lone power terminal. Try to connect it to a power=line");
 }
 
 
@@ -29,66 +41,66 @@ way[power=~/line|minor_line|cable/] >[index=1] node[power] {
 } 
 
 node.end_of_power_lines!:connection[power!~/transformer|generator|portal|terminal|insulator/][location:transition!=yes][substation!=minor_distribution][transformer!~/distribution|main/][line_management!~/transition|termination/] {
-	throwWarning: "[Power] Unfinished power line";
+	throwWarning: tr("Unfinished power line");
 }
 
 node.end_of_power_lines:connection[count(parent_tags("voltage")) > 1][power!=transformer][!transformer] {
-	throwWarning: "[Power] Connection between different voltages";
+	throwWarning: tr("Connection between different voltages");
 }
 
 node.end_of_power_lines:connection[count(parent_tags("cables")) > 1][line_management!=split] {
-	throwWarning: "[Power] Connection between different number of cables. Check the cables on incoming lines and the line_management tag on the intersecting tower";
+	throwWarning: tr("Connection between different number of cables. Check the cables on incoming lines and the line_management tag on the intersecting tower");
 }
 
 area[power=substation] ∈ area[power=substation] {
-	throwError: "[Power] Substation inside another substation";
+	throwError: tr("Substation inside another substation");
 }
 
 *[power][power!~/cable|catenary_mast|circuit|compensator|connection|converter|generator|heliostat|insulator|inverter|line|minor_line|plant|pole|portal|substation|switch|switchgear|terminal|tower|transformer/] {
-	throwError: "[Power] Unsuitable value for power=* tag";
+	throwError: tr("Unsuitable value for power=* tag");
 }
 
 way!:closed[power=substation],
 relation[power=substation] {
-	throwError: "[Power] power=substation must be a node or an area";
+	throwError: tr("power=substation must be a node or an area");
 }
 
 node[power=cable],
 area:closed[power=cable] {
-	throwError: "[Power] power=cable must be a way";
+	throwError: tr("power=cable must be a way");
 }
 
 node[power=minor_line],
 area:closed[power=minor_line] {
-	throwError: "[Power] power=minor_line must be a way";
+	throwError: tr("power=minor_line must be a way");
 }
 
 way[power=circuit],
 node[power=circuit],
 area:closed[power=circuit] {
-	throwError: "[Power] power=circuit must be a relation";
+	throwError: tr("power=circuit must be a relation");
 }
 
 area:closed[power=portal],
 relation[power=portal] {
-	throwError: "[Power] power=portal must be a node or an way";
+	throwError: tr("power=portal must be a node or an way");
 }
 
 area:closed[power=insulator],
 relation[power=insulator] {
-	throwError: "[Power] power=insulator must be a node or an way";
+	throwError: tr("power=insulator must be a node or an way");
 }
 
 way[power=~/line|minor_line|cable/][circuits][circuits !~ /^[0-9]+$/] {
-	throwError: "[Power] circuits tag should contain a number";
+	throwError: tr("circuits tag should contain a number");
 }
 
 way[power=~/line|minor_line|cable/][cables][cables !~ /^[0-9]+$/] {
-	throwError: "[Power] cables tag should contain a number";
+	throwError: tr("cables tag should contain a number");
 }
 
 node[power=transformer][!frequency] {
-    throwWarning: "[Power] Transformers should have a frequency tag";
+    throwWarning: tr("Transformers should have a frequency tag");
     assertMatch: "node power=transformer";
     assertNoMatch: "node power=transformer frequency=50";
 }
