@@ -1,0 +1,87 @@
+#
+# Translators:
+# Noémie Lehuby<noemie@junglebus.io>, 2025
+#
+msgid ""
+msgstr ""
+"Last-Translator: Noémie Lehuby, 2025\n"
+"Language-Team: French"
+"Language: fr\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n == 0 || n == 1) ? 0 : n != 0 && n % "
+"1000000 == 0 ? 1 : 2;\n"
+
+#: ../power.validator.mapcss:13
+msgid "Validation ruleset for power features (power=*)"
+msgstr "Règles de validation pour les réseaux électriques (power=*)"
+
+#: ../power.validator.mapcss:28
+msgid "Lone power tower or pole. Try to connect it to a power=line"
+msgstr ""
+
+#: ../power.validator.mapcss:32
+msgid "Lone power portal or insulator. Try to connect it to a power=line"
+msgstr ""
+
+#: ../power.validator.mapcss:36
+msgid "Lone power terminal. Try to connect it to a power=line"
+msgstr ""
+
+#: ../power.validator.mapcss:46
+msgid "Unfinished power line"
+msgstr ""
+
+#: ../power.validator.mapcss:50
+msgid "Connection between different voltages"
+msgstr ""
+
+#: ../power.validator.mapcss:54
+msgid ""
+"Connection between different number of cables. Check the cables on incoming "
+"lines and the line_management tag on the intersecting tower"
+msgstr ""
+
+#: ../power.validator.mapcss:58
+msgid "Substation inside another substation"
+msgstr ""
+
+#: ../power.validator.mapcss:62
+msgid "Unsuitable value for power=* tag"
+msgstr ""
+
+#: ../power.validator.mapcss:67
+msgid "power=substation must be a node or an area"
+msgstr ""
+
+#: ../power.validator.mapcss:72
+msgid "power=cable must be a way"
+msgstr ""
+
+#: ../power.validator.mapcss:77
+msgid "power=minor_line must be a way"
+msgstr ""
+
+#: ../power.validator.mapcss:83
+msgid "power=circuit must be a relation"
+msgstr ""
+
+#: ../power.validator.mapcss:88
+msgid "power=portal must be a node or an way"
+msgstr ""
+
+#: ../power.validator.mapcss:93
+msgid "power=insulator must be a node or an way"
+msgstr ""
+
+#: ../power.validator.mapcss:97
+msgid "circuits tag should contain a number"
+msgstr ""
+
+#: ../power.validator.mapcss:101
+msgid "cables tag should contain a number"
+msgstr ""
+
+#: ../power.validator.mapcss:105
+msgid "Transformers should have a frequency tag"
+msgstr ""
