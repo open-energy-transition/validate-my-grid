@@ -1,7 +1,7 @@
 meta {
 	title: "Power QA";
-	version: "0.1";
-	description: "Validation ruleset for power features";
+	version: "0.2";
+	description: "Validation ruleset for power features (power=*)";
 	icon: "MapYourGrid-favicon.png";
 	author: "nlehuby";
 	link: "https://wiki.openstreetmap.org/wiki/Power_networks/Quality_Assurance";
@@ -57,6 +57,18 @@ area[power=substation] ∈ area[power=substation] {
 	throwError: tr("Substation inside another substation");
 }
 
+/* does not work, not sure why ... */
+/*
+way[power=portal] ∈ area[power=substation],
+node[power=portal] ∈ area[power=substation] {
+	set .portal_in_substation;
+}
+
+node[power=portal]!.portal_in_substation {
+	throwError: tr("Power portal outside substation");	
+}
+*/
+
 *[power][power!~/cable|catenary_mast|circuit|compensator|connection|converter|generator|heliostat|insulator|inverter|line|minor_line|plant|pole|portal|substation|switch|switchgear|terminal|tower|transformer/] {
 	throwError: tr("Unsuitable value for power=* tag");
 }
@@ -104,4 +116,27 @@ node[power=transformer][!frequency] {
     throwWarning: tr("Transformers should have a frequency tag");
     assertMatch: "node power=transformer";
     assertNoMatch: "node power=transformer frequency=50";
+}
+
+way[!power] > node[power=~/tower|pole|insulator|portal/] {
+	throwError: tr("Power support connected to a non power feature");
+}
+
+node[power=~/tower|pole/] ∈ area[building] {
+	throwError: tr("Power tower or pole inside a building");	
+}
+
+
+way[power=portal] > node {
+	set .portal_nodes;
+}
+
+way[power=~/line|minor_line|cable/] >[index=-1] node,
+way[power=~/line|minor_line|cable/] >[index=1] node {
+	set .end_node_of_power_lines;
+}
+
+node.portal_nodes.end_node_of_power_lines[power!=insulator] {
+	throwError: tr("A power line connecting to a portal should have a power=insulator on the connecting node");
+	fixAdd: "power=insulator";
 }
