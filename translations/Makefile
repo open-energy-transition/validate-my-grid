@@ -27,6 +27,7 @@ en.lang: $(PO) i18n.pl
 	mv $(LANG_) data
 	zip $@ data/*
 	zip -j $@ ../power.validator.mapcss
+	zip -j $@ ../MapYourGrid-favicon.png
 	rm -fr data
 
 clean:

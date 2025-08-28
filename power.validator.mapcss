@@ -2,6 +2,7 @@ meta {
 	title: "Power QA";
 	version: "0.1";
 	description: "Validation ruleset for power features";
+	icon: "MapYourGrid-favicon.png";
 	author: "nlehuby";
 	link: "https://wiki.openstreetmap.org/wiki/Power_networks/Quality_Assurance";
 	baselanguage: "en";
