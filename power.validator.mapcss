@@ -1,6 +1,6 @@
 meta {
 	title: "Power QA";
-	version: "0.2";
+	version: "0.3";
 	description: "Validation ruleset for power features (power=*)";
 	icon: "MapYourGrid-favicon.png";
 	author: "nlehuby";
@@ -74,7 +74,7 @@ node[power=portal]!.portal_in_substation {
 }
 
 way!:closed[power=substation],
-relation[power=substation] {
+relation[power=substation][type!=multipolygon] {
 	throwError: tr("power=substation must be a node or an area");
 }
 
@@ -118,7 +118,7 @@ node[power=transformer][!frequency] {
     assertNoMatch: "node power=transformer frequency=50";
 }
 
-way[!power] > node[power=~/tower|pole|insulator|portal/] {
+way[!power][!construction:power][!disused:power][!destroyed:power] > node[power=~/tower|pole|insulator|portal/] {
 	throwError: tr("Power support connected to a non power feature");
 }
 
