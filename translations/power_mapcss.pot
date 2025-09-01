@@ -49,40 +49,84 @@ msgstr ""
 msgid "power=minor_line must be a way"
 msgstr ""
 
-#: ../power.validator.mapcss:94
+#: ../power.validator.mapcss:100
 msgid "power=circuit must be a relation"
 msgstr ""
 
-#: ../power.validator.mapcss:99
+#: ../power.validator.mapcss:105
 msgid "power=portal must be a node or an way"
 msgstr ""
 
-#: ../power.validator.mapcss:104
+#: ../power.validator.mapcss:110
 msgid "power=insulator must be a node or an way"
 msgstr ""
 
-#: ../power.validator.mapcss:108
+#: ../power.validator.mapcss:114
 msgid "circuits tag should contain a number"
 msgstr ""
 
-#: ../power.validator.mapcss:112
+#: ../power.validator.mapcss:118
 msgid "cables tag should contain a number"
 msgstr ""
 
-#: ../power.validator.mapcss:116
+#: ../power.validator.mapcss:122
 msgid "Transformers should have a frequency tag"
 msgstr ""
 
-#: ../power.validator.mapcss:122
+#: ../power.validator.mapcss:128
 msgid "Power support connected to a non power feature"
 msgstr ""
 
-#: ../power.validator.mapcss:126
+#: ../power.validator.mapcss:132
 msgid "Power tower or pole inside a building"
 msgstr ""
 
-#: ../power.validator.mapcss:140
+#: ../power.validator.mapcss:146
 msgid ""
 "A power line connecting to a portal should have a power=insulator on the "
 "connecting node"
+msgstr ""
+
+#: ../power.validator.mapcss:94
+msgid "power=line_section must be a relation"
+msgstr ""
+
+#: ../power.validator.mapcss:151
+msgid ""
+"Is it a power circuit or a power line section? Add the power=* tag "
+"accordingly."
+msgstr ""
+
+#: ../power.validator.mapcss:155
+msgid ""
+"power=circuit relations should have a topology tag with value linear or "
+"branched"
+msgstr ""
+
+#: ../power.validator.mapcss:159
+msgid "route=power is deprecated, use type=power+power=circuit instead"
+msgstr ""
+
+#: ../power.validator.mapcss:165
+msgid "power=branch is deprecated"
+msgstr ""
+
+#: ../power.validator.mapcss:170
+msgid "Wrong role for way in power=circuit relations"
+msgstr ""
+
+#: ../power.validator.mapcss:175 ../power.validator.mapcss:180
+msgid "Wrong role for node in power=circuit relations"
+msgstr ""
+
+#: ../power.validator.mapcss:185
+msgid "Wrong role for way in power=line_section relations"
+msgstr ""
+
+#: ../power.validator.mapcss:190
+msgid "frequency tag should be on the circuit relation, not on the power line"
+msgstr ""
+
+#: ../power.validator.mapcss:194
+msgid "wires tag should be on the power line and not on the circuit relation"
 msgstr ""

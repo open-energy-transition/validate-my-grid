@@ -1,6 +1,6 @@
 meta {
 	title: "Power QA";
-	version: "0.3";
+	version: "0.4";
 	description: "Validation ruleset for power features (power=*)";
 	icon: "MapYourGrid-favicon.png";
 	author: "nlehuby";
@@ -69,7 +69,7 @@ node[power=portal]!.portal_in_substation {
 }
 */
 
-*[power][power!~/cable|catenary_mast|circuit|compensator|connection|converter|generator|heliostat|insulator|inverter|line|minor_line|plant|pole|portal|substation|switch|switchgear|terminal|tower|transformer/] {
+*[power][power!~/cable|catenary_mast|circuit|compensator|connection|converter|generator|heliostat|insulator|inverter|line|line_section|minor_line|plant|pole|portal|substation|switch|switchgear|terminal|tower|transformer/] {
 	throwError: tr("Unsuitable value for power=* tag");
 }
 
@@ -86,6 +86,12 @@ area:closed[power=cable] {
 node[power=minor_line],
 area:closed[power=minor_line] {
 	throwError: tr("power=minor_line must be a way");
+}
+
+way[power=line_section],
+node[power=line_section],
+area:closed[power=line_section] {
+	throwError: tr("power=line_section must be a relation");
 }
 
 way[power=circuit],
@@ -139,4 +145,52 @@ way[power=~/line|minor_line|cable/] >[index=1] node {
 node.portal_nodes.end_node_of_power_lines[power!=insulator] {
 	throwError: tr("A power line connecting to a portal should have a power=insulator on the connecting node");
 	fixAdd: "power=insulator";
+}
+
+relation[type=power][!power] {
+	throwError: tr("Is it a power circuit or a power line section? Add the power=* tag accordingly.");	
+}
+
+relation[power=circuit][topology][topology!~/linear|branched/] {
+	throwError: tr("power=circuit relations should have a topology tag with value linear or branched");
+}
+
+relation[route=power] {
+	throwError: tr("route=power is deprecated, use type=power+power=circuit instead");
+	fixAdd: "type=power";
+	fixAdd: "power=circuit";
+}
+
+relation[power=branch] {
+	throwError: tr("power=branch is deprecated");
+	suggestAlternative: "power=circuit or power=line_section";
+}
+
+relation[power=circuit] >[role!~/section|substation/] way {  
+   throwError: tr("Wrong role for way in power=circuit relations");
+   suggestAlternative: "section/substation";
+}
+
+relation[power=circuit] >[role!~/tap|substation/] node {  
+   throwError: tr("Wrong role for node in power=circuit relations");
+   suggestAlternative: "tap/substation";
+}
+
+relation[power=circuit] >[role!~/section/] relation {  
+   throwError: tr("Wrong role for node in power=circuit relations");
+   suggestAlternative: "section";
+}
+
+relation[power=line_section] >[role!~/line/] way {  
+   throwError: tr("Wrong role for way in power=line_section relations");
+   suggestAlternative: "line";
+}
+
+relation[power=circuit] > way[power=~/line|minor_line|cable/][frequency] {  
+   throwWarning: tr("frequency tag should be on the circuit relation, not on the power line");
+}
+
+relation[power=circuit][wires] {  
+   throwWarning: tr("wires tag should be on the power line and not on the circuit relation");
+   fixRemove: "wires";
 }
