@@ -1,6 +1,6 @@
 meta {
 	title: "Power QA";
-	version: "0.5";
+	version: "0.6";
 	description: "Validation ruleset for power features (power=*)";
 	icon: "MapYourGrid-favicon.png";
 	author: "nlehuby";
@@ -80,6 +80,14 @@ relation[power=substation][type!=multipolygon] {
 	throwError: tr("power=substation must be a node or an area");
 	assertMatch: "relation power=substation type=power";
 	assertNoMatch: "node power=substation";
+}
+
+way!:closed[power=plant],
+relation[power=plant][type!=multipolygon][type!=site]{
+	throwError: tr("power=plant must be an area or a site");
+	assertMatch: "relation power=plant type=power";
+	assertNoMatch: "relation power=plant type=multipolygon";
+	assertNoMatch: "relation power=plant type=site";
 }
 
 node[power=cable],
@@ -182,6 +190,14 @@ relation[power=circuit][topology][topology!~/linear|branched/] {
 	assertNoMatch: "relation type=power power=circuit";
 }
 
+*[power_source] {
+	throwError: tr("power_source=* is deprecated");
+	fixRemove: "power_source";
+	suggestAlternative: "generator:source";
+	assertMatch: "area power=plant power_source=solar";
+	assertNoMatch: "area power=plant generator:source=solar";
+}
+
 relation[route=power] {
 	throwError: tr("route=power is deprecated, use type=power+power=circuit instead");
 	fixAdd: "type=power";
@@ -258,8 +274,318 @@ node[power=transformer][transformer=auto]{
 	assertNoMatch: "node power=transformer transformer=main windings:auto=yes";
 }
 
-node[power=transformer][transformer!~/main|auxiliary|generator|converter|phase_angle_regulator|converter|distribution|yes|traction|minor_distribution|auto/] {
+node[power=transformer][transformer][transformer!~/main|auxiliary|generator|converter|phase_angle_regulator|converter|distribution|yes|traction|minor_distribution|auto/] {
 	throwError: tr("Unsuitable value for transformer=* tag");
 	assertMatch: "node power=transformer transformer=railway";
 	assertNoMatch: "node power=transformer transformer=main";
+	assertNoMatch: "node power=transformer";
+}
+
+*[power=generator][generator:source][generator:source!~/nuclear|wind|hydro|tidal|wave|geothermal|solar|coal|gas|biomass|biofuel|biogas|oil|diesel|gasoline|waste|battery/] {
+	throwError: tr("Unsuitable value for generator:source=* tag");
+	assertMatch: "node power=generator generator:source=photovoltaic";
+	assertNoMatch: "node power=generator generator:source=solar";
+	assertNoMatch: "node power=generator";
+}
+
+*[power=generator][generator:source=nuclear][generator:method][generator:method!~/fission|fusion/]{
+	throwError: tr("Unsuitable method for nuclear generator");
+	suggestAlternative: "fission or fusion";
+	fixRemove: "generator:method";
+	assertMatch: "node power=generator generator:source=nuclear generator:method=nuclear";
+	assertNoMatch: "node power=generator generator:source=nuclear generator:method=fission";
+}
+
+*[power=generator][generator:method=~/fission|fusion/][generator:source][generator:source!=nuclear]{
+	throwError: tr("Incompatibility between method and source on a power generator");
+	assertMatch: "node power=generator generator:source=solar generator:method=fusion";
+	assertNoMatch: "node power=generator generator:source=nuclear generator:method=fission";
+}
+
+*[power=generator][generator:source=wind][generator:method][generator:method!=wind_turbine]{
+	throwError: tr("Unsuitable method for wind generator");
+	fixRemove: "generator:method";
+	assertMatch: "node power=generator generator:source=wind generator:method=wind";
+	assertNoMatch: "node power=generator generator:source=wind";
+	assertNoMatch: "node power=generator generator:source=wind generator:method=wind_turbine";
+}
+
+*[power=generator][generator:method=wind_turbine][generator:source][generator:source!=wind]{
+	throwError: tr("Incompatibility between method and source on a power generator");
+	assertMatch: "node power=generator generator:source=turbine generator:method=wind_turbine";
+	assertNoMatch: "node power=generator generator:source=wind generator:method=wind_turbine";
+}
+
+*[power=generator][generator:source=hydro][generator:method][generator:method!~/water-storage|water-pumped-storage|run-of-the-river/]{
+	throwError: tr("Unsuitable method for hydro generator");
+	suggestAlternative: "water-storage, run-of-the-river or water-pumped-storage";
+	fixRemove: "generator:method";
+	assertMatch: "node power=generator generator:source=hydro generator:method=pump";
+	assertNoMatch: "node power=generator generator:source=hydro generator:method=water-storage";
+}
+
+*[power=generator][generator:method=~/water-storage|water-pumped-storage|run-of-the-river/][generator:source][generator:source!=hydro]{
+	throwError: tr("Incompatibility between method and source on a power generator");
+	assertMatch: "node power=generator generator:source=water generator:method=water-pumped-storage";
+	assertNoMatch: "node power=generator generator:source=hydro generator:method=water-storage";
+}
+
+*[power=generator][generator:source=tidal][generator:method][generator:method!~/barrage|stream/]{
+	throwError: tr("Unsuitable method for tidal generator");
+	suggestAlternative: "barrage or stream";
+	fixRemove: "generator:method";
+	assertMatch: "node power=generator generator:source=tidal generator:method=dam";
+	assertNoMatch: "node power=generator generator:source=tidal generator:method=barrage";
+}
+
+*[power=generator][generator:method=~/barrage|stream/][generator:source][generator:source!=tidal]{
+	throwError: tr("Incompatibility between method and source on a power generator");
+	assertMatch: "node power=generator generator:source=solar generator:method=stream";
+	assertNoMatch: "node power=generator generator:source=tidal generator:method=barrage";
+}
+
+*[power=generator][generator:source=solar][generator:method][generator:method!~/thermal|photovoltaic/]{
+	throwError: tr("Unsuitable method for solar generator");
+	suggestAlternative: "thermal or photovoltaic";
+	fixRemove: "generator:method";
+	assertMatch: "node power=generator generator:source=solar generator:method=solar";
+	assertNoMatch: "node power=generator generator:source=solar generator:method=thermal";
+}
+
+*[power=generator][generator:method=~/thermal|photovoltaic/][generator:source][generator:source!=solar]{
+	throwError: tr("Incompatibility between method and source on a power generator");
+	assertMatch: "node power=generator generator:source=photovoltaic generator:method=photovoltaic";
+	assertNoMatch: "node power=generator generator:source=solar generator:method=thermal";
+}
+
+*[power=generator][generator:source=coal][generator:method][generator:method!=combustion]{
+	throwError: tr("Unsuitable method for coal generator");
+	assertMatch: "node power=generator generator:source=coal generator:method=burning";
+	assertNoMatch: "node power=generator generator:source=coal generator:method=combustion";
+	assertNoMatch: "node power=generator generator:source=coal";
+}
+
+*[power=generator][generator:source=gas][generator:method][generator:method!=combustion]{
+	throwError: tr("Unsuitable method for gas generator");
+	assertMatch: "node power=generator generator:source=gas generator:method=gasification";
+	assertNoMatch: "node power=generator generator:source=gas generator:method=combustion";
+	assertNoMatch: "node power=generator generator:source=gas";
+}
+
+*[power=generator][generator:source=biomass][generator:method][generator:method!~/combustion|gasification|anaerobic_digestion/]{
+	throwError: tr("Unsuitable method for biomass generator");
+	suggestAlternative: "combustion, anaerobic_digestion or gasification";
+	fixRemove: "generator:method";
+	assertMatch: "node power=generator generator:source=biomass generator:method=burn";
+	assertNoMatch: "node power=generator generator:source=biomass generator:method=anaerobic_digestion";
+}
+
+*[power=generator][generator:source=biofuel][generator:method][generator:method!=combustion]{
+	throwError: tr("Unsuitable method for biofuel generator");
+	assertMatch: "node power=generator generator:source=biofuel generator:method=gasification";
+	assertNoMatch: "node power=generator generator:source=biofuel generator:method=combustion";
+	assertNoMatch: "node power=generator generator:source=biofuel";
+}
+
+*[power=generator][generator:source=biogas][generator:method][generator:method!=combustion]{
+	throwError: tr("Unsuitable method for biogas generator");
+	assertMatch: "node power=generator generator:source=biogas generator:method=gasification";
+	assertNoMatch: "node power=generator generator:source=biogas generator:method=combustion";
+	assertNoMatch: "node power=generator generator:source=biogas";
+}
+
+*[power=generator][generator:source=oil][generator:method][generator:method!=combustion]{
+	throwError: tr("Unsuitable method for oil generator");
+	assertMatch: "node power=generator generator:source=oil generator:method=gasification";
+	assertNoMatch: "node power=generator generator:source=oil generator:method=combustion";
+	assertNoMatch: "node power=generator generator:source=oil";
+}
+
+*[power=generator][generator:source=diesel][generator:method][generator:method!=combustion]{
+	throwError: tr("Unsuitable method for diesel generator");
+	assertMatch: "node power=generator generator:source=diesel generator:method=gasification";
+	assertNoMatch: "node power=generator generator:source=diesel generator:method=combustion";
+	assertNoMatch: "node power=generator generator:source=diesel";
+}
+
+*[power=generator][generator:source=gasoline][generator:method][generator:method!=combustion]{
+	throwError: tr("Unsuitable method for gasoline generator");
+	assertMatch: "node power=generator generator:source=gasoline generator:method=gasification";
+	assertNoMatch: "node power=generator generator:source=gasoline generator:method=combustion";
+	assertNoMatch: "node power=generator generator:source=gasoline";
+}
+
+*[power=generator][generator:source=waste][generator:method][generator:method!~/combustion|gasification/]{
+	throwError: tr("Unsuitable method for waste generator");
+	suggestAlternative: "combustion or gasification";
+	fixRemove: "generator:method";
+	assertMatch: "node power=generator generator:source=waste generator:method=burning";
+	assertNoMatch: "node power=generator generator:source=waste generator:method=combustion";
+}
+
+*[power=generator][generator:method=combustion][generator:source][generator:source!~/waste|gasoline|diesel|oil|biogas|biofuel|biomass|gas|coal/]{
+	throwError: tr("Incompatibility between method and source on a power generator");
+	assertMatch: "node power=generator generator:source=wave generator:method=combustion";
+	assertNoMatch: "node power=generator generator:source=biomass generator:method=combustion";
+}
+
+*[power=generator][generator:method=gasification][generator:source][generator:source!~/waste|biomass/]{
+	throwError: tr("Incompatibility between method and source on a power generator");
+	assertMatch: "node power=generator generator:source=coal generator:method=gasification";
+	assertNoMatch: "node power=generator generator:source=biomass generator:method=gasification";
+}
+
+
+*[power=plant][plant:source][plant:source!~/nuclear|wind|hydro|tidal|wave|geothermal|solar|coal|gas|biomass|biofuel|biogas|oil|diesel|gasoline|waste|battery/] {
+	throwError: tr("Unsuitable value for plant:source=* tag");
+	assertMatch: "node power=plant plant:source=photovoltaic";
+	assertNoMatch: "node power=plant plant:source=solar";
+	assertNoMatch: "node power=plant";
+}
+
+*[power=plant][plant:source=nuclear][plant:method][plant:method!~/fission|fusion/]{
+	throwError: tr("Unsuitable method for nuclear power plant");
+	suggestAlternative: "fission or fusion";
+	fixRemove: "plant:method";
+	assertMatch: "node power=plant plant:source=nuclear plant:method=nuclear";
+	assertNoMatch: "node power=plant plant:source=nuclear plant:method=fission";
+}
+
+*[power=plant][plant:method=~/fission|fusion/][plant:source][plant:source!=nuclear]{
+	throwError: tr("Incompatibility between method and source on a power plant");
+	assertMatch: "node power=plant plant:source=solar plant:method=fusion";
+	assertNoMatch: "node power=plant plant:source=nuclear plant:method=fission";
+}
+
+*[power=plant][plant:source=wind][plant:method][plant:method!=wind_turbine]{
+	throwError: tr("Unsuitable method for wind power plant");
+	fixRemove: "plant:method";
+	assertMatch: "node power=plant plant:source=wind plant:method=wind";
+	assertNoMatch: "node power=plant plant:source=wind";
+	assertNoMatch: "node power=plant plant:source=wind plant:method=wind_turbine";
+}
+
+*[power=plant][plant:method=wind_turbine][plant:source][plant:source!=wind]{
+	throwError: tr("Incompatibility between method and source on a power plant");
+	assertMatch: "node power=plant plant:source=eolien plant:method=wind_turbine";
+	assertNoMatch: "node power=plant plant:source=wind plant:method=wind_turbine";
+}
+
+*[power=plant][plant:source=hydro][plant:method][plant:method!~/water-storage|water-pumped-storage|run-of-the-river/]{
+	throwError: tr("Unsuitable method for hydro power plant");
+	suggestAlternative: "water-storage, run-of-the-river or water-pumped-storage";
+	fixRemove: "plant:method";
+	assertMatch: "node power=plant plant:source=hydro plant:method=pump";
+	assertNoMatch: "node power=plant plant:source=hydro plant:method=water-storage";
+}
+
+*[power=plant][plant:method=~/water-storage|water-pumped-storage|run-of-the-river/][plant:source][plant:source!=hydro]{
+	throwError: tr("Incompatibility between method and source on a power plant");
+	assertMatch: "node power=plant plant:source=water plant:method=water-pumped-storage";
+	assertNoMatch: "node power=plant plant:source=hydro plant:method=water-storage";
+}
+
+*[power=plant][plant:source=tidal][plant:method][plant:method!~/barrage|stream/]{
+	throwError: tr("Unsuitable method for tidal power plant");
+	suggestAlternative: "barrage or stream";
+	fixRemove: "plant:method";
+	assertMatch: "node power=plant plant:source=tidal plant:method=dam";
+	assertNoMatch: "node power=plant plant:source=tidal plant:method=barrage";
+}
+
+*[power=plant][plant:method=~/barrage|stream/][plant:source][plant:source!=tidal]{
+	throwError: tr("Incompatibility between method and source on a power plant");
+	assertMatch: "node power=plant plant:source=solar plant:method=stream";
+	assertNoMatch: "node power=plant plant:source=tidal plant:method=barrage";
+}
+
+*[power=plant][plant:source=solar][plant:method][plant:method!~/thermal|photovoltaic/]{
+	throwError: tr("Unsuitable method for solar power plant");
+	suggestAlternative: "thermal or photovoltaic";
+	fixRemove: "plant:method";
+	assertMatch: "node power=plant plant:source=solar plant:method=solar";
+	assertNoMatch: "node power=plant plant:source=solar plant:method=thermal";
+}
+
+*[power=plant][plant:method=~/thermal|photovoltaic/][plant:source][plant:source!=solar]{
+	throwError: tr("Incompatibility between method and source on a power plant");
+	assertMatch: "node power=plant plant:source=photovoltaic plant:method=photovoltaic";
+	assertNoMatch: "node power=plant plant:source=solar plant:method=thermal";
+}
+
+*[power=plant][plant:source=coal][plant:method][plant:method!=combustion]{
+	throwError: tr("Unsuitable method for coal power plant");
+	assertMatch: "node power=plant plant:source=coal plant:method=burning";
+	assertNoMatch: "node power=plant plant:source=coal plant:method=combustion";
+	assertNoMatch: "node power=plant plant:source=coal";
+}
+
+*[power=plant][plant:source=gas][plant:method][plant:method!=combustion]{
+	throwError: tr("Unsuitable method for gas power plant");
+	assertMatch: "node power=plant plant:source=gas plant:method=gasification";
+	assertNoMatch: "node power=plant plant:source=gas plant:method=combustion";
+	assertNoMatch: "node power=plant plant:source=gas";
+}
+
+*[power=plant][plant:source=biomass][plant:method][plant:method!~/combustion|gasification|anaerobic_digestion/]{
+	throwError: tr("Unsuitable method for biomass power plant");
+	suggestAlternative: "combustion, anaerobic_digestion or gasification";
+	fixRemove: "plant:method";
+	assertMatch: "node power=plant plant:source=biomass plant:method=burn";
+	assertNoMatch: "node power=plant plant:source=biomass plant:method=anaerobic_digestion";
+}
+
+*[power=plant][plant:source=biofuel][plant:method][plant:method!=combustion]{
+	throwError: tr("Unsuitable method for biofuel power plant");
+	assertMatch: "node power=plant plant:source=biofuel plant:method=gasification";
+	assertNoMatch: "node power=plant plant:source=biofuel plant:method=combustion";
+	assertNoMatch: "node power=plant plant:source=biofuel";
+}
+
+*[power=plant][plant:source=biogas][plant:method][plant:method!=combustion]{
+	throwError: tr("Unsuitable method for biogas power plant");
+	assertMatch: "node power=plant plant:source=biogas plant:method=gasification";
+	assertNoMatch: "node power=plant plant:source=biogas plant:method=combustion";
+	assertNoMatch: "node power=plant plant:source=biogas";
+}
+
+*[power=plant][plant:source=oil][plant:method][plant:method!=combustion]{
+	throwError: tr("Unsuitable method for oil power plant");
+	assertMatch: "node power=plant plant:source=oil plant:method=gasification";
+	assertNoMatch: "node power=plant plant:source=oil plant:method=combustion";
+	assertNoMatch: "node power=plant plant:source=oil";
+}
+
+*[power=plant][plant:source=diesel][plant:method][plant:method!=combustion]{
+	throwError: tr("Unsuitable method for diesel power plant");
+	assertMatch: "node power=plant plant:source=diesel plant:method=gasification";
+	assertNoMatch: "node power=plant plant:source=diesel plant:method=combustion";
+	assertNoMatch: "node power=plant plant:source=diesel";
+}
+
+*[power=plant][plant:source=gasoline][plant:method][plant:method!=combustion]{
+	throwError: tr("Unsuitable method for gasoline power plant");
+	assertMatch: "node power=plant plant:source=gasoline plant:method=gasification";
+	assertNoMatch: "node power=plant plant:source=gasoline plant:method=combustion";
+	assertNoMatch: "node power=plant plant:source=gasoline";
+}
+
+*[power=plant][plant:source=waste][plant:method][plant:method!~/combustion|gasification/]{
+	throwError: tr("Unsuitable method for waste power plant");
+	suggestAlternative: "combustion or gasification";
+	fixRemove: "plant:method";
+	assertMatch: "node power=plant plant:source=waste plant:method=burning";
+	assertNoMatch: "node power=plant plant:source=waste plant:method=combustion";
+}
+
+*[power=plant][plant:method=combustion][plant:source][plant:source!~/waste|gasoline|diesel|oil|biogas|biofuel|biomass|gas|coal/]{
+	throwError: tr("Incompatibility between method and source on a power plant");
+	assertMatch: "node power=plant plant:source=wave plant:method=combustion";
+	assertNoMatch: "node power=plant plant:source=biomass plant:method=combustion";
+}
+
+*[power=plant][plant:method=gasification][plant:source][plant:source!~/waste|biomass/]{
+	throwError: tr("Incompatibility between method and source on a power plant");
+	assertMatch: "node power=plant plant:source=coal plant:method=gasification";
+	assertNoMatch: "node power=plant plant:source=biomass plant:method=gasification";
 }
