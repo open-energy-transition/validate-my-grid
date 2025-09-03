@@ -1,6 +1,6 @@
 meta {
 	title: "Power QA";
-	version: "0.4";
+	version: "0.5";
 	description: "Validation ruleset for power features (power=*)";
 	icon: "MapYourGrid-favicon.png";
 	author: "nlehuby";
@@ -227,5 +227,39 @@ relation[power=circuit][wires] {
    fixRemove: "wires";
    assertMatch: "relation type=power power=circuit wires=4";
    assertNoMatch: "relation type=power power=circuit";
+}
 
+node[power][line_management=termination][location:transition=yes]{
+	throwWarning: tr("Incompatible tags: is it a line termination or a line transition ?");
+	assertMatch: "node power=tower line_management=termination location:transition=yes";
+	assertNoMatch: "node power=tower line_management=termination";
+	assertNoMatch: "node power=tower line_management=transition location:transition=yes";
+}
+
+node[power=transformer][transformer=traction]{
+	throwError: tr("transformer=traction is deprecated (use transformer=main and add substation=traction on the enclosing substation");
+	fixAdd: "transformer=main";
+	assertMatch: "node power=transformer transformer=traction";
+	assertNoMatch: "node power=transformer transformer=main";
+}
+
+node[power=transformer][transformer=minor_distribution]{
+	throwError: tr("transformer=minor_distribution is deprecated (use transformer=main and add substation=minor_distribution on the enclosing substation");
+	fixAdd: "transformer=main";
+	assertMatch: "node power=transformer transformer=minor_distribution";
+	assertNoMatch: "node power=transformer transformer=main";
+}
+
+node[power=transformer][transformer=auto]{
+	throwError: tr("transformer=auto is deprecated");
+	fixAdd: "windings:auto=yes";
+	fixRemove: "transformer";
+	assertMatch: "node power=transformer transformer=auto";
+	assertNoMatch: "node power=transformer transformer=main windings:auto=yes";
+}
+
+node[power=transformer][transformer!~/main|auxiliary|generator|converter|phase_angle_regulator|converter|distribution|yes|traction|minor_distribution|auto/] {
+	throwError: tr("Unsuitable value for transformer=* tag");
+	assertMatch: "node power=transformer transformer=railway";
+	assertNoMatch: "node power=transformer transformer=main";
 }
