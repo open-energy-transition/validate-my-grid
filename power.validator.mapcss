@@ -1,6 +1,6 @@
 meta {
 	title: "Power QA";
-	version: "0.4";
+	version: "0.5";
 	description: "Validation ruleset for power features (power=*)";
 	icon: "MapYourGrid-favicon.png";
 	author: "nlehuby";
@@ -71,51 +71,73 @@ node[power=portal]!.portal_in_substation {
 
 *[power][power!~/cable|catenary_mast|circuit|compensator|connection|converter|generator|heliostat|insulator|inverter|line|line_section|minor_line|plant|pole|portal|substation|switch|switchgear|terminal|tower|transformer/] {
 	throwError: tr("Unsuitable value for power=* tag");
+	assertMatch: "relation power=route";
+	assertNoMatch: "way power=cable";
 }
 
 way!:closed[power=substation],
 relation[power=substation][type!=multipolygon] {
 	throwError: tr("power=substation must be a node or an area");
+	assertMatch: "relation power=substation type=power";
+	assertNoMatch: "node power=substation";
 }
 
 node[power=cable],
 area:closed[power=cable] {
 	throwError: tr("power=cable must be a way");
+	assertMatch: "node power=cable";
+	assertNoMatch: "way power=cable";
 }
 
 node[power=minor_line],
 area:closed[power=minor_line] {
 	throwError: tr("power=minor_line must be a way");
+	assertMatch: "node power=minor_line";
+	assertNoMatch: "way power=minor_line";
 }
 
 way[power=line_section],
 node[power=line_section],
 area:closed[power=line_section] {
 	throwError: tr("power=line_section must be a relation");
+	assertMatch: "way power=line_section";
+	assertNoMatch: "relation power=line_section type=power";
 }
 
 way[power=circuit],
 node[power=circuit],
 area:closed[power=circuit] {
 	throwError: tr("power=circuit must be a relation");
+	assertMatch: "way power=circuit";
+	assertNoMatch: "relation power=circuit type=power";
 }
 
 area:closed[power=portal],
 relation[power=portal] {
 	throwError: tr("power=portal must be a node or an way");
+	assertMatch: "relation power=portal";
+	assertNoMatch: "way power=portal";
+	assertNoMatch: "node power=portal";
 }
 
 area:closed[power=insulator],
 relation[power=insulator] {
 	throwError: tr("power=insulator must be a node or an way");
+	assertMatch: "relation power=insulator";
+	assertNoMatch: "way power=insulator";
+	assertNoMatch: "node power=insulator";
 }
 
 way[power=~/line|minor_line|cable/][circuits][circuits !~ /^[0-9]+$/] {
 	throwError: tr("circuits tag should contain a number");
+	assertMatch: "way power=line circuits=double";
+	assertNoMatch: "way power=line circuits=2";
 }
 
 way[power=~/line|minor_line|cable/][cables][cables !~ /^[0-9]+$/] {
 	throwError: tr("cables tag should contain a number");
+	assertMatch: "way power=line cables=double";
+	assertNoMatch: "way power=line cables=6";
 }
 
 node[power=transformer][!frequency] {
@@ -148,22 +170,32 @@ node.portal_nodes.end_node_of_power_lines[power!=insulator] {
 }
 
 relation[type=power][!power] {
-	throwError: tr("Is it a power circuit or a power line section? Add the power=* tag accordingly.");	
+	throwError: tr("Is it a power circuit or a power line section? Add the power=* tag accordingly.");
+	assertMatch: "relation type=power";
+	assertNoMatch: "relation type=power power=circuit";
 }
 
 relation[power=circuit][topology][topology!~/linear|branched/] {
 	throwError: tr("power=circuit relations should have a topology tag with value linear or branched");
+	assertMatch: "relation type=power power=circuit topology=branch";
+	assertNoMatch: "relation type=power power=circuit topology=branched";
+	assertNoMatch: "relation type=power power=circuit";
 }
 
 relation[route=power] {
 	throwError: tr("route=power is deprecated, use type=power+power=circuit instead");
 	fixAdd: "type=power";
 	fixAdd: "power=circuit";
+	fixRemove: "route";
+	assertMatch: "relation type=route route=power power=circuit";
+	assertNoMatch: "relation type=power power=circuit";
 }
 
 relation[power=branch] {
 	throwError: tr("power=branch is deprecated");
 	suggestAlternative: "power=circuit or power=line_section";
+	assertMatch: "relation type=power power=branch";
+	assertNoMatch: "relation type=power power=circuit";
 }
 
 relation[power=circuit] >[role!~/section|substation/] way {  
@@ -193,4 +225,41 @@ relation[power=circuit] > way[power=~/line|minor_line|cable/][frequency] {
 relation[power=circuit][wires] {  
    throwWarning: tr("wires tag should be on the power line and not on the circuit relation");
    fixRemove: "wires";
+   assertMatch: "relation type=power power=circuit wires=4";
+   assertNoMatch: "relation type=power power=circuit";
+}
+
+node[power][line_management=termination][location:transition=yes]{
+	throwWarning: tr("Incompatible tags: is it a line termination or a line transition ?");
+	assertMatch: "node power=tower line_management=termination location:transition=yes";
+	assertNoMatch: "node power=tower line_management=termination";
+	assertNoMatch: "node power=tower line_management=transition location:transition=yes";
+}
+
+node[power=transformer][transformer=traction]{
+	throwError: tr("transformer=traction is deprecated (use transformer=main and add substation=traction on the enclosing substation");
+	fixAdd: "transformer=main";
+	assertMatch: "node power=transformer transformer=traction";
+	assertNoMatch: "node power=transformer transformer=main";
+}
+
+node[power=transformer][transformer=minor_distribution]{
+	throwError: tr("transformer=minor_distribution is deprecated (use transformer=main and add substation=minor_distribution on the enclosing substation");
+	fixAdd: "transformer=main";
+	assertMatch: "node power=transformer transformer=minor_distribution";
+	assertNoMatch: "node power=transformer transformer=main";
+}
+
+node[power=transformer][transformer=auto]{
+	throwError: tr("transformer=auto is deprecated");
+	fixAdd: "windings:auto=yes";
+	fixRemove: "transformer";
+	assertMatch: "node power=transformer transformer=auto";
+	assertNoMatch: "node power=transformer transformer=main windings:auto=yes";
+}
+
+node[power=transformer][transformer!~/main|auxiliary|generator|converter|phase_angle_regulator|converter|distribution|yes|traction|minor_distribution|auto/] {
+	throwError: tr("Unsuitable value for transformer=* tag");
+	assertMatch: "node power=transformer transformer=railway";
+	assertNoMatch: "node power=transformer transformer=main";
 }

@@ -37,96 +37,120 @@ msgstr ""
 msgid "Unsuitable value for power=* tag"
 msgstr ""
 
-#: ../power.validator.mapcss:78
+#: ../power.validator.mapcss:80
 msgid "power=substation must be a node or an area"
 msgstr ""
 
-#: ../power.validator.mapcss:83
+#: ../power.validator.mapcss:87
 msgid "power=cable must be a way"
 msgstr ""
 
-#: ../power.validator.mapcss:88
+#: ../power.validator.mapcss:94
 msgid "power=minor_line must be a way"
 msgstr ""
 
-#: ../power.validator.mapcss:100
+#: ../power.validator.mapcss:110
 msgid "power=circuit must be a relation"
 msgstr ""
 
-#: ../power.validator.mapcss:105
+#: ../power.validator.mapcss:117
 msgid "power=portal must be a node or an way"
 msgstr ""
 
-#: ../power.validator.mapcss:110
+#: ../power.validator.mapcss:125
 msgid "power=insulator must be a node or an way"
 msgstr ""
 
-#: ../power.validator.mapcss:114
+#: ../power.validator.mapcss:132
 msgid "circuits tag should contain a number"
 msgstr ""
 
-#: ../power.validator.mapcss:118
+#: ../power.validator.mapcss:138
 msgid "cables tag should contain a number"
 msgstr ""
 
-#: ../power.validator.mapcss:122
+#: ../power.validator.mapcss:144
 msgid "Transformers should have a frequency tag"
 msgstr ""
 
-#: ../power.validator.mapcss:128
+#: ../power.validator.mapcss:150
 msgid "Power support connected to a non power feature"
 msgstr ""
 
-#: ../power.validator.mapcss:132
+#: ../power.validator.mapcss:154
 msgid "Power tower or pole inside a building"
 msgstr ""
 
-#: ../power.validator.mapcss:146
+#: ../power.validator.mapcss:168
 msgid ""
 "A power line connecting to a portal should have a power=insulator on the "
 "connecting node"
 msgstr ""
 
-#: ../power.validator.mapcss:94
+#: ../power.validator.mapcss:102
 msgid "power=line_section must be a relation"
 msgstr ""
 
-#: ../power.validator.mapcss:151
+#: ../power.validator.mapcss:173
 msgid ""
 "Is it a power circuit or a power line section? Add the power=* tag "
 "accordingly."
 msgstr ""
 
-#: ../power.validator.mapcss:155
+#: ../power.validator.mapcss:179
 msgid ""
 "power=circuit relations should have a topology tag with value linear or "
 "branched"
 msgstr ""
 
-#: ../power.validator.mapcss:159
+#: ../power.validator.mapcss:186
 msgid "route=power is deprecated, use type=power+power=circuit instead"
 msgstr ""
 
-#: ../power.validator.mapcss:165
+#: ../power.validator.mapcss:195
 msgid "power=branch is deprecated"
 msgstr ""
 
-#: ../power.validator.mapcss:170
+#: ../power.validator.mapcss:202
 msgid "Wrong role for way in power=circuit relations"
 msgstr ""
 
-#: ../power.validator.mapcss:175 ../power.validator.mapcss:180
+#: ../power.validator.mapcss:207 ../power.validator.mapcss:212
 msgid "Wrong role for node in power=circuit relations"
 msgstr ""
 
-#: ../power.validator.mapcss:185
+#: ../power.validator.mapcss:217
 msgid "Wrong role for way in power=line_section relations"
 msgstr ""
 
-#: ../power.validator.mapcss:190
+#: ../power.validator.mapcss:222
 msgid "frequency tag should be on the circuit relation, not on the power line"
 msgstr ""
 
-#: ../power.validator.mapcss:194
+#: ../power.validator.mapcss:226
 msgid "wires tag should be on the power line and not on the circuit relation"
+msgstr ""
+
+#: ../power.validator.mapcss:233
+msgid "Incompatible tags: is it a line termination or a line transition ?"
+msgstr ""
+
+#: ../power.validator.mapcss:240
+msgid ""
+"transformer=traction is deprecated (use transformer=main and add "
+"substation=traction on the enclosing substation"
+msgstr ""
+
+#: ../power.validator.mapcss:247
+msgid ""
+"transformer=minor_distribution is deprecated (use transformer=main and add "
+"substation=minor_distribution on the enclosing substation"
+msgstr ""
+
+#: ../power.validator.mapcss:254
+msgid "transformer=auto is deprecated"
+msgstr ""
+
+#: ../power.validator.mapcss:262
+msgid "Unsuitable value for transformer=* tag"
 msgstr ""
