@@ -78,11 +78,12 @@ relation[power=generator][type!=multipolygon] {
 	assertNoMatch: "node power=generator";
 }
 
+node[power=switchgear],
 way!:closed[power=switchgear],
 relation[power=switchgear][type!=multipolygon] {
-	throwError: tr("power=switchgear must be a node or an area");
+	throwError: tr("power=switchgear must be an area");
 	assertMatch: "relation power=switchgear";
-	assertNoMatch: "node power=switchgear";
+	assertMatch: "node power=switchgear";
 }
 
 way!:closed[power=heliostat],
