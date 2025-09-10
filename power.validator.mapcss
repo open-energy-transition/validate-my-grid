@@ -57,18 +57,6 @@ area[power=substation] ∈ area[power=substation] {
 	throwError: tr("Substation inside another substation");
 }
 
-/* does not work, not sure why ... */
-/*
-way[power=portal] ∈ area[power=substation],
-node[power=portal] ∈ area[power=substation] {
-	set .portal_in_substation;
-}
-
-node[power=portal]!.portal_in_substation {
-	throwError: tr("Power portal outside substation");	
-}
-*/
-
 *[power][power!~/cable|catenary_mast|circuit|compensator|connection|converter|generator|heliostat|insulator|inverter|line|line_section|minor_line|plant|pole|portal|substation|switch|switchgear|terminal|tower|transformer/] {
 	throwError: tr("Unsuitable value for power=* tag");
 	assertMatch: "relation power=route";
