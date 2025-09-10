@@ -3,7 +3,9 @@ LANG_=en.lang $(PO:.po=.lang)
 
 all: ../power.validator.zip
 
+
 power_mapcss.pot: ../power.validator.mapcss
+	python3 ../scripts/generate_country_specific_rules.py >> ../power.validator.mapcss
 	sed -i "s/^#: .*//" $@
 	xgettext --join-existing -cTRANSLATORS \
 	  --keyword=tr \

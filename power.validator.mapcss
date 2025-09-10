@@ -1,6 +1,6 @@
 meta {
 	title: "Power QA";
-	version: "0.6";
+	version: "0.7";
 	description: "Validation ruleset for power features (power=*)";
 	icon: "MapYourGrid-favicon.png";
 	author: "nlehuby";
@@ -57,18 +57,6 @@ area[power=substation] ∈ area[power=substation] {
 	throwError: tr("Substation inside another substation");
 }
 
-/* does not work, not sure why ... */
-/*
-way[power=portal] ∈ area[power=substation],
-node[power=portal] ∈ area[power=substation] {
-	set .portal_in_substation;
-}
-
-node[power=portal]!.portal_in_substation {
-	throwError: tr("Power portal outside substation");	
-}
-*/
-
 *[power][power!~/cable|catenary_mast|circuit|compensator|connection|converter|generator|heliostat|insulator|inverter|line|line_section|minor_line|plant|pole|portal|substation|switch|switchgear|terminal|tower|transformer/] {
 	throwError: tr("Unsuitable value for power=* tag");
 	assertMatch: "relation power=route";
@@ -80,6 +68,29 @@ relation[power=substation][type!=multipolygon] {
 	throwError: tr("power=substation must be a node or an area");
 	assertMatch: "relation power=substation type=power";
 	assertNoMatch: "node power=substation";
+}
+
+way!:closed[power=generator],
+relation[power=generator][type!=multipolygon] {
+	throwError: tr("power=generator must be a node or an area");
+	assertMatch: "relation power=generator type=power";
+	assertMatch: "way power=generator";
+	assertNoMatch: "node power=generator";
+}
+
+node[power=switchgear],
+way!:closed[power=switchgear],
+relation[power=switchgear][type!=multipolygon] {
+	throwError: tr("power=switchgear must be an area");
+	assertMatch: "relation power=switchgear";
+	assertMatch: "node power=switchgear";
+}
+
+way!:closed[power=heliostat],
+relation[power=heliostat][type!=multipolygon] {
+	throwError: tr("power=heliostat must be a node or an area");
+	assertMatch: "relation power=heliostat";
+	assertNoMatch: "node power=heliostat";
 }
 
 way!:closed[power=plant],
@@ -136,10 +147,11 @@ relation[power=insulator] {
 	assertNoMatch: "node power=insulator";
 }
 
-way[power=~/line|minor_line|cable/][circuits][circuits !~ /^[0-9]+$/] {
+way[power=~/line|minor_line|cable/][circuits][circuits =~ /(.*[A-Za-z].*)|.*,.*|.*( ).*/] {
 	throwError: tr("circuits tag should contain a number");
 	assertMatch: "way power=line circuits=double";
 	assertNoMatch: "way power=line circuits=2";
+	assertNoMatch: "way power=line circuits=2;1";
 }
 
 way[power=~/line|minor_line|cable/][cables][cables !~ /^[0-9]+$/] {
