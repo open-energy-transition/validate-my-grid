@@ -146,10 +146,11 @@ relation[power=insulator] {
 	assertNoMatch: "node power=insulator";
 }
 
-way[power=~/line|minor_line|cable/][circuits][circuits !~ /^[0-9]+$/] {
+way[power=~/line|minor_line|cable/][circuits][circuits =~ /(.*[A-Za-z].*)|.*,.*|.*( ).*/] {
 	throwError: tr("circuits tag should contain a number");
 	assertMatch: "way power=line circuits=double";
 	assertNoMatch: "way power=line circuits=2";
+	assertNoMatch: "way power=line circuits=2;1";
 }
 
 way[power=~/line|minor_line|cable/][cables][cables !~ /^[0-9]+$/] {
