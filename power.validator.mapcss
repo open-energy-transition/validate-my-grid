@@ -1,6 +1,6 @@
 meta {
 	title: "Power QA";
-	version: "0.9";
+	version: "0.10";
 	description: "Validation ruleset for power features (power=*)";
 	icon: "MapYourGrid-favicon.png";
 	author: "nlehuby";
@@ -49,7 +49,7 @@ node.end_of_power_lines:connection[count(parent_tags("voltage")) > 1][power!=tra
 	throwWarning: tr("Connection between different voltages");
 }
 
-node.end_of_power_lines:connection[count(parent_tags("cables")) > 1][line_management!=split] {
+node.end_of_power_lines:connection[count(parent_tags("cables")) > 1][!line_management] {
 	throwWarning: tr("Connection between different number of cables. Check the cables on incoming lines and the line_management tag on the intersecting tower");
 }
 
@@ -61,6 +61,7 @@ area[power=substation] ∈ area[power=substation] {
 	throwError: tr("Unsuitable value for power=* tag");
 	assertMatch: "relation power=route";
 	assertMatch: "relation power=circuits";
+	assertMatch: "relation power=cable_distribution_cabinet";
 	assertNoMatch: "way power=cable";
 }
 
@@ -161,10 +162,22 @@ way[power=~/line|minor_line|cable/][cables][cables !~ /^[0-9]+$/] {
 	assertNoMatch: "way power=line cables=6";
 }
 
+way[power=~/line|minor_line|cable/][!voltage] {
+    throwWarning: tr("Power lines should have a voltage tag");
+    assertMatch: "way power=cable";
+    assertNoMatch: "way power=cable voltage=500000";
+}
+
 node[power=transformer][!frequency] {
     throwWarning: tr("Transformers should have a frequency tag");
     assertMatch: "node power=transformer";
     assertNoMatch: "node power=transformer frequency=50";
+}
+
+*[power=substation][!substation] {
+    throwWarning: tr("Substations should have a substation tag");
+    assertMatch: "node power=substation";
+    assertNoMatch: "node power=substation substation=transmission";
 }
 
 way[!power][!construction:power][!disused:power][!destroyed:power] > node[power=~/tower|pole|insulator|portal/] {
