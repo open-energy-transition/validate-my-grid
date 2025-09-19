@@ -1,6 +1,6 @@
 meta {
 	title: "Power QA";
-	version: "0.11";
+	version: "0.12";
 	description: "Validation ruleset for power features (power=*)";
 	icon: "MapYourGrid-favicon.png";
 	author: "nlehuby";
@@ -18,7 +18,8 @@ meta[lang=fr]
 	description: "Règles de validation pour les réseaux électriques (power=*)";
 }
 
-
+way[disused:power=~/line|minor_line|cable/] > node[power=~/tower|pole|insulator|portal|terminal/],
+way[construction:power=~/line|minor_line|cable/] > node[power=~/tower|pole|insulator|portal|terminal/],
 way[power=~/line|minor_line|cable/] > node[power=~/tower|pole|insulator|portal|terminal/] {
 	set .connected_ok_supports;
 } 
@@ -35,7 +36,8 @@ node[power=~/terminal/]!.connected_ok_supports {
 	throwWarning: tr("Lone power terminal. Try to connect it to a power=line");
 }
 
-
+way[disused:power=~/line|minor_line|cable/] >[index=-1] node[power],
+way[construction:power=~/line|minor_line|cable/] >[index=1] node[power],
 way[power=~/line|minor_line|cable/] >[index=-1] node[power],
 way[power=~/line|minor_line|cable/] >[index=1] node[power] {
 	set .end_of_power_lines;
@@ -58,17 +60,17 @@ node.end_of_power_lines[line_management][line_management=cross] {
 	fixRemove: "line_management";
 }
 
-node!.end_of_power_lines[line_management][line_management=split] {
+node!.end_of_power_lines[power][line_management][line_management=split] {
 	throwWarning: tr("line_management=split can only be at the end of a power line");
 	fixRemove: "line_management";
 }
 
-node!.end_of_power_lines[line_management][line_management=termination] {
+node!.end_of_power_lines[power][line_management][line_management=termination] {
 	throwWarning: tr("line_management=termination can only be at the end of a power line");
 	fixRemove: "line_management";
 }
 
-node!.end_of_power_lines[line_management][line_management=transition] {
+node!.end_of_power_lines[power][line_management][line_management=transition] {
 	throwWarning: tr("line_management=transition can only be at the end of a power line");
 	fixRemove: "line_management";
 }
@@ -173,13 +175,20 @@ way[power=~/line|minor_line|cable/][circuits][circuits =~ /(.*[A-Za-z].*)|.*,.*|
 	throwError: tr("circuits tag should contain a number");
 	assertMatch: "way power=line circuits=double";
 	assertNoMatch: "way power=line circuits=2";
-	assertNoMatch: "way power=line circuits=2;1";
+	assertNoMatch: "way power=line circuits=1;1";
 }
 
-way[power=~/line|minor_line|cable/][cables][cables !~ /^[0-9]+$/] {
-	throwError: tr("cables tag should contain a number");
-	assertMatch: "way power=line cables=double";
+way[power=~/line|minor_line|cable/][cables][cables =~ /^[0-9]+(;[0-9]+)+$/] {
+	throwWarning: tr("cables tag should be the sum of all cables");
+	assertMatch: "way power=line cables=3;3";
 	assertNoMatch: "way power=line cables=6";
+}
+
+way[power=~/line|minor_line|cable/][cables][cables !~ /^[0-9]+$/][cables !~ /^[0-9]+(;[0-9]+)+$/] {
+    throwError: tr("cables tag should be a number");
+    assertMatch: "way power=line cables=double";
+    assertNoMatch: "way power=line cables=6";
+    assertNoMatch: "way power=line cables=3;3";
 }
 
 way[power=~/line|minor_line|cable/][!voltage] {
@@ -327,11 +336,12 @@ node[power=transformer][transformer][transformer!~/^(main|auxiliary|generator|co
 	assertNoMatch: "node power=transformer";
 }
 
-*[power=generator][generator:source][generator:source!~/^(nuclear|wind|hydro|tidal|wave|geothermal|solar|coal|gas|biomass|biofuel|biogas|oil|diesel|gasoline|waste|battery)$/] {
+*[power=generator][generator:source][generator:source!~/^(nuclear|wind|hydro|tidal|wave|geothermal|solar|coal|gas|biomass|biofuel|biogas|oil|diesel|gasoline|waste|battery)(;(nuclear|wind|hydro|tidal|wave|geothermal|solar|coal|gas|biomass|biofuel|biogas|oil|diesel|gasoline|waste|battery))*$/] {
 	throwError: tr("Unsuitable value for generator:source=* tag");
 	assertMatch: "node power=generator generator:source=photovoltaic";
 	assertMatch: "node power=generator generator:source=geothermals";
 	assertNoMatch: "node power=generator generator:source=solar";
+	assertNoMatch: "node power=generator generator:source=oil;gas";
 	assertNoMatch: "node power=generator";
 }
 
@@ -470,23 +480,29 @@ node[power=transformer][transformer][transformer!~/^(main|auxiliary|generator|co
 	assertNoMatch: "node power=generator generator:source=waste generator:method=combustion";
 }
 
-*[power=generator][generator:method=combustion][generator:source][generator:source!~/^(waste|gasoline|diesel|oil|biogas|biofuel|biomass|gas|coal)$/]{
+*[power=generator][generator:method=combustion][generator:source][generator:source!~/^(waste|gasoline|diesel|oil|biogas|biofuel|biomass|gas|coal)(;(waste|gasoline|diesel|oil|biogas|biofuel|biomass|gas|coal))*$/]{
 	throwError: tr("Incompatibility between method and source on a power generator");
 	assertMatch: "node power=generator generator:source=wave generator:method=combustion";
+	assertMatch: "node power=generator generator:source=waste;solar generator:method=combustion";
 	assertNoMatch: "node power=generator generator:source=biomass generator:method=combustion";
+	assertNoMatch: "node power=generator generator:source=gas;oil generator:method=combustion";
+	assertNoMatch: "node power=generator generator:source=gas;oil;waste generator:method=combustion";
+
 }
 
-*[power=generator][generator:method=gasification][generator:source][generator:source!~/^(waste|biomass)$/]{
+*[power=generator][generator:method=gasification][generator:source][generator:source!~/^(waste|biomass)(;(waste|biomass))*$/]{
 	throwError: tr("Incompatibility between method and source on a power generator");
 	assertMatch: "node power=generator generator:source=coal generator:method=gasification";
 	assertNoMatch: "node power=generator generator:source=biomass generator:method=gasification";
+	assertNoMatch: "node power=generator generator:source=biomass;waste generator:method=gasification";
 }
 
 
-*[power=plant][plant:source][plant:source!~/^(nuclear|wind|hydro|tidal|wave|geothermal|solar|coal|gas|biomass|biofuel|biogas|oil|diesel|gasoline|waste|battery)$/] {
+*[power=plant][plant:source][plant:source!~/^(nuclear|wind|hydro|tidal|wave|geothermal|solar|coal|gas|biomass|biofuel|biogas|oil|diesel|gasoline|waste|battery)(;(nuclear|wind|hydro|tidal|wave|geothermal|solar|coal|gas|biomass|biofuel|biogas|oil|diesel|gasoline|waste|battery))*$/] {
 	throwError: tr("Unsuitable value for plant:source=* tag");
 	assertMatch: "node power=plant plant:source=photovoltaic";
 	assertNoMatch: "node power=plant plant:source=solar";
+	assertNoMatch: "node power=plant plant:source=gas;oil";
 	assertNoMatch: "node power=plant";
 }
 
@@ -625,14 +641,16 @@ node[power=transformer][transformer][transformer!~/^(main|auxiliary|generator|co
 	assertNoMatch: "node power=plant plant:source=waste plant:method=combustion";
 }
 
-*[power=plant][plant:method=combustion][plant:source][plant:source!~/^(waste|gasoline|diesel|oil|biogas|biofuel|biomass|gas|coal)$/]{
+*[power=plant][plant:method=combustion][plant:source][plant:source!~/^(waste|gasoline|diesel|oil|biogas|biofuel|biomass|gas|coal)(;(waste|gasoline|diesel|oil|biogas|biofuel|biomass|gas|coal))*$/]{
 	throwError: tr("Incompatibility between method and source on a power plant");
 	assertMatch: "node power=plant plant:source=wave plant:method=combustion";
 	assertNoMatch: "node power=plant plant:source=biomass plant:method=combustion";
+	assertNoMatch: "node power=plant plant:source=biomass;waste plant:method=combustion";
 }
 
-*[power=plant][plant:method=gasification][plant:source][plant:source!~/^(waste|biomass)$/]{
+*[power=plant][plant:method=gasification][plant:source][plant:source!~/^(waste|biomass)(;(waste|biomass))*$/]{
 	throwError: tr("Incompatibility between method and source on a power plant");
 	assertMatch: "node power=plant plant:source=coal plant:method=gasification";
 	assertNoMatch: "node power=plant plant:source=biomass plant:method=gasification";
+	assertNoMatch: "node power=plant plant:source=biomass;waste plant:method=gasification";
 }

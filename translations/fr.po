@@ -16,314 +16,313 @@ msgstr ""
 msgid "Validation ruleset for power features (power=*)"
 msgstr "Règles de validation pour les réseaux électriques (power=*)"
 
-#: ../power.validator.mapcss:27
+#: ../power.validator.mapcss:28
 msgid "Lone power tower or pole. Try to connect it to a power=line"
 msgstr ""
 "Poteau ou pylône électrique isolé. Essayez de le connecter à une power=line"
 
-#: ../power.validator.mapcss:31
+#: ../power.validator.mapcss:32
 msgid "Lone power portal or insulator. Try to connect it to a power=line"
 msgstr ""
 "Portail ou isolateur électrique isolé. Essayez de le connecter à une "
 "power=line"
 
-#: ../power.validator.mapcss:35
+#: ../power.validator.mapcss:36
 msgid "Lone power terminal. Try to connect it to a power=line"
 msgstr ""
 
-#: ../power.validator.mapcss:45
+#: ../power.validator.mapcss:47
 msgid "Unfinished power line"
 msgstr "Ligne électrique inachevée"
 
-#: ../power.validator.mapcss:49
+#: ../power.validator.mapcss:51
 msgid "Connection between different voltages"
 msgstr "Connexion entre différentes tensions (voltage)"
 
-#: ../power.validator.mapcss:53
+#: ../power.validator.mapcss:55
 msgid ""
 "Connection between different number of cables. Check the cables on incoming "
 "lines and the line_management tag on the intersecting tower"
 msgstr ""
 
-#: ../power.validator.mapcss:77
+#: ../power.validator.mapcss:79
 msgid "Substation inside another substation"
 msgstr ""
 
-#: ../power.validator.mapcss:81
+#: ../power.validator.mapcss:83
 msgid "Unsuitable value for power=* tag"
 msgstr ""
 
-#: ../power.validator.mapcss:90
+#: ../power.validator.mapcss:92
 msgid "power=substation must be a node or an area"
 msgstr ""
 
-#: ../power.validator.mapcss:128
+#: ../power.validator.mapcss:130
 msgid "power=cable must be a way"
 msgstr ""
 
-#: ../power.validator.mapcss:135
+#: ../power.validator.mapcss:137
 msgid "power=minor_line must be a way"
 msgstr ""
 
-#: ../power.validator.mapcss:151
+#: ../power.validator.mapcss:153
 msgid "power=circuit must be a relation"
 msgstr ""
 
-#: ../power.validator.mapcss:158
+#: ../power.validator.mapcss:160
 msgid "power=portal must be a node or an way"
 msgstr ""
 
-#: ../power.validator.mapcss:166
+#: ../power.validator.mapcss:168
 msgid "power=insulator must be a node or an way"
 msgstr ""
 
-#: ../power.validator.mapcss:173
+#: ../power.validator.mapcss:175
 msgid "circuits tag should contain a number"
 msgstr ""
 
-#: ../power.validator.mapcss:180
 msgid "cables tag should contain a number"
 msgstr ""
 
-#: ../power.validator.mapcss:192
+#: ../power.validator.mapcss:201
 msgid "Transformers should have a frequency tag"
 msgstr ""
 
-#: ../power.validator.mapcss:204
+#: ../power.validator.mapcss:213
 msgid "Power support connected to a non power feature"
 msgstr ""
 
-#: ../power.validator.mapcss:208
+#: ../power.validator.mapcss:217
 msgid "Power tower or pole inside a building"
 msgstr ""
 
-#: ../power.validator.mapcss:222
+#: ../power.validator.mapcss:231
 msgid ""
 "A power line connecting to a portal should have a power=insulator on the "
 "connecting node"
 msgstr ""
 
-#: ../power.validator.mapcss:143
+#: ../power.validator.mapcss:145
 msgid "power=line_section must be a relation"
 msgstr ""
 
-#: ../power.validator.mapcss:227
+#: ../power.validator.mapcss:236
 msgid ""
 "Is it a power circuit or a power line section? Add the power=* tag "
 "accordingly."
 msgstr ""
 
-#: ../power.validator.mapcss:233
+#: ../power.validator.mapcss:242
 msgid ""
 "power=circuit relations should have a topology tag with value linear or "
 "branched"
 msgstr ""
 
-#: ../power.validator.mapcss:248
+#: ../power.validator.mapcss:257
 msgid "route=power is deprecated, use type=power+power=circuit instead"
 msgstr ""
 
-#: ../power.validator.mapcss:257
+#: ../power.validator.mapcss:266
 msgid "power=branch is deprecated"
 msgstr ""
 
-#: ../power.validator.mapcss:264
+#: ../power.validator.mapcss:273
 msgid "Wrong role for way in power=circuit relations"
 msgstr ""
 
-#: ../power.validator.mapcss:269 ../power.validator.mapcss:274
+#: ../power.validator.mapcss:278 ../power.validator.mapcss:283
 msgid "Wrong role for node in power=circuit relations"
 msgstr ""
 
-#: ../power.validator.mapcss:279
+#: ../power.validator.mapcss:288
 msgid "Wrong role for way in power=line_section relations"
 msgstr ""
 
-#: ../power.validator.mapcss:284
+#: ../power.validator.mapcss:293
 msgid "frequency tag should be on the circuit relation, not on the power line"
 msgstr ""
 
-#: ../power.validator.mapcss:288
+#: ../power.validator.mapcss:297
 msgid "wires tag should be on the power line and not on the circuit relation"
 msgstr ""
 
-#: ../power.validator.mapcss:295
+#: ../power.validator.mapcss:304
 msgid "Incompatible tags: is it a line termination or a line transition ?"
 msgstr ""
 
-#: ../power.validator.mapcss:302
+#: ../power.validator.mapcss:311
 msgid ""
 "transformer=traction is deprecated (use transformer=main and add "
 "substation=traction on the enclosing substation"
 msgstr ""
 
-#: ../power.validator.mapcss:309
+#: ../power.validator.mapcss:318
 msgid ""
 "transformer=minor_distribution is deprecated (use transformer=main and add "
 "substation=minor_distribution on the enclosing substation"
 msgstr ""
 
-#: ../power.validator.mapcss:316
+#: ../power.validator.mapcss:325
 msgid "transformer=auto is deprecated"
 msgstr ""
 
-#: ../power.validator.mapcss:324
+#: ../power.validator.mapcss:333
 msgid "Unsuitable value for transformer=* tag"
 msgstr ""
 
-#: ../power.validator.mapcss:120
+#: ../power.validator.mapcss:122
 msgid "power=plant must be an area or a site"
 msgstr ""
 
-#: ../power.validator.mapcss:240
+#: ../power.validator.mapcss:249
 msgid "power_source=* is deprecated"
 msgstr ""
 
 msgid "Unsuitable value for _transformer=* tag"
 msgstr ""
 
-#: ../power.validator.mapcss:331
+#: ../power.validator.mapcss:340
 msgid "Unsuitable value for generator:source=* tag"
 msgstr ""
 
-#: ../power.validator.mapcss:339
+#: ../power.validator.mapcss:349
 msgid "Unsuitable method for nuclear generator"
 msgstr ""
 
-#: ../power.validator.mapcss:347 ../power.validator.mapcss:361
-#: ../power.validator.mapcss:375 ../power.validator.mapcss:389
-#: ../power.validator.mapcss:403 ../power.validator.mapcss:474
-#: ../power.validator.mapcss:480
+#: ../power.validator.mapcss:357 ../power.validator.mapcss:371
+#: ../power.validator.mapcss:385 ../power.validator.mapcss:399
+#: ../power.validator.mapcss:413 ../power.validator.mapcss:484
+#: ../power.validator.mapcss:494
 msgid "Incompatibility between method and source on a power generator"
 msgstr ""
 
-#: ../power.validator.mapcss:353
+#: ../power.validator.mapcss:363
 msgid "Unsuitable method for wind generator"
 msgstr ""
 
-#: ../power.validator.mapcss:367
+#: ../power.validator.mapcss:377
 msgid "Unsuitable method for hydro generator"
 msgstr ""
 
-#: ../power.validator.mapcss:381
+#: ../power.validator.mapcss:391
 msgid "Unsuitable method for tidal generator"
 msgstr ""
 
-#: ../power.validator.mapcss:395
+#: ../power.validator.mapcss:405
 msgid "Unsuitable method for solar generator"
 msgstr ""
 
-#: ../power.validator.mapcss:409
+#: ../power.validator.mapcss:419
 msgid "Unsuitable method for coal generator"
 msgstr ""
 
-#: ../power.validator.mapcss:416
+#: ../power.validator.mapcss:426
 msgid "Unsuitable method for gas generator"
 msgstr ""
 
-#: ../power.validator.mapcss:423
+#: ../power.validator.mapcss:433
 msgid "Unsuitable method for biomass generator"
 msgstr ""
 
-#: ../power.validator.mapcss:431
+#: ../power.validator.mapcss:441
 msgid "Unsuitable method for biofuel generator"
 msgstr ""
 
-#: ../power.validator.mapcss:438
+#: ../power.validator.mapcss:448
 msgid "Unsuitable method for biogas generator"
 msgstr ""
 
-#: ../power.validator.mapcss:445
+#: ../power.validator.mapcss:455
 msgid "Unsuitable method for oil generator"
 msgstr ""
 
-#: ../power.validator.mapcss:452
+#: ../power.validator.mapcss:462
 msgid "Unsuitable method for diesel generator"
 msgstr ""
 
-#: ../power.validator.mapcss:459
+#: ../power.validator.mapcss:469
 msgid "Unsuitable method for gasoline generator"
 msgstr ""
 
-#: ../power.validator.mapcss:466
+#: ../power.validator.mapcss:476
 msgid "Unsuitable method for waste generator"
 msgstr ""
 
-#: ../power.validator.mapcss:487
+#: ../power.validator.mapcss:502
 msgid "Unsuitable value for plant:source=* tag"
 msgstr ""
 
-#: ../power.validator.mapcss:494
+#: ../power.validator.mapcss:510
 msgid "Unsuitable method for nuclear power plant"
 msgstr ""
 
-#: ../power.validator.mapcss:502 ../power.validator.mapcss:516
-#: ../power.validator.mapcss:530 ../power.validator.mapcss:544
-#: ../power.validator.mapcss:558 ../power.validator.mapcss:629
-#: ../power.validator.mapcss:635
+#: ../power.validator.mapcss:518 ../power.validator.mapcss:532
+#: ../power.validator.mapcss:546 ../power.validator.mapcss:560
+#: ../power.validator.mapcss:574 ../power.validator.mapcss:645
+#: ../power.validator.mapcss:652
 msgid "Incompatibility between method and source on a power plant"
 msgstr ""
 
-#: ../power.validator.mapcss:508
+#: ../power.validator.mapcss:524
 msgid "Unsuitable method for wind power plant"
 msgstr ""
 
-#: ../power.validator.mapcss:522
+#: ../power.validator.mapcss:538
 msgid "Unsuitable method for hydro power plant"
 msgstr ""
 
-#: ../power.validator.mapcss:536
+#: ../power.validator.mapcss:552
 msgid "Unsuitable method for tidal power plant"
 msgstr ""
 
-#: ../power.validator.mapcss:550
+#: ../power.validator.mapcss:566
 msgid "Unsuitable method for solar power plant"
 msgstr ""
 
-#: ../power.validator.mapcss:564
+#: ../power.validator.mapcss:580
 msgid "Unsuitable method for coal power plant"
 msgstr ""
 
-#: ../power.validator.mapcss:571
+#: ../power.validator.mapcss:587
 msgid "Unsuitable method for gas power plant"
 msgstr ""
 
-#: ../power.validator.mapcss:578
+#: ../power.validator.mapcss:594
 msgid "Unsuitable method for biomass power plant"
 msgstr ""
 
-#: ../power.validator.mapcss:586
+#: ../power.validator.mapcss:602
 msgid "Unsuitable method for biofuel power plant"
 msgstr ""
 
-#: ../power.validator.mapcss:593
+#: ../power.validator.mapcss:609
 msgid "Unsuitable method for biogas power plant"
 msgstr ""
 
-#: ../power.validator.mapcss:600
+#: ../power.validator.mapcss:616
 msgid "Unsuitable method for oil power plant"
 msgstr ""
 
-#: ../power.validator.mapcss:607
+#: ../power.validator.mapcss:623
 msgid "Unsuitable method for diesel power plant"
 msgstr ""
 
-#: ../power.validator.mapcss:614
+#: ../power.validator.mapcss:630
 msgid "Unsuitable method for gasoline power plant"
 msgstr ""
 
-#: ../power.validator.mapcss:621
+#: ../power.validator.mapcss:637
 msgid "Unsuitable method for waste power plant"
 msgstr ""
 
-#: ../power.validator.mapcss:97
+#: ../power.validator.mapcss:99
 msgid "power=generator must be a node or an area"
 msgstr ""
 
 msgid "power=switchgear must be a node or an area"
 msgstr ""
 
-#: ../power.validator.mapcss:113
+#: ../power.validator.mapcss:115
 msgid "power=heliostat must be a node or an area"
 msgstr ""
 
@@ -417,30 +416,38 @@ msgstr ""
 msgid "Invalid voltage value for this country"
 msgstr ""
 
-#: ../power.validator.mapcss:106
+#: ../power.validator.mapcss:108
 msgid "power=switchgear must be an area"
 msgstr ""
 
-#: ../power.validator.mapcss:186
+#: ../power.validator.mapcss:195
 msgid "Power lines should have a voltage tag"
 msgstr ""
 
-#: ../power.validator.mapcss:198
+#: ../power.validator.mapcss:207
 msgid "Substations should have a substation tag"
 msgstr ""
 
-#: ../power.validator.mapcss:57
+#: ../power.validator.mapcss:59
 msgid "A line_management=cross should not be at the end of a power line"
 msgstr ""
 
-#: ../power.validator.mapcss:62
+#: ../power.validator.mapcss:64
 msgid "line_management=split can only be at the end of a power line"
 msgstr ""
 
-#: ../power.validator.mapcss:67
+#: ../power.validator.mapcss:69
 msgid "line_management=termination can only be at the end of a power line"
 msgstr ""
 
-#: ../power.validator.mapcss:72
+#: ../power.validator.mapcss:74
 msgid "line_management=transition can only be at the end of a power line"
+msgstr ""
+
+#: ../power.validator.mapcss:182
+msgid "cables tag should be the sum of all cables"
+msgstr ""
+
+#: ../power.validator.mapcss:188
+msgid "cables tag should be a number"
 msgstr ""
