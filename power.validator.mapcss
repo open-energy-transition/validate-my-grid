@@ -470,16 +470,21 @@ node[power=transformer][transformer][transformer!~/^(main|auxiliary|generator|co
 	assertNoMatch: "node power=generator generator:source=waste generator:method=combustion";
 }
 
-*[power=generator][generator:method=combustion][generator:source][generator:source!~/^(waste|gasoline|diesel|oil|biogas|biofuel|biomass|gas|coal)$/]{
+*[power=generator][generator:method=combustion][generator:source][generator:source!~/^(waste|gasoline|diesel|oil|biogas|biofuel|biomass|gas|coal)(;(waste|gasoline|diesel|oil|biogas|biofuel|biomass|gas|coal))*$/]{
 	throwError: tr("Incompatibility between method and source on a power generator");
 	assertMatch: "node power=generator generator:source=wave generator:method=combustion";
+	assertMatch: "node power=generator generator:source=waste;solar generator:method=combustion";
 	assertNoMatch: "node power=generator generator:source=biomass generator:method=combustion";
+	assertNoMatch: "node power=generator generator:source=gas;oil generator:method=combustion";
+	assertNoMatch: "node power=generator generator:source=gas;oil;waste generator:method=combustion";
+
 }
 
-*[power=generator][generator:method=gasification][generator:source][generator:source!~/^(waste|biomass)$/]{
+*[power=generator][generator:method=gasification][generator:source][generator:source!~/^(waste|biomass)(;(waste|biomass))*$/]{
 	throwError: tr("Incompatibility between method and source on a power generator");
 	assertMatch: "node power=generator generator:source=coal generator:method=gasification";
 	assertNoMatch: "node power=generator generator:source=biomass generator:method=gasification";
+	assertNoMatch: "node power=generator generator:source=biomass;waste generator:method=gasification";
 }
 
 
@@ -625,14 +630,16 @@ node[power=transformer][transformer][transformer!~/^(main|auxiliary|generator|co
 	assertNoMatch: "node power=plant plant:source=waste plant:method=combustion";
 }
 
-*[power=plant][plant:method=combustion][plant:source][plant:source!~/^(waste|gasoline|diesel|oil|biogas|biofuel|biomass|gas|coal)$/]{
+*[power=plant][plant:method=combustion][plant:source][plant:source!~/^(waste|gasoline|diesel|oil|biogas|biofuel|biomass|gas|coal)(;(waste|gasoline|diesel|oil|biogas|biofuel|biomass|gas|coal))*$/]{
 	throwError: tr("Incompatibility between method and source on a power plant");
 	assertMatch: "node power=plant plant:source=wave plant:method=combustion";
 	assertNoMatch: "node power=plant plant:source=biomass plant:method=combustion";
+	assertNoMatch: "node power=plant plant:source=biomass;waste plant:method=combustion";
 }
 
-*[power=plant][plant:method=gasification][plant:source][plant:source!~/^(waste|biomass)$/]{
+*[power=plant][plant:method=gasification][plant:source][plant:source!~/^(waste|biomass)(;(waste|biomass))*$/]{
 	throwError: tr("Incompatibility between method and source on a power plant");
 	assertMatch: "node power=plant plant:source=coal plant:method=gasification";
 	assertNoMatch: "node power=plant plant:source=biomass plant:method=gasification";
+	assertNoMatch: "node power=plant plant:source=biomass;waste plant:method=gasification";
 }
