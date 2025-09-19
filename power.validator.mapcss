@@ -175,13 +175,20 @@ way[power=~/line|minor_line|cable/][circuits][circuits =~ /(.*[A-Za-z].*)|.*,.*|
 	throwError: tr("circuits tag should contain a number");
 	assertMatch: "way power=line circuits=double";
 	assertNoMatch: "way power=line circuits=2";
-	assertNoMatch: "way power=line circuits=2;1";
+	assertNoMatch: "way power=line circuits=1;1";
 }
 
-way[power=~/line|minor_line|cable/][cables][cables !~ /^[0-9]+$/] {
-	throwError: tr("cables tag should contain a number");
-	assertMatch: "way power=line cables=double";
+way[power=~/line|minor_line|cable/][cables][cables =~ /^[0-9]+(;[0-9]+)+$/] {
+	throwWarning: tr("cables tag should be the sum of all cables");
+	assertMatch: "way power=line cables=3;3";
 	assertNoMatch: "way power=line cables=6";
+}
+
+way[power=~/line|minor_line|cable/][cables][cables !~ /^[0-9]+$/][cables !~ /^[0-9]+(;[0-9]+)+$/] {
+    throwError: tr("cables tag should be a number");
+    assertMatch: "way power=line cables=double";
+    assertNoMatch: "way power=line cables=6";
+    assertNoMatch: "way power=line cables=3;3";
 }
 
 way[power=~/line|minor_line|cable/][!voltage] {
