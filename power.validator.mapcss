@@ -1,6 +1,6 @@
 meta {
 	title: "Power QA";
-	version: "0.12";
+	version: "0.13";
 	description: "Validation ruleset for power features (power=*)";
 	icon: "MapYourGrid-favicon.png";
 	author: "nlehuby";
@@ -26,14 +26,17 @@ way[power=~/line|minor_line|cable/] > node[power=~/tower|pole|insulator|portal|t
 
 node[power=~/tower|pole/]!.connected_ok_supports {
 	throwWarning: tr("Lone power tower or pole. Try to connect it to a power=line");
+	-osmoseItemClassLevel: none; /* The rule involves multiple objects, which is not yet supported by Osmose */
 }
 
 node[power=~/insulator|portal/]!.connected_ok_supports {
 	throwWarning: tr("Lone power portal or insulator. Try to connect it to a power=line");
+	-osmoseItemClassLevel: none; /* The rule involves multiple objects, which is not yet supported by Osmose */
 }
 
 node[power=~/terminal/]!.connected_ok_supports {
 	throwWarning: tr("Lone power terminal. Try to connect it to a power=line");
+	-osmoseItemClassLevel: none; /* The rule involves multiple objects, which is not yet supported by Osmose */
 }
 
 way[disused:power=~/line|minor_line|cable/] >[index=-1] node[power],
@@ -45,38 +48,46 @@ way[power=~/line|minor_line|cable/] >[index=1] node[power] {
 
 node.end_of_power_lines!:connection[power!~/^(transformer|generator|portal|terminal|insulator)$/][location:transition!=yes][substation!=minor_distribution][transformer!~/^(distribution|main)$/][line_management!~/^(transition|termination)$/] {
 	throwWarning: tr("Unfinished power line");
+	-osmoseItemClassLevel: none; /* Already supported in Osmose via 7040/2 */
 }
 
 node.end_of_power_lines:connection[count(parent_tags("voltage")) > 1][power!=transformer][!transformer] {
 	throwWarning: tr("Connection between different voltages");
+	-osmoseItemClassLevel: none; /* Already supported in Osmose via 7040/3 */
 }
 
 node.end_of_power_lines:connection[count(parent_tags("cables")) > 1][!line_management] {
 	throwWarning: tr("Connection between different number of cables. Check the cables on incoming lines and the line_management tag on the intersecting tower");
+	-osmoseItemClassLevel: none; /* The rule involves multiple objects, which is not yet supported by Osmose */
 }
 
 node.end_of_power_lines[line_management][line_management=cross] {
 	throwWarning: tr("A line_management=cross should not be at the end of a power line");
 	fixRemove: "line_management";
+	-osmoseItemClassLevel: none; /* The rule involves multiple objects, which is not yet supported by Osmose */
 }
 
 node!.end_of_power_lines[power][line_management][line_management=split] {
 	throwWarning: tr("line_management=split can only be at the end of a power line");
 	fixRemove: "line_management";
+	-osmoseItemClassLevel: none; /* The rule involves multiple objects, which is not yet supported by Osmose */
 }
 
 node!.end_of_power_lines[power][line_management][line_management=termination] {
 	throwWarning: tr("line_management=termination can only be at the end of a power line");
 	fixRemove: "line_management";
+	-osmoseItemClassLevel: none; /* The rule involves multiple objects, which is not yet supported by Osmose */
 }
 
 node!.end_of_power_lines[power][line_management][line_management=transition] {
 	throwWarning: tr("line_management=transition can only be at the end of a power line");
 	fixRemove: "line_management";
+	-osmoseItemClassLevel: none; /* The rule involves multiple objects, which is not yet supported by Osmose */
 }
 
 area[power=substation] ∈ area[power=substation] {
 	throwError: tr("Substation inside another substation");
+	-osmoseItemClassLevel: none; /* The rule involves multiple objects, which is not yet supported by Osmose */
 }
 
 *[power][power!~/^(cable|catenary_mast|circuit|compensator|connection|converter|generator|heliostat|insulator|inverter|line|line_section|minor_line|plant|pole|portal|substation|switch|switchgear|terminal|tower|transformer)$/] {
@@ -85,6 +96,9 @@ area[power=substation] ∈ area[power=substation] {
 	assertMatch: "relation power=circuits";
 	assertMatch: "relation power=cable_distribution_cabinet";
 	assertNoMatch: "way power=cable";
+	-osmoseDetail: tr("The power=* tag can only have certain well-defined values. This is probably a typo or an deprecated way of tagging.");
+	-osmoseFix: tr("Check the list of possible values on the wiki and correct the tag for this object.");
+	-osmoseResource: "https://wiki.openstreetmap.org/wiki/Key:power";
 }
 
 way!:closed[power=substation],
@@ -92,6 +106,7 @@ relation[power=substation][type!=multipolygon] {
 	throwError: tr("power=substation must be a node or an area");
 	assertMatch: "relation power=substation type=power";
 	assertNoMatch: "node power=substation";
+	-osmoseItemClassLevel: none; /* To be added in Osmose via JOSM core rules */
 }
 
 way!:closed[power=generator],
@@ -100,6 +115,7 @@ relation[power=generator][type!=multipolygon] {
 	assertMatch: "relation power=generator type=power";
 	assertMatch: "way power=generator";
 	assertNoMatch: "node power=generator";
+	-osmoseItemClassLevel: none; /* To be added in Osmose via JOSM core rules */
 }
 
 node[power=switchgear],
@@ -108,6 +124,7 @@ relation[power=switchgear][type!=multipolygon] {
 	throwError: tr("power=switchgear must be an area");
 	assertMatch: "relation power=switchgear";
 	assertMatch: "node power=switchgear";
+	-osmoseItemClassLevel: none; /* To be added in Osmose via JOSM core rules */
 }
 
 way!:closed[power=heliostat],
@@ -115,6 +132,7 @@ relation[power=heliostat][type!=multipolygon] {
 	throwError: tr("power=heliostat must be a node or an area");
 	assertMatch: "relation power=heliostat";
 	assertNoMatch: "node power=heliostat";
+	-osmoseItemClassLevel: none; /* To be added in Osmose via JOSM core rules */
 }
 
 way!:closed[power=plant],
@@ -123,6 +141,7 @@ relation[power=plant][type!=multipolygon][type!=site]{
 	assertMatch: "relation power=plant type=power";
 	assertNoMatch: "relation power=plant type=multipolygon";
 	assertNoMatch: "relation power=plant type=site";
+	-osmoseItemClassLevel: none; /* To be added in Osmose via JOSM core rules */
 }
 
 node[power=cable],
@@ -130,6 +149,7 @@ area:closed[power=cable] {
 	throwError: tr("power=cable must be a way");
 	assertMatch: "node power=cable";
 	assertNoMatch: "way power=cable";
+	-osmoseItemClassLevel: none; /* To be added in Osmose via JOSM core rules */
 }
 
 node[power=minor_line],
@@ -137,6 +157,7 @@ area:closed[power=minor_line] {
 	throwError: tr("power=minor_line must be a way");
 	assertMatch: "node power=minor_line";
 	assertNoMatch: "way power=minor_line";
+	-osmoseItemClassLevel: none; /* To be added in Osmose via JOSM core rules */
 }
 
 way[power=line_section],
@@ -145,6 +166,7 @@ area:closed[power=line_section] {
 	throwError: tr("power=line_section must be a relation");
 	assertMatch: "way power=line_section";
 	assertNoMatch: "relation power=line_section type=power";
+	-osmoseItemClassLevel: none; /* To be added in Osmose via JOSM core rules */
 }
 
 way[power=circuit],
@@ -153,6 +175,7 @@ area:closed[power=circuit] {
 	throwError: tr("power=circuit must be a relation");
 	assertMatch: "way power=circuit";
 	assertNoMatch: "relation power=circuit type=power";
+	-osmoseItemClassLevel: none; /* To be added in Osmose via JOSM core rules */
 }
 
 area:closed[power=portal],
@@ -161,6 +184,7 @@ relation[power=portal] {
 	assertMatch: "relation power=portal";
 	assertNoMatch: "way power=portal";
 	assertNoMatch: "node power=portal";
+	-osmoseItemClassLevel: none; /* To be added in Osmose via JOSM core rules */
 }
 
 area:closed[power=insulator],
@@ -169,6 +193,7 @@ relation[power=insulator] {
 	assertMatch: "relation power=insulator";
 	assertNoMatch: "way power=insulator";
 	assertNoMatch: "node power=insulator";
+	-osmoseItemClassLevel: none; /* To be added in Osmose via JOSM core rules */
 }
 
 way[power=~/line|minor_line|cable/][circuits][circuits =~ /(.*[A-Za-z].*)|.*,.*|.*( ).*/] {
@@ -176,12 +201,14 @@ way[power=~/line|minor_line|cable/][circuits][circuits =~ /(.*[A-Za-z].*)|.*,.*|
 	assertMatch: "way power=line circuits=double";
 	assertNoMatch: "way power=line circuits=2";
 	assertNoMatch: "way power=line circuits=1;1";
+	-osmoseItemClassLevel: none; /* To be added in Osmose via JOSM core rules */
 }
 
 way[power=~/line|minor_line|cable/][cables][cables =~ /^[0-9]+(;[0-9]+)+$/] {
 	throwWarning: tr("cables tag should be the sum of all cables");
 	assertMatch: "way power=line cables=3;3";
 	assertNoMatch: "way power=line cables=6";
+	-osmoseItemClassLevel: none; /* not suitable for Osmose */
 }
 
 way[power=~/line|minor_line|cable/][cables][cables !~ /^[0-9]+$/][cables !~ /^[0-9]+(;[0-9]+)+$/] {
@@ -189,32 +216,38 @@ way[power=~/line|minor_line|cable/][cables][cables !~ /^[0-9]+$/][cables !~ /^[0
     assertMatch: "way power=line cables=double";
     assertNoMatch: "way power=line cables=6";
     assertNoMatch: "way power=line cables=3;3";
+	-osmoseItemClassLevel: none; /* To be added in Osmose via JOSM core rules */
 }
 
 way[power=~/line|minor_line|cable/][!voltage] {
     throwWarning: tr("Power lines should have a voltage tag");
     assertMatch: "way power=cable";
     assertNoMatch: "way power=cable voltage=500000";
+	-osmoseItemClassLevel: none; /* not suitable for Osmose */
 }
 
 node[power=transformer][!frequency] {
     throwWarning: tr("Transformers should have a frequency tag");
     assertMatch: "node power=transformer";
     assertNoMatch: "node power=transformer frequency=50";
+	-osmoseItemClassLevel: none; /* not suitable for Osmose */
 }
 
 *[power=substation][!substation] {
     throwWarning: tr("Substations should have a substation tag");
     assertMatch: "node power=substation";
     assertNoMatch: "node power=substation substation=transmission";
+	-osmoseItemClassLevel: none; /* not suitable for Osmose */
 }
 
 way[!power][!construction:power][!disused:power][!destroyed:power] > node[power=~/tower|pole|insulator|portal/] {
 	throwError: tr("Power support connected to a non power feature");
+	-osmoseItemClassLevel: none; /* The rule involves multiple objects, which is not yet supported by Osmose */
 }
 
 node[power=~/tower|pole/] ∈ area[building] {
-	throwError: tr("Power tower or pole inside a building");	
+	throwError: tr("Power tower or pole inside a building");
+	-osmoseItemClassLevel: none; /* Already supported in Osmose via 1070/6 */
 }
 
 
@@ -230,12 +263,16 @@ way[power=~/line|minor_line|cable/] >[index=1] node {
 node.portal_nodes.end_node_of_power_lines[power!=insulator] {
 	throwError: tr("A power line connecting to a portal should have a power=insulator on the connecting node");
 	fixAdd: "power=insulator";
+	-osmoseItemClassLevel: none; /* The rule involves multiple objects, which is not yet supported by Osmose */
 }
 
 relation[type=power][!power] {
 	throwError: tr("Is it a power circuit or a power line section? Add the power=* tag accordingly.");
 	assertMatch: "relation type=power";
 	assertNoMatch: "relation type=power power=circuit";
+	-osmoseDetail: tr("There are only two possible types of power relation. The power tag must be added to specify which type is involved here.");
+	-osmoseFix: tr("Check whether it is a line section or a complete circuit, and add the power tag accordingly.");
+	-osmoseResource: "https://wiki.openstreetmap.org/wiki/Relation:power";
 }
 
 relation[power=circuit][topology][topology!~/^(linear|branched)$/] {
@@ -243,6 +280,9 @@ relation[power=circuit][topology][topology!~/^(linear|branched)$/] {
 	assertMatch: "relation type=power power=circuit topology=branch";
 	assertNoMatch: "relation type=power power=circuit topology=branched";
 	assertNoMatch: "relation type=power power=circuit";
+	-osmoseDetail: tr("The topology tag can only take two values on the power circuit context. This is probably a typo or an error.");
+	-osmoseFix: tr("Check the circuit topology and specify a value between `{0}` and `{1}`.", "linear", "branched");
+	-osmoseResource: "https://wiki.openstreetmap.org/wiki/Key:topology";
 }
 
 *[power_source] {
@@ -251,6 +291,7 @@ relation[power=circuit][topology][topology!~/^(linear|branched)$/] {
 	suggestAlternative: "generator:source";
 	assertMatch: "area power=plant power_source=solar";
 	assertNoMatch: "area power=plant generator:source=solar";
+	-osmoseItemClassLevel: none; /* To be added in Osmose via JOSM core rules */
 }
 
 relation[route=power] {
@@ -260,6 +301,7 @@ relation[route=power] {
 	fixRemove: "route";
 	assertMatch: "relation type=route route=power power=circuit";
 	assertNoMatch: "relation type=power power=circuit";
+	-osmoseItemClassLevel: none; /* To be added in Osmose via JOSM core rules */
 }
 
 relation[power=branch] {
@@ -267,37 +309,46 @@ relation[power=branch] {
 	suggestAlternative: "power=circuit or power=line_section";
 	assertMatch: "relation type=power power=branch";
 	assertNoMatch: "relation type=power power=circuit";
+	-osmoseItemClassLevel: none; /* To be added in Osmose via JOSM core rules */
 }
 
 relation[power=circuit] >[role!~/^(section|substation)$/] way {  
    throwError: tr("Wrong role for way in power=circuit relations");
    suggestAlternative: "section/substation";
+   -osmoseItemClassLevel: none; /* The rule involves multiple objects, which is not yet supported by Osmose */
 }
 
 relation[power=circuit] >[role!~/^(tap|substation)$/] node {  
    throwError: tr("Wrong role for node in power=circuit relations");
    suggestAlternative: "tap/substation";
+   -osmoseItemClassLevel: none; /* The rule involves multiple objects, which is not yet supported by Osmose */
 }
 
 relation[power=circuit] >[role!~/^(section)$/] relation {  
    throwError: tr("Wrong role for node in power=circuit relations");
    suggestAlternative: "section";
+   -osmoseItemClassLevel: none; /* The rule involves multiple objects, which is not yet supported by Osmose */
 }
 
 relation[power=line_section] >[role!~/^(line)$/] way {  
    throwError: tr("Wrong role for way in power=line_section relations");
    suggestAlternative: "line";
+   -osmoseItemClassLevel: none; /* The rule involves multiple objects, which is not yet supported by Osmose */
 }
 
 relation[power=circuit] > way[power=~/^(line|minor_line|cable)$/][frequency] {  
    throwWarning: tr("frequency tag should be on the circuit relation, not on the power line");
+   -osmoseItemClassLevel: none; /* The rule involves multiple objects, which is not yet supported by Osmose */
 }
 
 relation[power=circuit][wires] {  
-   throwWarning: tr("wires tag should be on the power line and not on the circuit relation");
-   fixRemove: "wires";
-   assertMatch: "relation type=power power=circuit wires=4";
-   assertNoMatch: "relation type=power power=circuit";
+	throwWarning: tr("wires tag should be on the power line and not on the circuit relation");
+	fixRemove: "wires";
+	assertMatch: "relation type=power power=circuit wires=4";
+	assertNoMatch: "relation type=power power=circuit";
+	-osmoseDetail: tr("Bundles arrangement only regard power segments. A given circuit can go through several line segments with different bundles. Use wires only on power segments.");
+	-osmoseFix: tr("Remove the tag from the circuit relation and add it to its members instead");
+	-osmoseResource: "https://wiki.openstreetmap.org/wiki/Key:wires#A_physical_property";
 }
 
 node[power][line_management=termination][location:transition=yes]{
@@ -305,6 +356,7 @@ node[power][line_management=termination][location:transition=yes]{
 	assertMatch: "node power=tower line_management=termination location:transition=yes";
 	assertNoMatch: "node power=tower line_management=termination";
 	assertNoMatch: "node power=tower line_management=transition location:transition=yes";
+	-osmoseItemClassLevel: none; /* Already supported in Osmose via 7040/8 */
 }
 
 node[power=transformer][transformer=traction]{
@@ -312,6 +364,7 @@ node[power=transformer][transformer=traction]{
 	fixAdd: "transformer=main";
 	assertMatch: "node power=transformer transformer=traction";
 	assertNoMatch: "node power=transformer transformer=main";
+	-osmoseItemClassLevel: none; /* To be added in Osmose via JOSM core rules */
 }
 
 node[power=transformer][transformer=minor_distribution]{
@@ -319,6 +372,7 @@ node[power=transformer][transformer=minor_distribution]{
 	fixAdd: "transformer=main";
 	assertMatch: "node power=transformer transformer=minor_distribution";
 	assertNoMatch: "node power=transformer transformer=main";
+	-osmoseItemClassLevel: none; /* To be added in Osmose via JOSM core rules */
 }
 
 node[power=transformer][transformer=auto]{
@@ -327,6 +381,7 @@ node[power=transformer][transformer=auto]{
 	fixRemove: "transformer";
 	assertMatch: "node power=transformer transformer=auto";
 	assertNoMatch: "node power=transformer transformer=main windings:auto=yes";
+	-osmoseItemClassLevel: none; /* To be added in Osmose via JOSM core rules */
 }
 
 node[power=transformer][transformer][transformer!~/^(main|auxiliary|generator|converter|phase_angle_regulator|converter|distribution|yes|traction|minor_distribution|auto)$/] {
@@ -334,6 +389,9 @@ node[power=transformer][transformer][transformer!~/^(main|auxiliary|generator|co
 	assertMatch: "node power=transformer transformer=railway";
 	assertNoMatch: "node power=transformer transformer=main";
 	assertNoMatch: "node power=transformer";
+	-osmoseDetail: tr("The transformer=* tag can only have certain well-defined values. This is probably a typo or an deprecated way of tagging.");
+	-osmoseFix: tr("Check the list of possible values on the wiki and correct the tag for this object.");
+	-osmoseResource: "https://wiki.openstreetmap.org/wiki/Key:transformer";
 }
 
 *[power=generator][generator:source][generator:source!~/^(nuclear|wind|hydro|tidal|wave|geothermal|solar|coal|gas|biomass|biofuel|biogas|oil|diesel|gasoline|waste|battery)(;(nuclear|wind|hydro|tidal|wave|geothermal|solar|coal|gas|biomass|biofuel|biogas|oil|diesel|gasoline|waste|battery))*$/] {
@@ -343,6 +401,9 @@ node[power=transformer][transformer][transformer!~/^(main|auxiliary|generator|co
 	assertNoMatch: "node power=generator generator:source=solar";
 	assertNoMatch: "node power=generator generator:source=oil;gas";
 	assertNoMatch: "node power=generator";
+	-osmoseDetail: tr("The generator:source=* tag can only have certain well-defined values. This is probably a typo or an deprecated way of tagging.");
+	-osmoseFix: tr("Check the list of possible values on the wiki and correct the tag for this object.");
+	-osmoseResource: "https://wiki.openstreetmap.org/wiki/Key:generator:source";
 }
 
 *[power=generator][generator:source=nuclear][generator:method][generator:method!~/^(fission|fusion)$/]{
@@ -351,12 +412,18 @@ node[power=transformer][transformer][transformer!~/^(main|auxiliary|generator|co
 	fixRemove: "generator:method";
 	assertMatch: "node power=generator generator:source=nuclear generator:method=nuclear";
 	assertNoMatch: "node power=generator generator:source=nuclear generator:method=fission";
+	-osmoseDetail: tr("Nuclear generator can only use certain well-defined methods to generate energy.");
+	-osmoseFix: tr("Check the list of possible values for this source on the wiki and correct the `{0}` tag.", "generator:method");
+	-osmoseResource: "https://wiki.openstreetmap.org/wiki/Key:generator:method";
 }
 
 *[power=generator][generator:method=~/fission|fusion/][generator:source][generator:source!=nuclear]{
 	throwError: tr("Incompatibility between method and source on a power generator");
 	assertMatch: "node power=generator generator:source=solar generator:method=fusion";
 	assertNoMatch: "node power=generator generator:source=nuclear generator:method=fission";
+	-osmoseDetail: tr("It is not possible to use the specified method to generate energy from this source.");
+	-osmoseFix: tr("Check the wiki page and change the `{0}` tag or the `{1}` tag accordingly.", "generator:method", "generator:source");
+	-osmoseResource: "https://wiki.openstreetmap.org/wiki/Key:generator:method";
 }
 
 *[power=generator][generator:source=wind][generator:method][generator:method!=wind_turbine]{
@@ -365,12 +432,18 @@ node[power=transformer][transformer][transformer!~/^(main|auxiliary|generator|co
 	assertMatch: "node power=generator generator:source=wind generator:method=wind";
 	assertNoMatch: "node power=generator generator:source=wind";
 	assertNoMatch: "node power=generator generator:source=wind generator:method=wind_turbine";
+	-osmoseDetail: tr("Wind generators can only use turbines to generate energy.");
+	-osmoseFix: tr("Remove the `{0}` tag or change it to `{1}`.", "generator:method", "wind_turbine");
+	-osmoseResource: "https://wiki.openstreetmap.org/wiki/Key:generator:method";
 }
 
 *[power=generator][generator:method=wind_turbine][generator:source][generator:source!=wind]{
 	throwError: tr("Incompatibility between method and source on a power generator");
 	assertMatch: "node power=generator generator:source=turbine generator:method=wind_turbine";
 	assertNoMatch: "node power=generator generator:source=wind generator:method=wind_turbine";
+	-osmoseDetail: tr("It is not possible to use the specified method to generate energy from this source.");
+	-osmoseFix: tr("Check the wiki page and change the `{0}` tag or the `{1}` tag accordingly.", "generator:method", "generator:source");
+	-osmoseResource: "https://wiki.openstreetmap.org/wiki/Key:generator:method";
 }
 
 *[power=generator][generator:source=hydro][generator:method][generator:method!~/^(water-storage|water-pumped-storage|run-of-the-river)$/]{
@@ -379,12 +452,18 @@ node[power=transformer][transformer][transformer!~/^(main|auxiliary|generator|co
 	fixRemove: "generator:method";
 	assertMatch: "node power=generator generator:source=hydro generator:method=pump";
 	assertNoMatch: "node power=generator generator:source=hydro generator:method=water-storage";
+	-osmoseDetail: tr("Hydro generator can only use certain well-defined methods to generate energy.");
+	-osmoseFix: tr("Check the list of possible values for this source on the wiki and correct the `{0}` tag.", "generator:method");
+	-osmoseResource: "https://wiki.openstreetmap.org/wiki/Key:generator:method";
 }
 
 *[power=generator][generator:method=~/^(water-storage|water-pumped-storage|run-of-the-river)$/][generator:source][generator:source!=hydro]{
 	throwError: tr("Incompatibility between method and source on a power generator");
 	assertMatch: "node power=generator generator:source=water generator:method=water-pumped-storage";
 	assertNoMatch: "node power=generator generator:source=hydro generator:method=water-storage";
+	-osmoseDetail: tr("It is not possible to use the specified method to generate energy from this source.");
+	-osmoseFix: tr("Check the wiki page and change the `{0}` tag or the `{1}` tag accordingly.", "generator:method", "generator:source");
+	-osmoseResource: "https://wiki.openstreetmap.org/wiki/Key:generator:method";
 }
 
 *[power=generator][generator:source=tidal][generator:method][generator:method!~/^(barrage|stream)$/]{
@@ -393,12 +472,18 @@ node[power=transformer][transformer][transformer!~/^(main|auxiliary|generator|co
 	fixRemove: "generator:method";
 	assertMatch: "node power=generator generator:source=tidal generator:method=dam";
 	assertNoMatch: "node power=generator generator:source=tidal generator:method=barrage";
+	-osmoseDetail: tr("Tidal generator can only use certain well-defined methods to generate energy.");
+	-osmoseFix: tr("Check the list of possible values for this source on the wiki and correct the `{0}` tag.", "generator:method");
+	-osmoseResource: "https://wiki.openstreetmap.org/wiki/Key:generator:method";
 }
 
 *[power=generator][generator:method=~/^(barrage|stream)$/][generator:source][generator:source!=tidal]{
 	throwError: tr("Incompatibility between method and source on a power generator");
 	assertMatch: "node power=generator generator:source=solar generator:method=stream";
 	assertNoMatch: "node power=generator generator:source=tidal generator:method=barrage";
+	-osmoseDetail: tr("It is not possible to use the specified method to generate energy from this source.");
+	-osmoseFix: tr("Check the wiki page and change the `{0}` tag or the `{1}` tag accordingly.", "generator:method", "generator:source");
+	-osmoseResource: "https://wiki.openstreetmap.org/wiki/Key:generator:method";
 }
 
 *[power=generator][generator:source=solar][generator:method][generator:method!~/^(thermal|photovoltaic)$/]{
@@ -407,12 +492,18 @@ node[power=transformer][transformer][transformer!~/^(main|auxiliary|generator|co
 	fixRemove: "generator:method";
 	assertMatch: "node power=generator generator:source=solar generator:method=solar";
 	assertNoMatch: "node power=generator generator:source=solar generator:method=thermal";
+	-osmoseDetail: tr("Solar generator can only use certain well-defined methods to generate energy.");
+	-osmoseFix: tr("Check the list of possible values for this source on the wiki and correct the `{0}` tag.", "generator:method");
+	-osmoseResource: "https://wiki.openstreetmap.org/wiki/Key:generator:method";
 }
 
 *[power=generator][generator:method=~/^(thermal|photovoltaic)$/][generator:source][generator:source!=solar]{
 	throwError: tr("Incompatibility between method and source on a power generator");
 	assertMatch: "node power=generator generator:source=photovoltaic generator:method=photovoltaic";
 	assertNoMatch: "node power=generator generator:source=solar generator:method=thermal";
+	-osmoseDetail: tr("It is not possible to use the specified method to generate energy from this source.");
+	-osmoseFix: tr("Check the wiki page and change the `{0}` tag or the `{1}` tag accordingly.", "generator:method", "generator:source");
+	-osmoseResource: "https://wiki.openstreetmap.org/wiki/Key:generator:method";
 }
 
 *[power=generator][generator:source=coal][generator:method][generator:method!=combustion]{
@@ -420,6 +511,9 @@ node[power=transformer][transformer][transformer!~/^(main|auxiliary|generator|co
 	assertMatch: "node power=generator generator:source=coal generator:method=burning";
 	assertNoMatch: "node power=generator generator:source=coal generator:method=combustion";
 	assertNoMatch: "node power=generator generator:source=coal";
+	-osmoseDetail: tr("Coal generator can only use certain well-defined methods to generate energy.");
+	-osmoseFix: tr("Check the list of possible values for this source on the wiki and correct the `{0}` tag.", "generator:method");
+	-osmoseResource: "https://wiki.openstreetmap.org/wiki/Key:generator:method";
 }
 
 *[power=generator][generator:source=gas][generator:method][generator:method!=combustion]{
@@ -427,6 +521,9 @@ node[power=transformer][transformer][transformer!~/^(main|auxiliary|generator|co
 	assertMatch: "node power=generator generator:source=gas generator:method=gasification";
 	assertNoMatch: "node power=generator generator:source=gas generator:method=combustion";
 	assertNoMatch: "node power=generator generator:source=gas";
+	-osmoseDetail: tr("Gas generator can only use certain well-defined methods to generate energy.");
+	-osmoseFix: tr("Check the list of possible values for this source on the wiki and correct the `{0}` tag.", "generator:method");
+	-osmoseResource: "https://wiki.openstreetmap.org/wiki/Key:generator:method";
 }
 
 *[power=generator][generator:source=biomass][generator:method][generator:method!~/^(combustion|gasification|anaerobic_digestion)$/]{
@@ -435,6 +532,9 @@ node[power=transformer][transformer][transformer!~/^(main|auxiliary|generator|co
 	fixRemove: "generator:method";
 	assertMatch: "node power=generator generator:source=biomass generator:method=burn";
 	assertNoMatch: "node power=generator generator:source=biomass generator:method=anaerobic_digestion";
+	-osmoseDetail: tr("Biomass generator can only use certain well-defined methods to generate energy.");
+	-osmoseFix: tr("Check the list of possible values for this source on the wiki and correct the `{0}` tag.", "generator:method");
+	-osmoseResource: "https://wiki.openstreetmap.org/wiki/Key:generator:method";
 }
 
 *[power=generator][generator:source=biofuel][generator:method][generator:method!=combustion]{
@@ -442,6 +542,9 @@ node[power=transformer][transformer][transformer!~/^(main|auxiliary|generator|co
 	assertMatch: "node power=generator generator:source=biofuel generator:method=gasification";
 	assertNoMatch: "node power=generator generator:source=biofuel generator:method=combustion";
 	assertNoMatch: "node power=generator generator:source=biofuel";
+	-osmoseDetail: tr("Biofuel generator can only use certain well-defined methods to generate energy.");
+	-osmoseFix: tr("Check the list of possible values for this source on the wiki and correct the `{0}` tag.", "generator:method");
+	-osmoseResource: "https://wiki.openstreetmap.org/wiki/Key:generator:method";
 }
 
 *[power=generator][generator:source=biogas][generator:method][generator:method!=combustion]{
@@ -449,6 +552,9 @@ node[power=transformer][transformer][transformer!~/^(main|auxiliary|generator|co
 	assertMatch: "node power=generator generator:source=biogas generator:method=gasification";
 	assertNoMatch: "node power=generator generator:source=biogas generator:method=combustion";
 	assertNoMatch: "node power=generator generator:source=biogas";
+	-osmoseDetail: tr("Biogas generator can only use certain well-defined methods to generate energy.");
+	-osmoseFix: tr("Check the list of possible values for this source on the wiki and correct the `{0}` tag.", "generator:method");
+	-osmoseResource: "https://wiki.openstreetmap.org/wiki/Key:generator:method";
 }
 
 *[power=generator][generator:source=oil][generator:method][generator:method!=combustion]{
@@ -456,6 +562,9 @@ node[power=transformer][transformer][transformer!~/^(main|auxiliary|generator|co
 	assertMatch: "node power=generator generator:source=oil generator:method=gasification";
 	assertNoMatch: "node power=generator generator:source=oil generator:method=combustion";
 	assertNoMatch: "node power=generator generator:source=oil";
+	-osmoseDetail: tr("Oil generator can only use certain well-defined methods to generate energy.");
+	-osmoseFix: tr("Check the list of possible values for this source on the wiki and correct the `{0}` tag.", "generator:method");
+	-osmoseResource: "https://wiki.openstreetmap.org/wiki/Key:generator:method";
 }
 
 *[power=generator][generator:source=diesel][generator:method][generator:method!=combustion]{
@@ -463,6 +572,9 @@ node[power=transformer][transformer][transformer!~/^(main|auxiliary|generator|co
 	assertMatch: "node power=generator generator:source=diesel generator:method=gasification";
 	assertNoMatch: "node power=generator generator:source=diesel generator:method=combustion";
 	assertNoMatch: "node power=generator generator:source=diesel";
+	-osmoseDetail: tr("Diesel generator can only use certain well-defined methods to generate energy.");
+	-osmoseFix: tr("Check the list of possible values for this source on the wiki and correct the `{0}` tag.", "generator:method");
+	-osmoseResource: "https://wiki.openstreetmap.org/wiki/Key:generator:method";
 }
 
 *[power=generator][generator:source=gasoline][generator:method][generator:method!=combustion]{
@@ -470,6 +582,9 @@ node[power=transformer][transformer][transformer!~/^(main|auxiliary|generator|co
 	assertMatch: "node power=generator generator:source=gasoline generator:method=gasification";
 	assertNoMatch: "node power=generator generator:source=gasoline generator:method=combustion";
 	assertNoMatch: "node power=generator generator:source=gasoline";
+	-osmoseDetail: tr("Gasoline generator can only use certain well-defined methods to generate energy.");
+	-osmoseFix: tr("Check the list of possible values for this source on the wiki and correct the `{0}` tag.", "generator:method");
+	-osmoseResource: "https://wiki.openstreetmap.org/wiki/Key:generator:method";
 }
 
 *[power=generator][generator:source=waste][generator:method][generator:method!~/^(combustion|gasification)$/]{
@@ -478,6 +593,9 @@ node[power=transformer][transformer][transformer!~/^(main|auxiliary|generator|co
 	fixRemove: "generator:method";
 	assertMatch: "node power=generator generator:source=waste generator:method=burning";
 	assertNoMatch: "node power=generator generator:source=waste generator:method=combustion";
+	-osmoseDetail: tr("Waste generator can only use certain well-defined methods to generate energy.");
+	-osmoseFix: tr("Check the list of possible values for this source on the wiki and correct the `{0}` tag.", "generator:method");
+	-osmoseResource: "https://wiki.openstreetmap.org/wiki/Key:generator:method";
 }
 
 *[power=generator][generator:method=combustion][generator:source][generator:source!~/^(waste|gasoline|diesel|oil|biogas|biofuel|biomass|gas|coal)(;(waste|gasoline|diesel|oil|biogas|biofuel|biomass|gas|coal))*$/]{
@@ -487,7 +605,9 @@ node[power=transformer][transformer][transformer!~/^(main|auxiliary|generator|co
 	assertNoMatch: "node power=generator generator:source=biomass generator:method=combustion";
 	assertNoMatch: "node power=generator generator:source=gas;oil generator:method=combustion";
 	assertNoMatch: "node power=generator generator:source=gas;oil;waste generator:method=combustion";
-
+	-osmoseDetail: tr("It is not possible to use the specified method to generate energy from this source.");
+	-osmoseFix: tr("Check the wiki page and change the `{0}` tag or the `{1}` tag accordingly.", "generator:method", "generator:source");
+	-osmoseResource: "https://wiki.openstreetmap.org/wiki/Key:generator:method";
 }
 
 *[power=generator][generator:method=gasification][generator:source][generator:source!~/^(waste|biomass)(;(waste|biomass))*$/]{
@@ -495,6 +615,9 @@ node[power=transformer][transformer][transformer!~/^(main|auxiliary|generator|co
 	assertMatch: "node power=generator generator:source=coal generator:method=gasification";
 	assertNoMatch: "node power=generator generator:source=biomass generator:method=gasification";
 	assertNoMatch: "node power=generator generator:source=biomass;waste generator:method=gasification";
+	-osmoseDetail: tr("It is not possible to use the specified method to generate energy from this source.");
+	-osmoseFix: tr("Check the wiki page and change the `{0}` tag or the `{1}` tag accordingly.", "generator:method", "generator:source");
+	-osmoseResource: "https://wiki.openstreetmap.org/wiki/Key:generator:method";
 }
 
 
@@ -504,6 +627,9 @@ node[power=transformer][transformer][transformer!~/^(main|auxiliary|generator|co
 	assertNoMatch: "node power=plant plant:source=solar";
 	assertNoMatch: "node power=plant plant:source=gas;oil";
 	assertNoMatch: "node power=plant";
+	-osmoseDetail: tr("The plant:source=* tag can only have certain well-defined values. This is probably a typo or an deprecated way of tagging.");
+	-osmoseFix: tr("Check the list of possible values on the wiki and correct the tag for this object.");
+	-osmoseResource: "https://wiki.openstreetmap.org/wiki/Key:plant:source";
 }
 
 *[power=plant][plant:source=nuclear][plant:method][plant:method!~/^(fission|fusion)$/]{
@@ -512,12 +638,18 @@ node[power=transformer][transformer][transformer!~/^(main|auxiliary|generator|co
 	fixRemove: "plant:method";
 	assertMatch: "node power=plant plant:source=nuclear plant:method=nuclear";
 	assertNoMatch: "node power=plant plant:source=nuclear plant:method=fission";
+	-osmoseDetail: tr("Nuclear power plants can only use certain well-defined methods to generate energy.");
+	-osmoseFix: tr("Check the list of possible values for this source on the wiki and correct the `{0}` tag.", "plant:method");
+	-osmoseResource: "https://wiki.openstreetmap.org/wiki/Key:plant:method";
 }
 
 *[power=plant][plant:method=~/^(fission|fusion)$/][plant:source][plant:source!=nuclear]{
 	throwError: tr("Incompatibility between method and source on a power plant");
 	assertMatch: "node power=plant plant:source=solar plant:method=fusion";
 	assertNoMatch: "node power=plant plant:source=nuclear plant:method=fission";
+	-osmoseDetail: tr("It is not possible to use the specified method to generate energy from this source.");
+	-osmoseFix: tr("Check the wiki page and change the `{0}` tag or the `{1}` tag accordingly.", "plant:method", "plant:source");
+	-osmoseResource: "https://wiki.openstreetmap.org/wiki/Key:plant:method";
 }
 
 *[power=plant][plant:source=wind][plant:method][plant:method!=wind_turbine]{
@@ -526,12 +658,18 @@ node[power=transformer][transformer][transformer!~/^(main|auxiliary|generator|co
 	assertMatch: "node power=plant plant:source=wind plant:method=wind";
 	assertNoMatch: "node power=plant plant:source=wind";
 	assertNoMatch: "node power=plant plant:source=wind plant:method=wind_turbine";
+	-osmoseDetail: tr("Wind power plants can only use certain well-defined methods to generate energy.");
+	-osmoseFix: tr("Check the list of possible values for this source on the wiki and correct the `{0}` tag.", "plant:method");
+	-osmoseResource: "https://wiki.openstreetmap.org/wiki/Key:plant:method";
 }
 
 *[power=plant][plant:method=wind_turbine][plant:source][plant:source!=wind]{
 	throwError: tr("Incompatibility between method and source on a power plant");
 	assertMatch: "node power=plant plant:source=eolien plant:method=wind_turbine";
 	assertNoMatch: "node power=plant plant:source=wind plant:method=wind_turbine";
+	-osmoseDetail: tr("It is not possible to use the specified method to generate energy from this source.");
+	-osmoseFix: tr("Check the wiki page and change the `{0}` tag or the `{1}` tag accordingly.", "plant:method", "plant:source");
+	-osmoseResource: "https://wiki.openstreetmap.org/wiki/Key:plant:method";
 }
 
 *[power=plant][plant:source=hydro][plant:method][plant:method!~/^(water-storage|water-pumped-storage|run-of-the-river)$/]{
@@ -540,12 +678,18 @@ node[power=transformer][transformer][transformer!~/^(main|auxiliary|generator|co
 	fixRemove: "plant:method";
 	assertMatch: "node power=plant plant:source=hydro plant:method=pump";
 	assertNoMatch: "node power=plant plant:source=hydro plant:method=water-storage";
+	-osmoseDetail: tr("Hydro power plants can only use certain well-defined methods to generate energy.");
+	-osmoseFix: tr("Check the list of possible values for this source on the wiki and correct the `{0}` tag.", "plant:method");
+	-osmoseResource: "https://wiki.openstreetmap.org/wiki/Key:plant:method";
 }
 
 *[power=plant][plant:method=~/^(water-storage|water-pumped-storage|run-of-the-river)$/][plant:source][plant:source!=hydro]{
 	throwError: tr("Incompatibility between method and source on a power plant");
 	assertMatch: "node power=plant plant:source=water plant:method=water-pumped-storage";
 	assertNoMatch: "node power=plant plant:source=hydro plant:method=water-storage";
+	-osmoseDetail: tr("It is not possible to use the specified method to generate energy from this source.");
+	-osmoseFix: tr("Check the wiki page and change the `{0}` tag or the `{1}` tag accordingly.", "plant:method", "plant:source");
+	-osmoseResource: "https://wiki.openstreetmap.org/wiki/Key:plant:method";
 }
 
 *[power=plant][plant:source=tidal][plant:method][plant:method!~/^(barrage|stream)$/]{
@@ -554,12 +698,18 @@ node[power=transformer][transformer][transformer!~/^(main|auxiliary|generator|co
 	fixRemove: "plant:method";
 	assertMatch: "node power=plant plant:source=tidal plant:method=dam";
 	assertNoMatch: "node power=plant plant:source=tidal plant:method=barrage";
+	-osmoseDetail: tr("Tidal power plants can only use certain well-defined methods to generate energy.");
+	-osmoseFix: tr("Check the list of possible values for this source on the wiki and correct the `{0}` tag.", "plant:method");
+	-osmoseResource: "https://wiki.openstreetmap.org/wiki/Key:plant:method";
 }
 
 *[power=plant][plant:method=~/^(barrage|stream)$/][plant:source][plant:source!=tidal]{
 	throwError: tr("Incompatibility between method and source on a power plant");
 	assertMatch: "node power=plant plant:source=solar plant:method=stream";
 	assertNoMatch: "node power=plant plant:source=tidal plant:method=barrage";
+	-osmoseDetail: tr("It is not possible to use the specified method to generate energy from this source.");
+	-osmoseFix: tr("Check the wiki page and change the `{0}` tag or the `{1}` tag accordingly.", "plant:method", "plant:source");
+	-osmoseResource: "https://wiki.openstreetmap.org/wiki/Key:plant:method";
 }
 
 *[power=plant][plant:source=solar][plant:method][plant:method!~/^(thermal|photovoltaic)$/]{
@@ -568,12 +718,18 @@ node[power=transformer][transformer][transformer!~/^(main|auxiliary|generator|co
 	fixRemove: "plant:method";
 	assertMatch: "node power=plant plant:source=solar plant:method=solar";
 	assertNoMatch: "node power=plant plant:source=solar plant:method=thermal";
+	-osmoseDetail: tr("Solar power plants can only use certain well-defined methods to generate energy.");
+	-osmoseFix: tr("Check the list of possible values for this source on the wiki and correct the `{0}` tag.", "plant:method");
+	-osmoseResource: "https://wiki.openstreetmap.org/wiki/Key:plant:method";
 }
 
 *[power=plant][plant:method=~/^(thermal|photovoltaic)$/][plant:source][plant:source!=solar]{
 	throwError: tr("Incompatibility between method and source on a power plant");
 	assertMatch: "node power=plant plant:source=photovoltaic plant:method=photovoltaic";
 	assertNoMatch: "node power=plant plant:source=solar plant:method=thermal";
+	-osmoseDetail: tr("It is not possible to use the specified method to generate energy from this source.");
+	-osmoseFix: tr("Check the wiki page and change the `{0}` tag or the `{1}` tag accordingly.", "plant:method", "plant:source");
+	-osmoseResource: "https://wiki.openstreetmap.org/wiki/Key:plant:method";
 }
 
 *[power=plant][plant:source=coal][plant:method][plant:method!=combustion]{
@@ -581,6 +737,9 @@ node[power=transformer][transformer][transformer!~/^(main|auxiliary|generator|co
 	assertMatch: "node power=plant plant:source=coal plant:method=burning";
 	assertNoMatch: "node power=plant plant:source=coal plant:method=combustion";
 	assertNoMatch: "node power=plant plant:source=coal";
+	-osmoseDetail: tr("Coal power plants can only use certain well-defined methods to generate energy.");
+	-osmoseFix: tr("Check the list of possible values for this source on the wiki and correct the `{0}` tag.", "plant:method");
+	-osmoseResource: "https://wiki.openstreetmap.org/wiki/Key:plant:method";
 }
 
 *[power=plant][plant:source=gas][plant:method][plant:method!=combustion]{
@@ -588,6 +747,9 @@ node[power=transformer][transformer][transformer!~/^(main|auxiliary|generator|co
 	assertMatch: "node power=plant plant:source=gas plant:method=gasification";
 	assertNoMatch: "node power=plant plant:source=gas plant:method=combustion";
 	assertNoMatch: "node power=plant plant:source=gas";
+	-osmoseDetail: tr("Gas power plants can only use certain well-defined methods to generate energy.");
+	-osmoseFix: tr("Check the list of possible values for this source on the wiki and correct the `{0}` tag.", "plant:method");
+	-osmoseResource: "https://wiki.openstreetmap.org/wiki/Key:plant:method";
 }
 
 *[power=plant][plant:source=biomass][plant:method][plant:method!~/^(combustion|gasification|anaerobic_digestion)$/]{
@@ -596,6 +758,9 @@ node[power=transformer][transformer][transformer!~/^(main|auxiliary|generator|co
 	fixRemove: "plant:method";
 	assertMatch: "node power=plant plant:source=biomass plant:method=burn";
 	assertNoMatch: "node power=plant plant:source=biomass plant:method=anaerobic_digestion";
+	-osmoseDetail: tr("Biomass power plants can only use certain well-defined methods to generate energy.");
+	-osmoseFix: tr("Check the list of possible values for this source on the wiki and correct the `{0}` tag.", "plant:method");
+	-osmoseResource: "https://wiki.openstreetmap.org/wiki/Key:plant:method";
 }
 
 *[power=plant][plant:source=biofuel][plant:method][plant:method!=combustion]{
@@ -603,6 +768,9 @@ node[power=transformer][transformer][transformer!~/^(main|auxiliary|generator|co
 	assertMatch: "node power=plant plant:source=biofuel plant:method=gasification";
 	assertNoMatch: "node power=plant plant:source=biofuel plant:method=combustion";
 	assertNoMatch: "node power=plant plant:source=biofuel";
+	-osmoseDetail: tr("Biofuel power plants can only use certain well-defined methods to generate energy.");
+	-osmoseFix: tr("Check the list of possible values for this source on the wiki and correct the `{0}` tag.", "plant:method");
+	-osmoseResource: "https://wiki.openstreetmap.org/wiki/Key:plant:method";
 }
 
 *[power=plant][plant:source=biogas][plant:method][plant:method!=combustion]{
@@ -610,6 +778,9 @@ node[power=transformer][transformer][transformer!~/^(main|auxiliary|generator|co
 	assertMatch: "node power=plant plant:source=biogas plant:method=gasification";
 	assertNoMatch: "node power=plant plant:source=biogas plant:method=combustion";
 	assertNoMatch: "node power=plant plant:source=biogas";
+	-osmoseDetail: tr("Biogas power plants can only use certain well-defined methods to generate energy.");
+	-osmoseFix: tr("Check the list of possible values for this source on the wiki and correct the `{0}` tag.", "plant:method");
+	-osmoseResource: "https://wiki.openstreetmap.org/wiki/Key:plant:method";
 }
 
 *[power=plant][plant:source=oil][plant:method][plant:method!=combustion]{
@@ -617,6 +788,9 @@ node[power=transformer][transformer][transformer!~/^(main|auxiliary|generator|co
 	assertMatch: "node power=plant plant:source=oil plant:method=gasification";
 	assertNoMatch: "node power=plant plant:source=oil plant:method=combustion";
 	assertNoMatch: "node power=plant plant:source=oil";
+	-osmoseDetail: tr("Oil power plants can only use certain well-defined methods to generate energy.");
+	-osmoseFix: tr("Check the list of possible values for this source on the wiki and correct the `{0}` tag.", "plant:method");
+	-osmoseResource: "https://wiki.openstreetmap.org/wiki/Key:plant:method";
 }
 
 *[power=plant][plant:source=diesel][plant:method][plant:method!=combustion]{
@@ -624,6 +798,9 @@ node[power=transformer][transformer][transformer!~/^(main|auxiliary|generator|co
 	assertMatch: "node power=plant plant:source=diesel plant:method=gasification";
 	assertNoMatch: "node power=plant plant:source=diesel plant:method=combustion";
 	assertNoMatch: "node power=plant plant:source=diesel";
+	-osmoseDetail: tr("Diesel power plants can only use certain well-defined methods to generate energy.");
+	-osmoseFix: tr("Check the list of possible values for this source on the wiki and correct the `{0}` tag.", "plant:method");
+	-osmoseResource: "https://wiki.openstreetmap.org/wiki/Key:plant:method";
 }
 
 *[power=plant][plant:source=gasoline][plant:method][plant:method!=combustion]{
@@ -631,6 +808,9 @@ node[power=transformer][transformer][transformer!~/^(main|auxiliary|generator|co
 	assertMatch: "node power=plant plant:source=gasoline plant:method=gasification";
 	assertNoMatch: "node power=plant plant:source=gasoline plant:method=combustion";
 	assertNoMatch: "node power=plant plant:source=gasoline";
+	-osmoseDetail: tr("Gasoline power plants can only use certain well-defined methods to generate energy.");
+	-osmoseFix: tr("Check the list of possible values for this source on the wiki and correct the `{0}` tag.", "plant:method");
+	-osmoseResource: "https://wiki.openstreetmap.org/wiki/Key:plant:method";
 }
 
 *[power=plant][plant:source=waste][plant:method][plant:method!~/^(combustion|gasification)$/]{
@@ -639,6 +819,9 @@ node[power=transformer][transformer][transformer!~/^(main|auxiliary|generator|co
 	fixRemove: "plant:method";
 	assertMatch: "node power=plant plant:source=waste plant:method=burning";
 	assertNoMatch: "node power=plant plant:source=waste plant:method=combustion";
+	-osmoseDetail: tr("Waste power plants can only use certain well-defined methods to generate energy.");
+	-osmoseFix: tr("Check the list of possible values for this source on the wiki and correct the `{0}` tag.", "plant:method");
+	-osmoseResource: "https://wiki.openstreetmap.org/wiki/Key:plant:method";
 }
 
 *[power=plant][plant:method=combustion][plant:source][plant:source!~/^(waste|gasoline|diesel|oil|biogas|biofuel|biomass|gas|coal)(;(waste|gasoline|diesel|oil|biogas|biofuel|biomass|gas|coal))*$/]{
@@ -646,6 +829,9 @@ node[power=transformer][transformer][transformer!~/^(main|auxiliary|generator|co
 	assertMatch: "node power=plant plant:source=wave plant:method=combustion";
 	assertNoMatch: "node power=plant plant:source=biomass plant:method=combustion";
 	assertNoMatch: "node power=plant plant:source=biomass;waste plant:method=combustion";
+	-osmoseDetail: tr("It is not possible to use the specified method to generate energy from this source.");
+	-osmoseFix: tr("Check the wiki page and change the `{0}` tag or the `{1}` tag accordingly.", "plant:method", "plant:source");
+	-osmoseResource: "https://wiki.openstreetmap.org/wiki/Key:plant:method";
 }
 
 *[power=plant][plant:method=gasification][plant:source][plant:source!~/^(waste|biomass)(;(waste|biomass))*$/]{
@@ -653,4 +839,7 @@ node[power=transformer][transformer][transformer!~/^(main|auxiliary|generator|co
 	assertMatch: "node power=plant plant:source=coal plant:method=gasification";
 	assertNoMatch: "node power=plant plant:source=biomass plant:method=gasification";
 	assertNoMatch: "node power=plant plant:source=biomass;waste plant:method=gasification";
+	-osmoseDetail: tr("It is not possible to use the specified method to generate energy from this source.");
+	-osmoseFix: tr("Check the wiki page and change the `{0}` tag or the `{1}` tag accordingly.", "plant:method", "plant:source");
+	-osmoseResource: "https://wiki.openstreetmap.org/wiki/Key:plant:method";
 }
