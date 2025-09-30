@@ -32,7 +32,7 @@ CF,Central African Republic,110000,https://wiki.openstreetmap.org/wiki/Power_net
 TD,Chad,20000;66000;90000,https://wiki.openstreetmap.org/wiki/Power_networks/Chad
 CL,Chile,13800;15000;23000;33000;34500;66000;69000;100000;110000;154000;220000;345000;500000,https://wiki.openstreetmap.org/wiki/Power_networks/Chile
 CO,Colombia,15000;25000;34500;66000;110000;115000;138000;220000;230000;500000,https://wiki.openstreetmap.org/wiki/Power_networks/Colombia
-CR,Costa Rica,34500;138000;230000,https://wiki.openstreetmap.org/wiki/Power_networks/Costa_Rica
+CR,Costa Rica,138000;230000,https://wiki.openstreetmap.org/wiki/Power_networks/Costa_Rica
 HR,Croatia,20000;25000;35000;110000;220000;400000;500000,https://wiki.openstreetmap.org/wiki/Power_networks/Croatia
 CU,Cuba,11000;110000;220000,https://wiki.openstreetmap.org/wiki/Power_networks/Cuba
 CY,Cyprus,66000;132000,https://wiki.openstreetmap.org/wiki/Power_networks/Cyprus
@@ -77,7 +77,7 @@ JP,Japan,11000;15400;20000;22000;25000;30000;33000;44000;60000;66000;77000;10000
 JO,Jordan,132000;400000,https://wiki.openstreetmap.org/wiki/Power_networks/Jordan
 KZ,Kazakhstan,22000;35000;110000;220000;500000,https://wiki.openstreetmap.org/wiki/Power_networks/Kazakhstan
 KE,Kenya,11000;15000;132000;220000;400000;500000,https://wiki.openstreetmap.org/wiki/Power_networks/Kenya
-DK,Kingdom of Denmark,15000;25000;33000;50000;60000;66000;132000;150000;220000;250000;285000;300000;320000;350000;400000;450000;500000;525000,https://wiki.openstreetmap.org/wiki/Power_networks/Denmark
+DK,Kingdom of Denmark,50000;60000;132000;150000;220000;400000,https://wiki.openstreetmap.org/wiki/Power_networks/Denmark
 NL,Kingdom of the Netherlands,13000;20000;22000;23000;24000;25000;30000;33000;34000;50000;66000;110000;150000;220000;320000;380000;450000;600000,https://wiki.openstreetmap.org/wiki/Power_networks/Netherlands
 KW,Kuwait,33000;66000;132000;275000;400000,https://wiki.openstreetmap.org/wiki/Power_networks/Kuwait
 KG,Kyrgyzstan,10000;110000;220000;500000,https://wiki.openstreetmap.org/wiki/Power_networks/Kyrgyzstan
