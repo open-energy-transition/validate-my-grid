@@ -21,433 +21,980 @@ msgid "Lone power tower or pole. Try to connect it to a power=line"
 msgstr ""
 "Poteau ou pylône électrique isolé. Essayez de le connecter à une power=line"
 
-#: ../power.validator.mapcss:32
+#: ../power.validator.mapcss:33
 msgid "Lone power portal or insulator. Try to connect it to a power=line"
 msgstr ""
 "Portail ou isolateur électrique isolé. Essayez de le connecter à une "
 "power=line"
 
-#: ../power.validator.mapcss:36
+#: ../power.validator.mapcss:38
 msgid "Lone power terminal. Try to connect it to a power=line"
 msgstr ""
 
-#: ../power.validator.mapcss:47
+#: ../power.validator.mapcss:50
 msgid "Unfinished power line"
 msgstr "Ligne électrique inachevée"
 
-#: ../power.validator.mapcss:51
+#: ../power.validator.mapcss:55
 msgid "Connection between different voltages"
 msgstr "Connexion entre différentes tensions (voltage)"
 
-#: ../power.validator.mapcss:55
+#: ../power.validator.mapcss:60
 msgid ""
 "Connection between different number of cables. Check the cables on incoming "
 "lines and the line_management tag on the intersecting tower"
 msgstr ""
 
-#: ../power.validator.mapcss:79
+#: ../power.validator.mapcss:89
 msgid "Substation inside another substation"
 msgstr ""
 
-#: ../power.validator.mapcss:83
+#: ../power.validator.mapcss:94
 msgid "Unsuitable value for power=* tag"
 msgstr ""
 
-#: ../power.validator.mapcss:92
+#: ../power.validator.mapcss:106
 msgid "power=substation must be a node or an area"
 msgstr ""
 
-#: ../power.validator.mapcss:130
+#: ../power.validator.mapcss:149
 msgid "power=cable must be a way"
 msgstr ""
 
-#: ../power.validator.mapcss:137
+#: ../power.validator.mapcss:157
 msgid "power=minor_line must be a way"
 msgstr ""
 
-#: ../power.validator.mapcss:153
+#: ../power.validator.mapcss:175
 msgid "power=circuit must be a relation"
 msgstr ""
 
-#: ../power.validator.mapcss:160
+#: ../power.validator.mapcss:183
 msgid "power=portal must be a node or an way"
 msgstr ""
 
-#: ../power.validator.mapcss:168
+#: ../power.validator.mapcss:192
 msgid "power=insulator must be a node or an way"
 msgstr ""
 
-#: ../power.validator.mapcss:175
+#: ../power.validator.mapcss:200
 msgid "circuits tag should contain a number"
 msgstr ""
 
 msgid "cables tag should contain a number"
 msgstr ""
 
-#: ../power.validator.mapcss:201
+#: ../power.validator.mapcss:230
 msgid "Transformers should have a frequency tag"
 msgstr ""
 
-#: ../power.validator.mapcss:213
+#: ../power.validator.mapcss:244
 msgid "Power support connected to a non power feature"
 msgstr ""
 
-#: ../power.validator.mapcss:217
+#: ../power.validator.mapcss:249
 msgid "Power tower or pole inside a building"
 msgstr ""
 
-#: ../power.validator.mapcss:231
+#: ../power.validator.mapcss:264
 msgid ""
 "A power line connecting to a portal should have a power=insulator on the "
 "connecting node"
 msgstr ""
 
-#: ../power.validator.mapcss:145
+#: ../power.validator.mapcss:166
 msgid "power=line_section must be a relation"
 msgstr ""
 
-#: ../power.validator.mapcss:236
+#: ../power.validator.mapcss:270
 msgid ""
 "Is it a power circuit or a power line section? Add the power=* tag "
 "accordingly."
 msgstr ""
 
-#: ../power.validator.mapcss:242
+#: ../power.validator.mapcss:279
 msgid ""
 "power=circuit relations should have a topology tag with value linear or "
 "branched"
 msgstr ""
 
-#: ../power.validator.mapcss:257
+#: ../power.validator.mapcss:298
 msgid "route=power is deprecated, use type=power+power=circuit instead"
 msgstr ""
 
-#: ../power.validator.mapcss:266
+#: ../power.validator.mapcss:308
 msgid "power=branch is deprecated"
 msgstr ""
 
-#: ../power.validator.mapcss:273
+#: ../power.validator.mapcss:316
 msgid "Wrong role for way in power=circuit relations"
 msgstr ""
 
-#: ../power.validator.mapcss:278 ../power.validator.mapcss:283
+#: ../power.validator.mapcss:322 ../power.validator.mapcss:328
 msgid "Wrong role for node in power=circuit relations"
 msgstr ""
 
-#: ../power.validator.mapcss:288
+#: ../power.validator.mapcss:334
 msgid "Wrong role for way in power=line_section relations"
 msgstr ""
 
-#: ../power.validator.mapcss:293
+#: ../power.validator.mapcss:340
 msgid "frequency tag should be on the circuit relation, not on the power line"
 msgstr ""
 
-#: ../power.validator.mapcss:297
+#: ../power.validator.mapcss:345
 msgid "wires tag should be on the power line and not on the circuit relation"
 msgstr ""
 
-#: ../power.validator.mapcss:304
+#: ../power.validator.mapcss:355
 msgid "Incompatible tags: is it a line termination or a line transition ?"
 msgstr ""
 
-#: ../power.validator.mapcss:311
+#: ../power.validator.mapcss:363
 msgid ""
 "transformer=traction is deprecated (use transformer=main and add "
 "substation=traction on the enclosing substation"
 msgstr ""
 
-#: ../power.validator.mapcss:318
+#: ../power.validator.mapcss:371
 msgid ""
 "transformer=minor_distribution is deprecated (use transformer=main and add "
 "substation=minor_distribution on the enclosing substation"
 msgstr ""
 
-#: ../power.validator.mapcss:325
+#: ../power.validator.mapcss:379
 msgid "transformer=auto is deprecated"
 msgstr ""
 
-#: ../power.validator.mapcss:333
+#: ../power.validator.mapcss:388
 msgid "Unsuitable value for transformer=* tag"
 msgstr ""
 
-#: ../power.validator.mapcss:122
+#: ../power.validator.mapcss:140
 msgid "power=plant must be an area or a site"
 msgstr ""
 
-#: ../power.validator.mapcss:249
+#: ../power.validator.mapcss:289
 msgid "power_source=* is deprecated"
 msgstr ""
 
 msgid "Unsuitable value for _transformer=* tag"
 msgstr ""
 
-#: ../power.validator.mapcss:340
+#: ../power.validator.mapcss:398
 msgid "Unsuitable value for generator:source=* tag"
 msgstr ""
 
-#: ../power.validator.mapcss:349
+#: ../power.validator.mapcss:410
 msgid "Unsuitable method for nuclear generator"
 msgstr ""
 
-#: ../power.validator.mapcss:357 ../power.validator.mapcss:371
-#: ../power.validator.mapcss:385 ../power.validator.mapcss:399
-#: ../power.validator.mapcss:413 ../power.validator.mapcss:484
-#: ../power.validator.mapcss:494
+#: ../power.validator.mapcss:421 ../power.validator.mapcss:441
+#: ../power.validator.mapcss:461 ../power.validator.mapcss:481
+#: ../power.validator.mapcss:501 ../power.validator.mapcss:602
+#: ../power.validator.mapcss:614
 msgid "Incompatibility between method and source on a power generator"
 msgstr ""
 
-#: ../power.validator.mapcss:363
+#: ../power.validator.mapcss:430
 msgid "Unsuitable method for wind generator"
 msgstr ""
 
-#: ../power.validator.mapcss:377
+#: ../power.validator.mapcss:450
 msgid "Unsuitable method for hydro generator"
 msgstr ""
 
-#: ../power.validator.mapcss:391
+#: ../power.validator.mapcss:470
 msgid "Unsuitable method for tidal generator"
 msgstr ""
 
-#: ../power.validator.mapcss:405
+#: ../power.validator.mapcss:490
 msgid "Unsuitable method for solar generator"
 msgstr ""
 
-#: ../power.validator.mapcss:419
+#: ../power.validator.mapcss:510
 msgid "Unsuitable method for coal generator"
 msgstr ""
 
-#: ../power.validator.mapcss:426
+#: ../power.validator.mapcss:520
 msgid "Unsuitable method for gas generator"
 msgstr ""
 
-#: ../power.validator.mapcss:433
+#: ../power.validator.mapcss:530
 msgid "Unsuitable method for biomass generator"
 msgstr ""
 
-#: ../power.validator.mapcss:441
+#: ../power.validator.mapcss:541
 msgid "Unsuitable method for biofuel generator"
 msgstr ""
 
-#: ../power.validator.mapcss:448
+#: ../power.validator.mapcss:551
 msgid "Unsuitable method for biogas generator"
 msgstr ""
 
-#: ../power.validator.mapcss:455
+#: ../power.validator.mapcss:561
 msgid "Unsuitable method for oil generator"
 msgstr ""
 
-#: ../power.validator.mapcss:462
+#: ../power.validator.mapcss:571
 msgid "Unsuitable method for diesel generator"
 msgstr ""
 
-#: ../power.validator.mapcss:469
+#: ../power.validator.mapcss:581
 msgid "Unsuitable method for gasoline generator"
 msgstr ""
 
-#: ../power.validator.mapcss:476
+#: ../power.validator.mapcss:591
 msgid "Unsuitable method for waste generator"
 msgstr ""
 
-#: ../power.validator.mapcss:502
+#: ../power.validator.mapcss:625
 msgid "Unsuitable value for plant:source=* tag"
 msgstr ""
 
-#: ../power.validator.mapcss:510
+#: ../power.validator.mapcss:636
 msgid "Unsuitable method for nuclear power plant"
 msgstr ""
 
-#: ../power.validator.mapcss:518 ../power.validator.mapcss:532
-#: ../power.validator.mapcss:546 ../power.validator.mapcss:560
-#: ../power.validator.mapcss:574 ../power.validator.mapcss:645
-#: ../power.validator.mapcss:652
+#: ../power.validator.mapcss:647 ../power.validator.mapcss:667
+#: ../power.validator.mapcss:687 ../power.validator.mapcss:707
+#: ../power.validator.mapcss:727 ../power.validator.mapcss:828
+#: ../power.validator.mapcss:838
 msgid "Incompatibility between method and source on a power plant"
 msgstr ""
 
-#: ../power.validator.mapcss:524
+#: ../power.validator.mapcss:656
 msgid "Unsuitable method for wind power plant"
 msgstr ""
 
-#: ../power.validator.mapcss:538
+#: ../power.validator.mapcss:676
 msgid "Unsuitable method for hydro power plant"
 msgstr ""
 
-#: ../power.validator.mapcss:552
+#: ../power.validator.mapcss:696
 msgid "Unsuitable method for tidal power plant"
 msgstr ""
 
-#: ../power.validator.mapcss:566
+#: ../power.validator.mapcss:716
 msgid "Unsuitable method for solar power plant"
 msgstr ""
 
-#: ../power.validator.mapcss:580
+#: ../power.validator.mapcss:736
 msgid "Unsuitable method for coal power plant"
 msgstr ""
 
-#: ../power.validator.mapcss:587
+#: ../power.validator.mapcss:746
 msgid "Unsuitable method for gas power plant"
 msgstr ""
 
-#: ../power.validator.mapcss:594
+#: ../power.validator.mapcss:756
 msgid "Unsuitable method for biomass power plant"
 msgstr ""
 
-#: ../power.validator.mapcss:602
+#: ../power.validator.mapcss:767
 msgid "Unsuitable method for biofuel power plant"
 msgstr ""
 
-#: ../power.validator.mapcss:609
+#: ../power.validator.mapcss:777
 msgid "Unsuitable method for biogas power plant"
 msgstr ""
 
-#: ../power.validator.mapcss:616
+#: ../power.validator.mapcss:787
 msgid "Unsuitable method for oil power plant"
 msgstr ""
 
-#: ../power.validator.mapcss:623
+#: ../power.validator.mapcss:797
 msgid "Unsuitable method for diesel power plant"
 msgstr ""
 
-#: ../power.validator.mapcss:630
+#: ../power.validator.mapcss:807
 msgid "Unsuitable method for gasoline power plant"
 msgstr ""
 
-#: ../power.validator.mapcss:637
+#: ../power.validator.mapcss:817
 msgid "Unsuitable method for waste power plant"
 msgstr ""
 
-#: ../power.validator.mapcss:99
+#: ../power.validator.mapcss:114
 msgid "power=generator must be a node or an area"
 msgstr ""
 
 msgid "power=switchgear must be a node or an area"
 msgstr ""
 
-#: ../power.validator.mapcss:115
+#: ../power.validator.mapcss:132
 msgid "power=heliostat must be a node or an area"
 msgstr ""
 
-#: ../voltages.validator.mapcss:4 ../voltages.validator.mapcss:11
-#: ../voltages.validator.mapcss:18 ../voltages.validator.mapcss:25
-#: ../voltages.validator.mapcss:32 ../voltages.validator.mapcss:39
-#: ../voltages.validator.mapcss:46 ../voltages.validator.mapcss:53
-#: ../voltages.validator.mapcss:60 ../voltages.validator.mapcss:67
-#: ../voltages.validator.mapcss:74 ../voltages.validator.mapcss:81
-#: ../voltages.validator.mapcss:88 ../voltages.validator.mapcss:95
-#: ../voltages.validator.mapcss:102 ../voltages.validator.mapcss:109
-#: ../voltages.validator.mapcss:116 ../voltages.validator.mapcss:123
-#: ../voltages.validator.mapcss:130 ../voltages.validator.mapcss:137
-#: ../voltages.validator.mapcss:144 ../voltages.validator.mapcss:151
-#: ../voltages.validator.mapcss:158 ../voltages.validator.mapcss:165
-#: ../voltages.validator.mapcss:172 ../voltages.validator.mapcss:179
-#: ../voltages.validator.mapcss:186 ../voltages.validator.mapcss:193
-#: ../voltages.validator.mapcss:200 ../voltages.validator.mapcss:207
-#: ../voltages.validator.mapcss:214 ../voltages.validator.mapcss:221
-#: ../voltages.validator.mapcss:228 ../voltages.validator.mapcss:235
-#: ../voltages.validator.mapcss:242 ../voltages.validator.mapcss:249
-#: ../voltages.validator.mapcss:256 ../voltages.validator.mapcss:263
-#: ../voltages.validator.mapcss:270 ../voltages.validator.mapcss:277
-#: ../voltages.validator.mapcss:284 ../voltages.validator.mapcss:291
-#: ../voltages.validator.mapcss:298 ../voltages.validator.mapcss:305
-#: ../voltages.validator.mapcss:312 ../voltages.validator.mapcss:319
-#: ../voltages.validator.mapcss:326 ../voltages.validator.mapcss:333
-#: ../voltages.validator.mapcss:340 ../voltages.validator.mapcss:347
-#: ../voltages.validator.mapcss:354 ../voltages.validator.mapcss:361
-#: ../voltages.validator.mapcss:368 ../voltages.validator.mapcss:375
-#: ../voltages.validator.mapcss:382 ../voltages.validator.mapcss:389
-#: ../voltages.validator.mapcss:396 ../voltages.validator.mapcss:403
-#: ../voltages.validator.mapcss:410 ../voltages.validator.mapcss:417
-#: ../voltages.validator.mapcss:424 ../voltages.validator.mapcss:431
-#: ../voltages.validator.mapcss:438 ../voltages.validator.mapcss:445
-#: ../voltages.validator.mapcss:452 ../voltages.validator.mapcss:459
-#: ../voltages.validator.mapcss:466 ../voltages.validator.mapcss:473
-#: ../voltages.validator.mapcss:480 ../voltages.validator.mapcss:487
-#: ../voltages.validator.mapcss:494 ../voltages.validator.mapcss:501
-#: ../voltages.validator.mapcss:508 ../voltages.validator.mapcss:515
-#: ../voltages.validator.mapcss:522 ../voltages.validator.mapcss:529
-#: ../voltages.validator.mapcss:536 ../voltages.validator.mapcss:543
-#: ../voltages.validator.mapcss:550 ../voltages.validator.mapcss:557
-#: ../voltages.validator.mapcss:564 ../voltages.validator.mapcss:571
-#: ../voltages.validator.mapcss:578 ../voltages.validator.mapcss:585
-#: ../voltages.validator.mapcss:592 ../voltages.validator.mapcss:599
-#: ../voltages.validator.mapcss:606 ../voltages.validator.mapcss:613
-#: ../voltages.validator.mapcss:620 ../voltages.validator.mapcss:627
-#: ../voltages.validator.mapcss:634 ../voltages.validator.mapcss:641
-#: ../voltages.validator.mapcss:648 ../voltages.validator.mapcss:655
-#: ../voltages.validator.mapcss:662 ../voltages.validator.mapcss:669
-#: ../voltages.validator.mapcss:676 ../voltages.validator.mapcss:683
-#: ../voltages.validator.mapcss:690 ../voltages.validator.mapcss:697
-#: ../voltages.validator.mapcss:704 ../voltages.validator.mapcss:711
-#: ../voltages.validator.mapcss:718 ../voltages.validator.mapcss:725
-#: ../voltages.validator.mapcss:732 ../voltages.validator.mapcss:739
-#: ../voltages.validator.mapcss:746 ../voltages.validator.mapcss:753
-#: ../voltages.validator.mapcss:760 ../voltages.validator.mapcss:767
-#: ../voltages.validator.mapcss:774 ../voltages.validator.mapcss:781
-#: ../voltages.validator.mapcss:788 ../voltages.validator.mapcss:795
-#: ../voltages.validator.mapcss:802 ../voltages.validator.mapcss:809
-#: ../voltages.validator.mapcss:816 ../voltages.validator.mapcss:823
-#: ../voltages.validator.mapcss:830 ../voltages.validator.mapcss:837
-#: ../voltages.validator.mapcss:844 ../voltages.validator.mapcss:851
-#: ../voltages.validator.mapcss:858 ../voltages.validator.mapcss:865
-#: ../voltages.validator.mapcss:872 ../voltages.validator.mapcss:879
-#: ../voltages.validator.mapcss:886 ../voltages.validator.mapcss:893
-#: ../voltages.validator.mapcss:900 ../voltages.validator.mapcss:907
-#: ../voltages.validator.mapcss:914 ../voltages.validator.mapcss:921
-#: ../voltages.validator.mapcss:928 ../voltages.validator.mapcss:935
-#: ../voltages.validator.mapcss:942 ../voltages.validator.mapcss:949
-#: ../voltages.validator.mapcss:956 ../voltages.validator.mapcss:963
-#: ../voltages.validator.mapcss:970 ../voltages.validator.mapcss:977
-#: ../voltages.validator.mapcss:984 ../voltages.validator.mapcss:991
-#: ../voltages.validator.mapcss:998 ../voltages.validator.mapcss:1005
-#: ../voltages.validator.mapcss:1012 ../voltages.validator.mapcss:1019
-#: ../voltages.validator.mapcss:1026 ../voltages.validator.mapcss:1033
-#: ../voltages.validator.mapcss:1040 ../voltages.validator.mapcss:1047
-#: ../voltages.validator.mapcss:1054 ../voltages.validator.mapcss:1061
-#: ../voltages.validator.mapcss:1068 ../voltages.validator.mapcss:1075
-#: ../voltages.validator.mapcss:1082 ../voltages.validator.mapcss:1089
-#: ../voltages.validator.mapcss:1096 ../voltages.validator.mapcss:1103
-#: ../voltages.validator.mapcss:1110 ../voltages.validator.mapcss:1117
-#: ../voltages.validator.mapcss:1124 ../voltages.validator.mapcss:1131
-#: ../voltages.validator.mapcss:1138 ../voltages.validator.mapcss:1145
-#: ../voltages.validator.mapcss:1152 ../voltages.validator.mapcss:1159
-#: ../voltages.validator.mapcss:1166 ../voltages.validator.mapcss:1173
-#: ../voltages.validator.mapcss:1180 ../voltages.validator.mapcss:1187
-#: ../voltages.validator.mapcss:1194 ../voltages.validator.mapcss:1201
-#: ../voltages.validator.mapcss:1208
+#: ../voltages.validator.mapcss:4 ../voltages.validator.mapcss:17
+#: ../voltages.validator.mapcss:30 ../voltages.validator.mapcss:43
+#: ../voltages.validator.mapcss:56 ../voltages.validator.mapcss:69
+#: ../voltages.validator.mapcss:82 ../voltages.validator.mapcss:95
+#: ../voltages.validator.mapcss:108 ../voltages.validator.mapcss:121
+#: ../voltages.validator.mapcss:134 ../voltages.validator.mapcss:147
+#: ../voltages.validator.mapcss:160 ../voltages.validator.mapcss:173
+#: ../voltages.validator.mapcss:186 ../voltages.validator.mapcss:199
+#: ../voltages.validator.mapcss:212 ../voltages.validator.mapcss:225
+#: ../voltages.validator.mapcss:238 ../voltages.validator.mapcss:251
+#: ../voltages.validator.mapcss:264 ../voltages.validator.mapcss:277
+#: ../voltages.validator.mapcss:290 ../voltages.validator.mapcss:303
+#: ../voltages.validator.mapcss:316 ../voltages.validator.mapcss:329
+#: ../voltages.validator.mapcss:342 ../voltages.validator.mapcss:355
+#: ../voltages.validator.mapcss:368 ../voltages.validator.mapcss:381
+#: ../voltages.validator.mapcss:394 ../voltages.validator.mapcss:407
+#: ../voltages.validator.mapcss:420 ../voltages.validator.mapcss:433
+#: ../voltages.validator.mapcss:446 ../voltages.validator.mapcss:459
+#: ../voltages.validator.mapcss:472 ../voltages.validator.mapcss:485
+#: ../voltages.validator.mapcss:498 ../voltages.validator.mapcss:511
+#: ../voltages.validator.mapcss:524 ../voltages.validator.mapcss:537
+#: ../voltages.validator.mapcss:550 ../voltages.validator.mapcss:563
+#: ../voltages.validator.mapcss:576 ../voltages.validator.mapcss:589
+#: ../voltages.validator.mapcss:602 ../voltages.validator.mapcss:615
+#: ../voltages.validator.mapcss:628 ../voltages.validator.mapcss:641
+#: ../voltages.validator.mapcss:654 ../voltages.validator.mapcss:667
+#: ../voltages.validator.mapcss:680 ../voltages.validator.mapcss:693
+#: ../voltages.validator.mapcss:706 ../voltages.validator.mapcss:719
+#: ../voltages.validator.mapcss:732 ../voltages.validator.mapcss:745
+#: ../voltages.validator.mapcss:758 ../voltages.validator.mapcss:771
+#: ../voltages.validator.mapcss:784 ../voltages.validator.mapcss:797
+#: ../voltages.validator.mapcss:810 ../voltages.validator.mapcss:823
+#: ../voltages.validator.mapcss:836 ../voltages.validator.mapcss:849
+#: ../voltages.validator.mapcss:862 ../voltages.validator.mapcss:875
+#: ../voltages.validator.mapcss:888 ../voltages.validator.mapcss:901
+#: ../voltages.validator.mapcss:914 ../voltages.validator.mapcss:927
+#: ../voltages.validator.mapcss:940 ../voltages.validator.mapcss:953
+#: ../voltages.validator.mapcss:966 ../voltages.validator.mapcss:979
+#: ../voltages.validator.mapcss:992 ../voltages.validator.mapcss:1005
+#: ../voltages.validator.mapcss:1018 ../voltages.validator.mapcss:1031
+#: ../voltages.validator.mapcss:1044 ../voltages.validator.mapcss:1057
+#: ../voltages.validator.mapcss:1070 ../voltages.validator.mapcss:1083
+#: ../voltages.validator.mapcss:1096 ../voltages.validator.mapcss:1109
+#: ../voltages.validator.mapcss:1122 ../voltages.validator.mapcss:1135
+#: ../voltages.validator.mapcss:1148 ../voltages.validator.mapcss:1161
+#: ../voltages.validator.mapcss:1174 ../voltages.validator.mapcss:1187
+#: ../voltages.validator.mapcss:1200 ../voltages.validator.mapcss:1213
+#: ../voltages.validator.mapcss:1226 ../voltages.validator.mapcss:1239
+#: ../voltages.validator.mapcss:1252 ../voltages.validator.mapcss:1265
+#: ../voltages.validator.mapcss:1278 ../voltages.validator.mapcss:1291
+#: ../voltages.validator.mapcss:1304 ../voltages.validator.mapcss:1317
+#: ../voltages.validator.mapcss:1330 ../voltages.validator.mapcss:1343
+#: ../voltages.validator.mapcss:1356 ../voltages.validator.mapcss:1369
+#: ../voltages.validator.mapcss:1382 ../voltages.validator.mapcss:1395
+#: ../voltages.validator.mapcss:1408 ../voltages.validator.mapcss:1421
+#: ../voltages.validator.mapcss:1434 ../voltages.validator.mapcss:1447
+#: ../voltages.validator.mapcss:1460 ../voltages.validator.mapcss:1473
+#: ../voltages.validator.mapcss:1486 ../voltages.validator.mapcss:1499
+#: ../voltages.validator.mapcss:1512 ../voltages.validator.mapcss:1525
+#: ../voltages.validator.mapcss:1538 ../voltages.validator.mapcss:1551
+#: ../voltages.validator.mapcss:1564 ../voltages.validator.mapcss:1577
+#: ../voltages.validator.mapcss:1590 ../voltages.validator.mapcss:1603
+#: ../voltages.validator.mapcss:1616 ../voltages.validator.mapcss:1629
+#: ../voltages.validator.mapcss:1642 ../voltages.validator.mapcss:1655
+#: ../voltages.validator.mapcss:1668 ../voltages.validator.mapcss:1681
+#: ../voltages.validator.mapcss:1694 ../voltages.validator.mapcss:1707
+#: ../voltages.validator.mapcss:1720 ../voltages.validator.mapcss:1733
+#: ../voltages.validator.mapcss:1746 ../voltages.validator.mapcss:1759
+#: ../voltages.validator.mapcss:1772 ../voltages.validator.mapcss:1785
+#: ../voltages.validator.mapcss:1798 ../voltages.validator.mapcss:1811
+#: ../voltages.validator.mapcss:1824 ../voltages.validator.mapcss:1837
+#: ../voltages.validator.mapcss:1850 ../voltages.validator.mapcss:1863
+#: ../voltages.validator.mapcss:1876 ../voltages.validator.mapcss:1889
+#: ../voltages.validator.mapcss:1902 ../voltages.validator.mapcss:1915
+#: ../voltages.validator.mapcss:1928 ../voltages.validator.mapcss:1941
+#: ../voltages.validator.mapcss:1954 ../voltages.validator.mapcss:1967
+#: ../voltages.validator.mapcss:1980 ../voltages.validator.mapcss:1993
+#: ../voltages.validator.mapcss:2006 ../voltages.validator.mapcss:2019
+#: ../voltages.validator.mapcss:2032 ../voltages.validator.mapcss:2045
+#: ../voltages.validator.mapcss:2058 ../voltages.validator.mapcss:2071
+#: ../voltages.validator.mapcss:2084 ../voltages.validator.mapcss:2097
+#: ../voltages.validator.mapcss:2110 ../voltages.validator.mapcss:2123
+#: ../voltages.validator.mapcss:2136 ../voltages.validator.mapcss:2149
+#: ../voltages.validator.mapcss:2162 ../voltages.validator.mapcss:2175
+#: ../voltages.validator.mapcss:2188 ../voltages.validator.mapcss:2201
+#: ../voltages.validator.mapcss:2214 ../voltages.validator.mapcss:2227
+#: ../voltages.validator.mapcss:2240
 msgid "Invalid voltage value for this country"
 msgstr ""
 
-#: ../power.validator.mapcss:108
+#: ../power.validator.mapcss:124
 msgid "power=switchgear must be an area"
 msgstr ""
 
-#: ../power.validator.mapcss:195
+#: ../power.validator.mapcss:223
 msgid "Power lines should have a voltage tag"
 msgstr ""
 
-#: ../power.validator.mapcss:207
+#: ../power.validator.mapcss:237
 msgid "Substations should have a substation tag"
 msgstr ""
 
-#: ../power.validator.mapcss:59
+#: ../power.validator.mapcss:65
 msgid "A line_management=cross should not be at the end of a power line"
 msgstr ""
 
-#: ../power.validator.mapcss:64
+#: ../power.validator.mapcss:71
 msgid "line_management=split can only be at the end of a power line"
 msgstr ""
 
-#: ../power.validator.mapcss:69
+#: ../power.validator.mapcss:77
 msgid "line_management=termination can only be at the end of a power line"
 msgstr ""
 
-#: ../power.validator.mapcss:74
+#: ../power.validator.mapcss:83
 msgid "line_management=transition can only be at the end of a power line"
 msgstr ""
 
-#: ../power.validator.mapcss:182
+#: ../power.validator.mapcss:208
 msgid "cables tag should be the sum of all cables"
 msgstr ""
 
-#: ../power.validator.mapcss:188
+#: ../power.validator.mapcss:215
 msgid "cables tag should be a number"
+msgstr ""
+
+#: ../power.validator.mapcss:99
+msgid ""
+"The power=* tag can only have certain well-defined values. This is probably "
+"a typo or an deprecated way of tagging."
+msgstr ""
+
+#: ../power.validator.mapcss:100 ../power.validator.mapcss:393
+#: ../power.validator.mapcss:405 ../power.validator.mapcss:631
+msgid ""
+"Check the list of possible values on the wiki and correct the tag for this "
+"object."
+msgstr ""
+
+#: ../power.validator.mapcss:273
+msgid ""
+"There are only two possible types of power relation. The power tag must be "
+"added to specify which type is involved here."
+msgstr ""
+
+#: ../power.validator.mapcss:274
+msgid ""
+"Check whether it is a line section or a complete circuit, and add the power "
+"tag accordingly."
+msgstr ""
+
+#: ../power.validator.mapcss:283
+msgid ""
+"The topology tag can only take two values on the power circuit context. This "
+"is probably a typo or an error."
+msgstr ""
+
+#: ../power.validator.mapcss:284
+msgid "Check the circuit topology and specify a value between `{0}` and `{1}`."
+msgstr ""
+
+#: ../power.validator.mapcss:349
+msgid ""
+"Bundles arrangement only regard power segments. A given circuit can go "
+"through several line segments with different bundles. Use wires only on "
+"power segments."
+msgstr ""
+
+#: ../power.validator.mapcss:350
+msgid ""
+"Remove the tag from the circuit relation and add it to its members instead"
+msgstr ""
+
+#: ../power.validator.mapcss:392
+msgid ""
+"The transformer=* tag can only have certain well-defined values. This is "
+"probably a typo or an deprecated way of tagging."
+msgstr ""
+
+#: ../power.validator.mapcss:404
+msgid ""
+"The generator:source=* tag can only have certain well-defined values. This "
+"is probably a typo or an deprecated way of tagging."
+msgstr ""
+
+#: ../power.validator.mapcss:415
+msgid ""
+"Nuclear generator can only use certain well-defined methods to generate "
+"energy."
+msgstr ""
+
+#: ../power.validator.mapcss:416 ../power.validator.mapcss:456
+#: ../power.validator.mapcss:476 ../power.validator.mapcss:496
+#: ../power.validator.mapcss:515 ../power.validator.mapcss:525
+#: ../power.validator.mapcss:536 ../power.validator.mapcss:546
+#: ../power.validator.mapcss:556 ../power.validator.mapcss:566
+#: ../power.validator.mapcss:576 ../power.validator.mapcss:586
+#: ../power.validator.mapcss:597 ../power.validator.mapcss:642
+#: ../power.validator.mapcss:662 ../power.validator.mapcss:682
+#: ../power.validator.mapcss:702 ../power.validator.mapcss:722
+#: ../power.validator.mapcss:741 ../power.validator.mapcss:751
+#: ../power.validator.mapcss:762 ../power.validator.mapcss:772
+#: ../power.validator.mapcss:782 ../power.validator.mapcss:792
+#: ../power.validator.mapcss:802 ../power.validator.mapcss:812
+#: ../power.validator.mapcss:823
+msgid ""
+"Check the list of possible values for this source on the wiki and correct "
+"the `{0}` tag."
+msgstr ""
+
+#: ../power.validator.mapcss:424 ../power.validator.mapcss:444
+#: ../power.validator.mapcss:464 ../power.validator.mapcss:484
+#: ../power.validator.mapcss:504 ../power.validator.mapcss:608
+#: ../power.validator.mapcss:618 ../power.validator.mapcss:650
+#: ../power.validator.mapcss:670 ../power.validator.mapcss:690
+#: ../power.validator.mapcss:710 ../power.validator.mapcss:730
+#: ../power.validator.mapcss:832 ../power.validator.mapcss:842
+msgid ""
+"It is not possible to use the specified method to generate energy from this "
+"source."
+msgstr ""
+
+#: ../power.validator.mapcss:425 ../power.validator.mapcss:445
+#: ../power.validator.mapcss:465 ../power.validator.mapcss:485
+#: ../power.validator.mapcss:505 ../power.validator.mapcss:609
+#: ../power.validator.mapcss:619 ../power.validator.mapcss:651
+#: ../power.validator.mapcss:671 ../power.validator.mapcss:691
+#: ../power.validator.mapcss:711 ../power.validator.mapcss:731
+#: ../power.validator.mapcss:833 ../power.validator.mapcss:843
+msgid ""
+"Check the wiki page and change the `{0}` tag or the `{1}` tag accordingly."
+msgstr ""
+
+#: ../power.validator.mapcss:435
+msgid "Wind generators can only use turbines to generate energy."
+msgstr ""
+
+#: ../power.validator.mapcss:436
+msgid "Remove the `{0}` tag or change it to `{1}`."
+msgstr ""
+
+#: ../power.validator.mapcss:455
+msgid ""
+"Hydro generator can only use certain well-defined methods to generate energy."
+msgstr ""
+
+#: ../power.validator.mapcss:475
+msgid ""
+"Tidal generator can only use certain well-defined methods to generate energy."
+msgstr ""
+
+#: ../power.validator.mapcss:495
+msgid ""
+"Solar generator can only use certain well-defined methods to generate energy."
+msgstr ""
+
+#: ../power.validator.mapcss:514
+msgid ""
+"Coal generator can only use certain well-defined methods to generate energy."
+msgstr ""
+
+#: ../power.validator.mapcss:524
+msgid ""
+"Gas generator can only use certain well-defined methods to generate energy."
+msgstr ""
+
+#: ../power.validator.mapcss:535
+msgid ""
+"Biomass generator can only use certain well-defined methods to generate "
+"energy."
+msgstr ""
+
+#: ../power.validator.mapcss:545
+msgid ""
+"Biofuel generator can only use certain well-defined methods to generate "
+"energy."
+msgstr ""
+
+#: ../power.validator.mapcss:555
+msgid ""
+"Biogas generator can only use certain well-defined methods to generate "
+"energy."
+msgstr ""
+
+#: ../power.validator.mapcss:565
+msgid ""
+"Oil generator can only use certain well-defined methods to generate energy."
+msgstr ""
+
+#: ../power.validator.mapcss:575
+msgid ""
+"Diesel generator can only use certain well-defined methods to generate "
+"energy."
+msgstr ""
+
+#: ../power.validator.mapcss:585
+msgid ""
+"Gasoline generator can only use certain well-defined methods to generate "
+"energy."
+msgstr ""
+
+#: ../power.validator.mapcss:596
+msgid ""
+"Waste generator can only use certain well-defined methods to generate energy."
+msgstr ""
+
+msgid ""
+"The plat:source=* tag can only have certain well-defined values. This is "
+"probably a typo or an deprecated way of tagging."
+msgstr ""
+
+#: ../power.validator.mapcss:641
+msgid ""
+"Nuclear power plants can only use certain well-defined methods to generate "
+"energy."
+msgstr ""
+
+#: ../power.validator.mapcss:661
+msgid ""
+"Wind power plants can only use certain well-defined methods to generate "
+"energy."
+msgstr ""
+
+#: ../power.validator.mapcss:681
+msgid ""
+"Hydro power plants can only use certain well-defined methods to generate "
+"energy."
+msgstr ""
+
+#: ../power.validator.mapcss:701
+msgid ""
+"Tidal power plants can only use certain well-defined methods to generate "
+"energy."
+msgstr ""
+
+#: ../power.validator.mapcss:721
+msgid ""
+"Solar power plants can only use certain well-defined methods to generate "
+"energy."
+msgstr ""
+
+#: ../power.validator.mapcss:740
+msgid ""
+"Coal power plants can only use certain well-defined methods to generate "
+"energy."
+msgstr ""
+
+#: ../power.validator.mapcss:750
+msgid ""
+"Gas power plants can only use certain well-defined methods to generate "
+"energy."
+msgstr ""
+
+#: ../power.validator.mapcss:761
+msgid ""
+"Biomass power plants can only use certain well-defined methods to generate "
+"energy."
+msgstr ""
+
+#: ../power.validator.mapcss:771
+msgid ""
+"Biofuel power plants can only use certain well-defined methods to generate "
+"energy."
+msgstr ""
+
+#: ../power.validator.mapcss:781
+msgid ""
+"Biogas power plants can only use certain well-defined methods to generate "
+"energy."
+msgstr ""
+
+#: ../power.validator.mapcss:791
+msgid ""
+"Oil power plants can only use certain well-defined methods to generate "
+"energy."
+msgstr ""
+
+#: ../power.validator.mapcss:801
+msgid ""
+"Diesel power plants can only use certain well-defined methods to generate "
+"energy."
+msgstr ""
+
+#: ../power.validator.mapcss:811
+msgid ""
+"Gasoline power plants can only use certain well-defined methods to generate "
+"energy."
+msgstr ""
+
+#: ../power.validator.mapcss:822
+msgid ""
+"Waste power plants can only use certain well-defined methods to generate "
+"energy."
+msgstr ""
+
+#: ../voltages.validator.mapcss:6 ../voltages.validator.mapcss:19
+#: ../voltages.validator.mapcss:32 ../voltages.validator.mapcss:45
+#: ../voltages.validator.mapcss:58 ../voltages.validator.mapcss:71
+#: ../voltages.validator.mapcss:84 ../voltages.validator.mapcss:97
+#: ../voltages.validator.mapcss:110 ../voltages.validator.mapcss:123
+#: ../voltages.validator.mapcss:136 ../voltages.validator.mapcss:149
+#: ../voltages.validator.mapcss:162 ../voltages.validator.mapcss:175
+#: ../voltages.validator.mapcss:188 ../voltages.validator.mapcss:201
+#: ../voltages.validator.mapcss:214 ../voltages.validator.mapcss:227
+#: ../voltages.validator.mapcss:240 ../voltages.validator.mapcss:253
+#: ../voltages.validator.mapcss:266 ../voltages.validator.mapcss:279
+#: ../voltages.validator.mapcss:292 ../voltages.validator.mapcss:305
+#: ../voltages.validator.mapcss:318 ../voltages.validator.mapcss:331
+#: ../voltages.validator.mapcss:344 ../voltages.validator.mapcss:357
+#: ../voltages.validator.mapcss:370 ../voltages.validator.mapcss:383
+#: ../voltages.validator.mapcss:396 ../voltages.validator.mapcss:409
+#: ../voltages.validator.mapcss:422 ../voltages.validator.mapcss:435
+#: ../voltages.validator.mapcss:448 ../voltages.validator.mapcss:461
+#: ../voltages.validator.mapcss:474 ../voltages.validator.mapcss:487
+#: ../voltages.validator.mapcss:500 ../voltages.validator.mapcss:513
+#: ../voltages.validator.mapcss:526 ../voltages.validator.mapcss:539
+#: ../voltages.validator.mapcss:552 ../voltages.validator.mapcss:565
+#: ../voltages.validator.mapcss:578 ../voltages.validator.mapcss:591
+#: ../voltages.validator.mapcss:604 ../voltages.validator.mapcss:617
+#: ../voltages.validator.mapcss:630 ../voltages.validator.mapcss:643
+#: ../voltages.validator.mapcss:656 ../voltages.validator.mapcss:669
+#: ../voltages.validator.mapcss:682 ../voltages.validator.mapcss:695
+#: ../voltages.validator.mapcss:708 ../voltages.validator.mapcss:721
+#: ../voltages.validator.mapcss:734 ../voltages.validator.mapcss:747
+#: ../voltages.validator.mapcss:760 ../voltages.validator.mapcss:773
+#: ../voltages.validator.mapcss:786 ../voltages.validator.mapcss:799
+#: ../voltages.validator.mapcss:812 ../voltages.validator.mapcss:825
+#: ../voltages.validator.mapcss:838 ../voltages.validator.mapcss:851
+#: ../voltages.validator.mapcss:864 ../voltages.validator.mapcss:877
+#: ../voltages.validator.mapcss:890 ../voltages.validator.mapcss:903
+#: ../voltages.validator.mapcss:916 ../voltages.validator.mapcss:929
+#: ../voltages.validator.mapcss:942 ../voltages.validator.mapcss:955
+#: ../voltages.validator.mapcss:968 ../voltages.validator.mapcss:981
+#: ../voltages.validator.mapcss:994 ../voltages.validator.mapcss:1007
+#: ../voltages.validator.mapcss:1020 ../voltages.validator.mapcss:1033
+#: ../voltages.validator.mapcss:1046 ../voltages.validator.mapcss:1059
+#: ../voltages.validator.mapcss:1072 ../voltages.validator.mapcss:1085
+#: ../voltages.validator.mapcss:1098 ../voltages.validator.mapcss:1111
+#: ../voltages.validator.mapcss:1124 ../voltages.validator.mapcss:1137
+#: ../voltages.validator.mapcss:1150 ../voltages.validator.mapcss:1163
+#: ../voltages.validator.mapcss:1176 ../voltages.validator.mapcss:1189
+#: ../voltages.validator.mapcss:1202 ../voltages.validator.mapcss:1215
+#: ../voltages.validator.mapcss:1228 ../voltages.validator.mapcss:1241
+#: ../voltages.validator.mapcss:1254 ../voltages.validator.mapcss:1267
+#: ../voltages.validator.mapcss:1280 ../voltages.validator.mapcss:1293
+#: ../voltages.validator.mapcss:1306 ../voltages.validator.mapcss:1319
+#: ../voltages.validator.mapcss:1332 ../voltages.validator.mapcss:1345
+#: ../voltages.validator.mapcss:1358 ../voltages.validator.mapcss:1371
+#: ../voltages.validator.mapcss:1384 ../voltages.validator.mapcss:1397
+#: ../voltages.validator.mapcss:1410 ../voltages.validator.mapcss:1423
+#: ../voltages.validator.mapcss:1436 ../voltages.validator.mapcss:1449
+#: ../voltages.validator.mapcss:1462 ../voltages.validator.mapcss:1475
+#: ../voltages.validator.mapcss:1488 ../voltages.validator.mapcss:1501
+#: ../voltages.validator.mapcss:1514 ../voltages.validator.mapcss:1527
+#: ../voltages.validator.mapcss:1540 ../voltages.validator.mapcss:1553
+#: ../voltages.validator.mapcss:1566 ../voltages.validator.mapcss:1579
+#: ../voltages.validator.mapcss:1592 ../voltages.validator.mapcss:1605
+#: ../voltages.validator.mapcss:1618 ../voltages.validator.mapcss:1631
+#: ../voltages.validator.mapcss:1644 ../voltages.validator.mapcss:1657
+#: ../voltages.validator.mapcss:1670 ../voltages.validator.mapcss:1683
+#: ../voltages.validator.mapcss:1696 ../voltages.validator.mapcss:1709
+#: ../voltages.validator.mapcss:1722 ../voltages.validator.mapcss:1735
+#: ../voltages.validator.mapcss:1748 ../voltages.validator.mapcss:1761
+#: ../voltages.validator.mapcss:1774 ../voltages.validator.mapcss:1787
+#: ../voltages.validator.mapcss:1800 ../voltages.validator.mapcss:1813
+#: ../voltages.validator.mapcss:1826 ../voltages.validator.mapcss:1839
+#: ../voltages.validator.mapcss:1852 ../voltages.validator.mapcss:1865
+#: ../voltages.validator.mapcss:1878 ../voltages.validator.mapcss:1891
+#: ../voltages.validator.mapcss:1904 ../voltages.validator.mapcss:1917
+#: ../voltages.validator.mapcss:1930 ../voltages.validator.mapcss:1943
+#: ../voltages.validator.mapcss:1956 ../voltages.validator.mapcss:1969
+#: ../voltages.validator.mapcss:1982 ../voltages.validator.mapcss:1995
+#: ../voltages.validator.mapcss:2008 ../voltages.validator.mapcss:2021
+#: ../voltages.validator.mapcss:2034 ../voltages.validator.mapcss:2047
+#: ../voltages.validator.mapcss:2060 ../voltages.validator.mapcss:2073
+#: ../voltages.validator.mapcss:2086 ../voltages.validator.mapcss:2099
+#: ../voltages.validator.mapcss:2112 ../voltages.validator.mapcss:2125
+#: ../voltages.validator.mapcss:2138 ../voltages.validator.mapcss:2151
+#: ../voltages.validator.mapcss:2164 ../voltages.validator.mapcss:2177
+#: ../voltages.validator.mapcss:2190 ../voltages.validator.mapcss:2203
+#: ../voltages.validator.mapcss:2216 ../voltages.validator.mapcss:2229
+#: ../voltages.validator.mapcss:2242
+msgid "Each country has its own voltage set used for electricity transmission."
+msgstr ""
+
+#: ../voltages.validator.mapcss:7 ../voltages.validator.mapcss:20
+#: ../voltages.validator.mapcss:33 ../voltages.validator.mapcss:46
+#: ../voltages.validator.mapcss:59 ../voltages.validator.mapcss:72
+#: ../voltages.validator.mapcss:85 ../voltages.validator.mapcss:98
+#: ../voltages.validator.mapcss:111 ../voltages.validator.mapcss:124
+#: ../voltages.validator.mapcss:137 ../voltages.validator.mapcss:150
+#: ../voltages.validator.mapcss:163 ../voltages.validator.mapcss:176
+#: ../voltages.validator.mapcss:189 ../voltages.validator.mapcss:202
+#: ../voltages.validator.mapcss:215 ../voltages.validator.mapcss:228
+#: ../voltages.validator.mapcss:241 ../voltages.validator.mapcss:254
+#: ../voltages.validator.mapcss:267 ../voltages.validator.mapcss:280
+#: ../voltages.validator.mapcss:293 ../voltages.validator.mapcss:306
+#: ../voltages.validator.mapcss:319 ../voltages.validator.mapcss:332
+#: ../voltages.validator.mapcss:345 ../voltages.validator.mapcss:358
+#: ../voltages.validator.mapcss:371 ../voltages.validator.mapcss:384
+#: ../voltages.validator.mapcss:397 ../voltages.validator.mapcss:410
+#: ../voltages.validator.mapcss:423 ../voltages.validator.mapcss:436
+#: ../voltages.validator.mapcss:449 ../voltages.validator.mapcss:462
+#: ../voltages.validator.mapcss:475 ../voltages.validator.mapcss:488
+#: ../voltages.validator.mapcss:501 ../voltages.validator.mapcss:514
+#: ../voltages.validator.mapcss:527 ../voltages.validator.mapcss:540
+#: ../voltages.validator.mapcss:553 ../voltages.validator.mapcss:566
+#: ../voltages.validator.mapcss:579 ../voltages.validator.mapcss:592
+#: ../voltages.validator.mapcss:605 ../voltages.validator.mapcss:618
+#: ../voltages.validator.mapcss:631 ../voltages.validator.mapcss:644
+#: ../voltages.validator.mapcss:657 ../voltages.validator.mapcss:670
+#: ../voltages.validator.mapcss:683 ../voltages.validator.mapcss:696
+#: ../voltages.validator.mapcss:709 ../voltages.validator.mapcss:722
+#: ../voltages.validator.mapcss:735 ../voltages.validator.mapcss:748
+#: ../voltages.validator.mapcss:761 ../voltages.validator.mapcss:774
+#: ../voltages.validator.mapcss:787 ../voltages.validator.mapcss:800
+#: ../voltages.validator.mapcss:813 ../voltages.validator.mapcss:826
+#: ../voltages.validator.mapcss:839 ../voltages.validator.mapcss:852
+#: ../voltages.validator.mapcss:865 ../voltages.validator.mapcss:878
+#: ../voltages.validator.mapcss:891 ../voltages.validator.mapcss:904
+#: ../voltages.validator.mapcss:917 ../voltages.validator.mapcss:930
+#: ../voltages.validator.mapcss:943 ../voltages.validator.mapcss:956
+#: ../voltages.validator.mapcss:969 ../voltages.validator.mapcss:982
+#: ../voltages.validator.mapcss:995 ../voltages.validator.mapcss:1008
+#: ../voltages.validator.mapcss:1021 ../voltages.validator.mapcss:1034
+#: ../voltages.validator.mapcss:1047 ../voltages.validator.mapcss:1060
+#: ../voltages.validator.mapcss:1073 ../voltages.validator.mapcss:1086
+#: ../voltages.validator.mapcss:1099 ../voltages.validator.mapcss:1112
+#: ../voltages.validator.mapcss:1125 ../voltages.validator.mapcss:1138
+#: ../voltages.validator.mapcss:1151 ../voltages.validator.mapcss:1164
+#: ../voltages.validator.mapcss:1177 ../voltages.validator.mapcss:1190
+#: ../voltages.validator.mapcss:1203 ../voltages.validator.mapcss:1216
+#: ../voltages.validator.mapcss:1229 ../voltages.validator.mapcss:1242
+#: ../voltages.validator.mapcss:1255 ../voltages.validator.mapcss:1268
+#: ../voltages.validator.mapcss:1281 ../voltages.validator.mapcss:1294
+#: ../voltages.validator.mapcss:1307 ../voltages.validator.mapcss:1320
+#: ../voltages.validator.mapcss:1333 ../voltages.validator.mapcss:1346
+#: ../voltages.validator.mapcss:1359 ../voltages.validator.mapcss:1372
+#: ../voltages.validator.mapcss:1385 ../voltages.validator.mapcss:1398
+#: ../voltages.validator.mapcss:1411 ../voltages.validator.mapcss:1424
+#: ../voltages.validator.mapcss:1437 ../voltages.validator.mapcss:1450
+#: ../voltages.validator.mapcss:1463 ../voltages.validator.mapcss:1476
+#: ../voltages.validator.mapcss:1489 ../voltages.validator.mapcss:1502
+#: ../voltages.validator.mapcss:1515 ../voltages.validator.mapcss:1528
+#: ../voltages.validator.mapcss:1541 ../voltages.validator.mapcss:1554
+#: ../voltages.validator.mapcss:1567 ../voltages.validator.mapcss:1580
+#: ../voltages.validator.mapcss:1593 ../voltages.validator.mapcss:1606
+#: ../voltages.validator.mapcss:1619 ../voltages.validator.mapcss:1632
+#: ../voltages.validator.mapcss:1645 ../voltages.validator.mapcss:1658
+#: ../voltages.validator.mapcss:1671 ../voltages.validator.mapcss:1684
+#: ../voltages.validator.mapcss:1697 ../voltages.validator.mapcss:1710
+#: ../voltages.validator.mapcss:1723 ../voltages.validator.mapcss:1736
+#: ../voltages.validator.mapcss:1749 ../voltages.validator.mapcss:1762
+#: ../voltages.validator.mapcss:1775 ../voltages.validator.mapcss:1788
+#: ../voltages.validator.mapcss:1801 ../voltages.validator.mapcss:1814
+#: ../voltages.validator.mapcss:1827 ../voltages.validator.mapcss:1840
+#: ../voltages.validator.mapcss:1853 ../voltages.validator.mapcss:1866
+#: ../voltages.validator.mapcss:1879 ../voltages.validator.mapcss:1892
+#: ../voltages.validator.mapcss:1905 ../voltages.validator.mapcss:1918
+#: ../voltages.validator.mapcss:1931 ../voltages.validator.mapcss:1944
+#: ../voltages.validator.mapcss:1957 ../voltages.validator.mapcss:1970
+#: ../voltages.validator.mapcss:1983 ../voltages.validator.mapcss:1996
+#: ../voltages.validator.mapcss:2009 ../voltages.validator.mapcss:2022
+#: ../voltages.validator.mapcss:2035 ../voltages.validator.mapcss:2048
+#: ../voltages.validator.mapcss:2061 ../voltages.validator.mapcss:2074
+#: ../voltages.validator.mapcss:2087 ../voltages.validator.mapcss:2100
+#: ../voltages.validator.mapcss:2113 ../voltages.validator.mapcss:2126
+#: ../voltages.validator.mapcss:2139 ../voltages.validator.mapcss:2152
+#: ../voltages.validator.mapcss:2165 ../voltages.validator.mapcss:2178
+#: ../voltages.validator.mapcss:2191 ../voltages.validator.mapcss:2204
+#: ../voltages.validator.mapcss:2217 ../voltages.validator.mapcss:2230
+#: ../voltages.validator.mapcss:2243
+msgid "For example, in Jordan, only 132 kV and 400 kV voltages are used."
+msgstr ""
+
+#: ../voltages.validator.mapcss:8 ../voltages.validator.mapcss:21
+#: ../voltages.validator.mapcss:34 ../voltages.validator.mapcss:47
+#: ../voltages.validator.mapcss:60 ../voltages.validator.mapcss:73
+#: ../voltages.validator.mapcss:86 ../voltages.validator.mapcss:99
+#: ../voltages.validator.mapcss:112 ../voltages.validator.mapcss:125
+#: ../voltages.validator.mapcss:138 ../voltages.validator.mapcss:151
+#: ../voltages.validator.mapcss:164 ../voltages.validator.mapcss:177
+#: ../voltages.validator.mapcss:190 ../voltages.validator.mapcss:203
+#: ../voltages.validator.mapcss:216 ../voltages.validator.mapcss:229
+#: ../voltages.validator.mapcss:242 ../voltages.validator.mapcss:255
+#: ../voltages.validator.mapcss:268 ../voltages.validator.mapcss:281
+#: ../voltages.validator.mapcss:294 ../voltages.validator.mapcss:307
+#: ../voltages.validator.mapcss:320 ../voltages.validator.mapcss:333
+#: ../voltages.validator.mapcss:346 ../voltages.validator.mapcss:359
+#: ../voltages.validator.mapcss:372 ../voltages.validator.mapcss:385
+#: ../voltages.validator.mapcss:398 ../voltages.validator.mapcss:411
+#: ../voltages.validator.mapcss:424 ../voltages.validator.mapcss:437
+#: ../voltages.validator.mapcss:450 ../voltages.validator.mapcss:463
+#: ../voltages.validator.mapcss:476 ../voltages.validator.mapcss:489
+#: ../voltages.validator.mapcss:502 ../voltages.validator.mapcss:515
+#: ../voltages.validator.mapcss:528 ../voltages.validator.mapcss:541
+#: ../voltages.validator.mapcss:554 ../voltages.validator.mapcss:567
+#: ../voltages.validator.mapcss:580 ../voltages.validator.mapcss:593
+#: ../voltages.validator.mapcss:606 ../voltages.validator.mapcss:619
+#: ../voltages.validator.mapcss:632 ../voltages.validator.mapcss:645
+#: ../voltages.validator.mapcss:658 ../voltages.validator.mapcss:671
+#: ../voltages.validator.mapcss:684 ../voltages.validator.mapcss:697
+#: ../voltages.validator.mapcss:710 ../voltages.validator.mapcss:723
+#: ../voltages.validator.mapcss:736 ../voltages.validator.mapcss:749
+#: ../voltages.validator.mapcss:762 ../voltages.validator.mapcss:775
+#: ../voltages.validator.mapcss:788 ../voltages.validator.mapcss:801
+#: ../voltages.validator.mapcss:814 ../voltages.validator.mapcss:827
+#: ../voltages.validator.mapcss:840 ../voltages.validator.mapcss:853
+#: ../voltages.validator.mapcss:866 ../voltages.validator.mapcss:879
+#: ../voltages.validator.mapcss:892 ../voltages.validator.mapcss:905
+#: ../voltages.validator.mapcss:918 ../voltages.validator.mapcss:931
+#: ../voltages.validator.mapcss:944 ../voltages.validator.mapcss:957
+#: ../voltages.validator.mapcss:970 ../voltages.validator.mapcss:983
+#: ../voltages.validator.mapcss:996 ../voltages.validator.mapcss:1009
+#: ../voltages.validator.mapcss:1022 ../voltages.validator.mapcss:1035
+#: ../voltages.validator.mapcss:1048 ../voltages.validator.mapcss:1061
+#: ../voltages.validator.mapcss:1074 ../voltages.validator.mapcss:1087
+#: ../voltages.validator.mapcss:1100 ../voltages.validator.mapcss:1113
+#: ../voltages.validator.mapcss:1126 ../voltages.validator.mapcss:1139
+#: ../voltages.validator.mapcss:1152 ../voltages.validator.mapcss:1165
+#: ../voltages.validator.mapcss:1178 ../voltages.validator.mapcss:1191
+#: ../voltages.validator.mapcss:1204 ../voltages.validator.mapcss:1217
+#: ../voltages.validator.mapcss:1230 ../voltages.validator.mapcss:1243
+#: ../voltages.validator.mapcss:1256 ../voltages.validator.mapcss:1269
+#: ../voltages.validator.mapcss:1282 ../voltages.validator.mapcss:1295
+#: ../voltages.validator.mapcss:1308 ../voltages.validator.mapcss:1321
+#: ../voltages.validator.mapcss:1334 ../voltages.validator.mapcss:1347
+#: ../voltages.validator.mapcss:1360 ../voltages.validator.mapcss:1373
+#: ../voltages.validator.mapcss:1386 ../voltages.validator.mapcss:1399
+#: ../voltages.validator.mapcss:1412 ../voltages.validator.mapcss:1425
+#: ../voltages.validator.mapcss:1438 ../voltages.validator.mapcss:1451
+#: ../voltages.validator.mapcss:1464 ../voltages.validator.mapcss:1477
+#: ../voltages.validator.mapcss:1490 ../voltages.validator.mapcss:1503
+#: ../voltages.validator.mapcss:1516 ../voltages.validator.mapcss:1529
+#: ../voltages.validator.mapcss:1542 ../voltages.validator.mapcss:1555
+#: ../voltages.validator.mapcss:1568 ../voltages.validator.mapcss:1581
+#: ../voltages.validator.mapcss:1594 ../voltages.validator.mapcss:1607
+#: ../voltages.validator.mapcss:1620 ../voltages.validator.mapcss:1633
+#: ../voltages.validator.mapcss:1646 ../voltages.validator.mapcss:1659
+#: ../voltages.validator.mapcss:1672 ../voltages.validator.mapcss:1685
+#: ../voltages.validator.mapcss:1698 ../voltages.validator.mapcss:1711
+#: ../voltages.validator.mapcss:1724 ../voltages.validator.mapcss:1737
+#: ../voltages.validator.mapcss:1750 ../voltages.validator.mapcss:1763
+#: ../voltages.validator.mapcss:1776 ../voltages.validator.mapcss:1789
+#: ../voltages.validator.mapcss:1802 ../voltages.validator.mapcss:1815
+#: ../voltages.validator.mapcss:1828 ../voltages.validator.mapcss:1841
+#: ../voltages.validator.mapcss:1854 ../voltages.validator.mapcss:1867
+#: ../voltages.validator.mapcss:1880 ../voltages.validator.mapcss:1893
+#: ../voltages.validator.mapcss:1906 ../voltages.validator.mapcss:1919
+#: ../voltages.validator.mapcss:1932 ../voltages.validator.mapcss:1945
+#: ../voltages.validator.mapcss:1958 ../voltages.validator.mapcss:1971
+#: ../voltages.validator.mapcss:1984 ../voltages.validator.mapcss:1997
+#: ../voltages.validator.mapcss:2010 ../voltages.validator.mapcss:2023
+#: ../voltages.validator.mapcss:2036 ../voltages.validator.mapcss:2049
+#: ../voltages.validator.mapcss:2062 ../voltages.validator.mapcss:2075
+#: ../voltages.validator.mapcss:2088 ../voltages.validator.mapcss:2101
+#: ../voltages.validator.mapcss:2114 ../voltages.validator.mapcss:2127
+#: ../voltages.validator.mapcss:2140 ../voltages.validator.mapcss:2153
+#: ../voltages.validator.mapcss:2166 ../voltages.validator.mapcss:2179
+#: ../voltages.validator.mapcss:2192 ../voltages.validator.mapcss:2205
+#: ../voltages.validator.mapcss:2218 ../voltages.validator.mapcss:2231
+#: ../voltages.validator.mapcss:2244
+msgid ""
+"Check the list of possible values for this country on the wiki and correct "
+"the `0` tag."
+msgstr ""
+
+#: ../power.validator.mapcss:630
+msgid ""
+"The plant:source=* tag can only have certain well-defined values. This is "
+"probably a typo or an deprecated way of tagging."
 msgstr ""
