@@ -1,174 +1,174 @@
-country_code,country_name,allowed_voltages,source
-AF,Afghanistan,110000;132000;220000;500000,OpenStreetMap data
-AL,Albania,30000;35000;110000;150000;220000;400000,OpenStreetMap data
-DZ,Algeria,30000;60000;66000;90000;150000;220000;225000;400000,OpenStreetMap data
-AD,Andorra,110000;150000;225000,OpenStreetMap data
-AO,Angola,60000;66000;110000;132000;150000;220000;400000,OpenStreetMap data
-AR,Argentina,13200;25000;32000;33000;35000;66000;132000;220000;330000;345000;500000,OpenStreetMap data
-AM,Armenia,35000;36000;100000;110000;220000;230000;330000;400000;500000,OpenStreetMap data
-AU,Australia,10500;11000;12700;19000;19100;22000;33000;35000;44000;50000;66000;80000;110000;132000;150000;220000;275000;330000;400000;500000,OpenStreetMap data
-AT,Austria,10500;13800;15000;16000;17500;20000;25000;30000;55000;60000;110000;132000;150000;220000;380000;400000,OpenStreetMap data
-AZ,Azerbaijan,35000;110000;132000;154000;220000;330000;500000,OpenStreetMap data
-BH,Bahrain,220000;230000;400000,OpenStreetMap data
-BD,Bangladesh,23000;33000;132000;230000;400000,OpenStreetMap data
-BY,Belarus,35000;40000;100000;110000;220000;330000;750000,OpenStreetMap data
-BE,Belgium,11000;11500;15000;30000;33000;36000;50000;63000;70000;110000;150000;220000;225000;320000;380000;400000,OpenStreetMap data
-BZ,Belize,22000;34500;69000;115000,OpenStreetMap data
-BJ,Benin,161000;330000,OpenStreetMap data
-BT,Bhutan,66000;132000;220000;400000,OpenStreetMap data
-BO,Bolivia,115000;220000;500000,OpenStreetMap wiki
-BA,Bosnia and Herzegovina,35000;110000;220000;400000,OpenStreetMap data
-BW,Botswana,66000;132000;220000;400000,OpenStreetMap data
-BR,Brazil,13800;23100;34500;66000;69000;88000;110000;132000;138000;230000;345000;440000;500000;525000;600000;765000;800000,OpenStreetMap data
-BN,Brunei,66000;132000;275000,OpenStreetMap data
-BG,Bulgaria,20000;22000;25000;35000;110000;220000;400000,OpenStreetMap data
-BF,Burkina Faso,90000;132000;225000,OpenStreetMap data
-BI,Burundi,70000;110000;220000,OpenStreetMap data
-KH,Cambodia,115000;230000,OpenStreetMap data
-CM,Cameroon,30000;90000;110000;220000;225000,OpenStreetMap data
-CA,Canada,11500;12000;12470;12500;13000;13200;13800;14000;14400;16000;17500;23000;24940;25000;26400;27600;28000;34000;34500;35000;42000;44000;46000;49000;60000;63000;66000;69000;72000;110000;115000;120000;132000;138000;144000;150000;161000;200000;220000;230000;240000;260000;280000;287000;315000;345000;350000;360000;450000;500000;735000;765000,OpenStreetMap data
-CV,Cape Verde,20000;60000,OpenStreetMap data
-CF,Central African Republic,110000,OpenStreetMap data
-TD,Chad,20000;66000;90000,OpenStreetMap data
-CL,Chile,13800;15000;23000;33000;34500;66000;69000;100000;110000;154000;220000;345000;500000,OpenStreetMap data
-CO,Colombia,15000;25000;34500;66000;110000;115000;138000;220000;230000;500000,OpenStreetMap data
-CR,Costa Rica,34500;138000;230000,OpenStreetMap data
-HR,Croatia,20000;25000;35000;110000;220000;400000;500000,OpenStreetMap data
-CU,Cuba,11000;110000;220000,OpenStreetMap data
-CY,Cyprus,66000;132000,OpenStreetMap data
-CZ,Czech Republic,22000;33000;35000;110000;220000;380000;400000,OpenStreetMap data
-CD,Democratic Republic of the Congo,11000;30000;33000;50000;70000;110000;120000;132000;220000;400000;500000,OpenStreetMap data
-DJ,Djibouti,63000;230000,OpenStreetMap data
-DO,Dominican Republic,69000;138000;230000;345000,OpenStreetMap data
-EC,Ecuador,11000;22000;23000;34500;46000;48000;69000;138000;230000;500000,OpenStreetMap data
-EG,Egypt,66000;132000;220000;400000;500000,OpenStreetMap data
-SV,El Salvador,115000;230000,OpenStreetMap data
-GQ,Equatorial Guinea,110000;220000,OpenStreetMap data
-ER,Eritrea,66000;132000,OpenStreetMap data
-EE,Estonia,15000;20000;24000;35000;110000;150000;330000;450000,OpenStreetMap data
-SZ,Eswatini,66000;132000;400000,OpenStreetMap wiki
-ET,Ethiopia,25000;45000;66000;132000;220000;230000;400000;500000,OpenStreetMap data
-FM,Federated States of Micronesia,13800,OpenStreetMap data
-FJ,Fiji,11000;33000;110000;132000,OpenStreetMap data
-FI,Finland,20000;22000;25000;45000;80000;100000;110000;150000;220000;400000;450000;500000,OpenStreetMap data
-FR,France,10300;10500;13000;15000;15500;16000;17000;17200;17500;20000;25000;30000;33000;42000;45000;50000;52000;63000;66000;90000;110000;150000;200000;220000;225000;270000;320000;380000;400000;500000,OpenStreetMap data
-GA,Gabon,63000;90000;115000;225000,OpenStreetMap data
-GE,Georgia,35000;110000;154000;220000;330000;350000;380000;400000;500000,OpenStreetMap data
-DE,Germany,10500;11000;15000;16000;20000;21000;22000;25000;27000;30000;33000;35000;50000;55000;60000;63000;65000;110000;132000;150000;155000;200000;220000;225000;250000;300000;320000;362000;380000;400000;450000;525000;600000,OpenStreetMap data
-GH,Ghana,11000;161000;225000;330000,OpenStreetMap data
-GR,Greece,15000;20000;22000;66000;150000;400000;500000,OpenStreetMap data
-GT,Guatemala,69000;115000;132000;138000;230000;400000,OpenStreetMap data
-GN,Guinea,30000;110000;225000,OpenStreetMap data
-GW,Guinea-Bissau,225000,OpenStreetMap data
-HT,Haiti,69000;115000,OpenStreetMap data
-HN,Honduras,69000;138000;230000,OpenStreetMap data
-HU,Hungary,11000;18000;20000;22000;25000;35000;110000;132000;220000;400000;750000,OpenStreetMap data
-IS,Iceland,66000;132000;220000,OpenStreetMap data
-IN,India,11000;13200;22000;25000;31000;33000;66000;100000;110000;132000;200000;220000;220001;230000;320000;400000;500000;660000;765000;800000;1200000,OpenStreetMap data
-ID,Indonesia,20000;70000;150000;230000;275000;500000,OpenStreetMap data
-IR,Iran,15000;20000;25000;63000;110000;132000;154000;220000;230000;330000;380000;400000;2300000,OpenStreetMap data
-IQ,Iraq,11000;23000;25000;33000;66000;132000;154000;400000,OpenStreetMap data
-IE,Ireland,10500;19000;20000;22000;33000;38000;110000;200000;220000;275000;320000;380000;400000,OpenStreetMap data
-IL,Israel,115000;161000;400000,OpenStreetMap data
-IT,Italy,15000;20000;25000;30000;45000;50000;55000;60000;63000;66000;68000;70000;110000;120000;130000;132000;135000;137000;138000;150000;200000;220000;225000;320000;380000;400000;500000,OpenStreetMap data
-CI,Ivory Coast,15000;90000;225000;400000,OpenStreetMap data
-JM,Jamaica,69000;138000,OpenStreetMap data
-JP,Japan,11000;15400;20000;22000;25000;30000;33000;44000;60000;66000;77000;100000;110000;132000;154000;187000;200000;220000;250000;275000;500000;660000,OpenStreetMap data
-JO,Jordan,132000;400000,OpenStreetMap wiki
-KZ,Kazakhstan,22000;35000;110000;220000;500000,OpenStreetMap data
-KE,Kenya,11000;15000;132000;220000;400000;500000,OpenStreetMap data
-DK,Kingdom of Denmark,15000;25000;33000;50000;60000;66000;132000;150000;220000;250000;285000;300000;320000;350000;400000;450000;500000;525000,OpenStreetMap data
-NL,Kingdom of the Netherlands,13000;20000;22000;23000;24000;25000;30000;33000;34000;50000;66000;110000;150000;220000;320000;380000;450000;600000,OpenStreetMap data
-KW,Kuwait,33000;66000;132000;275000;400000,OpenStreetMap data
-KG,Kyrgyzstan,10000;110000;220000;500000,OpenStreetMap wiki
-LA,Laos,110000;115000;220000;230000;500000,OpenStreetMap data
-LV,Latvia,20000;110000;330000,OpenStreetMap data
-LB,Lebanon,33000;66000;150000;220000;400000,OpenStreetMap wiki
-LS,Lesotho,33000;66000;88000;132000,OpenStreetMap wiki
-LR,Liberia,66000;225000,OpenStreetMap data
-LY,Libya,22500;25000;30000;66000;69000;132000;220000;400000;500000,OpenStreetMap data
-LI,Liechtenstein,220000,OpenStreetMap data
-LT,Lithuania,15000;35000;110000;300000;330000;400000,OpenStreetMap data
-LU,Luxembourg,63000;65000;150000;220000;225000,OpenStreetMap data
-MG,Madagascar,63000;138000,OpenStreetMap data
-MW,Malawi,11000;33000;66000;110000;132000;400000,OpenStreetMap data
-MY,Malaysia,11000;33000;66000;132000;275000;300000;500000,OpenStreetMap data
-MV,Maldives,132000,OpenStreetMap data
-ML,Mali,63000;150000;225000,OpenStreetMap data
-MT,Malta,11000;33000;132000;220000,OpenStreetMap data
-MR,Mauritania,90000;225000,OpenStreetMap data
-MU,Mauritius,66000,OpenStreetMap data
-MX,Mexico,13800;15000;25000;34500;65000;69000;85000;113000;115000;138000;161000;230000;400000,OpenStreetMap data
-MD,Moldova,33000;35000;110000;330000;400000,OpenStreetMap data
-MN,Mongolia,15000;22000;35000;110000;220000,OpenStreetMap data
-ME,Montenegro,35000;110000;220000;400000;500000,OpenStreetMap data
-MA,Morocco,20000;22000;22500;30000;33000;60000;110000;132000;150000;220000;225000;400000,OpenStreetMap data
-MZ,Mozambique,66000;110000;132000;220000;275000;330000;400000;533000,OpenStreetMap data
-MM,Myanmar,11000;20000;33000;66000;110000;132000;230000;500000,OpenStreetMap data
-NA,Namibia,11000;19000;22000;33000;66000;132000;220000;330000;350000;400000,OpenStreetMap data
-NP,Nepal,33000;66000;132000;220000;400000,OpenStreetMap data
-NZ,New Zealand,50000;66000;110000;220000,OpenStreetMap wiki
-NI,Nicaragua,69000;138000;230000,OpenStreetMap data
-NE,Niger,66000;132000,OpenStreetMap data
-NG,Nigeria,11000;33000;132000;330000,OpenStreetMap data
-KP,North Korea,11000;66000;110000;154000;220000,OpenStreetMap data
-MK,North Macedonia,110000;220000;400000,OpenStreetMap data
-NO,Norway,11000;12000;13000;15000;16000;17000;20000;22000;24000;25000;33000;45000;47000;50000;55000;60000;66000;80000;90000;100000;110000;132000;150000;220000;250000;300000;350000;400000;420000;450000;500000;515000;525000;825000,OpenStreetMap data
-OM,Oman,132000;220000;400000,OpenStreetMap data
-PK,Pakistan,11000;33000;66000;110000;132000;220000;230000;500000;660000,OpenStreetMap data
-PA,Panama,115000;230000,OpenStreetMap data
-PG,Papua New Guinea,11000;66000;132000,OpenStreetMap data
-PY,Paraguay,12000;34500;66000;69000;132000;138000;220000;500000,OpenStreetMap data
-CN,People's Republic of China,10500;11000;22000;23000;25000;27000;27500;33000;35000;50000;63000;66000;100000;110000;132000;160000;220000;230000;275000;320000;330000;400000;500000;544000;660000;750000;800000;1000000;1100000;1150000;2200001;2200002;22000011,OpenStreetMap data
-PE,Peru,30000;33000;60000;66000;138000;220000;230000;500000,OpenStreetMap data
-PH,Philippines,13200;13800;20000;23000;30000;34500;60000;69000;70000;115000;138000;220000;230000;345000;350000;500000,OpenStreetMap data
-PL,Poland,11000;15000;20000;21000;22000;25000;27000;30000;100000;110000;200000;220000;400000;450000,OpenStreetMap data
-PT,Portugal,11000;15000;18000;20000;25000;30000;50000;60000;130000;150000;220000;400000,OpenStreetMap data
-QA,Qatar,21000;66000;110000;132000;220000;400000,OpenStreetMap data
-CG,Republic of the Congo,110000;220000,OpenStreetMap data
-RO,Romania,20000;25000;38000;55000;110000;220000;380000;400000,OpenStreetMap data
-RU,Russia,10500;15000;16000;20000;30000;35000;60000;66000;100000;110000;138000;150000;154000;220000;330000;350000;400000;500000;750000;800000;1100000,OpenStreetMap data
-RW,Rwanda,70000;110000;220000,OpenStreetMap data
-SM,San Marino,132000,OpenStreetMap data
-SA,Saudi Arabia,25000;33000;110000;115000;132000;230000;380000;400000,OpenStreetMap data
-SN,Senegal,90000;225000,OpenStreetMap data
-RS,Serbia,20000;25000;30000;35000;110000;220000;380000;400000,OpenStreetMap data
-SL,Sierra Leone,161000;225000,OpenStreetMap data
-SG,Singapore,230000,OpenStreetMap data
-SK,Slovakia,22000;110000;220000;400000,OpenStreetMap data
-SI,Slovenia,15000;20000;35000;100000;110000;220000;400000,OpenStreetMap data
-ZA,South Africa,11000;20000;22000;33000;44000;66000;88000;110000;132000;220000;275000;380000;400000;533000;765000,OpenStreetMap data
-KR,South Korea,15000;22900;145000;150000;154000;180000;250000;345000;354000;380000;765000,OpenStreetMap data
-SS,South Sudan,220000,OpenStreetMap data
-ES,Spain,12000;13000;13200;15000;17000;20000;22000;24000;25000;30000;33000;35000;45000;50000;55000;60000;65000;66000;66600;100000;110000;120000;130000;132000;138000;150000;200000;220000;225000;240000;250000;320000;400000,OpenStreetMap data
-LK,Sri Lanka,11000;33000;132000;220000,OpenStreetMap data
-PS,State of Palestine,161000,OpenStreetMap data
-SD,Sudan,66000;110000;220000;500000,OpenStreetMap data
-SR,Suriname,161000,OpenStreetMap data
-SE,Sweden,11000;12000;15000;20000;22000;24000;30000;36000;40000;45000;50000;52000;55000;60000;66000;70000;72500;77000;80000;110000;130000;132000;138000;145000;150000;160000;170000;220000;230000;236000;285000;300000;400000;412000;420000;450000;500000,OpenStreetMap data
-CH,Switzerland,11000;13000;15000;15500;16000;17000;18000;20000;21000;22000;23000;25000;50000;60000;63000;65000;66000;110000;125000;130000;132000;138000;145000;150000;220000;222000;225000;380000;400000,OpenStreetMap data
-SY,Syria,23000;66000;154000;161000;220000;230000;380000;400000,OpenStreetMap data
-TW,Taiwan,69000;161000;345000;690000,OpenStreetMap data
-TJ,Tajikistan,35000;110000;138000;220000;500000,OpenStreetMap data
-TZ,Tanzania,11000;33000;66000;132000;220000;222000;400000,OpenStreetMap data
-TH,Thailand,22000;50000;69000;115000;132000;230000;300000;500000,OpenStreetMap data
-BS,The Bahamas,132000,OpenStreetMap data
-GM,The Gambia,225000,OpenStreetMap data
-TL,Timor-Leste,150000,OpenStreetMap data
-TG,Togo,161000;330000,OpenStreetMap data
-TT,Trinidad and Tobago,66000;132000;220000,OpenStreetMap data
-TN,Tunisia,15000;22500;30000;33000;90000;150000;220000;225000;400000,OpenStreetMap data
-TR,Turkey,20000;25000;31500;34000;34500;35000;36000;66000;150000;154000;170000;220000;345005;380000;400000;1000000,OpenStreetMap data
-TM,Turkmenistan,110000;220000;230000;500000,OpenStreetMap data
-UG,Uganda,11000;15000;33000;66000;132000;220000;400000,OpenStreetMap data
-UA,Ukraine,15000;35000;110000;150000;154000;220000;330000;400000;500000;750000;800000,OpenStreetMap data
-AE,United Arab Emirates,33000;132000;220000;400000,OpenStreetMap data
-GB,United Kingdom,11000;12300;13800;15000;16000;20000;22000;24000;25000;27000;32000;33000;33300;35000;36000;66000;90000;110000;132000;145000;150000;170000;200000;220000;250000;254000;270000;275000;320000;400000;450000;515000;525000;600000,OpenStreetMap data
-US,United States,11000;11500;12000;12370;12400;12470;12500;13000;13200;13800;13860;14000;14400;14750;15000;16000;17500;18000;19920;19935;20000;20800;21000;21800;22000;23000;23900;24000;24900;24940;25000;26000;26400;27000;27600;32000;33000;34000;34500;34599;35000;35400;37500;38000;40000;41600;43000;43800;44000;46000;49000;50000;55000;57000;57100;60000;66000;69000;70000;71000;87000;88000;92000;100000;110000;111500;115000;120000;125000;130000;132000;138000;150000;160000;161000;200000;220000;230000;235000;250000;260000;276000;287000;320000;345000;400000;450000;460000;500000;690002;765000;1100000;1150003;1333000;1380000,OpenStreetMap data
-UY,Uruguay,30000;31500;60000;63000;132000;150000;230000;500000,OpenStreetMap data
-UZ,Uzbekistan,35000;75000;110000;220000;350000;380000;500000,OpenStreetMap data
-VE,Venezuela,13800;24000;30000;69000;115000;138000;230000;400000;765000,OpenStreetMap data
-VN,Vietnam,22000;50000;110000;115000;220000;230000;500000,OpenStreetMap data
-YE,Yemen,132000;400000,OpenStreetMap data
-ZM,Zambia,11000;33000;66000;88000;132000;220000;330000,OpenStreetMap data
-ZW,Zimbabwe,33000;66000;88000;110000;132000;220000;330000;400000,OpenStreetMap data
+country_code,country_name,allowed_voltages,wiki
+AF,Afghanistan,110000;132000;220000;500000,https://wiki.openstreetmap.org/wiki/Power_networks/Afghanistan
+AL,Albania,30000;35000;110000;150000;220000;400000,https://wiki.openstreetmap.org/wiki/Power_networks/Albania
+DZ,Algeria,30000;60000;66000;90000;150000;220000;225000;400000,https://wiki.openstreetmap.org/wiki/Power_networks/Algeria
+AD,Andorra,110000;150000;225000,https://wiki.openstreetmap.org/wiki/Power_networks/Andorra
+AO,Angola,60000;66000;110000;132000;150000;220000;400000,https://wiki.openstreetmap.org/wiki/Power_networks/Angola
+AR,Argentina,13200;25000;32000;33000;35000;66000;132000;220000;330000;345000;500000,https://wiki.openstreetmap.org/wiki/Power_networks/Argentina
+AM,Armenia,35000;36000;100000;110000;220000;230000;330000;400000;500000,https://wiki.openstreetmap.org/wiki/Power_networks/Armenia
+AU,Australia,10500;11000;12700;19000;19100;22000;33000;35000;44000;50000;66000;80000;110000;132000;150000;220000;275000;330000;400000;500000,https://wiki.openstreetmap.org/wiki/Power_networks/Australia
+AT,Austria,10500;13800;15000;16000;17500;20000;25000;30000;55000;60000;110000;132000;150000;220000;380000;400000,https://wiki.openstreetmap.org/wiki/Power_networks/Austria
+AZ,Azerbaijan,35000;110000;132000;154000;220000;330000;500000,https://wiki.openstreetmap.org/wiki/Power_networks/Azerbaijan
+BH,Bahrain,220000;230000;400000,https://wiki.openstreetmap.org/wiki/Power_networks/Bahrain
+BD,Bangladesh,23000;33000;132000;230000;400000,https://wiki.openstreetmap.org/wiki/Power_networks/Bangladesh
+BY,Belarus,35000;40000;100000;110000;220000;330000;750000,https://wiki.openstreetmap.org/wiki/Power_networks/Belarus
+BE,Belgium,11000;11500;15000;30000;33000;36000;50000;63000;70000;110000;150000;220000;225000;320000;380000;400000,https://wiki.openstreetmap.org/wiki/Power_networks/Belgium
+BZ,Belize,22000;34500;69000;115000,https://wiki.openstreetmap.org/wiki/Power_networks/Belize
+BJ,Benin,161000;330000,https://wiki.openstreetmap.org/wiki/Power_networks/Benin
+BT,Bhutan,66000;132000;220000;400000,https://wiki.openstreetmap.org/wiki/Power_networks/Bhutan
+BO,Bolivia,115000;220000;500000,https://wiki.openstreetmap.org/wiki/Power_networks/Bolivia
+BA,Bosnia and Herzegovina,35000;110000;220000;400000,https://wiki.openstreetmap.org/wiki/Power_networks/Bosnia_and_Herzegovina
+BW,Botswana,66000;132000;220000;400000,https://wiki.openstreetmap.org/wiki/Power_networks/Botswana
+BR,Brazil,13800;23100;34500;66000;69000;88000;110000;132000;138000;230000;345000;440000;500000;525000;600000;765000;800000,https://wiki.openstreetmap.org/wiki/Power_networks/Brazil
+BN,Brunei,66000;132000;275000,https://wiki.openstreetmap.org/wiki/Power_networks/Brunei
+BG,Bulgaria,20000;22000;25000;35000;110000;220000;400000,https://wiki.openstreetmap.org/wiki/Power_networks/Bulgaria
+BF,Burkina Faso,90000;132000;225000,https://wiki.openstreetmap.org/wiki/Power_networks/Burkina_Faso
+BI,Burundi,70000;110000;220000,https://wiki.openstreetmap.org/wiki/Power_networks/Burundi
+KH,Cambodia,115000;230000,https://wiki.openstreetmap.org/wiki/Power_networks/Cambodia
+CM,Cameroon,30000;90000;110000;220000;225000,https://wiki.openstreetmap.org/wiki/Power_networks/Cameroon
+CA,Canada,11500;12000;12470;12500;13000;13200;13800;14000;14400;16000;17500;23000;24940;25000;26400;27600;28000;34000;34500;35000;42000;44000;46000;49000;60000;63000;66000;69000;72000;110000;115000;120000;132000;138000;144000;150000;161000;200000;220000;230000;240000;260000;280000;287000;315000;345000;350000;360000;450000;500000;735000;765000,https://wiki.openstreetmap.org/wiki/Power_networks/Canada
+CV,Cape Verde,20000;60000,https://wiki.openstreetmap.org/wiki/Power_networks/Cape_Verde
+CF,Central African Republic,110000,https://wiki.openstreetmap.org/wiki/Power_networks/Central_African_Republic
+TD,Chad,20000;66000;90000,https://wiki.openstreetmap.org/wiki/Power_networks/Chad
+CL,Chile,13800;15000;23000;33000;34500;66000;69000;100000;110000;154000;220000;345000;500000,https://wiki.openstreetmap.org/wiki/Power_networks/Chile
+CO,Colombia,15000;25000;34500;66000;110000;115000;138000;220000;230000;500000,https://wiki.openstreetmap.org/wiki/Power_networks/Colombia
+CR,Costa Rica,34500;138000;230000,https://wiki.openstreetmap.org/wiki/Power_networks/Costa_Rica
+HR,Croatia,20000;25000;35000;110000;220000;400000;500000,https://wiki.openstreetmap.org/wiki/Power_networks/Croatia
+CU,Cuba,11000;110000;220000,https://wiki.openstreetmap.org/wiki/Power_networks/Cuba
+CY,Cyprus,66000;132000,https://wiki.openstreetmap.org/wiki/Power_networks/Cyprus
+CZ,Czech Republic,22000;33000;35000;110000;220000;380000;400000,https://wiki.openstreetmap.org/wiki/Power_networks/Czech_Republic
+CD,Democratic Republic of the Congo,11000;30000;33000;50000;70000;110000;120000;132000;220000;400000;500000,https://wiki.openstreetmap.org/wiki/Power_networks/Democratic_Republic_of_the_Congo
+DJ,Djibouti,63000;230000,https://wiki.openstreetmap.org/wiki/Power_networks/Djibouti
+DO,Dominican Republic,69000;138000;230000;345000,https://wiki.openstreetmap.org/wiki/Power_networks/Dominican_Republic
+EC,Ecuador,11000;22000;23000;34500;46000;48000;69000;138000;230000;500000,https://wiki.openstreetmap.org/wiki/Power_networks/Ecuador
+EG,Egypt,66000;132000;220000;400000;500000,https://wiki.openstreetmap.org/wiki/Power_networks/Egypt
+SV,El Salvador,115000;230000,https://wiki.openstreetmap.org/wiki/Power_networks/El_Salvador
+GQ,Equatorial Guinea,110000;220000,https://wiki.openstreetmap.org/wiki/Power_networks/Equatorial_Guinea
+ER,Eritrea,66000;132000,https://wiki.openstreetmap.org/wiki/Power_networks/Eritrea
+EE,Estonia,15000;20000;24000;35000;110000;150000;330000;450000,https://wiki.openstreetmap.org/wiki/Power_networks/Estonia
+SZ,Eswatini,66000;132000;400000,https://wiki.openstreetmap.org/wiki/Power_networks/Eswatini
+ET,Ethiopia,25000;45000;66000;132000;220000;230000;400000;500000,https://wiki.openstreetmap.org/wiki/Power_networks/Ethiopia
+FM,Federated States of Micronesia,13800,https://wiki.openstreetmap.org/wiki/Power_networks/Federated_States_of_Micronesia
+FJ,Fiji,11000;33000;110000;132000,https://wiki.openstreetmap.org/wiki/Power_networks/Fiji
+FI,Finland,20000;22000;25000;45000;80000;100000;110000;150000;220000;400000;450000;500000,https://wiki.openstreetmap.org/wiki/Power_networks/Finland
+FR,France,10300;10500;13000;15000;15500;16000;17000;17200;17500;20000;25000;30000;33000;42000;45000;50000;52000;63000;66000;90000;110000;150000;200000;220000;225000;270000;320000;380000;400000;500000,https://wiki.openstreetmap.org/wiki/Power_networks/France
+GA,Gabon,63000;90000;115000;225000,https://wiki.openstreetmap.org/wiki/Power_networks/Gabon
+GE,Georgia,35000;110000;154000;220000;330000;350000;380000;400000;500000,https://wiki.openstreetmap.org/wiki/Power_networks/Georgia
+DE,Germany,10500;11000;15000;16000;20000;21000;22000;25000;27000;30000;33000;35000;50000;55000;60000;63000;65000;110000;132000;150000;155000;200000;220000;225000;250000;300000;320000;362000;380000;400000;450000;525000;600000,https://wiki.openstreetmap.org/wiki/Power_networks/Germany
+GH,Ghana,11000;161000;225000;330000,https://wiki.openstreetmap.org/wiki/Power_networks/Ghana
+GR,Greece,15000;20000;22000;66000;150000;400000;500000,https://wiki.openstreetmap.org/wiki/Power_networks/Greece
+GT,Guatemala,69000;115000;132000;138000;230000;400000,https://wiki.openstreetmap.org/wiki/Power_networks/Guatemala
+GN,Guinea,30000;110000;225000,https://wiki.openstreetmap.org/wiki/Power_networks/Guinea
+GW,Guinea-Bissau,225000,https://wiki.openstreetmap.org/wiki/Power_networks/Guinea-Bissau
+HT,Haiti,69000;115000,https://wiki.openstreetmap.org/wiki/Power_networks/Haiti
+HN,Honduras,69000;138000;230000,https://wiki.openstreetmap.org/wiki/Power_networks/Honduras
+HU,Hungary,11000;18000;20000;22000;25000;35000;110000;132000;220000;400000;750000,https://wiki.openstreetmap.org/wiki/Power_networks/Hungary
+IS,Iceland,66000;132000;220000,https://wiki.openstreetmap.org/wiki/Power_networks/Iceland
+IN,India,11000;13200;22000;25000;31000;33000;66000;100000;110000;132000;200000;220000;220001;230000;320000;400000;500000;660000;765000;800000;1200000,https://wiki.openstreetmap.org/wiki/Power_networks/India
+ID,Indonesia,20000;70000;150000;230000;275000;500000,https://wiki.openstreetmap.org/wiki/Power_networks/Indonesia
+IR,Iran,15000;20000;25000;63000;110000;132000;154000;220000;230000;330000;380000;400000;2300000,https://wiki.openstreetmap.org/wiki/Power_networks/Iran
+IQ,Iraq,11000;23000;25000;33000;66000;132000;154000;400000,https://wiki.openstreetmap.org/wiki/Power_networks/Iraq
+IE,Ireland,10500;19000;20000;22000;33000;38000;110000;200000;220000;275000;320000;380000;400000,https://wiki.openstreetmap.org/wiki/Power_networks/Ireland
+IL,Israel,115000;161000;400000,https://wiki.openstreetmap.org/wiki/Power_networks/Israel
+IT,Italy,15000;20000;25000;30000;45000;50000;55000;60000;63000;66000;68000;70000;110000;120000;130000;132000;135000;137000;138000;150000;200000;220000;225000;320000;380000;400000;500000,https://wiki.openstreetmap.org/wiki/Power_networks/Italy
+CI,Ivory Coast,15000;90000;225000;400000,https://wiki.openstreetmap.org/wiki/Power_networks/Ivory_Coast
+JM,Jamaica,69000;138000,https://wiki.openstreetmap.org/wiki/Power_networks/Jamaica
+JP,Japan,11000;15400;20000;22000;25000;30000;33000;44000;60000;66000;77000;100000;110000;132000;154000;187000;200000;220000;250000;275000;500000;660000,https://wiki.openstreetmap.org/wiki/Power_networks/Japan
+JO,Jordan,132000;400000,https://wiki.openstreetmap.org/wiki/Power_networks/Jordan
+KZ,Kazakhstan,22000;35000;110000;220000;500000,https://wiki.openstreetmap.org/wiki/Power_networks/Kazakhstan
+KE,Kenya,11000;15000;132000;220000;400000;500000,https://wiki.openstreetmap.org/wiki/Power_networks/Kenya
+DK,Kingdom of Denmark,15000;25000;33000;50000;60000;66000;132000;150000;220000;250000;285000;300000;320000;350000;400000;450000;500000;525000,https://wiki.openstreetmap.org/wiki/Power_networks/Denmark
+NL,Kingdom of the Netherlands,13000;20000;22000;23000;24000;25000;30000;33000;34000;50000;66000;110000;150000;220000;320000;380000;450000;600000,https://wiki.openstreetmap.org/wiki/Power_networks/Netherlands
+KW,Kuwait,33000;66000;132000;275000;400000,https://wiki.openstreetmap.org/wiki/Power_networks/Kuwait
+KG,Kyrgyzstan,10000;110000;220000;500000,https://wiki.openstreetmap.org/wiki/Power_networks/Kyrgyzstan
+LA,Laos,110000;115000;220000;230000;500000,https://wiki.openstreetmap.org/wiki/Power_networks/Laos
+LV,Latvia,20000;110000;330000,https://wiki.openstreetmap.org/wiki/Power_networks/Latvia
+LB,Lebanon,33000;66000;150000;220000;400000,https://wiki.openstreetmap.org/wiki/Power_networks/Lebanon
+LS,Lesotho,33000;66000;88000;132000,https://wiki.openstreetmap.org/wiki/Power_networks/Lesotho
+LR,Liberia,66000;225000,https://wiki.openstreetmap.org/wiki/Power_networks/Liberia
+LY,Libya,22500;25000;30000;66000;69000;132000;220000;400000;500000,https://wiki.openstreetmap.org/wiki/Power_networks/Libya
+LI,Liechtenstein,220000,https://wiki.openstreetmap.org/wiki/Power_networks/Liechtenstein
+LT,Lithuania,15000;35000;110000;300000;330000;400000,https://wiki.openstreetmap.org/wiki/Power_networks/Lithuania
+LU,Luxembourg,63000;65000;150000;220000;225000,https://wiki.openstreetmap.org/wiki/Power_networks/Luxembourg
+MG,Madagascar,63000;138000,https://wiki.openstreetmap.org/wiki/Power_networks/Madagascar
+MW,Malawi,11000;33000;66000;110000;132000;400000,https://wiki.openstreetmap.org/wiki/Power_networks/Malawi
+MY,Malaysia,11000;33000;66000;132000;275000;300000;500000,https://wiki.openstreetmap.org/wiki/Power_networks/Malaysia
+MV,Maldives,132000,https://wiki.openstreetmap.org/wiki/Power_networks/Maldives
+ML,Mali,63000;150000;225000,https://wiki.openstreetmap.org/wiki/Power_networks/Mali
+MT,Malta,11000;33000;132000;220000,https://wiki.openstreetmap.org/wiki/Power_networks/Malta
+MR,Mauritania,90000;225000,https://wiki.openstreetmap.org/wiki/Power_networks/Mauritania
+MU,Mauritius,66000,https://wiki.openstreetmap.org/wiki/Power_networks/Mauritius
+MX,Mexico,13800;15000;25000;34500;65000;69000;85000;113000;115000;138000;161000;230000;400000,https://wiki.openstreetmap.org/wiki/Power_networks/Mexico
+MD,Moldova,33000;35000;110000;330000;400000,https://wiki.openstreetmap.org/wiki/Power_networks/Moldova
+MN,Mongolia,15000;22000;35000;110000;220000,https://wiki.openstreetmap.org/wiki/Power_networks/Mongolia
+ME,Montenegro,35000;110000;220000;400000;500000,https://wiki.openstreetmap.org/wiki/Power_networks/Montenegro
+MA,Morocco,20000;22000;22500;30000;33000;60000;110000;132000;150000;220000;225000;400000,https://wiki.openstreetmap.org/wiki/Power_networks/Morocco
+MZ,Mozambique,66000;110000;132000;220000;275000;330000;400000;533000,https://wiki.openstreetmap.org/wiki/Power_networks/Mozambique
+MM,Myanmar,11000;20000;33000;66000;110000;132000;230000;500000,https://wiki.openstreetmap.org/wiki/Power_networks/Myanmar
+NA,Namibia,11000;19000;22000;33000;66000;132000;220000;330000;350000;400000,https://wiki.openstreetmap.org/wiki/Power_networks/Namibia
+NP,Nepal,33000;66000;132000;220000;400000,https://wiki.openstreetmap.org/wiki/Power_networks/Nepal
+NZ,New Zealand,50000;66000;110000;220000,https://wiki.openstreetmap.org/wiki/Power_networks/New_Zealand
+NI,Nicaragua,69000;138000;230000,https://wiki.openstreetmap.org/wiki/Power_networks/Nicaragua
+NE,Niger,66000;132000,https://wiki.openstreetmap.org/wiki/Power_networks/Niger
+NG,Nigeria,11000;33000;132000;330000,https://wiki.openstreetmap.org/wiki/Power_networks/Nigeria
+KP,North Korea,11000;66000;110000;154000;220000,https://wiki.openstreetmap.org/wiki/Power_networks/North_Korea
+MK,North Macedonia,110000;220000;400000,https://wiki.openstreetmap.org/wiki/Power_networks/North_Macedonia
+NO,Norway,11000;12000;13000;15000;16000;17000;20000;22000;24000;25000;33000;45000;47000;50000;55000;60000;66000;80000;90000;100000;110000;132000;150000;220000;250000;300000;350000;400000;420000;450000;500000;515000;525000;825000,https://wiki.openstreetmap.org/wiki/Power_networks/Norway
+OM,Oman,132000;220000;400000,https://wiki.openstreetmap.org/wiki/Power_networks/Oman
+PK,Pakistan,11000;33000;66000;110000;132000;220000;230000;500000;660000,https://wiki.openstreetmap.org/wiki/Power_networks/Pakistan
+PA,Panama,115000;230000,https://wiki.openstreetmap.org/wiki/Power_networks/Panama
+PG,Papua New Guinea,11000;66000;132000,https://wiki.openstreetmap.org/wiki/Power_networks/Papua_New_Guinea
+PY,Paraguay,12000;34500;66000;69000;132000;138000;220000;500000,https://wiki.openstreetmap.org/wiki/Power_networks/Paraguay
+CN,People's Republic of China,10500;11000;22000;23000;25000;27000;27500;33000;35000;50000;63000;66000;100000;110000;132000;160000;220000;230000;275000;320000;330000;400000;500000;544000;660000;750000;800000;1000000;1100000;1150000;2200001;2200002;22000011,https://wiki.openstreetmap.org/wiki/Power_networks/China
+PE,Peru,30000;33000;60000;66000;138000;220000;230000;500000,https://wiki.openstreetmap.org/wiki/Power_networks/Peru
+PH,Philippines,13200;13800;20000;23000;30000;34500;60000;69000;70000;115000;138000;220000;230000;345000;350000;500000,https://wiki.openstreetmap.org/wiki/Power_networks/Philippines
+PL,Poland,11000;15000;20000;21000;22000;25000;27000;30000;100000;110000;200000;220000;400000;450000,https://wiki.openstreetmap.org/wiki/Power_networks/Poland
+PT,Portugal,11000;15000;18000;20000;25000;30000;50000;60000;130000;150000;220000;400000,https://wiki.openstreetmap.org/wiki/Power_networks/Portugal
+QA,Qatar,21000;66000;110000;132000;220000;400000,https://wiki.openstreetmap.org/wiki/Power_networks/Qatar
+CG,Republic of the Congo,110000;220000,https://wiki.openstreetmap.org/wiki/Power_networks/Republic_of_the_Congo
+RO,Romania,20000;25000;38000;55000;110000;220000;380000;400000,https://wiki.openstreetmap.org/wiki/Power_networks/Romania
+RU,Russia,10500;15000;16000;20000;30000;35000;60000;66000;100000;110000;138000;150000;154000;220000;330000;350000;400000;500000;750000;800000;1100000,https://wiki.openstreetmap.org/wiki/Power_networks/Russia
+RW,Rwanda,70000;110000;220000,https://wiki.openstreetmap.org/wiki/Power_networks/Rwanda
+SM,San Marino,132000,https://wiki.openstreetmap.org/wiki/Power_networks/San_Marino
+SA,Saudi Arabia,25000;33000;110000;115000;132000;230000;380000;400000,https://wiki.openstreetmap.org/wiki/Power_networks/Saudi_Arabia
+SN,Senegal,90000;225000,https://wiki.openstreetmap.org/wiki/Power_networks/Senegal
+RS,Serbia,20000;25000;30000;35000;110000;220000;380000;400000,https://wiki.openstreetmap.org/wiki/Power_networks/Serbia
+SL,Sierra Leone,161000;225000,https://wiki.openstreetmap.org/wiki/Power_networks/Sierra_Leone
+SG,Singapore,230000,https://wiki.openstreetmap.org/wiki/Power_networks/Singapore
+SK,Slovakia,22000;110000;220000;400000,https://wiki.openstreetmap.org/wiki/Power_networks/Slovakia
+SI,Slovenia,15000;20000;35000;100000;110000;220000;400000,https://wiki.openstreetmap.org/wiki/Power_networks/Slovenia
+ZA,South Africa,11000;20000;22000;33000;44000;66000;88000;110000;132000;220000;275000;380000;400000;533000;765000,https://wiki.openstreetmap.org/wiki/Power_networks/South_Africa
+KR,South Korea,15000;22900;145000;150000;154000;180000;250000;345000;354000;380000;765000,https://wiki.openstreetmap.org/wiki/Power_networks/South_Korea
+SS,South Sudan,220000,https://wiki.openstreetmap.org/wiki/Power_networks/South_Sudan
+ES,Spain,12000;13000;13200;15000;17000;20000;22000;24000;25000;30000;33000;35000;45000;50000;55000;60000;65000;66000;66600;100000;110000;120000;130000;132000;138000;150000;200000;220000;225000;240000;250000;320000;400000,https://wiki.openstreetmap.org/wiki/Power_networks/Spain
+LK,Sri Lanka,11000;33000;132000;220000,https://wiki.openstreetmap.org/wiki/Power_networks/Sri_Lanka
+PS,State of Palestine,161000,https://wiki.openstreetmap.org/wiki/Power_networks/State_of_Palestine
+SD,Sudan,66000;110000;220000;500000,https://wiki.openstreetmap.org/wiki/Power_networks/Sudan
+SR,Suriname,161000,https://wiki.openstreetmap.org/wiki/Power_networks/Suriname
+SE,Sweden,11000;12000;15000;20000;22000;24000;30000;36000;40000;45000;50000;52000;55000;60000;66000;70000;72500;77000;80000;110000;130000;132000;138000;145000;150000;160000;170000;220000;230000;236000;285000;300000;400000;412000;420000;450000;500000,https://wiki.openstreetmap.org/wiki/Power_networks/Sweden
+CH,Switzerland,11000;13000;15000;15500;16000;17000;18000;20000;21000;22000;23000;25000;50000;60000;63000;65000;66000;110000;125000;130000;132000;138000;145000;150000;220000;222000;225000;380000;400000,https://wiki.openstreetmap.org/wiki/Power_networks/Switzerland
+SY,Syria,23000;66000;154000;161000;220000;230000;380000;400000,https://wiki.openstreetmap.org/wiki/Power_networks/Syria
+TW,Taiwan,69000;161000;345000;690000,https://wiki.openstreetmap.org/wiki/Power_networks/Taiwan
+TJ,Tajikistan,35000;110000;138000;220000;500000,https://wiki.openstreetmap.org/wiki/Power_networks/Tajikistan
+TZ,Tanzania,11000;33000;66000;132000;220000;222000;400000,https://wiki.openstreetmap.org/wiki/Power_networks/Tanzania
+TH,Thailand,22000;50000;69000;115000;132000;230000;300000;500000,https://wiki.openstreetmap.org/wiki/Power_networks/Thailand
+BS,The Bahamas,132000,https://wiki.openstreetmap.org/wiki/Power_networks/The_Bahamas
+GM,The Gambia,225000,https://wiki.openstreetmap.org/wiki/Power_networks/The_Gambia
+TL,Timor-Leste,150000,https://wiki.openstreetmap.org/wiki/Power_networks/Timor-Leste
+TG,Togo,161000;330000,https://wiki.openstreetmap.org/wiki/Power_networks/Togo
+TT,Trinidad and Tobago,66000;132000;220000,https://wiki.openstreetmap.org/wiki/Power_networks/Trinidad_and_Tobago
+TN,Tunisia,15000;22500;30000;33000;90000;150000;220000;225000;400000,https://wiki.openstreetmap.org/wiki/Power_networks/Tunisia
+TR,Turkey,20000;25000;31500;34000;34500;35000;36000;66000;150000;154000;170000;220000;345005;380000;400000;1000000,https://wiki.openstreetmap.org/wiki/Power_networks/Turkey
+TM,Turkmenistan,110000;220000;230000;500000,https://wiki.openstreetmap.org/wiki/Power_networks/Turkmenistan
+UG,Uganda,11000;15000;33000;66000;132000;220000;400000,https://wiki.openstreetmap.org/wiki/Power_networks/Uganda
+UA,Ukraine,15000;35000;110000;150000;154000;220000;330000;400000;500000;750000;800000,https://wiki.openstreetmap.org/wiki/Power_networks/Ukraine
+AE,United Arab Emirates,33000;132000;220000;400000,https://wiki.openstreetmap.org/wiki/Power_networks/United_Arab_Emirates
+GB,United Kingdom,11000;12300;13800;15000;16000;20000;22000;24000;25000;27000;32000;33000;33300;35000;36000;66000;90000;110000;132000;145000;150000;170000;200000;220000;250000;254000;270000;275000;320000;400000;450000;515000;525000;600000,https://wiki.openstreetmap.org/wiki/Power_networks/Great_Britain
+US,United States,11000;11500;12000;12370;12400;12470;12500;13000;13200;13800;13860;14000;14400;14750;15000;16000;17500;18000;19920;19935;20000;20800;21000;21800;22000;23000;23900;24000;24900;24940;25000;26000;26400;27000;27600;32000;33000;34000;34500;34599;35000;35400;37500;38000;40000;41600;43000;43800;44000;46000;49000;50000;55000;57000;57100;60000;66000;69000;70000;71000;87000;88000;92000;100000;110000;111500;115000;120000;125000;130000;132000;138000;150000;160000;161000;200000;220000;230000;235000;250000;260000;276000;287000;320000;345000;400000;450000;460000;500000;690002;765000;1100000;1150003;1333000;1380000,https://wiki.openstreetmap.org/wiki/Power_networks/United_States
+UY,Uruguay,30000;31500;60000;63000;132000;150000;230000;500000,https://wiki.openstreetmap.org/wiki/Power_networks/Uruguay
+UZ,Uzbekistan,35000;75000;110000;220000;350000;380000;500000,https://wiki.openstreetmap.org/wiki/Power_networks/Uzbekistan
+VE,Venezuela,13800;24000;30000;69000;115000;138000;230000;400000;765000,https://wiki.openstreetmap.org/wiki/Power_networks/Venezuela
+VN,Vietnam,22000;50000;110000;115000;220000;230000;500000,https://wiki.openstreetmap.org/wiki/Power_networks/Vietnam
+YE,Yemen,132000;400000,https://wiki.openstreetmap.org/wiki/Power_networks/Yemen
+ZM,Zambia,11000;33000;66000;88000;132000;220000;330000,https://wiki.openstreetmap.org/wiki/Power_networks/Zambia
+ZW,Zimbabwe,33000;66000;88000;110000;132000;220000;330000;400000,https://wiki.openstreetmap.org/wiki/Power_networks/Zimbabwe
