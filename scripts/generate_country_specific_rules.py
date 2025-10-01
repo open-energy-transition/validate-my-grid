@@ -14,7 +14,6 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^({'|'.joi
     -osmoseDetail: tr("Each country has its own voltage set used for electricity transmission.");
     -osmoseExample: tr("For example, in Jordan, only 132 kV and 400 kV voltages are used.");
     -osmoseFix: tr("Check the list of possible values for this country on the wiki and correct the `{0}` tag.", "voltage");
-    -osmoseTags: list("tag", "power");
     -osmoseResource: "{wiki}";
     -osmoseTrap: "If the voltage in OSM is correct but is showing as an error here, check the wiki page and make the necessary corrections. Then create [an issue on GitHub](https://github.com/open-energy-transition/validate-my-grid/issues) to update this check.";
 }}
