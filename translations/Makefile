@@ -33,12 +33,13 @@ en.lang: $(PO) i18n.pl
 	zip -j $@ ../powerQA.validator.mapcss
 	zip -j $@ ../MapYourGrid-favicon.png
 	rm -fr data
-	rm -f ../powerQA.validator.mapcss
+	rm -f ../voltages.validator.mapcss
+	
 
 clean:
 	rm -f $(LANG_)
 	rm -fr data
 	rm -f i18n.pl
 	rm -f ../power.validator.zip
-	rm -f ../voltages.validator.mapcss
+	rm -f ../powerQA.validator.mapcss
 	rm *.po~

@@ -1,3 +1,848 @@
+meta {
+	title: "Power QA";
+	version: "0.13";
+	description: "Validation ruleset for power features (power=*)";
+	icon: "MapYourGrid-favicon.png";
+	author: "nlehuby";
+	link: "https://wiki.openstreetmap.org/wiki/Power_networks/Quality_Assurance";
+	baselanguage: "en";
+	-osmoseTags: list("tag", "power");
+}
+
+meta[lang=en] /* unused meta, only set so that tr() can catch string for translation */
+{
+	description: tr("Validation ruleset for power features (power=*)");
+}
+meta[lang=fr]
+{
+	description: "Règles de validation pour les réseaux électriques (power=*)";
+}
+
+way[disused:power=~/line|minor_line|cable/] > node[power=~/tower|pole|insulator|portal|terminal/],
+way[construction:power=~/line|minor_line|cable/] > node[power=~/tower|pole|insulator|portal|terminal/],
+way[power=~/line|minor_line|cable/] > node[power=~/tower|pole|insulator|portal|terminal/] {
+	set .connected_ok_supports;
+} 
+
+node[power=~/tower|pole/]!.connected_ok_supports {
+	throwWarning: tr("Lone power tower or pole. Try to connect it to a power=line");
+	-osmoseItemClassLevel: none; /* The rule involves multiple objects, which is not yet supported by Osmose */
+}
+
+node[power=~/insulator|portal/]!.connected_ok_supports {
+	throwWarning: tr("Lone power portal or insulator. Try to connect it to a power=line");
+	-osmoseItemClassLevel: none; /* The rule involves multiple objects, which is not yet supported by Osmose */
+}
+
+node[power=~/terminal/]!.connected_ok_supports {
+	throwWarning: tr("Lone power terminal. Try to connect it to a power=line");
+	-osmoseItemClassLevel: none; /* The rule involves multiple objects, which is not yet supported by Osmose */
+}
+
+way[disused:power=~/line|minor_line|cable/] >[index=-1] node[power],
+way[construction:power=~/line|minor_line|cable/] >[index=1] node[power],
+way[power=~/line|minor_line|cable/] >[index=-1] node[power],
+way[power=~/line|minor_line|cable/] >[index=1] node[power] {
+	set .end_of_power_lines;
+} 
+
+node.end_of_power_lines!:connection[power!~/^(transformer|generator|portal|terminal|insulator)$/][location:transition!=yes][substation!=minor_distribution][transformer!~/^(distribution|main)$/][line_management!~/^(transition|termination)$/] {
+	throwWarning: tr("Unfinished power line");
+	-osmoseItemClassLevel: none; /* Already supported in Osmose via 7040/2 */
+}
+
+node.end_of_power_lines:connection[count(parent_tags("voltage")) > 1][power!=transformer][!transformer] {
+	throwWarning: tr("Connection between different voltages");
+	-osmoseItemClassLevel: none; /* Already supported in Osmose via 7040/3 */
+}
+
+node.end_of_power_lines:connection[count(parent_tags("cables")) > 1][!line_management] {
+	throwWarning: tr("Connection between different number of cables. Check the cables on incoming lines and the line_management tag on the intersecting tower");
+	-osmoseItemClassLevel: none; /* The rule involves multiple objects, which is not yet supported by Osmose */
+}
+
+node.end_of_power_lines[line_management][line_management=cross] {
+	throwWarning: tr("A line_management=cross should not be at the end of a power line");
+	fixRemove: "line_management";
+	-osmoseItemClassLevel: none; /* The rule involves multiple objects, which is not yet supported by Osmose */
+}
+
+node!.end_of_power_lines[power][line_management][line_management=split] {
+	throwWarning: tr("line_management=split can only be at the end of a power line");
+	fixRemove: "line_management";
+	-osmoseItemClassLevel: none; /* The rule involves multiple objects, which is not yet supported by Osmose */
+}
+
+node!.end_of_power_lines[power][line_management][line_management=termination] {
+	throwWarning: tr("line_management=termination can only be at the end of a power line");
+	fixRemove: "line_management";
+	-osmoseItemClassLevel: none; /* The rule involves multiple objects, which is not yet supported by Osmose */
+}
+
+node!.end_of_power_lines[power][line_management][line_management=transition] {
+	throwWarning: tr("line_management=transition can only be at the end of a power line");
+	fixRemove: "line_management";
+	-osmoseItemClassLevel: none; /* The rule involves multiple objects, which is not yet supported by Osmose */
+}
+
+area[power=substation] ∈ area[power=substation] {
+	throwError: tr("Substation inside another substation");
+	-osmoseItemClassLevel: none; /* The rule involves multiple objects, which is not yet supported by Osmose */
+}
+
+*[power][power!~/^(cable|catenary_mast|circuit|compensator|connection|converter|generator|heliostat|insulator|inverter|line|line_section|minor_line|plant|pole|portal|substation|switch|switchgear|terminal|tower|transformer)$/] {
+	throwError: tr("Unsuitable value for power=* tag");
+	assertMatch: "relation power=route";
+	assertMatch: "relation power=circuits";
+	assertMatch: "relation power=cable_distribution_cabinet";
+	assertNoMatch: "way power=cable";
+	-osmoseDetail: tr("The power=* tag can only have certain well-defined values. This is probably a typo or an deprecated way of tagging.");
+	-osmoseFix: tr("Check the list of possible values on the wiki and correct the tag for this object.");
+	-osmoseResource: "https://wiki.openstreetmap.org/wiki/Key:power";
+}
+
+way!:closed[power=substation],
+relation[power=substation][type!=multipolygon] {
+	throwError: tr("power=substation must be a node or an area");
+	assertMatch: "relation power=substation type=power";
+	assertNoMatch: "node power=substation";
+	-osmoseItemClassLevel: none; /* To be added in Osmose via JOSM core rules */
+}
+
+way!:closed[power=generator],
+relation[power=generator][type!=multipolygon] {
+	throwError: tr("power=generator must be a node or an area");
+	assertMatch: "relation power=generator type=power";
+	assertMatch: "way power=generator";
+	assertNoMatch: "node power=generator";
+	-osmoseItemClassLevel: none; /* To be added in Osmose via JOSM core rules */
+}
+
+node[power=switchgear],
+way!:closed[power=switchgear],
+relation[power=switchgear][type!=multipolygon] {
+	throwError: tr("power=switchgear must be an area");
+	assertMatch: "relation power=switchgear";
+	assertMatch: "node power=switchgear";
+	-osmoseItemClassLevel: none; /* To be added in Osmose via JOSM core rules */
+}
+
+way!:closed[power=heliostat],
+relation[power=heliostat][type!=multipolygon] {
+	throwError: tr("power=heliostat must be a node or an area");
+	assertMatch: "relation power=heliostat";
+	assertNoMatch: "node power=heliostat";
+	-osmoseItemClassLevel: none; /* To be added in Osmose via JOSM core rules */
+}
+
+way!:closed[power=plant],
+relation[power=plant][type!=multipolygon][type!=site]{
+	throwError: tr("power=plant must be an area or a site");
+	assertMatch: "relation power=plant type=power";
+	assertNoMatch: "relation power=plant type=multipolygon";
+	assertNoMatch: "relation power=plant type=site";
+	-osmoseItemClassLevel: none; /* To be added in Osmose via JOSM core rules */
+}
+
+node[power=cable],
+area:closed[power=cable] {
+	throwError: tr("power=cable must be a way");
+	assertMatch: "node power=cable";
+	assertNoMatch: "way power=cable";
+	-osmoseItemClassLevel: none; /* To be added in Osmose via JOSM core rules */
+}
+
+node[power=minor_line],
+area:closed[power=minor_line] {
+	throwError: tr("power=minor_line must be a way");
+	assertMatch: "node power=minor_line";
+	assertNoMatch: "way power=minor_line";
+	-osmoseItemClassLevel: none; /* To be added in Osmose via JOSM core rules */
+}
+
+way[power=line_section],
+node[power=line_section],
+area:closed[power=line_section] {
+	throwError: tr("power=line_section must be a relation");
+	assertMatch: "way power=line_section";
+	assertNoMatch: "relation power=line_section type=power";
+	-osmoseItemClassLevel: none; /* To be added in Osmose via JOSM core rules */
+}
+
+way[power=circuit],
+node[power=circuit],
+area:closed[power=circuit] {
+	throwError: tr("power=circuit must be a relation");
+	assertMatch: "way power=circuit";
+	assertNoMatch: "relation power=circuit type=power";
+	-osmoseItemClassLevel: none; /* To be added in Osmose via JOSM core rules */
+}
+
+area:closed[power=portal],
+relation[power=portal] {
+	throwError: tr("power=portal must be a node or an way");
+	assertMatch: "relation power=portal";
+	assertNoMatch: "way power=portal";
+	assertNoMatch: "node power=portal";
+	-osmoseItemClassLevel: none; /* To be added in Osmose via JOSM core rules */
+}
+
+area:closed[power=insulator],
+relation[power=insulator] {
+	throwError: tr("power=insulator must be a node or an way");
+	assertMatch: "relation power=insulator";
+	assertNoMatch: "way power=insulator";
+	assertNoMatch: "node power=insulator";
+	-osmoseItemClassLevel: none; /* To be added in Osmose via JOSM core rules */
+}
+
+way[power=~/line|minor_line|cable/][circuits][circuits =~ /(.*[A-Za-z].*)|.*,.*|.*( ).*/] {
+	throwError: tr("circuits tag should contain a number");
+	assertMatch: "way power=line circuits=double";
+	assertNoMatch: "way power=line circuits=2";
+	assertNoMatch: "way power=line circuits=1;1";
+	-osmoseItemClassLevel: none; /* To be added in Osmose via JOSM core rules */
+}
+
+way[power=~/line|minor_line|cable/][cables][cables =~ /^[0-9]+(;[0-9]+)+$/] {
+	throwWarning: tr("cables tag should be the sum of all cables");
+	assertMatch: "way power=line cables=3;3";
+	assertNoMatch: "way power=line cables=6";
+	-osmoseItemClassLevel: none; /* not suitable for Osmose */
+}
+
+way[power=~/line|minor_line|cable/][cables][cables !~ /^[0-9]+$/][cables !~ /^[0-9]+(;[0-9]+)+$/] {
+    throwError: tr("cables tag should be a number");
+    assertMatch: "way power=line cables=double";
+    assertNoMatch: "way power=line cables=6";
+    assertNoMatch: "way power=line cables=3;3";
+	-osmoseItemClassLevel: none; /* To be added in Osmose via JOSM core rules */
+}
+
+way[power=~/line|minor_line|cable/][!voltage] {
+    throwWarning: tr("Power lines should have a voltage tag");
+    assertMatch: "way power=cable";
+    assertNoMatch: "way power=cable voltage=500000";
+	-osmoseItemClassLevel: none; /* not suitable for Osmose */
+}
+
+node[power=transformer][!frequency] {
+    throwWarning: tr("Transformers should have a frequency tag");
+    assertMatch: "node power=transformer";
+    assertNoMatch: "node power=transformer frequency=50";
+	-osmoseItemClassLevel: none; /* not suitable for Osmose */
+}
+
+*[power=substation][!substation] {
+    throwWarning: tr("Substations should have a substation tag");
+    assertMatch: "node power=substation";
+    assertNoMatch: "node power=substation substation=transmission";
+	-osmoseItemClassLevel: none; /* not suitable for Osmose */
+}
+
+way[!power][!construction:power][!disused:power][!destroyed:power] > node[power=~/tower|pole|insulator|portal/] {
+	throwError: tr("Power support connected to a non power feature");
+	-osmoseItemClassLevel: none; /* The rule involves multiple objects, which is not yet supported by Osmose */
+}
+
+node[power=~/tower|pole/] ∈ area[building] {
+	throwError: tr("Power tower or pole inside a building");
+	-osmoseItemClassLevel: none; /* Already supported in Osmose via 1070/6 */
+}
+
+
+way[power=portal] > node {
+	set .portal_nodes;
+}
+
+way[power=~/line|minor_line|cable/] >[index=-1] node,
+way[power=~/line|minor_line|cable/] >[index=1] node {
+	set .end_node_of_power_lines;
+}
+
+node.portal_nodes.end_node_of_power_lines[power!=insulator] {
+	throwError: tr("A power line connecting to a portal should have a power=insulator on the connecting node");
+	fixAdd: "power=insulator";
+	-osmoseItemClassLevel: none; /* The rule involves multiple objects, which is not yet supported by Osmose */
+}
+
+relation[type=power][!power] {
+	throwError: tr("Is it a power circuit or a power line section? Add the power=* tag accordingly.");
+	assertMatch: "relation type=power";
+	assertNoMatch: "relation type=power power=circuit";
+	-osmoseDetail: tr("There are only two possible types of power relation. The power tag must be added to specify which type is involved here.");
+	-osmoseFix: tr("Check whether it is a line section or a complete circuit, and add the power tag accordingly.");
+	-osmoseResource: "https://wiki.openstreetmap.org/wiki/Relation:power";
+}
+
+relation[power=circuit][topology][topology!~/^(linear|branched)$/] {
+	throwError: tr("power=circuit relations should have a topology tag with value linear or branched");
+	assertMatch: "relation type=power power=circuit topology=branch";
+	assertNoMatch: "relation type=power power=circuit topology=branched";
+	assertNoMatch: "relation type=power power=circuit";
+	-osmoseDetail: tr("The topology tag can only take two values on the power circuit context. This is probably a typo or an error.");
+	-osmoseFix: tr("Check the circuit topology and specify a value between `{0}` and `{1}`.", "linear", "branched");
+	-osmoseResource: "https://wiki.openstreetmap.org/wiki/Key:topology";
+}
+
+*[power_source] {
+	throwError: tr("power_source=* is deprecated");
+	fixRemove: "power_source";
+	suggestAlternative: "generator:source";
+	assertMatch: "area power=plant power_source=solar";
+	assertNoMatch: "area power=plant generator:source=solar";
+	-osmoseItemClassLevel: none; /* To be added in Osmose via JOSM core rules */
+}
+
+relation[route=power] {
+	throwError: tr("route=power is deprecated, use type=power+power=circuit instead");
+	fixAdd: "type=power";
+	fixAdd: "power=circuit";
+	fixRemove: "route";
+	assertMatch: "relation type=route route=power power=circuit";
+	assertNoMatch: "relation type=power power=circuit";
+	-osmoseItemClassLevel: none; /* To be added in Osmose via JOSM core rules */
+}
+
+relation[power=branch] {
+	throwError: tr("power=branch is deprecated");
+	suggestAlternative: "power=circuit or power=line_section";
+	assertMatch: "relation type=power power=branch";
+	assertNoMatch: "relation type=power power=circuit";
+	-osmoseItemClassLevel: none; /* To be added in Osmose via JOSM core rules */
+}
+
+relation[power=circuit] >[role!~/^(section|substation)$/] way {  
+   throwError: tr("Wrong role for way in power=circuit relations");
+   suggestAlternative: "section/substation";
+   -osmoseItemClassLevel: none; /* The rule involves multiple objects, which is not yet supported by Osmose */
+}
+
+relation[power=circuit] >[role!~/^(tap|substation)$/] node {  
+   throwError: tr("Wrong role for node in power=circuit relations");
+   suggestAlternative: "tap/substation";
+   -osmoseItemClassLevel: none; /* The rule involves multiple objects, which is not yet supported by Osmose */
+}
+
+relation[power=circuit] >[role!~/^(section)$/] relation {  
+   throwError: tr("Wrong role for node in power=circuit relations");
+   suggestAlternative: "section";
+   -osmoseItemClassLevel: none; /* The rule involves multiple objects, which is not yet supported by Osmose */
+}
+
+relation[power=line_section] >[role!~/^(line)$/] way {  
+   throwError: tr("Wrong role for way in power=line_section relations");
+   suggestAlternative: "line";
+   -osmoseItemClassLevel: none; /* The rule involves multiple objects, which is not yet supported by Osmose */
+}
+
+relation[power=circuit] > way[power=~/^(line|minor_line|cable)$/][frequency] {  
+   throwWarning: tr("frequency tag should be on the circuit relation, not on the power line");
+   -osmoseItemClassLevel: none; /* The rule involves multiple objects, which is not yet supported by Osmose */
+}
+
+relation[power=circuit][wires] {  
+	throwWarning: tr("wires tag should be on the power line and not on the circuit relation");
+	fixRemove: "wires";
+	assertMatch: "relation type=power power=circuit wires=4";
+	assertNoMatch: "relation type=power power=circuit";
+	-osmoseDetail: tr("Bundles arrangement only regard power segments. A given circuit can go through several line segments with different bundles. Use wires only on power segments.");
+	-osmoseFix: tr("Remove the tag from the circuit relation and add it to its members instead");
+	-osmoseResource: "https://wiki.openstreetmap.org/wiki/Key:wires#A_physical_property";
+}
+
+node[power][line_management=termination][location:transition=yes]{
+	throwWarning: tr("Incompatible tags: is it a line termination or a line transition ?");
+	assertMatch: "node power=tower line_management=termination location:transition=yes";
+	assertNoMatch: "node power=tower line_management=termination";
+	assertNoMatch: "node power=tower line_management=transition location:transition=yes";
+	-osmoseItemClassLevel: none; /* Already supported in Osmose via 7040/8 */
+}
+
+node[power=transformer][transformer=traction]{
+	throwError: tr("transformer=traction is deprecated (use transformer=main and add substation=traction on the enclosing substation");
+	fixAdd: "transformer=main";
+	assertMatch: "node power=transformer transformer=traction";
+	assertNoMatch: "node power=transformer transformer=main";
+	-osmoseItemClassLevel: none; /* To be added in Osmose via JOSM core rules */
+}
+
+node[power=transformer][transformer=minor_distribution]{
+	throwError: tr("transformer=minor_distribution is deprecated (use transformer=main and add substation=minor_distribution on the enclosing substation");
+	fixAdd: "transformer=main";
+	assertMatch: "node power=transformer transformer=minor_distribution";
+	assertNoMatch: "node power=transformer transformer=main";
+	-osmoseItemClassLevel: none; /* To be added in Osmose via JOSM core rules */
+}
+
+node[power=transformer][transformer=auto]{
+	throwError: tr("transformer=auto is deprecated");
+	fixAdd: "windings:auto=yes";
+	fixRemove: "transformer";
+	assertMatch: "node power=transformer transformer=auto";
+	assertNoMatch: "node power=transformer transformer=main windings:auto=yes";
+	-osmoseItemClassLevel: none; /* To be added in Osmose via JOSM core rules */
+}
+
+node[power=transformer][transformer][transformer!~/^(main|auxiliary|generator|converter|phase_angle_regulator|converter|distribution|yes|traction|minor_distribution|auto)$/] {
+	throwError: tr("Unsuitable value for transformer=* tag");
+	assertMatch: "node power=transformer transformer=railway";
+	assertNoMatch: "node power=transformer transformer=main";
+	assertNoMatch: "node power=transformer";
+	-osmoseDetail: tr("The transformer=* tag can only have certain well-defined values. This is probably a typo or an deprecated way of tagging.");
+	-osmoseFix: tr("Check the list of possible values on the wiki and correct the tag for this object.");
+	-osmoseResource: "https://wiki.openstreetmap.org/wiki/Key:transformer";
+}
+
+*[power=generator][generator:source][generator:source!~/^(nuclear|wind|hydro|tidal|wave|geothermal|solar|coal|gas|biomass|biofuel|biogas|oil|diesel|gasoline|waste|battery)(;(nuclear|wind|hydro|tidal|wave|geothermal|solar|coal|gas|biomass|biofuel|biogas|oil|diesel|gasoline|waste|battery))*$/] {
+	throwError: tr("Unsuitable value for generator:source=* tag");
+	assertMatch: "node power=generator generator:source=photovoltaic";
+	assertMatch: "node power=generator generator:source=geothermals";
+	assertNoMatch: "node power=generator generator:source=solar";
+	assertNoMatch: "node power=generator generator:source=oil;gas";
+	assertNoMatch: "node power=generator";
+	-osmoseDetail: tr("The generator:source=* tag can only have certain well-defined values. This is probably a typo or an deprecated way of tagging.");
+	-osmoseFix: tr("Check the list of possible values on the wiki and correct the tag for this object.");
+	-osmoseResource: "https://wiki.openstreetmap.org/wiki/Key:generator:source";
+}
+
+*[power=generator][generator:source=nuclear][generator:method][generator:method!~/^(fission|fusion)$/]{
+	throwError: tr("Unsuitable method for nuclear generator");
+	suggestAlternative: "fission or fusion";
+	fixRemove: "generator:method";
+	assertMatch: "node power=generator generator:source=nuclear generator:method=nuclear";
+	assertNoMatch: "node power=generator generator:source=nuclear generator:method=fission";
+	-osmoseDetail: tr("Nuclear generator can only use certain well-defined methods to generate energy.");
+	-osmoseFix: tr("Check the list of possible values for this source on the wiki and correct the `{0}` tag.", "generator:method");
+	-osmoseResource: "https://wiki.openstreetmap.org/wiki/Key:generator:method";
+}
+
+*[power=generator][generator:method=~/fission|fusion/][generator:source][generator:source!=nuclear]{
+	throwError: tr("Incompatibility between method and source on a power generator");
+	assertMatch: "node power=generator generator:source=solar generator:method=fusion";
+	assertNoMatch: "node power=generator generator:source=nuclear generator:method=fission";
+	-osmoseDetail: tr("It is not possible to use the specified method to generate energy from this source.");
+	-osmoseFix: tr("Check the wiki page and change the `{0}` tag or the `{1}` tag accordingly.", "generator:method", "generator:source");
+	-osmoseResource: "https://wiki.openstreetmap.org/wiki/Key:generator:method";
+}
+
+*[power=generator][generator:source=wind][generator:method][generator:method!=wind_turbine]{
+	throwError: tr("Unsuitable method for wind generator");
+	fixRemove: "generator:method";
+	assertMatch: "node power=generator generator:source=wind generator:method=wind";
+	assertNoMatch: "node power=generator generator:source=wind";
+	assertNoMatch: "node power=generator generator:source=wind generator:method=wind_turbine";
+	-osmoseDetail: tr("Wind generators can only use turbines to generate energy.");
+	-osmoseFix: tr("Remove the `{0}` tag or change it to `{1}`.", "generator:method", "wind_turbine");
+	-osmoseResource: "https://wiki.openstreetmap.org/wiki/Key:generator:method";
+}
+
+*[power=generator][generator:method=wind_turbine][generator:source][generator:source!=wind]{
+	throwError: tr("Incompatibility between method and source on a power generator");
+	assertMatch: "node power=generator generator:source=turbine generator:method=wind_turbine";
+	assertNoMatch: "node power=generator generator:source=wind generator:method=wind_turbine";
+	-osmoseDetail: tr("It is not possible to use the specified method to generate energy from this source.");
+	-osmoseFix: tr("Check the wiki page and change the `{0}` tag or the `{1}` tag accordingly.", "generator:method", "generator:source");
+	-osmoseResource: "https://wiki.openstreetmap.org/wiki/Key:generator:method";
+}
+
+*[power=generator][generator:source=hydro][generator:method][generator:method!~/^(water-storage|water-pumped-storage|run-of-the-river)$/]{
+	throwError: tr("Unsuitable method for hydro generator");
+	suggestAlternative: "water-storage, run-of-the-river or water-pumped-storage";
+	fixRemove: "generator:method";
+	assertMatch: "node power=generator generator:source=hydro generator:method=pump";
+	assertNoMatch: "node power=generator generator:source=hydro generator:method=water-storage";
+	-osmoseDetail: tr("Hydro generator can only use certain well-defined methods to generate energy.");
+	-osmoseFix: tr("Check the list of possible values for this source on the wiki and correct the `{0}` tag.", "generator:method");
+	-osmoseResource: "https://wiki.openstreetmap.org/wiki/Key:generator:method";
+}
+
+*[power=generator][generator:method=~/^(water-storage|water-pumped-storage|run-of-the-river)$/][generator:source][generator:source!=hydro]{
+	throwError: tr("Incompatibility between method and source on a power generator");
+	assertMatch: "node power=generator generator:source=water generator:method=water-pumped-storage";
+	assertNoMatch: "node power=generator generator:source=hydro generator:method=water-storage";
+	-osmoseDetail: tr("It is not possible to use the specified method to generate energy from this source.");
+	-osmoseFix: tr("Check the wiki page and change the `{0}` tag or the `{1}` tag accordingly.", "generator:method", "generator:source");
+	-osmoseResource: "https://wiki.openstreetmap.org/wiki/Key:generator:method";
+}
+
+*[power=generator][generator:source=tidal][generator:method][generator:method!~/^(barrage|stream)$/]{
+	throwError: tr("Unsuitable method for tidal generator");
+	suggestAlternative: "barrage or stream";
+	fixRemove: "generator:method";
+	assertMatch: "node power=generator generator:source=tidal generator:method=dam";
+	assertNoMatch: "node power=generator generator:source=tidal generator:method=barrage";
+	-osmoseDetail: tr("Tidal generator can only use certain well-defined methods to generate energy.");
+	-osmoseFix: tr("Check the list of possible values for this source on the wiki and correct the `{0}` tag.", "generator:method");
+	-osmoseResource: "https://wiki.openstreetmap.org/wiki/Key:generator:method";
+}
+
+*[power=generator][generator:method=~/^(barrage|stream)$/][generator:source][generator:source!=tidal]{
+	throwError: tr("Incompatibility between method and source on a power generator");
+	assertMatch: "node power=generator generator:source=solar generator:method=stream";
+	assertNoMatch: "node power=generator generator:source=tidal generator:method=barrage";
+	-osmoseDetail: tr("It is not possible to use the specified method to generate energy from this source.");
+	-osmoseFix: tr("Check the wiki page and change the `{0}` tag or the `{1}` tag accordingly.", "generator:method", "generator:source");
+	-osmoseResource: "https://wiki.openstreetmap.org/wiki/Key:generator:method";
+}
+
+*[power=generator][generator:source=solar][generator:method][generator:method!~/^(thermal|photovoltaic)$/]{
+	throwError: tr("Unsuitable method for solar generator");
+	suggestAlternative: "thermal or photovoltaic";
+	fixRemove: "generator:method";
+	assertMatch: "node power=generator generator:source=solar generator:method=solar";
+	assertNoMatch: "node power=generator generator:source=solar generator:method=thermal";
+	-osmoseDetail: tr("Solar generator can only use certain well-defined methods to generate energy.");
+	-osmoseFix: tr("Check the list of possible values for this source on the wiki and correct the `{0}` tag.", "generator:method");
+	-osmoseResource: "https://wiki.openstreetmap.org/wiki/Key:generator:method";
+}
+
+*[power=generator][generator:method=~/^(thermal|photovoltaic)$/][generator:source][generator:source!=solar]{
+	throwError: tr("Incompatibility between method and source on a power generator");
+	assertMatch: "node power=generator generator:source=photovoltaic generator:method=photovoltaic";
+	assertNoMatch: "node power=generator generator:source=solar generator:method=thermal";
+	-osmoseDetail: tr("It is not possible to use the specified method to generate energy from this source.");
+	-osmoseFix: tr("Check the wiki page and change the `{0}` tag or the `{1}` tag accordingly.", "generator:method", "generator:source");
+	-osmoseResource: "https://wiki.openstreetmap.org/wiki/Key:generator:method";
+}
+
+*[power=generator][generator:source=coal][generator:method][generator:method!=combustion]{
+	throwError: tr("Unsuitable method for coal generator");
+	assertMatch: "node power=generator generator:source=coal generator:method=burning";
+	assertNoMatch: "node power=generator generator:source=coal generator:method=combustion";
+	assertNoMatch: "node power=generator generator:source=coal";
+	-osmoseDetail: tr("Coal generator can only use certain well-defined methods to generate energy.");
+	-osmoseFix: tr("Check the list of possible values for this source on the wiki and correct the `{0}` tag.", "generator:method");
+	-osmoseResource: "https://wiki.openstreetmap.org/wiki/Key:generator:method";
+}
+
+*[power=generator][generator:source=gas][generator:method][generator:method!=combustion]{
+	throwError: tr("Unsuitable method for gas generator");
+	assertMatch: "node power=generator generator:source=gas generator:method=gasification";
+	assertNoMatch: "node power=generator generator:source=gas generator:method=combustion";
+	assertNoMatch: "node power=generator generator:source=gas";
+	-osmoseDetail: tr("Gas generator can only use certain well-defined methods to generate energy.");
+	-osmoseFix: tr("Check the list of possible values for this source on the wiki and correct the `{0}` tag.", "generator:method");
+	-osmoseResource: "https://wiki.openstreetmap.org/wiki/Key:generator:method";
+}
+
+*[power=generator][generator:source=biomass][generator:method][generator:method!~/^(combustion|gasification|anaerobic_digestion)$/]{
+	throwError: tr("Unsuitable method for biomass generator");
+	suggestAlternative: "combustion, anaerobic_digestion or gasification";
+	fixRemove: "generator:method";
+	assertMatch: "node power=generator generator:source=biomass generator:method=burn";
+	assertNoMatch: "node power=generator generator:source=biomass generator:method=anaerobic_digestion";
+	-osmoseDetail: tr("Biomass generator can only use certain well-defined methods to generate energy.");
+	-osmoseFix: tr("Check the list of possible values for this source on the wiki and correct the `{0}` tag.", "generator:method");
+	-osmoseResource: "https://wiki.openstreetmap.org/wiki/Key:generator:method";
+}
+
+*[power=generator][generator:source=biofuel][generator:method][generator:method!=combustion]{
+	throwError: tr("Unsuitable method for biofuel generator");
+	assertMatch: "node power=generator generator:source=biofuel generator:method=gasification";
+	assertNoMatch: "node power=generator generator:source=biofuel generator:method=combustion";
+	assertNoMatch: "node power=generator generator:source=biofuel";
+	-osmoseDetail: tr("Biofuel generator can only use certain well-defined methods to generate energy.");
+	-osmoseFix: tr("Check the list of possible values for this source on the wiki and correct the `{0}` tag.", "generator:method");
+	-osmoseResource: "https://wiki.openstreetmap.org/wiki/Key:generator:method";
+}
+
+*[power=generator][generator:source=biogas][generator:method][generator:method!=combustion]{
+	throwError: tr("Unsuitable method for biogas generator");
+	assertMatch: "node power=generator generator:source=biogas generator:method=gasification";
+	assertNoMatch: "node power=generator generator:source=biogas generator:method=combustion";
+	assertNoMatch: "node power=generator generator:source=biogas";
+	-osmoseDetail: tr("Biogas generator can only use certain well-defined methods to generate energy.");
+	-osmoseFix: tr("Check the list of possible values for this source on the wiki and correct the `{0}` tag.", "generator:method");
+	-osmoseResource: "https://wiki.openstreetmap.org/wiki/Key:generator:method";
+}
+
+*[power=generator][generator:source=oil][generator:method][generator:method!=combustion]{
+	throwError: tr("Unsuitable method for oil generator");
+	assertMatch: "node power=generator generator:source=oil generator:method=gasification";
+	assertNoMatch: "node power=generator generator:source=oil generator:method=combustion";
+	assertNoMatch: "node power=generator generator:source=oil";
+	-osmoseDetail: tr("Oil generator can only use certain well-defined methods to generate energy.");
+	-osmoseFix: tr("Check the list of possible values for this source on the wiki and correct the `{0}` tag.", "generator:method");
+	-osmoseResource: "https://wiki.openstreetmap.org/wiki/Key:generator:method";
+}
+
+*[power=generator][generator:source=diesel][generator:method][generator:method!=combustion]{
+	throwError: tr("Unsuitable method for diesel generator");
+	assertMatch: "node power=generator generator:source=diesel generator:method=gasification";
+	assertNoMatch: "node power=generator generator:source=diesel generator:method=combustion";
+	assertNoMatch: "node power=generator generator:source=diesel";
+	-osmoseDetail: tr("Diesel generator can only use certain well-defined methods to generate energy.");
+	-osmoseFix: tr("Check the list of possible values for this source on the wiki and correct the `{0}` tag.", "generator:method");
+	-osmoseResource: "https://wiki.openstreetmap.org/wiki/Key:generator:method";
+}
+
+*[power=generator][generator:source=gasoline][generator:method][generator:method!=combustion]{
+	throwError: tr("Unsuitable method for gasoline generator");
+	assertMatch: "node power=generator generator:source=gasoline generator:method=gasification";
+	assertNoMatch: "node power=generator generator:source=gasoline generator:method=combustion";
+	assertNoMatch: "node power=generator generator:source=gasoline";
+	-osmoseDetail: tr("Gasoline generator can only use certain well-defined methods to generate energy.");
+	-osmoseFix: tr("Check the list of possible values for this source on the wiki and correct the `{0}` tag.", "generator:method");
+	-osmoseResource: "https://wiki.openstreetmap.org/wiki/Key:generator:method";
+}
+
+*[power=generator][generator:source=waste][generator:method][generator:method!~/^(combustion|gasification)$/]{
+	throwError: tr("Unsuitable method for waste generator");
+	suggestAlternative: "combustion or gasification";
+	fixRemove: "generator:method";
+	assertMatch: "node power=generator generator:source=waste generator:method=burning";
+	assertNoMatch: "node power=generator generator:source=waste generator:method=combustion";
+	-osmoseDetail: tr("Waste generator can only use certain well-defined methods to generate energy.");
+	-osmoseFix: tr("Check the list of possible values for this source on the wiki and correct the `{0}` tag.", "generator:method");
+	-osmoseResource: "https://wiki.openstreetmap.org/wiki/Key:generator:method";
+}
+
+*[power=generator][generator:method=combustion][generator:source][generator:source!~/^(waste|gasoline|diesel|oil|biogas|biofuel|biomass|gas|coal)(;(waste|gasoline|diesel|oil|biogas|biofuel|biomass|gas|coal))*$/]{
+	throwError: tr("Incompatibility between method and source on a power generator");
+	assertMatch: "node power=generator generator:source=wave generator:method=combustion";
+	assertMatch: "node power=generator generator:source=waste;solar generator:method=combustion";
+	assertNoMatch: "node power=generator generator:source=biomass generator:method=combustion";
+	assertNoMatch: "node power=generator generator:source=gas;oil generator:method=combustion";
+	assertNoMatch: "node power=generator generator:source=gas;oil;waste generator:method=combustion";
+	-osmoseDetail: tr("It is not possible to use the specified method to generate energy from this source.");
+	-osmoseFix: tr("Check the wiki page and change the `{0}` tag or the `{1}` tag accordingly.", "generator:method", "generator:source");
+	-osmoseResource: "https://wiki.openstreetmap.org/wiki/Key:generator:method";
+}
+
+*[power=generator][generator:method=gasification][generator:source][generator:source!~/^(waste|biomass)(;(waste|biomass))*$/]{
+	throwError: tr("Incompatibility between method and source on a power generator");
+	assertMatch: "node power=generator generator:source=coal generator:method=gasification";
+	assertNoMatch: "node power=generator generator:source=biomass generator:method=gasification";
+	assertNoMatch: "node power=generator generator:source=biomass;waste generator:method=gasification";
+	-osmoseDetail: tr("It is not possible to use the specified method to generate energy from this source.");
+	-osmoseFix: tr("Check the wiki page and change the `{0}` tag or the `{1}` tag accordingly.", "generator:method", "generator:source");
+	-osmoseResource: "https://wiki.openstreetmap.org/wiki/Key:generator:method";
+}
+
+
+*[power=plant][plant:source][plant:source!~/^(nuclear|wind|hydro|tidal|wave|geothermal|solar|coal|gas|biomass|biofuel|biogas|oil|diesel|gasoline|waste|battery)(;(nuclear|wind|hydro|tidal|wave|geothermal|solar|coal|gas|biomass|biofuel|biogas|oil|diesel|gasoline|waste|battery))*$/] {
+	throwError: tr("Unsuitable value for plant:source=* tag");
+	assertMatch: "node power=plant plant:source=photovoltaic";
+	assertNoMatch: "node power=plant plant:source=solar";
+	assertNoMatch: "node power=plant plant:source=gas;oil";
+	assertNoMatch: "node power=plant";
+	-osmoseDetail: tr("The plant:source=* tag can only have certain well-defined values. This is probably a typo or an deprecated way of tagging.");
+	-osmoseFix: tr("Check the list of possible values on the wiki and correct the tag for this object.");
+	-osmoseResource: "https://wiki.openstreetmap.org/wiki/Key:plant:source";
+}
+
+*[power=plant][plant:source=nuclear][plant:method][plant:method!~/^(fission|fusion)$/]{
+	throwError: tr("Unsuitable method for nuclear power plant");
+	suggestAlternative: "fission or fusion";
+	fixRemove: "plant:method";
+	assertMatch: "node power=plant plant:source=nuclear plant:method=nuclear";
+	assertNoMatch: "node power=plant plant:source=nuclear plant:method=fission";
+	-osmoseDetail: tr("Nuclear power plants can only use certain well-defined methods to generate energy.");
+	-osmoseFix: tr("Check the list of possible values for this source on the wiki and correct the `{0}` tag.", "plant:method");
+	-osmoseResource: "https://wiki.openstreetmap.org/wiki/Key:plant:method";
+}
+
+*[power=plant][plant:method=~/^(fission|fusion)$/][plant:source][plant:source!=nuclear]{
+	throwError: tr("Incompatibility between method and source on a power plant");
+	assertMatch: "node power=plant plant:source=solar plant:method=fusion";
+	assertNoMatch: "node power=plant plant:source=nuclear plant:method=fission";
+	-osmoseDetail: tr("It is not possible to use the specified method to generate energy from this source.");
+	-osmoseFix: tr("Check the wiki page and change the `{0}` tag or the `{1}` tag accordingly.", "plant:method", "plant:source");
+	-osmoseResource: "https://wiki.openstreetmap.org/wiki/Key:plant:method";
+}
+
+*[power=plant][plant:source=wind][plant:method][plant:method!=wind_turbine]{
+	throwError: tr("Unsuitable method for wind power plant");
+	fixRemove: "plant:method";
+	assertMatch: "node power=plant plant:source=wind plant:method=wind";
+	assertNoMatch: "node power=plant plant:source=wind";
+	assertNoMatch: "node power=plant plant:source=wind plant:method=wind_turbine";
+	-osmoseDetail: tr("Wind power plants can only use certain well-defined methods to generate energy.");
+	-osmoseFix: tr("Check the list of possible values for this source on the wiki and correct the `{0}` tag.", "plant:method");
+	-osmoseResource: "https://wiki.openstreetmap.org/wiki/Key:plant:method";
+}
+
+*[power=plant][plant:method=wind_turbine][plant:source][plant:source!=wind]{
+	throwError: tr("Incompatibility between method and source on a power plant");
+	assertMatch: "node power=plant plant:source=eolien plant:method=wind_turbine";
+	assertNoMatch: "node power=plant plant:source=wind plant:method=wind_turbine";
+	-osmoseDetail: tr("It is not possible to use the specified method to generate energy from this source.");
+	-osmoseFix: tr("Check the wiki page and change the `{0}` tag or the `{1}` tag accordingly.", "plant:method", "plant:source");
+	-osmoseResource: "https://wiki.openstreetmap.org/wiki/Key:plant:method";
+}
+
+*[power=plant][plant:source=hydro][plant:method][plant:method!~/^(water-storage|water-pumped-storage|run-of-the-river)$/]{
+	throwError: tr("Unsuitable method for hydro power plant");
+	suggestAlternative: "water-storage, run-of-the-river or water-pumped-storage";
+	fixRemove: "plant:method";
+	assertMatch: "node power=plant plant:source=hydro plant:method=pump";
+	assertNoMatch: "node power=plant plant:source=hydro plant:method=water-storage";
+	-osmoseDetail: tr("Hydro power plants can only use certain well-defined methods to generate energy.");
+	-osmoseFix: tr("Check the list of possible values for this source on the wiki and correct the `{0}` tag.", "plant:method");
+	-osmoseResource: "https://wiki.openstreetmap.org/wiki/Key:plant:method";
+}
+
+*[power=plant][plant:method=~/^(water-storage|water-pumped-storage|run-of-the-river)$/][plant:source][plant:source!=hydro]{
+	throwError: tr("Incompatibility between method and source on a power plant");
+	assertMatch: "node power=plant plant:source=water plant:method=water-pumped-storage";
+	assertNoMatch: "node power=plant plant:source=hydro plant:method=water-storage";
+	-osmoseDetail: tr("It is not possible to use the specified method to generate energy from this source.");
+	-osmoseFix: tr("Check the wiki page and change the `{0}` tag or the `{1}` tag accordingly.", "plant:method", "plant:source");
+	-osmoseResource: "https://wiki.openstreetmap.org/wiki/Key:plant:method";
+}
+
+*[power=plant][plant:source=tidal][plant:method][plant:method!~/^(barrage|stream)$/]{
+	throwError: tr("Unsuitable method for tidal power plant");
+	suggestAlternative: "barrage or stream";
+	fixRemove: "plant:method";
+	assertMatch: "node power=plant plant:source=tidal plant:method=dam";
+	assertNoMatch: "node power=plant plant:source=tidal plant:method=barrage";
+	-osmoseDetail: tr("Tidal power plants can only use certain well-defined methods to generate energy.");
+	-osmoseFix: tr("Check the list of possible values for this source on the wiki and correct the `{0}` tag.", "plant:method");
+	-osmoseResource: "https://wiki.openstreetmap.org/wiki/Key:plant:method";
+}
+
+*[power=plant][plant:method=~/^(barrage|stream)$/][plant:source][plant:source!=tidal]{
+	throwError: tr("Incompatibility between method and source on a power plant");
+	assertMatch: "node power=plant plant:source=solar plant:method=stream";
+	assertNoMatch: "node power=plant plant:source=tidal plant:method=barrage";
+	-osmoseDetail: tr("It is not possible to use the specified method to generate energy from this source.");
+	-osmoseFix: tr("Check the wiki page and change the `{0}` tag or the `{1}` tag accordingly.", "plant:method", "plant:source");
+	-osmoseResource: "https://wiki.openstreetmap.org/wiki/Key:plant:method";
+}
+
+*[power=plant][plant:source=solar][plant:method][plant:method!~/^(thermal|photovoltaic)$/]{
+	throwError: tr("Unsuitable method for solar power plant");
+	suggestAlternative: "thermal or photovoltaic";
+	fixRemove: "plant:method";
+	assertMatch: "node power=plant plant:source=solar plant:method=solar";
+	assertNoMatch: "node power=plant plant:source=solar plant:method=thermal";
+	-osmoseDetail: tr("Solar power plants can only use certain well-defined methods to generate energy.");
+	-osmoseFix: tr("Check the list of possible values for this source on the wiki and correct the `{0}` tag.", "plant:method");
+	-osmoseResource: "https://wiki.openstreetmap.org/wiki/Key:plant:method";
+}
+
+*[power=plant][plant:method=~/^(thermal|photovoltaic)$/][plant:source][plant:source!=solar]{
+	throwError: tr("Incompatibility between method and source on a power plant");
+	assertMatch: "node power=plant plant:source=photovoltaic plant:method=photovoltaic";
+	assertNoMatch: "node power=plant plant:source=solar plant:method=thermal";
+	-osmoseDetail: tr("It is not possible to use the specified method to generate energy from this source.");
+	-osmoseFix: tr("Check the wiki page and change the `{0}` tag or the `{1}` tag accordingly.", "plant:method", "plant:source");
+	-osmoseResource: "https://wiki.openstreetmap.org/wiki/Key:plant:method";
+}
+
+*[power=plant][plant:source=coal][plant:method][plant:method!=combustion]{
+	throwError: tr("Unsuitable method for coal power plant");
+	assertMatch: "node power=plant plant:source=coal plant:method=burning";
+	assertNoMatch: "node power=plant plant:source=coal plant:method=combustion";
+	assertNoMatch: "node power=plant plant:source=coal";
+	-osmoseDetail: tr("Coal power plants can only use certain well-defined methods to generate energy.");
+	-osmoseFix: tr("Check the list of possible values for this source on the wiki and correct the `{0}` tag.", "plant:method");
+	-osmoseResource: "https://wiki.openstreetmap.org/wiki/Key:plant:method";
+}
+
+*[power=plant][plant:source=gas][plant:method][plant:method!=combustion]{
+	throwError: tr("Unsuitable method for gas power plant");
+	assertMatch: "node power=plant plant:source=gas plant:method=gasification";
+	assertNoMatch: "node power=plant plant:source=gas plant:method=combustion";
+	assertNoMatch: "node power=plant plant:source=gas";
+	-osmoseDetail: tr("Gas power plants can only use certain well-defined methods to generate energy.");
+	-osmoseFix: tr("Check the list of possible values for this source on the wiki and correct the `{0}` tag.", "plant:method");
+	-osmoseResource: "https://wiki.openstreetmap.org/wiki/Key:plant:method";
+}
+
+*[power=plant][plant:source=biomass][plant:method][plant:method!~/^(combustion|gasification|anaerobic_digestion)$/]{
+	throwError: tr("Unsuitable method for biomass power plant");
+	suggestAlternative: "combustion, anaerobic_digestion or gasification";
+	fixRemove: "plant:method";
+	assertMatch: "node power=plant plant:source=biomass plant:method=burn";
+	assertNoMatch: "node power=plant plant:source=biomass plant:method=anaerobic_digestion";
+	-osmoseDetail: tr("Biomass power plants can only use certain well-defined methods to generate energy.");
+	-osmoseFix: tr("Check the list of possible values for this source on the wiki and correct the `{0}` tag.", "plant:method");
+	-osmoseResource: "https://wiki.openstreetmap.org/wiki/Key:plant:method";
+}
+
+*[power=plant][plant:source=biofuel][plant:method][plant:method!=combustion]{
+	throwError: tr("Unsuitable method for biofuel power plant");
+	assertMatch: "node power=plant plant:source=biofuel plant:method=gasification";
+	assertNoMatch: "node power=plant plant:source=biofuel plant:method=combustion";
+	assertNoMatch: "node power=plant plant:source=biofuel";
+	-osmoseDetail: tr("Biofuel power plants can only use certain well-defined methods to generate energy.");
+	-osmoseFix: tr("Check the list of possible values for this source on the wiki and correct the `{0}` tag.", "plant:method");
+	-osmoseResource: "https://wiki.openstreetmap.org/wiki/Key:plant:method";
+}
+
+*[power=plant][plant:source=biogas][plant:method][plant:method!=combustion]{
+	throwError: tr("Unsuitable method for biogas power plant");
+	assertMatch: "node power=plant plant:source=biogas plant:method=gasification";
+	assertNoMatch: "node power=plant plant:source=biogas plant:method=combustion";
+	assertNoMatch: "node power=plant plant:source=biogas";
+	-osmoseDetail: tr("Biogas power plants can only use certain well-defined methods to generate energy.");
+	-osmoseFix: tr("Check the list of possible values for this source on the wiki and correct the `{0}` tag.", "plant:method");
+	-osmoseResource: "https://wiki.openstreetmap.org/wiki/Key:plant:method";
+}
+
+*[power=plant][plant:source=oil][plant:method][plant:method!=combustion]{
+	throwError: tr("Unsuitable method for oil power plant");
+	assertMatch: "node power=plant plant:source=oil plant:method=gasification";
+	assertNoMatch: "node power=plant plant:source=oil plant:method=combustion";
+	assertNoMatch: "node power=plant plant:source=oil";
+	-osmoseDetail: tr("Oil power plants can only use certain well-defined methods to generate energy.");
+	-osmoseFix: tr("Check the list of possible values for this source on the wiki and correct the `{0}` tag.", "plant:method");
+	-osmoseResource: "https://wiki.openstreetmap.org/wiki/Key:plant:method";
+}
+
+*[power=plant][plant:source=diesel][plant:method][plant:method!=combustion]{
+	throwError: tr("Unsuitable method for diesel power plant");
+	assertMatch: "node power=plant plant:source=diesel plant:method=gasification";
+	assertNoMatch: "node power=plant plant:source=diesel plant:method=combustion";
+	assertNoMatch: "node power=plant plant:source=diesel";
+	-osmoseDetail: tr("Diesel power plants can only use certain well-defined methods to generate energy.");
+	-osmoseFix: tr("Check the list of possible values for this source on the wiki and correct the `{0}` tag.", "plant:method");
+	-osmoseResource: "https://wiki.openstreetmap.org/wiki/Key:plant:method";
+}
+
+*[power=plant][plant:source=gasoline][plant:method][plant:method!=combustion]{
+	throwError: tr("Unsuitable method for gasoline power plant");
+	assertMatch: "node power=plant plant:source=gasoline plant:method=gasification";
+	assertNoMatch: "node power=plant plant:source=gasoline plant:method=combustion";
+	assertNoMatch: "node power=plant plant:source=gasoline";
+	-osmoseDetail: tr("Gasoline power plants can only use certain well-defined methods to generate energy.");
+	-osmoseFix: tr("Check the list of possible values for this source on the wiki and correct the `{0}` tag.", "plant:method");
+	-osmoseResource: "https://wiki.openstreetmap.org/wiki/Key:plant:method";
+}
+
+*[power=plant][plant:source=waste][plant:method][plant:method!~/^(combustion|gasification)$/]{
+	throwError: tr("Unsuitable method for waste power plant");
+	suggestAlternative: "combustion or gasification";
+	fixRemove: "plant:method";
+	assertMatch: "node power=plant plant:source=waste plant:method=burning";
+	assertNoMatch: "node power=plant plant:source=waste plant:method=combustion";
+	-osmoseDetail: tr("Waste power plants can only use certain well-defined methods to generate energy.");
+	-osmoseFix: tr("Check the list of possible values for this source on the wiki and correct the `{0}` tag.", "plant:method");
+	-osmoseResource: "https://wiki.openstreetmap.org/wiki/Key:plant:method";
+}
+
+*[power=plant][plant:method=combustion][plant:source][plant:source!~/^(waste|gasoline|diesel|oil|biogas|biofuel|biomass|gas|coal)(;(waste|gasoline|diesel|oil|biogas|biofuel|biomass|gas|coal))*$/]{
+	throwError: tr("Incompatibility between method and source on a power plant");
+	assertMatch: "node power=plant plant:source=wave plant:method=combustion";
+	assertNoMatch: "node power=plant plant:source=biomass plant:method=combustion";
+	assertNoMatch: "node power=plant plant:source=biomass;waste plant:method=combustion";
+	-osmoseDetail: tr("It is not possible to use the specified method to generate energy from this source.");
+	-osmoseFix: tr("Check the wiki page and change the `{0}` tag or the `{1}` tag accordingly.", "plant:method", "plant:source");
+	-osmoseResource: "https://wiki.openstreetmap.org/wiki/Key:plant:method";
+}
+
+*[power=plant][plant:method=gasification][plant:source][plant:source!~/^(waste|biomass)(;(waste|biomass))*$/]{
+	throwError: tr("Incompatibility between method and source on a power plant");
+	assertMatch: "node power=plant plant:source=coal plant:method=gasification";
+	assertNoMatch: "node power=plant plant:source=biomass plant:method=gasification";
+	assertNoMatch: "node power=plant plant:source=biomass;waste plant:method=gasification";
+	-osmoseDetail: tr("It is not possible to use the specified method to generate energy from this source.");
+	-osmoseFix: tr("Check the wiki page and change the `{0}` tag or the `{1}` tag accordingly.", "plant:method", "plant:source");
+	-osmoseResource: "https://wiki.openstreetmap.org/wiki/Key:plant:method";
+}
 
 relation[power=~/line_section|circuit/][voltage][voltage!~/;/][voltage!~ /^(110000|132000|220000|500000)$/ ][inside("AF")],
 way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(110000|132000|220000|500000)$/ ][inside("AF")] {
@@ -6,7 +851,6 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(110000|1
     -osmoseDetail: tr("Each country has its own voltage set used for electricity transmission.");
     -osmoseExample: tr("For example, in Jordan, only 132 kV and 400 kV voltages are used.");
     -osmoseFix: tr("Check the list of possible values for this country on the wiki and correct the `0` tag.", "voltage");
-    -osmoseTags: list("tag", "power");
     -osmoseResource: "https://wiki.openstreetmap.org/wiki/Power_networks/Afghanistan";
     -osmoseTrap: "If the voltage in OSM is correct but is showing as an error here, check the wiki page and make the necessary corrections. Then create [an issue on GitHub](https://github.com/open-energy-transition/validate-my-grid/issues) to update this check.";
 }
@@ -19,7 +863,6 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(30000|35
     -osmoseDetail: tr("Each country has its own voltage set used for electricity transmission.");
     -osmoseExample: tr("For example, in Jordan, only 132 kV and 400 kV voltages are used.");
     -osmoseFix: tr("Check the list of possible values for this country on the wiki and correct the `0` tag.", "voltage");
-    -osmoseTags: list("tag", "power");
     -osmoseResource: "https://wiki.openstreetmap.org/wiki/Power_networks/Albania";
     -osmoseTrap: "If the voltage in OSM is correct but is showing as an error here, check the wiki page and make the necessary corrections. Then create [an issue on GitHub](https://github.com/open-energy-transition/validate-my-grid/issues) to update this check.";
 }
@@ -32,7 +875,6 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(30000|60
     -osmoseDetail: tr("Each country has its own voltage set used for electricity transmission.");
     -osmoseExample: tr("For example, in Jordan, only 132 kV and 400 kV voltages are used.");
     -osmoseFix: tr("Check the list of possible values for this country on the wiki and correct the `0` tag.", "voltage");
-    -osmoseTags: list("tag", "power");
     -osmoseResource: "https://wiki.openstreetmap.org/wiki/Power_networks/Algeria";
     -osmoseTrap: "If the voltage in OSM is correct but is showing as an error here, check the wiki page and make the necessary corrections. Then create [an issue on GitHub](https://github.com/open-energy-transition/validate-my-grid/issues) to update this check.";
 }
@@ -45,7 +887,6 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(110000|1
     -osmoseDetail: tr("Each country has its own voltage set used for electricity transmission.");
     -osmoseExample: tr("For example, in Jordan, only 132 kV and 400 kV voltages are used.");
     -osmoseFix: tr("Check the list of possible values for this country on the wiki and correct the `0` tag.", "voltage");
-    -osmoseTags: list("tag", "power");
     -osmoseResource: "https://wiki.openstreetmap.org/wiki/Power_networks/Andorra";
     -osmoseTrap: "If the voltage in OSM is correct but is showing as an error here, check the wiki page and make the necessary corrections. Then create [an issue on GitHub](https://github.com/open-energy-transition/validate-my-grid/issues) to update this check.";
 }
@@ -58,7 +899,6 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(60000|66
     -osmoseDetail: tr("Each country has its own voltage set used for electricity transmission.");
     -osmoseExample: tr("For example, in Jordan, only 132 kV and 400 kV voltages are used.");
     -osmoseFix: tr("Check the list of possible values for this country on the wiki and correct the `0` tag.", "voltage");
-    -osmoseTags: list("tag", "power");
     -osmoseResource: "https://wiki.openstreetmap.org/wiki/Power_networks/Angola";
     -osmoseTrap: "If the voltage in OSM is correct but is showing as an error here, check the wiki page and make the necessary corrections. Then create [an issue on GitHub](https://github.com/open-energy-transition/validate-my-grid/issues) to update this check.";
 }
@@ -71,7 +911,6 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(13200|25
     -osmoseDetail: tr("Each country has its own voltage set used for electricity transmission.");
     -osmoseExample: tr("For example, in Jordan, only 132 kV and 400 kV voltages are used.");
     -osmoseFix: tr("Check the list of possible values for this country on the wiki and correct the `0` tag.", "voltage");
-    -osmoseTags: list("tag", "power");
     -osmoseResource: "https://wiki.openstreetmap.org/wiki/Power_networks/Argentina";
     -osmoseTrap: "If the voltage in OSM is correct but is showing as an error here, check the wiki page and make the necessary corrections. Then create [an issue on GitHub](https://github.com/open-energy-transition/validate-my-grid/issues) to update this check.";
 }
@@ -84,7 +923,6 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(35000|36
     -osmoseDetail: tr("Each country has its own voltage set used for electricity transmission.");
     -osmoseExample: tr("For example, in Jordan, only 132 kV and 400 kV voltages are used.");
     -osmoseFix: tr("Check the list of possible values for this country on the wiki and correct the `0` tag.", "voltage");
-    -osmoseTags: list("tag", "power");
     -osmoseResource: "https://wiki.openstreetmap.org/wiki/Power_networks/Armenia";
     -osmoseTrap: "If the voltage in OSM is correct but is showing as an error here, check the wiki page and make the necessary corrections. Then create [an issue on GitHub](https://github.com/open-energy-transition/validate-my-grid/issues) to update this check.";
 }
@@ -97,7 +935,6 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(10500|11
     -osmoseDetail: tr("Each country has its own voltage set used for electricity transmission.");
     -osmoseExample: tr("For example, in Jordan, only 132 kV and 400 kV voltages are used.");
     -osmoseFix: tr("Check the list of possible values for this country on the wiki and correct the `0` tag.", "voltage");
-    -osmoseTags: list("tag", "power");
     -osmoseResource: "https://wiki.openstreetmap.org/wiki/Power_networks/Australia";
     -osmoseTrap: "If the voltage in OSM is correct but is showing as an error here, check the wiki page and make the necessary corrections. Then create [an issue on GitHub](https://github.com/open-energy-transition/validate-my-grid/issues) to update this check.";
 }
@@ -110,7 +947,6 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(10500|13
     -osmoseDetail: tr("Each country has its own voltage set used for electricity transmission.");
     -osmoseExample: tr("For example, in Jordan, only 132 kV and 400 kV voltages are used.");
     -osmoseFix: tr("Check the list of possible values for this country on the wiki and correct the `0` tag.", "voltage");
-    -osmoseTags: list("tag", "power");
     -osmoseResource: "https://wiki.openstreetmap.org/wiki/Power_networks/Austria";
     -osmoseTrap: "If the voltage in OSM is correct but is showing as an error here, check the wiki page and make the necessary corrections. Then create [an issue on GitHub](https://github.com/open-energy-transition/validate-my-grid/issues) to update this check.";
 }
@@ -123,7 +959,6 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(35000|11
     -osmoseDetail: tr("Each country has its own voltage set used for electricity transmission.");
     -osmoseExample: tr("For example, in Jordan, only 132 kV and 400 kV voltages are used.");
     -osmoseFix: tr("Check the list of possible values for this country on the wiki and correct the `0` tag.", "voltage");
-    -osmoseTags: list("tag", "power");
     -osmoseResource: "https://wiki.openstreetmap.org/wiki/Power_networks/Azerbaijan";
     -osmoseTrap: "If the voltage in OSM is correct but is showing as an error here, check the wiki page and make the necessary corrections. Then create [an issue on GitHub](https://github.com/open-energy-transition/validate-my-grid/issues) to update this check.";
 }
@@ -136,7 +971,6 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(220000|2
     -osmoseDetail: tr("Each country has its own voltage set used for electricity transmission.");
     -osmoseExample: tr("For example, in Jordan, only 132 kV and 400 kV voltages are used.");
     -osmoseFix: tr("Check the list of possible values for this country on the wiki and correct the `0` tag.", "voltage");
-    -osmoseTags: list("tag", "power");
     -osmoseResource: "https://wiki.openstreetmap.org/wiki/Power_networks/Bahrain";
     -osmoseTrap: "If the voltage in OSM is correct but is showing as an error here, check the wiki page and make the necessary corrections. Then create [an issue on GitHub](https://github.com/open-energy-transition/validate-my-grid/issues) to update this check.";
 }
@@ -149,7 +983,6 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(23000|33
     -osmoseDetail: tr("Each country has its own voltage set used for electricity transmission.");
     -osmoseExample: tr("For example, in Jordan, only 132 kV and 400 kV voltages are used.");
     -osmoseFix: tr("Check the list of possible values for this country on the wiki and correct the `0` tag.", "voltage");
-    -osmoseTags: list("tag", "power");
     -osmoseResource: "https://wiki.openstreetmap.org/wiki/Power_networks/Bangladesh";
     -osmoseTrap: "If the voltage in OSM is correct but is showing as an error here, check the wiki page and make the necessary corrections. Then create [an issue on GitHub](https://github.com/open-energy-transition/validate-my-grid/issues) to update this check.";
 }
@@ -162,7 +995,6 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(35000|40
     -osmoseDetail: tr("Each country has its own voltage set used for electricity transmission.");
     -osmoseExample: tr("For example, in Jordan, only 132 kV and 400 kV voltages are used.");
     -osmoseFix: tr("Check the list of possible values for this country on the wiki and correct the `0` tag.", "voltage");
-    -osmoseTags: list("tag", "power");
     -osmoseResource: "https://wiki.openstreetmap.org/wiki/Power_networks/Belarus";
     -osmoseTrap: "If the voltage in OSM is correct but is showing as an error here, check the wiki page and make the necessary corrections. Then create [an issue on GitHub](https://github.com/open-energy-transition/validate-my-grid/issues) to update this check.";
 }
@@ -175,7 +1007,6 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(11000|11
     -osmoseDetail: tr("Each country has its own voltage set used for electricity transmission.");
     -osmoseExample: tr("For example, in Jordan, only 132 kV and 400 kV voltages are used.");
     -osmoseFix: tr("Check the list of possible values for this country on the wiki and correct the `0` tag.", "voltage");
-    -osmoseTags: list("tag", "power");
     -osmoseResource: "https://wiki.openstreetmap.org/wiki/Power_networks/Belgium";
     -osmoseTrap: "If the voltage in OSM is correct but is showing as an error here, check the wiki page and make the necessary corrections. Then create [an issue on GitHub](https://github.com/open-energy-transition/validate-my-grid/issues) to update this check.";
 }
@@ -188,7 +1019,6 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(22000|34
     -osmoseDetail: tr("Each country has its own voltage set used for electricity transmission.");
     -osmoseExample: tr("For example, in Jordan, only 132 kV and 400 kV voltages are used.");
     -osmoseFix: tr("Check the list of possible values for this country on the wiki and correct the `0` tag.", "voltage");
-    -osmoseTags: list("tag", "power");
     -osmoseResource: "https://wiki.openstreetmap.org/wiki/Power_networks/Belize";
     -osmoseTrap: "If the voltage in OSM is correct but is showing as an error here, check the wiki page and make the necessary corrections. Then create [an issue on GitHub](https://github.com/open-energy-transition/validate-my-grid/issues) to update this check.";
 }
@@ -201,7 +1031,6 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(161000|3
     -osmoseDetail: tr("Each country has its own voltage set used for electricity transmission.");
     -osmoseExample: tr("For example, in Jordan, only 132 kV and 400 kV voltages are used.");
     -osmoseFix: tr("Check the list of possible values for this country on the wiki and correct the `0` tag.", "voltage");
-    -osmoseTags: list("tag", "power");
     -osmoseResource: "https://wiki.openstreetmap.org/wiki/Power_networks/Benin";
     -osmoseTrap: "If the voltage in OSM is correct but is showing as an error here, check the wiki page and make the necessary corrections. Then create [an issue on GitHub](https://github.com/open-energy-transition/validate-my-grid/issues) to update this check.";
 }
@@ -214,7 +1043,6 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(66000|13
     -osmoseDetail: tr("Each country has its own voltage set used for electricity transmission.");
     -osmoseExample: tr("For example, in Jordan, only 132 kV and 400 kV voltages are used.");
     -osmoseFix: tr("Check the list of possible values for this country on the wiki and correct the `0` tag.", "voltage");
-    -osmoseTags: list("tag", "power");
     -osmoseResource: "https://wiki.openstreetmap.org/wiki/Power_networks/Bhutan";
     -osmoseTrap: "If the voltage in OSM is correct but is showing as an error here, check the wiki page and make the necessary corrections. Then create [an issue on GitHub](https://github.com/open-energy-transition/validate-my-grid/issues) to update this check.";
 }
@@ -227,7 +1055,6 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(115000|2
     -osmoseDetail: tr("Each country has its own voltage set used for electricity transmission.");
     -osmoseExample: tr("For example, in Jordan, only 132 kV and 400 kV voltages are used.");
     -osmoseFix: tr("Check the list of possible values for this country on the wiki and correct the `0` tag.", "voltage");
-    -osmoseTags: list("tag", "power");
     -osmoseResource: "https://wiki.openstreetmap.org/wiki/Power_networks/Bolivia";
     -osmoseTrap: "If the voltage in OSM is correct but is showing as an error here, check the wiki page and make the necessary corrections. Then create [an issue on GitHub](https://github.com/open-energy-transition/validate-my-grid/issues) to update this check.";
 }
@@ -240,7 +1067,6 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(35000|11
     -osmoseDetail: tr("Each country has its own voltage set used for electricity transmission.");
     -osmoseExample: tr("For example, in Jordan, only 132 kV and 400 kV voltages are used.");
     -osmoseFix: tr("Check the list of possible values for this country on the wiki and correct the `0` tag.", "voltage");
-    -osmoseTags: list("tag", "power");
     -osmoseResource: "https://wiki.openstreetmap.org/wiki/Power_networks/Bosnia_and_Herzegovina";
     -osmoseTrap: "If the voltage in OSM is correct but is showing as an error here, check the wiki page and make the necessary corrections. Then create [an issue on GitHub](https://github.com/open-energy-transition/validate-my-grid/issues) to update this check.";
 }
@@ -253,7 +1079,6 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(66000|13
     -osmoseDetail: tr("Each country has its own voltage set used for electricity transmission.");
     -osmoseExample: tr("For example, in Jordan, only 132 kV and 400 kV voltages are used.");
     -osmoseFix: tr("Check the list of possible values for this country on the wiki and correct the `0` tag.", "voltage");
-    -osmoseTags: list("tag", "power");
     -osmoseResource: "https://wiki.openstreetmap.org/wiki/Power_networks/Botswana";
     -osmoseTrap: "If the voltage in OSM is correct but is showing as an error here, check the wiki page and make the necessary corrections. Then create [an issue on GitHub](https://github.com/open-energy-transition/validate-my-grid/issues) to update this check.";
 }
@@ -266,7 +1091,6 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(13800|23
     -osmoseDetail: tr("Each country has its own voltage set used for electricity transmission.");
     -osmoseExample: tr("For example, in Jordan, only 132 kV and 400 kV voltages are used.");
     -osmoseFix: tr("Check the list of possible values for this country on the wiki and correct the `0` tag.", "voltage");
-    -osmoseTags: list("tag", "power");
     -osmoseResource: "https://wiki.openstreetmap.org/wiki/Power_networks/Brazil";
     -osmoseTrap: "If the voltage in OSM is correct but is showing as an error here, check the wiki page and make the necessary corrections. Then create [an issue on GitHub](https://github.com/open-energy-transition/validate-my-grid/issues) to update this check.";
 }
@@ -279,7 +1103,6 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(66000|13
     -osmoseDetail: tr("Each country has its own voltage set used for electricity transmission.");
     -osmoseExample: tr("For example, in Jordan, only 132 kV and 400 kV voltages are used.");
     -osmoseFix: tr("Check the list of possible values for this country on the wiki and correct the `0` tag.", "voltage");
-    -osmoseTags: list("tag", "power");
     -osmoseResource: "https://wiki.openstreetmap.org/wiki/Power_networks/Brunei";
     -osmoseTrap: "If the voltage in OSM is correct but is showing as an error here, check the wiki page and make the necessary corrections. Then create [an issue on GitHub](https://github.com/open-energy-transition/validate-my-grid/issues) to update this check.";
 }
@@ -292,7 +1115,6 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(20000|22
     -osmoseDetail: tr("Each country has its own voltage set used for electricity transmission.");
     -osmoseExample: tr("For example, in Jordan, only 132 kV and 400 kV voltages are used.");
     -osmoseFix: tr("Check the list of possible values for this country on the wiki and correct the `0` tag.", "voltage");
-    -osmoseTags: list("tag", "power");
     -osmoseResource: "https://wiki.openstreetmap.org/wiki/Power_networks/Bulgaria";
     -osmoseTrap: "If the voltage in OSM is correct but is showing as an error here, check the wiki page and make the necessary corrections. Then create [an issue on GitHub](https://github.com/open-energy-transition/validate-my-grid/issues) to update this check.";
 }
@@ -305,7 +1127,6 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(90000|13
     -osmoseDetail: tr("Each country has its own voltage set used for electricity transmission.");
     -osmoseExample: tr("For example, in Jordan, only 132 kV and 400 kV voltages are used.");
     -osmoseFix: tr("Check the list of possible values for this country on the wiki and correct the `0` tag.", "voltage");
-    -osmoseTags: list("tag", "power");
     -osmoseResource: "https://wiki.openstreetmap.org/wiki/Power_networks/Burkina_Faso";
     -osmoseTrap: "If the voltage in OSM is correct but is showing as an error here, check the wiki page and make the necessary corrections. Then create [an issue on GitHub](https://github.com/open-energy-transition/validate-my-grid/issues) to update this check.";
 }
@@ -318,7 +1139,6 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(70000|11
     -osmoseDetail: tr("Each country has its own voltage set used for electricity transmission.");
     -osmoseExample: tr("For example, in Jordan, only 132 kV and 400 kV voltages are used.");
     -osmoseFix: tr("Check the list of possible values for this country on the wiki and correct the `0` tag.", "voltage");
-    -osmoseTags: list("tag", "power");
     -osmoseResource: "https://wiki.openstreetmap.org/wiki/Power_networks/Burundi";
     -osmoseTrap: "If the voltage in OSM is correct but is showing as an error here, check the wiki page and make the necessary corrections. Then create [an issue on GitHub](https://github.com/open-energy-transition/validate-my-grid/issues) to update this check.";
 }
@@ -331,7 +1151,6 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(115000|2
     -osmoseDetail: tr("Each country has its own voltage set used for electricity transmission.");
     -osmoseExample: tr("For example, in Jordan, only 132 kV and 400 kV voltages are used.");
     -osmoseFix: tr("Check the list of possible values for this country on the wiki and correct the `0` tag.", "voltage");
-    -osmoseTags: list("tag", "power");
     -osmoseResource: "https://wiki.openstreetmap.org/wiki/Power_networks/Cambodia";
     -osmoseTrap: "If the voltage in OSM is correct but is showing as an error here, check the wiki page and make the necessary corrections. Then create [an issue on GitHub](https://github.com/open-energy-transition/validate-my-grid/issues) to update this check.";
 }
@@ -344,7 +1163,6 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(30000|90
     -osmoseDetail: tr("Each country has its own voltage set used for electricity transmission.");
     -osmoseExample: tr("For example, in Jordan, only 132 kV and 400 kV voltages are used.");
     -osmoseFix: tr("Check the list of possible values for this country on the wiki and correct the `0` tag.", "voltage");
-    -osmoseTags: list("tag", "power");
     -osmoseResource: "https://wiki.openstreetmap.org/wiki/Power_networks/Cameroon";
     -osmoseTrap: "If the voltage in OSM is correct but is showing as an error here, check the wiki page and make the necessary corrections. Then create [an issue on GitHub](https://github.com/open-energy-transition/validate-my-grid/issues) to update this check.";
 }
@@ -357,7 +1175,6 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(11500|12
     -osmoseDetail: tr("Each country has its own voltage set used for electricity transmission.");
     -osmoseExample: tr("For example, in Jordan, only 132 kV and 400 kV voltages are used.");
     -osmoseFix: tr("Check the list of possible values for this country on the wiki and correct the `0` tag.", "voltage");
-    -osmoseTags: list("tag", "power");
     -osmoseResource: "https://wiki.openstreetmap.org/wiki/Power_networks/Canada";
     -osmoseTrap: "If the voltage in OSM is correct but is showing as an error here, check the wiki page and make the necessary corrections. Then create [an issue on GitHub](https://github.com/open-energy-transition/validate-my-grid/issues) to update this check.";
 }
@@ -370,7 +1187,6 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(20000|60
     -osmoseDetail: tr("Each country has its own voltage set used for electricity transmission.");
     -osmoseExample: tr("For example, in Jordan, only 132 kV and 400 kV voltages are used.");
     -osmoseFix: tr("Check the list of possible values for this country on the wiki and correct the `0` tag.", "voltage");
-    -osmoseTags: list("tag", "power");
     -osmoseResource: "https://wiki.openstreetmap.org/wiki/Power_networks/Cape_Verde";
     -osmoseTrap: "If the voltage in OSM is correct but is showing as an error here, check the wiki page and make the necessary corrections. Then create [an issue on GitHub](https://github.com/open-energy-transition/validate-my-grid/issues) to update this check.";
 }
@@ -383,7 +1199,6 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(110000)$
     -osmoseDetail: tr("Each country has its own voltage set used for electricity transmission.");
     -osmoseExample: tr("For example, in Jordan, only 132 kV and 400 kV voltages are used.");
     -osmoseFix: tr("Check the list of possible values for this country on the wiki and correct the `0` tag.", "voltage");
-    -osmoseTags: list("tag", "power");
     -osmoseResource: "https://wiki.openstreetmap.org/wiki/Power_networks/Central_African_Republic";
     -osmoseTrap: "If the voltage in OSM is correct but is showing as an error here, check the wiki page and make the necessary corrections. Then create [an issue on GitHub](https://github.com/open-energy-transition/validate-my-grid/issues) to update this check.";
 }
@@ -396,7 +1211,6 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(20000|66
     -osmoseDetail: tr("Each country has its own voltage set used for electricity transmission.");
     -osmoseExample: tr("For example, in Jordan, only 132 kV and 400 kV voltages are used.");
     -osmoseFix: tr("Check the list of possible values for this country on the wiki and correct the `0` tag.", "voltage");
-    -osmoseTags: list("tag", "power");
     -osmoseResource: "https://wiki.openstreetmap.org/wiki/Power_networks/Chad";
     -osmoseTrap: "If the voltage in OSM is correct but is showing as an error here, check the wiki page and make the necessary corrections. Then create [an issue on GitHub](https://github.com/open-energy-transition/validate-my-grid/issues) to update this check.";
 }
@@ -409,7 +1223,6 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(13800|15
     -osmoseDetail: tr("Each country has its own voltage set used for electricity transmission.");
     -osmoseExample: tr("For example, in Jordan, only 132 kV and 400 kV voltages are used.");
     -osmoseFix: tr("Check the list of possible values for this country on the wiki and correct the `0` tag.", "voltage");
-    -osmoseTags: list("tag", "power");
     -osmoseResource: "https://wiki.openstreetmap.org/wiki/Power_networks/Chile";
     -osmoseTrap: "If the voltage in OSM is correct but is showing as an error here, check the wiki page and make the necessary corrections. Then create [an issue on GitHub](https://github.com/open-energy-transition/validate-my-grid/issues) to update this check.";
 }
@@ -422,7 +1235,6 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(15000|25
     -osmoseDetail: tr("Each country has its own voltage set used for electricity transmission.");
     -osmoseExample: tr("For example, in Jordan, only 132 kV and 400 kV voltages are used.");
     -osmoseFix: tr("Check the list of possible values for this country on the wiki and correct the `0` tag.", "voltage");
-    -osmoseTags: list("tag", "power");
     -osmoseResource: "https://wiki.openstreetmap.org/wiki/Power_networks/Colombia";
     -osmoseTrap: "If the voltage in OSM is correct but is showing as an error here, check the wiki page and make the necessary corrections. Then create [an issue on GitHub](https://github.com/open-energy-transition/validate-my-grid/issues) to update this check.";
 }
@@ -435,7 +1247,6 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(138000|2
     -osmoseDetail: tr("Each country has its own voltage set used for electricity transmission.");
     -osmoseExample: tr("For example, in Jordan, only 132 kV and 400 kV voltages are used.");
     -osmoseFix: tr("Check the list of possible values for this country on the wiki and correct the `0` tag.", "voltage");
-    -osmoseTags: list("tag", "power");
     -osmoseResource: "https://wiki.openstreetmap.org/wiki/Power_networks/Costa_Rica";
     -osmoseTrap: "If the voltage in OSM is correct but is showing as an error here, check the wiki page and make the necessary corrections. Then create [an issue on GitHub](https://github.com/open-energy-transition/validate-my-grid/issues) to update this check.";
 }
@@ -448,7 +1259,6 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(20000|25
     -osmoseDetail: tr("Each country has its own voltage set used for electricity transmission.");
     -osmoseExample: tr("For example, in Jordan, only 132 kV and 400 kV voltages are used.");
     -osmoseFix: tr("Check the list of possible values for this country on the wiki and correct the `0` tag.", "voltage");
-    -osmoseTags: list("tag", "power");
     -osmoseResource: "https://wiki.openstreetmap.org/wiki/Power_networks/Croatia";
     -osmoseTrap: "If the voltage in OSM is correct but is showing as an error here, check the wiki page and make the necessary corrections. Then create [an issue on GitHub](https://github.com/open-energy-transition/validate-my-grid/issues) to update this check.";
 }
@@ -461,7 +1271,6 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(11000|11
     -osmoseDetail: tr("Each country has its own voltage set used for electricity transmission.");
     -osmoseExample: tr("For example, in Jordan, only 132 kV and 400 kV voltages are used.");
     -osmoseFix: tr("Check the list of possible values for this country on the wiki and correct the `0` tag.", "voltage");
-    -osmoseTags: list("tag", "power");
     -osmoseResource: "https://wiki.openstreetmap.org/wiki/Power_networks/Cuba";
     -osmoseTrap: "If the voltage in OSM is correct but is showing as an error here, check the wiki page and make the necessary corrections. Then create [an issue on GitHub](https://github.com/open-energy-transition/validate-my-grid/issues) to update this check.";
 }
@@ -474,7 +1283,6 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(66000|13
     -osmoseDetail: tr("Each country has its own voltage set used for electricity transmission.");
     -osmoseExample: tr("For example, in Jordan, only 132 kV and 400 kV voltages are used.");
     -osmoseFix: tr("Check the list of possible values for this country on the wiki and correct the `0` tag.", "voltage");
-    -osmoseTags: list("tag", "power");
     -osmoseResource: "https://wiki.openstreetmap.org/wiki/Power_networks/Cyprus";
     -osmoseTrap: "If the voltage in OSM is correct but is showing as an error here, check the wiki page and make the necessary corrections. Then create [an issue on GitHub](https://github.com/open-energy-transition/validate-my-grid/issues) to update this check.";
 }
@@ -487,7 +1295,6 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(22000|33
     -osmoseDetail: tr("Each country has its own voltage set used for electricity transmission.");
     -osmoseExample: tr("For example, in Jordan, only 132 kV and 400 kV voltages are used.");
     -osmoseFix: tr("Check the list of possible values for this country on the wiki and correct the `0` tag.", "voltage");
-    -osmoseTags: list("tag", "power");
     -osmoseResource: "https://wiki.openstreetmap.org/wiki/Power_networks/Czech_Republic";
     -osmoseTrap: "If the voltage in OSM is correct but is showing as an error here, check the wiki page and make the necessary corrections. Then create [an issue on GitHub](https://github.com/open-energy-transition/validate-my-grid/issues) to update this check.";
 }
@@ -500,7 +1307,6 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(11000|30
     -osmoseDetail: tr("Each country has its own voltage set used for electricity transmission.");
     -osmoseExample: tr("For example, in Jordan, only 132 kV and 400 kV voltages are used.");
     -osmoseFix: tr("Check the list of possible values for this country on the wiki and correct the `0` tag.", "voltage");
-    -osmoseTags: list("tag", "power");
     -osmoseResource: "https://wiki.openstreetmap.org/wiki/Power_networks/Democratic_Republic_of_the_Congo";
     -osmoseTrap: "If the voltage in OSM is correct but is showing as an error here, check the wiki page and make the necessary corrections. Then create [an issue on GitHub](https://github.com/open-energy-transition/validate-my-grid/issues) to update this check.";
 }
@@ -513,7 +1319,6 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(63000|23
     -osmoseDetail: tr("Each country has its own voltage set used for electricity transmission.");
     -osmoseExample: tr("For example, in Jordan, only 132 kV and 400 kV voltages are used.");
     -osmoseFix: tr("Check the list of possible values for this country on the wiki and correct the `0` tag.", "voltage");
-    -osmoseTags: list("tag", "power");
     -osmoseResource: "https://wiki.openstreetmap.org/wiki/Power_networks/Djibouti";
     -osmoseTrap: "If the voltage in OSM is correct but is showing as an error here, check the wiki page and make the necessary corrections. Then create [an issue on GitHub](https://github.com/open-energy-transition/validate-my-grid/issues) to update this check.";
 }
@@ -526,7 +1331,6 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(69000|13
     -osmoseDetail: tr("Each country has its own voltage set used for electricity transmission.");
     -osmoseExample: tr("For example, in Jordan, only 132 kV and 400 kV voltages are used.");
     -osmoseFix: tr("Check the list of possible values for this country on the wiki and correct the `0` tag.", "voltage");
-    -osmoseTags: list("tag", "power");
     -osmoseResource: "https://wiki.openstreetmap.org/wiki/Power_networks/Dominican_Republic";
     -osmoseTrap: "If the voltage in OSM is correct but is showing as an error here, check the wiki page and make the necessary corrections. Then create [an issue on GitHub](https://github.com/open-energy-transition/validate-my-grid/issues) to update this check.";
 }
@@ -539,7 +1343,6 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(11000|22
     -osmoseDetail: tr("Each country has its own voltage set used for electricity transmission.");
     -osmoseExample: tr("For example, in Jordan, only 132 kV and 400 kV voltages are used.");
     -osmoseFix: tr("Check the list of possible values for this country on the wiki and correct the `0` tag.", "voltage");
-    -osmoseTags: list("tag", "power");
     -osmoseResource: "https://wiki.openstreetmap.org/wiki/Power_networks/Ecuador";
     -osmoseTrap: "If the voltage in OSM is correct but is showing as an error here, check the wiki page and make the necessary corrections. Then create [an issue on GitHub](https://github.com/open-energy-transition/validate-my-grid/issues) to update this check.";
 }
@@ -552,7 +1355,6 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(66000|13
     -osmoseDetail: tr("Each country has its own voltage set used for electricity transmission.");
     -osmoseExample: tr("For example, in Jordan, only 132 kV and 400 kV voltages are used.");
     -osmoseFix: tr("Check the list of possible values for this country on the wiki and correct the `0` tag.", "voltage");
-    -osmoseTags: list("tag", "power");
     -osmoseResource: "https://wiki.openstreetmap.org/wiki/Power_networks/Egypt";
     -osmoseTrap: "If the voltage in OSM is correct but is showing as an error here, check the wiki page and make the necessary corrections. Then create [an issue on GitHub](https://github.com/open-energy-transition/validate-my-grid/issues) to update this check.";
 }
@@ -565,7 +1367,6 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(115000|2
     -osmoseDetail: tr("Each country has its own voltage set used for electricity transmission.");
     -osmoseExample: tr("For example, in Jordan, only 132 kV and 400 kV voltages are used.");
     -osmoseFix: tr("Check the list of possible values for this country on the wiki and correct the `0` tag.", "voltage");
-    -osmoseTags: list("tag", "power");
     -osmoseResource: "https://wiki.openstreetmap.org/wiki/Power_networks/El_Salvador";
     -osmoseTrap: "If the voltage in OSM is correct but is showing as an error here, check the wiki page and make the necessary corrections. Then create [an issue on GitHub](https://github.com/open-energy-transition/validate-my-grid/issues) to update this check.";
 }
@@ -578,7 +1379,6 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(110000|2
     -osmoseDetail: tr("Each country has its own voltage set used for electricity transmission.");
     -osmoseExample: tr("For example, in Jordan, only 132 kV and 400 kV voltages are used.");
     -osmoseFix: tr("Check the list of possible values for this country on the wiki and correct the `0` tag.", "voltage");
-    -osmoseTags: list("tag", "power");
     -osmoseResource: "https://wiki.openstreetmap.org/wiki/Power_networks/Equatorial_Guinea";
     -osmoseTrap: "If the voltage in OSM is correct but is showing as an error here, check the wiki page and make the necessary corrections. Then create [an issue on GitHub](https://github.com/open-energy-transition/validate-my-grid/issues) to update this check.";
 }
@@ -591,7 +1391,6 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(66000|13
     -osmoseDetail: tr("Each country has its own voltage set used for electricity transmission.");
     -osmoseExample: tr("For example, in Jordan, only 132 kV and 400 kV voltages are used.");
     -osmoseFix: tr("Check the list of possible values for this country on the wiki and correct the `0` tag.", "voltage");
-    -osmoseTags: list("tag", "power");
     -osmoseResource: "https://wiki.openstreetmap.org/wiki/Power_networks/Eritrea";
     -osmoseTrap: "If the voltage in OSM is correct but is showing as an error here, check the wiki page and make the necessary corrections. Then create [an issue on GitHub](https://github.com/open-energy-transition/validate-my-grid/issues) to update this check.";
 }
@@ -604,7 +1403,6 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(15000|20
     -osmoseDetail: tr("Each country has its own voltage set used for electricity transmission.");
     -osmoseExample: tr("For example, in Jordan, only 132 kV and 400 kV voltages are used.");
     -osmoseFix: tr("Check the list of possible values for this country on the wiki and correct the `0` tag.", "voltage");
-    -osmoseTags: list("tag", "power");
     -osmoseResource: "https://wiki.openstreetmap.org/wiki/Power_networks/Estonia";
     -osmoseTrap: "If the voltage in OSM is correct but is showing as an error here, check the wiki page and make the necessary corrections. Then create [an issue on GitHub](https://github.com/open-energy-transition/validate-my-grid/issues) to update this check.";
 }
@@ -617,7 +1415,6 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(66000|13
     -osmoseDetail: tr("Each country has its own voltage set used for electricity transmission.");
     -osmoseExample: tr("For example, in Jordan, only 132 kV and 400 kV voltages are used.");
     -osmoseFix: tr("Check the list of possible values for this country on the wiki and correct the `0` tag.", "voltage");
-    -osmoseTags: list("tag", "power");
     -osmoseResource: "https://wiki.openstreetmap.org/wiki/Power_networks/Eswatini";
     -osmoseTrap: "If the voltage in OSM is correct but is showing as an error here, check the wiki page and make the necessary corrections. Then create [an issue on GitHub](https://github.com/open-energy-transition/validate-my-grid/issues) to update this check.";
 }
@@ -630,7 +1427,6 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(25000|45
     -osmoseDetail: tr("Each country has its own voltage set used for electricity transmission.");
     -osmoseExample: tr("For example, in Jordan, only 132 kV and 400 kV voltages are used.");
     -osmoseFix: tr("Check the list of possible values for this country on the wiki and correct the `0` tag.", "voltage");
-    -osmoseTags: list("tag", "power");
     -osmoseResource: "https://wiki.openstreetmap.org/wiki/Power_networks/Ethiopia";
     -osmoseTrap: "If the voltage in OSM is correct but is showing as an error here, check the wiki page and make the necessary corrections. Then create [an issue on GitHub](https://github.com/open-energy-transition/validate-my-grid/issues) to update this check.";
 }
@@ -643,7 +1439,6 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(13800)$/
     -osmoseDetail: tr("Each country has its own voltage set used for electricity transmission.");
     -osmoseExample: tr("For example, in Jordan, only 132 kV and 400 kV voltages are used.");
     -osmoseFix: tr("Check the list of possible values for this country on the wiki and correct the `0` tag.", "voltage");
-    -osmoseTags: list("tag", "power");
     -osmoseResource: "https://wiki.openstreetmap.org/wiki/Power_networks/Federated_States_of_Micronesia";
     -osmoseTrap: "If the voltage in OSM is correct but is showing as an error here, check the wiki page and make the necessary corrections. Then create [an issue on GitHub](https://github.com/open-energy-transition/validate-my-grid/issues) to update this check.";
 }
@@ -656,7 +1451,6 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(11000|33
     -osmoseDetail: tr("Each country has its own voltage set used for electricity transmission.");
     -osmoseExample: tr("For example, in Jordan, only 132 kV and 400 kV voltages are used.");
     -osmoseFix: tr("Check the list of possible values for this country on the wiki and correct the `0` tag.", "voltage");
-    -osmoseTags: list("tag", "power");
     -osmoseResource: "https://wiki.openstreetmap.org/wiki/Power_networks/Fiji";
     -osmoseTrap: "If the voltage in OSM is correct but is showing as an error here, check the wiki page and make the necessary corrections. Then create [an issue on GitHub](https://github.com/open-energy-transition/validate-my-grid/issues) to update this check.";
 }
@@ -669,7 +1463,6 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(20000|22
     -osmoseDetail: tr("Each country has its own voltage set used for electricity transmission.");
     -osmoseExample: tr("For example, in Jordan, only 132 kV and 400 kV voltages are used.");
     -osmoseFix: tr("Check the list of possible values for this country on the wiki and correct the `0` tag.", "voltage");
-    -osmoseTags: list("tag", "power");
     -osmoseResource: "https://wiki.openstreetmap.org/wiki/Power_networks/Finland";
     -osmoseTrap: "If the voltage in OSM is correct but is showing as an error here, check the wiki page and make the necessary corrections. Then create [an issue on GitHub](https://github.com/open-energy-transition/validate-my-grid/issues) to update this check.";
 }
@@ -682,7 +1475,6 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(10300|10
     -osmoseDetail: tr("Each country has its own voltage set used for electricity transmission.");
     -osmoseExample: tr("For example, in Jordan, only 132 kV and 400 kV voltages are used.");
     -osmoseFix: tr("Check the list of possible values for this country on the wiki and correct the `0` tag.", "voltage");
-    -osmoseTags: list("tag", "power");
     -osmoseResource: "https://wiki.openstreetmap.org/wiki/Power_networks/France";
     -osmoseTrap: "If the voltage in OSM is correct but is showing as an error here, check the wiki page and make the necessary corrections. Then create [an issue on GitHub](https://github.com/open-energy-transition/validate-my-grid/issues) to update this check.";
 }
@@ -695,7 +1487,6 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(63000|90
     -osmoseDetail: tr("Each country has its own voltage set used for electricity transmission.");
     -osmoseExample: tr("For example, in Jordan, only 132 kV and 400 kV voltages are used.");
     -osmoseFix: tr("Check the list of possible values for this country on the wiki and correct the `0` tag.", "voltage");
-    -osmoseTags: list("tag", "power");
     -osmoseResource: "https://wiki.openstreetmap.org/wiki/Power_networks/Gabon";
     -osmoseTrap: "If the voltage in OSM is correct but is showing as an error here, check the wiki page and make the necessary corrections. Then create [an issue on GitHub](https://github.com/open-energy-transition/validate-my-grid/issues) to update this check.";
 }
@@ -708,7 +1499,6 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(35000|11
     -osmoseDetail: tr("Each country has its own voltage set used for electricity transmission.");
     -osmoseExample: tr("For example, in Jordan, only 132 kV and 400 kV voltages are used.");
     -osmoseFix: tr("Check the list of possible values for this country on the wiki and correct the `0` tag.", "voltage");
-    -osmoseTags: list("tag", "power");
     -osmoseResource: "https://wiki.openstreetmap.org/wiki/Power_networks/Georgia";
     -osmoseTrap: "If the voltage in OSM is correct but is showing as an error here, check the wiki page and make the necessary corrections. Then create [an issue on GitHub](https://github.com/open-energy-transition/validate-my-grid/issues) to update this check.";
 }
@@ -721,7 +1511,6 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(10500|11
     -osmoseDetail: tr("Each country has its own voltage set used for electricity transmission.");
     -osmoseExample: tr("For example, in Jordan, only 132 kV and 400 kV voltages are used.");
     -osmoseFix: tr("Check the list of possible values for this country on the wiki and correct the `0` tag.", "voltage");
-    -osmoseTags: list("tag", "power");
     -osmoseResource: "https://wiki.openstreetmap.org/wiki/Power_networks/Germany";
     -osmoseTrap: "If the voltage in OSM is correct but is showing as an error here, check the wiki page and make the necessary corrections. Then create [an issue on GitHub](https://github.com/open-energy-transition/validate-my-grid/issues) to update this check.";
 }
@@ -734,7 +1523,6 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(11000|16
     -osmoseDetail: tr("Each country has its own voltage set used for electricity transmission.");
     -osmoseExample: tr("For example, in Jordan, only 132 kV and 400 kV voltages are used.");
     -osmoseFix: tr("Check the list of possible values for this country on the wiki and correct the `0` tag.", "voltage");
-    -osmoseTags: list("tag", "power");
     -osmoseResource: "https://wiki.openstreetmap.org/wiki/Power_networks/Ghana";
     -osmoseTrap: "If the voltage in OSM is correct but is showing as an error here, check the wiki page and make the necessary corrections. Then create [an issue on GitHub](https://github.com/open-energy-transition/validate-my-grid/issues) to update this check.";
 }
@@ -747,7 +1535,6 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(15000|20
     -osmoseDetail: tr("Each country has its own voltage set used for electricity transmission.");
     -osmoseExample: tr("For example, in Jordan, only 132 kV and 400 kV voltages are used.");
     -osmoseFix: tr("Check the list of possible values for this country on the wiki and correct the `0` tag.", "voltage");
-    -osmoseTags: list("tag", "power");
     -osmoseResource: "https://wiki.openstreetmap.org/wiki/Power_networks/Greece";
     -osmoseTrap: "If the voltage in OSM is correct but is showing as an error here, check the wiki page and make the necessary corrections. Then create [an issue on GitHub](https://github.com/open-energy-transition/validate-my-grid/issues) to update this check.";
 }
@@ -760,7 +1547,6 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(69000|11
     -osmoseDetail: tr("Each country has its own voltage set used for electricity transmission.");
     -osmoseExample: tr("For example, in Jordan, only 132 kV and 400 kV voltages are used.");
     -osmoseFix: tr("Check the list of possible values for this country on the wiki and correct the `0` tag.", "voltage");
-    -osmoseTags: list("tag", "power");
     -osmoseResource: "https://wiki.openstreetmap.org/wiki/Power_networks/Guatemala";
     -osmoseTrap: "If the voltage in OSM is correct but is showing as an error here, check the wiki page and make the necessary corrections. Then create [an issue on GitHub](https://github.com/open-energy-transition/validate-my-grid/issues) to update this check.";
 }
@@ -773,7 +1559,6 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(30000|11
     -osmoseDetail: tr("Each country has its own voltage set used for electricity transmission.");
     -osmoseExample: tr("For example, in Jordan, only 132 kV and 400 kV voltages are used.");
     -osmoseFix: tr("Check the list of possible values for this country on the wiki and correct the `0` tag.", "voltage");
-    -osmoseTags: list("tag", "power");
     -osmoseResource: "https://wiki.openstreetmap.org/wiki/Power_networks/Guinea";
     -osmoseTrap: "If the voltage in OSM is correct but is showing as an error here, check the wiki page and make the necessary corrections. Then create [an issue on GitHub](https://github.com/open-energy-transition/validate-my-grid/issues) to update this check.";
 }
@@ -786,7 +1571,6 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(225000)$
     -osmoseDetail: tr("Each country has its own voltage set used for electricity transmission.");
     -osmoseExample: tr("For example, in Jordan, only 132 kV and 400 kV voltages are used.");
     -osmoseFix: tr("Check the list of possible values for this country on the wiki and correct the `0` tag.", "voltage");
-    -osmoseTags: list("tag", "power");
     -osmoseResource: "https://wiki.openstreetmap.org/wiki/Power_networks/Guinea-Bissau";
     -osmoseTrap: "If the voltage in OSM is correct but is showing as an error here, check the wiki page and make the necessary corrections. Then create [an issue on GitHub](https://github.com/open-energy-transition/validate-my-grid/issues) to update this check.";
 }
@@ -799,7 +1583,6 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(69000|11
     -osmoseDetail: tr("Each country has its own voltage set used for electricity transmission.");
     -osmoseExample: tr("For example, in Jordan, only 132 kV and 400 kV voltages are used.");
     -osmoseFix: tr("Check the list of possible values for this country on the wiki and correct the `0` tag.", "voltage");
-    -osmoseTags: list("tag", "power");
     -osmoseResource: "https://wiki.openstreetmap.org/wiki/Power_networks/Haiti";
     -osmoseTrap: "If the voltage in OSM is correct but is showing as an error here, check the wiki page and make the necessary corrections. Then create [an issue on GitHub](https://github.com/open-energy-transition/validate-my-grid/issues) to update this check.";
 }
@@ -812,7 +1595,6 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(69000|13
     -osmoseDetail: tr("Each country has its own voltage set used for electricity transmission.");
     -osmoseExample: tr("For example, in Jordan, only 132 kV and 400 kV voltages are used.");
     -osmoseFix: tr("Check the list of possible values for this country on the wiki and correct the `0` tag.", "voltage");
-    -osmoseTags: list("tag", "power");
     -osmoseResource: "https://wiki.openstreetmap.org/wiki/Power_networks/Honduras";
     -osmoseTrap: "If the voltage in OSM is correct but is showing as an error here, check the wiki page and make the necessary corrections. Then create [an issue on GitHub](https://github.com/open-energy-transition/validate-my-grid/issues) to update this check.";
 }
@@ -825,7 +1607,6 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(11000|18
     -osmoseDetail: tr("Each country has its own voltage set used for electricity transmission.");
     -osmoseExample: tr("For example, in Jordan, only 132 kV and 400 kV voltages are used.");
     -osmoseFix: tr("Check the list of possible values for this country on the wiki and correct the `0` tag.", "voltage");
-    -osmoseTags: list("tag", "power");
     -osmoseResource: "https://wiki.openstreetmap.org/wiki/Power_networks/Hungary";
     -osmoseTrap: "If the voltage in OSM is correct but is showing as an error here, check the wiki page and make the necessary corrections. Then create [an issue on GitHub](https://github.com/open-energy-transition/validate-my-grid/issues) to update this check.";
 }
@@ -838,7 +1619,6 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(66000|13
     -osmoseDetail: tr("Each country has its own voltage set used for electricity transmission.");
     -osmoseExample: tr("For example, in Jordan, only 132 kV and 400 kV voltages are used.");
     -osmoseFix: tr("Check the list of possible values for this country on the wiki and correct the `0` tag.", "voltage");
-    -osmoseTags: list("tag", "power");
     -osmoseResource: "https://wiki.openstreetmap.org/wiki/Power_networks/Iceland";
     -osmoseTrap: "If the voltage in OSM is correct but is showing as an error here, check the wiki page and make the necessary corrections. Then create [an issue on GitHub](https://github.com/open-energy-transition/validate-my-grid/issues) to update this check.";
 }
@@ -851,7 +1631,6 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(11000|13
     -osmoseDetail: tr("Each country has its own voltage set used for electricity transmission.");
     -osmoseExample: tr("For example, in Jordan, only 132 kV and 400 kV voltages are used.");
     -osmoseFix: tr("Check the list of possible values for this country on the wiki and correct the `0` tag.", "voltage");
-    -osmoseTags: list("tag", "power");
     -osmoseResource: "https://wiki.openstreetmap.org/wiki/Power_networks/India";
     -osmoseTrap: "If the voltage in OSM is correct but is showing as an error here, check the wiki page and make the necessary corrections. Then create [an issue on GitHub](https://github.com/open-energy-transition/validate-my-grid/issues) to update this check.";
 }
@@ -864,7 +1643,6 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(20000|70
     -osmoseDetail: tr("Each country has its own voltage set used for electricity transmission.");
     -osmoseExample: tr("For example, in Jordan, only 132 kV and 400 kV voltages are used.");
     -osmoseFix: tr("Check the list of possible values for this country on the wiki and correct the `0` tag.", "voltage");
-    -osmoseTags: list("tag", "power");
     -osmoseResource: "https://wiki.openstreetmap.org/wiki/Power_networks/Indonesia";
     -osmoseTrap: "If the voltage in OSM is correct but is showing as an error here, check the wiki page and make the necessary corrections. Then create [an issue on GitHub](https://github.com/open-energy-transition/validate-my-grid/issues) to update this check.";
 }
@@ -877,7 +1655,6 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(15000|20
     -osmoseDetail: tr("Each country has its own voltage set used for electricity transmission.");
     -osmoseExample: tr("For example, in Jordan, only 132 kV and 400 kV voltages are used.");
     -osmoseFix: tr("Check the list of possible values for this country on the wiki and correct the `0` tag.", "voltage");
-    -osmoseTags: list("tag", "power");
     -osmoseResource: "https://wiki.openstreetmap.org/wiki/Power_networks/Iran";
     -osmoseTrap: "If the voltage in OSM is correct but is showing as an error here, check the wiki page and make the necessary corrections. Then create [an issue on GitHub](https://github.com/open-energy-transition/validate-my-grid/issues) to update this check.";
 }
@@ -890,7 +1667,6 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(11000|23
     -osmoseDetail: tr("Each country has its own voltage set used for electricity transmission.");
     -osmoseExample: tr("For example, in Jordan, only 132 kV and 400 kV voltages are used.");
     -osmoseFix: tr("Check the list of possible values for this country on the wiki and correct the `0` tag.", "voltage");
-    -osmoseTags: list("tag", "power");
     -osmoseResource: "https://wiki.openstreetmap.org/wiki/Power_networks/Iraq";
     -osmoseTrap: "If the voltage in OSM is correct but is showing as an error here, check the wiki page and make the necessary corrections. Then create [an issue on GitHub](https://github.com/open-energy-transition/validate-my-grid/issues) to update this check.";
 }
@@ -903,7 +1679,6 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(10500|19
     -osmoseDetail: tr("Each country has its own voltage set used for electricity transmission.");
     -osmoseExample: tr("For example, in Jordan, only 132 kV and 400 kV voltages are used.");
     -osmoseFix: tr("Check the list of possible values for this country on the wiki and correct the `0` tag.", "voltage");
-    -osmoseTags: list("tag", "power");
     -osmoseResource: "https://wiki.openstreetmap.org/wiki/Power_networks/Ireland";
     -osmoseTrap: "If the voltage in OSM is correct but is showing as an error here, check the wiki page and make the necessary corrections. Then create [an issue on GitHub](https://github.com/open-energy-transition/validate-my-grid/issues) to update this check.";
 }
@@ -916,7 +1691,6 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(115000|1
     -osmoseDetail: tr("Each country has its own voltage set used for electricity transmission.");
     -osmoseExample: tr("For example, in Jordan, only 132 kV and 400 kV voltages are used.");
     -osmoseFix: tr("Check the list of possible values for this country on the wiki and correct the `0` tag.", "voltage");
-    -osmoseTags: list("tag", "power");
     -osmoseResource: "https://wiki.openstreetmap.org/wiki/Power_networks/Israel";
     -osmoseTrap: "If the voltage in OSM is correct but is showing as an error here, check the wiki page and make the necessary corrections. Then create [an issue on GitHub](https://github.com/open-energy-transition/validate-my-grid/issues) to update this check.";
 }
@@ -929,7 +1703,6 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(15000|20
     -osmoseDetail: tr("Each country has its own voltage set used for electricity transmission.");
     -osmoseExample: tr("For example, in Jordan, only 132 kV and 400 kV voltages are used.");
     -osmoseFix: tr("Check the list of possible values for this country on the wiki and correct the `0` tag.", "voltage");
-    -osmoseTags: list("tag", "power");
     -osmoseResource: "https://wiki.openstreetmap.org/wiki/Power_networks/Italy";
     -osmoseTrap: "If the voltage in OSM is correct but is showing as an error here, check the wiki page and make the necessary corrections. Then create [an issue on GitHub](https://github.com/open-energy-transition/validate-my-grid/issues) to update this check.";
 }
@@ -942,7 +1715,6 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(15000|90
     -osmoseDetail: tr("Each country has its own voltage set used for electricity transmission.");
     -osmoseExample: tr("For example, in Jordan, only 132 kV and 400 kV voltages are used.");
     -osmoseFix: tr("Check the list of possible values for this country on the wiki and correct the `0` tag.", "voltage");
-    -osmoseTags: list("tag", "power");
     -osmoseResource: "https://wiki.openstreetmap.org/wiki/Power_networks/Ivory_Coast";
     -osmoseTrap: "If the voltage in OSM is correct but is showing as an error here, check the wiki page and make the necessary corrections. Then create [an issue on GitHub](https://github.com/open-energy-transition/validate-my-grid/issues) to update this check.";
 }
@@ -955,7 +1727,6 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(69000|13
     -osmoseDetail: tr("Each country has its own voltage set used for electricity transmission.");
     -osmoseExample: tr("For example, in Jordan, only 132 kV and 400 kV voltages are used.");
     -osmoseFix: tr("Check the list of possible values for this country on the wiki and correct the `0` tag.", "voltage");
-    -osmoseTags: list("tag", "power");
     -osmoseResource: "https://wiki.openstreetmap.org/wiki/Power_networks/Jamaica";
     -osmoseTrap: "If the voltage in OSM is correct but is showing as an error here, check the wiki page and make the necessary corrections. Then create [an issue on GitHub](https://github.com/open-energy-transition/validate-my-grid/issues) to update this check.";
 }
@@ -968,7 +1739,6 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(11000|15
     -osmoseDetail: tr("Each country has its own voltage set used for electricity transmission.");
     -osmoseExample: tr("For example, in Jordan, only 132 kV and 400 kV voltages are used.");
     -osmoseFix: tr("Check the list of possible values for this country on the wiki and correct the `0` tag.", "voltage");
-    -osmoseTags: list("tag", "power");
     -osmoseResource: "https://wiki.openstreetmap.org/wiki/Power_networks/Japan";
     -osmoseTrap: "If the voltage in OSM is correct but is showing as an error here, check the wiki page and make the necessary corrections. Then create [an issue on GitHub](https://github.com/open-energy-transition/validate-my-grid/issues) to update this check.";
 }
@@ -981,7 +1751,6 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(132000|4
     -osmoseDetail: tr("Each country has its own voltage set used for electricity transmission.");
     -osmoseExample: tr("For example, in Jordan, only 132 kV and 400 kV voltages are used.");
     -osmoseFix: tr("Check the list of possible values for this country on the wiki and correct the `0` tag.", "voltage");
-    -osmoseTags: list("tag", "power");
     -osmoseResource: "https://wiki.openstreetmap.org/wiki/Power_networks/Jordan";
     -osmoseTrap: "If the voltage in OSM is correct but is showing as an error here, check the wiki page and make the necessary corrections. Then create [an issue on GitHub](https://github.com/open-energy-transition/validate-my-grid/issues) to update this check.";
 }
@@ -994,7 +1763,6 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(22000|35
     -osmoseDetail: tr("Each country has its own voltage set used for electricity transmission.");
     -osmoseExample: tr("For example, in Jordan, only 132 kV and 400 kV voltages are used.");
     -osmoseFix: tr("Check the list of possible values for this country on the wiki and correct the `0` tag.", "voltage");
-    -osmoseTags: list("tag", "power");
     -osmoseResource: "https://wiki.openstreetmap.org/wiki/Power_networks/Kazakhstan";
     -osmoseTrap: "If the voltage in OSM is correct but is showing as an error here, check the wiki page and make the necessary corrections. Then create [an issue on GitHub](https://github.com/open-energy-transition/validate-my-grid/issues) to update this check.";
 }
@@ -1007,7 +1775,6 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(11000|15
     -osmoseDetail: tr("Each country has its own voltage set used for electricity transmission.");
     -osmoseExample: tr("For example, in Jordan, only 132 kV and 400 kV voltages are used.");
     -osmoseFix: tr("Check the list of possible values for this country on the wiki and correct the `0` tag.", "voltage");
-    -osmoseTags: list("tag", "power");
     -osmoseResource: "https://wiki.openstreetmap.org/wiki/Power_networks/Kenya";
     -osmoseTrap: "If the voltage in OSM is correct but is showing as an error here, check the wiki page and make the necessary corrections. Then create [an issue on GitHub](https://github.com/open-energy-transition/validate-my-grid/issues) to update this check.";
 }
@@ -1020,7 +1787,6 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(50000|60
     -osmoseDetail: tr("Each country has its own voltage set used for electricity transmission.");
     -osmoseExample: tr("For example, in Jordan, only 132 kV and 400 kV voltages are used.");
     -osmoseFix: tr("Check the list of possible values for this country on the wiki and correct the `0` tag.", "voltage");
-    -osmoseTags: list("tag", "power");
     -osmoseResource: "https://wiki.openstreetmap.org/wiki/Power_networks/Denmark";
     -osmoseTrap: "If the voltage in OSM is correct but is showing as an error here, check the wiki page and make the necessary corrections. Then create [an issue on GitHub](https://github.com/open-energy-transition/validate-my-grid/issues) to update this check.";
 }
@@ -1033,7 +1799,6 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(13000|20
     -osmoseDetail: tr("Each country has its own voltage set used for electricity transmission.");
     -osmoseExample: tr("For example, in Jordan, only 132 kV and 400 kV voltages are used.");
     -osmoseFix: tr("Check the list of possible values for this country on the wiki and correct the `0` tag.", "voltage");
-    -osmoseTags: list("tag", "power");
     -osmoseResource: "https://wiki.openstreetmap.org/wiki/Power_networks/Netherlands";
     -osmoseTrap: "If the voltage in OSM is correct but is showing as an error here, check the wiki page and make the necessary corrections. Then create [an issue on GitHub](https://github.com/open-energy-transition/validate-my-grid/issues) to update this check.";
 }
@@ -1046,7 +1811,6 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(33000|66
     -osmoseDetail: tr("Each country has its own voltage set used for electricity transmission.");
     -osmoseExample: tr("For example, in Jordan, only 132 kV and 400 kV voltages are used.");
     -osmoseFix: tr("Check the list of possible values for this country on the wiki and correct the `0` tag.", "voltage");
-    -osmoseTags: list("tag", "power");
     -osmoseResource: "https://wiki.openstreetmap.org/wiki/Power_networks/Kuwait";
     -osmoseTrap: "If the voltage in OSM is correct but is showing as an error here, check the wiki page and make the necessary corrections. Then create [an issue on GitHub](https://github.com/open-energy-transition/validate-my-grid/issues) to update this check.";
 }
@@ -1059,7 +1823,6 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(10000|11
     -osmoseDetail: tr("Each country has its own voltage set used for electricity transmission.");
     -osmoseExample: tr("For example, in Jordan, only 132 kV and 400 kV voltages are used.");
     -osmoseFix: tr("Check the list of possible values for this country on the wiki and correct the `0` tag.", "voltage");
-    -osmoseTags: list("tag", "power");
     -osmoseResource: "https://wiki.openstreetmap.org/wiki/Power_networks/Kyrgyzstan";
     -osmoseTrap: "If the voltage in OSM is correct but is showing as an error here, check the wiki page and make the necessary corrections. Then create [an issue on GitHub](https://github.com/open-energy-transition/validate-my-grid/issues) to update this check.";
 }
@@ -1072,7 +1835,6 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(110000|1
     -osmoseDetail: tr("Each country has its own voltage set used for electricity transmission.");
     -osmoseExample: tr("For example, in Jordan, only 132 kV and 400 kV voltages are used.");
     -osmoseFix: tr("Check the list of possible values for this country on the wiki and correct the `0` tag.", "voltage");
-    -osmoseTags: list("tag", "power");
     -osmoseResource: "https://wiki.openstreetmap.org/wiki/Power_networks/Laos";
     -osmoseTrap: "If the voltage in OSM is correct but is showing as an error here, check the wiki page and make the necessary corrections. Then create [an issue on GitHub](https://github.com/open-energy-transition/validate-my-grid/issues) to update this check.";
 }
@@ -1085,7 +1847,6 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(20000|11
     -osmoseDetail: tr("Each country has its own voltage set used for electricity transmission.");
     -osmoseExample: tr("For example, in Jordan, only 132 kV and 400 kV voltages are used.");
     -osmoseFix: tr("Check the list of possible values for this country on the wiki and correct the `0` tag.", "voltage");
-    -osmoseTags: list("tag", "power");
     -osmoseResource: "https://wiki.openstreetmap.org/wiki/Power_networks/Latvia";
     -osmoseTrap: "If the voltage in OSM is correct but is showing as an error here, check the wiki page and make the necessary corrections. Then create [an issue on GitHub](https://github.com/open-energy-transition/validate-my-grid/issues) to update this check.";
 }
@@ -1098,7 +1859,6 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(33000|66
     -osmoseDetail: tr("Each country has its own voltage set used for electricity transmission.");
     -osmoseExample: tr("For example, in Jordan, only 132 kV and 400 kV voltages are used.");
     -osmoseFix: tr("Check the list of possible values for this country on the wiki and correct the `0` tag.", "voltage");
-    -osmoseTags: list("tag", "power");
     -osmoseResource: "https://wiki.openstreetmap.org/wiki/Power_networks/Lebanon";
     -osmoseTrap: "If the voltage in OSM is correct but is showing as an error here, check the wiki page and make the necessary corrections. Then create [an issue on GitHub](https://github.com/open-energy-transition/validate-my-grid/issues) to update this check.";
 }
@@ -1111,7 +1871,6 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(33000|66
     -osmoseDetail: tr("Each country has its own voltage set used for electricity transmission.");
     -osmoseExample: tr("For example, in Jordan, only 132 kV and 400 kV voltages are used.");
     -osmoseFix: tr("Check the list of possible values for this country on the wiki and correct the `0` tag.", "voltage");
-    -osmoseTags: list("tag", "power");
     -osmoseResource: "https://wiki.openstreetmap.org/wiki/Power_networks/Lesotho";
     -osmoseTrap: "If the voltage in OSM is correct but is showing as an error here, check the wiki page and make the necessary corrections. Then create [an issue on GitHub](https://github.com/open-energy-transition/validate-my-grid/issues) to update this check.";
 }
@@ -1124,7 +1883,6 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(66000|22
     -osmoseDetail: tr("Each country has its own voltage set used for electricity transmission.");
     -osmoseExample: tr("For example, in Jordan, only 132 kV and 400 kV voltages are used.");
     -osmoseFix: tr("Check the list of possible values for this country on the wiki and correct the `0` tag.", "voltage");
-    -osmoseTags: list("tag", "power");
     -osmoseResource: "https://wiki.openstreetmap.org/wiki/Power_networks/Liberia";
     -osmoseTrap: "If the voltage in OSM is correct but is showing as an error here, check the wiki page and make the necessary corrections. Then create [an issue on GitHub](https://github.com/open-energy-transition/validate-my-grid/issues) to update this check.";
 }
@@ -1137,7 +1895,6 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(22500|25
     -osmoseDetail: tr("Each country has its own voltage set used for electricity transmission.");
     -osmoseExample: tr("For example, in Jordan, only 132 kV and 400 kV voltages are used.");
     -osmoseFix: tr("Check the list of possible values for this country on the wiki and correct the `0` tag.", "voltage");
-    -osmoseTags: list("tag", "power");
     -osmoseResource: "https://wiki.openstreetmap.org/wiki/Power_networks/Libya";
     -osmoseTrap: "If the voltage in OSM is correct but is showing as an error here, check the wiki page and make the necessary corrections. Then create [an issue on GitHub](https://github.com/open-energy-transition/validate-my-grid/issues) to update this check.";
 }
@@ -1150,7 +1907,6 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(220000)$
     -osmoseDetail: tr("Each country has its own voltage set used for electricity transmission.");
     -osmoseExample: tr("For example, in Jordan, only 132 kV and 400 kV voltages are used.");
     -osmoseFix: tr("Check the list of possible values for this country on the wiki and correct the `0` tag.", "voltage");
-    -osmoseTags: list("tag", "power");
     -osmoseResource: "https://wiki.openstreetmap.org/wiki/Power_networks/Liechtenstein";
     -osmoseTrap: "If the voltage in OSM is correct but is showing as an error here, check the wiki page and make the necessary corrections. Then create [an issue on GitHub](https://github.com/open-energy-transition/validate-my-grid/issues) to update this check.";
 }
@@ -1163,7 +1919,6 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(15000|35
     -osmoseDetail: tr("Each country has its own voltage set used for electricity transmission.");
     -osmoseExample: tr("For example, in Jordan, only 132 kV and 400 kV voltages are used.");
     -osmoseFix: tr("Check the list of possible values for this country on the wiki and correct the `0` tag.", "voltage");
-    -osmoseTags: list("tag", "power");
     -osmoseResource: "https://wiki.openstreetmap.org/wiki/Power_networks/Lithuania";
     -osmoseTrap: "If the voltage in OSM is correct but is showing as an error here, check the wiki page and make the necessary corrections. Then create [an issue on GitHub](https://github.com/open-energy-transition/validate-my-grid/issues) to update this check.";
 }
@@ -1176,7 +1931,6 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(63000|65
     -osmoseDetail: tr("Each country has its own voltage set used for electricity transmission.");
     -osmoseExample: tr("For example, in Jordan, only 132 kV and 400 kV voltages are used.");
     -osmoseFix: tr("Check the list of possible values for this country on the wiki and correct the `0` tag.", "voltage");
-    -osmoseTags: list("tag", "power");
     -osmoseResource: "https://wiki.openstreetmap.org/wiki/Power_networks/Luxembourg";
     -osmoseTrap: "If the voltage in OSM is correct but is showing as an error here, check the wiki page and make the necessary corrections. Then create [an issue on GitHub](https://github.com/open-energy-transition/validate-my-grid/issues) to update this check.";
 }
@@ -1189,7 +1943,6 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(63000|13
     -osmoseDetail: tr("Each country has its own voltage set used for electricity transmission.");
     -osmoseExample: tr("For example, in Jordan, only 132 kV and 400 kV voltages are used.");
     -osmoseFix: tr("Check the list of possible values for this country on the wiki and correct the `0` tag.", "voltage");
-    -osmoseTags: list("tag", "power");
     -osmoseResource: "https://wiki.openstreetmap.org/wiki/Power_networks/Madagascar";
     -osmoseTrap: "If the voltage in OSM is correct but is showing as an error here, check the wiki page and make the necessary corrections. Then create [an issue on GitHub](https://github.com/open-energy-transition/validate-my-grid/issues) to update this check.";
 }
@@ -1202,7 +1955,6 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(11000|33
     -osmoseDetail: tr("Each country has its own voltage set used for electricity transmission.");
     -osmoseExample: tr("For example, in Jordan, only 132 kV and 400 kV voltages are used.");
     -osmoseFix: tr("Check the list of possible values for this country on the wiki and correct the `0` tag.", "voltage");
-    -osmoseTags: list("tag", "power");
     -osmoseResource: "https://wiki.openstreetmap.org/wiki/Power_networks/Malawi";
     -osmoseTrap: "If the voltage in OSM is correct but is showing as an error here, check the wiki page and make the necessary corrections. Then create [an issue on GitHub](https://github.com/open-energy-transition/validate-my-grid/issues) to update this check.";
 }
@@ -1215,7 +1967,6 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(11000|33
     -osmoseDetail: tr("Each country has its own voltage set used for electricity transmission.");
     -osmoseExample: tr("For example, in Jordan, only 132 kV and 400 kV voltages are used.");
     -osmoseFix: tr("Check the list of possible values for this country on the wiki and correct the `0` tag.", "voltage");
-    -osmoseTags: list("tag", "power");
     -osmoseResource: "https://wiki.openstreetmap.org/wiki/Power_networks/Malaysia";
     -osmoseTrap: "If the voltage in OSM is correct but is showing as an error here, check the wiki page and make the necessary corrections. Then create [an issue on GitHub](https://github.com/open-energy-transition/validate-my-grid/issues) to update this check.";
 }
@@ -1228,7 +1979,6 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(132000)$
     -osmoseDetail: tr("Each country has its own voltage set used for electricity transmission.");
     -osmoseExample: tr("For example, in Jordan, only 132 kV and 400 kV voltages are used.");
     -osmoseFix: tr("Check the list of possible values for this country on the wiki and correct the `0` tag.", "voltage");
-    -osmoseTags: list("tag", "power");
     -osmoseResource: "https://wiki.openstreetmap.org/wiki/Power_networks/Maldives";
     -osmoseTrap: "If the voltage in OSM is correct but is showing as an error here, check the wiki page and make the necessary corrections. Then create [an issue on GitHub](https://github.com/open-energy-transition/validate-my-grid/issues) to update this check.";
 }
@@ -1241,7 +1991,6 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(63000|15
     -osmoseDetail: tr("Each country has its own voltage set used for electricity transmission.");
     -osmoseExample: tr("For example, in Jordan, only 132 kV and 400 kV voltages are used.");
     -osmoseFix: tr("Check the list of possible values for this country on the wiki and correct the `0` tag.", "voltage");
-    -osmoseTags: list("tag", "power");
     -osmoseResource: "https://wiki.openstreetmap.org/wiki/Power_networks/Mali";
     -osmoseTrap: "If the voltage in OSM is correct but is showing as an error here, check the wiki page and make the necessary corrections. Then create [an issue on GitHub](https://github.com/open-energy-transition/validate-my-grid/issues) to update this check.";
 }
@@ -1254,7 +2003,6 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(11000|33
     -osmoseDetail: tr("Each country has its own voltage set used for electricity transmission.");
     -osmoseExample: tr("For example, in Jordan, only 132 kV and 400 kV voltages are used.");
     -osmoseFix: tr("Check the list of possible values for this country on the wiki and correct the `0` tag.", "voltage");
-    -osmoseTags: list("tag", "power");
     -osmoseResource: "https://wiki.openstreetmap.org/wiki/Power_networks/Malta";
     -osmoseTrap: "If the voltage in OSM is correct but is showing as an error here, check the wiki page and make the necessary corrections. Then create [an issue on GitHub](https://github.com/open-energy-transition/validate-my-grid/issues) to update this check.";
 }
@@ -1267,7 +2015,6 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(90000|22
     -osmoseDetail: tr("Each country has its own voltage set used for electricity transmission.");
     -osmoseExample: tr("For example, in Jordan, only 132 kV and 400 kV voltages are used.");
     -osmoseFix: tr("Check the list of possible values for this country on the wiki and correct the `0` tag.", "voltage");
-    -osmoseTags: list("tag", "power");
     -osmoseResource: "https://wiki.openstreetmap.org/wiki/Power_networks/Mauritania";
     -osmoseTrap: "If the voltage in OSM is correct but is showing as an error here, check the wiki page and make the necessary corrections. Then create [an issue on GitHub](https://github.com/open-energy-transition/validate-my-grid/issues) to update this check.";
 }
@@ -1280,7 +2027,6 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(66000)$/
     -osmoseDetail: tr("Each country has its own voltage set used for electricity transmission.");
     -osmoseExample: tr("For example, in Jordan, only 132 kV and 400 kV voltages are used.");
     -osmoseFix: tr("Check the list of possible values for this country on the wiki and correct the `0` tag.", "voltage");
-    -osmoseTags: list("tag", "power");
     -osmoseResource: "https://wiki.openstreetmap.org/wiki/Power_networks/Mauritius";
     -osmoseTrap: "If the voltage in OSM is correct but is showing as an error here, check the wiki page and make the necessary corrections. Then create [an issue on GitHub](https://github.com/open-energy-transition/validate-my-grid/issues) to update this check.";
 }
@@ -1293,7 +2039,6 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(13800|15
     -osmoseDetail: tr("Each country has its own voltage set used for electricity transmission.");
     -osmoseExample: tr("For example, in Jordan, only 132 kV and 400 kV voltages are used.");
     -osmoseFix: tr("Check the list of possible values for this country on the wiki and correct the `0` tag.", "voltage");
-    -osmoseTags: list("tag", "power");
     -osmoseResource: "https://wiki.openstreetmap.org/wiki/Power_networks/Mexico";
     -osmoseTrap: "If the voltage in OSM is correct but is showing as an error here, check the wiki page and make the necessary corrections. Then create [an issue on GitHub](https://github.com/open-energy-transition/validate-my-grid/issues) to update this check.";
 }
@@ -1306,7 +2051,6 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(33000|35
     -osmoseDetail: tr("Each country has its own voltage set used for electricity transmission.");
     -osmoseExample: tr("For example, in Jordan, only 132 kV and 400 kV voltages are used.");
     -osmoseFix: tr("Check the list of possible values for this country on the wiki and correct the `0` tag.", "voltage");
-    -osmoseTags: list("tag", "power");
     -osmoseResource: "https://wiki.openstreetmap.org/wiki/Power_networks/Moldova";
     -osmoseTrap: "If the voltage in OSM is correct but is showing as an error here, check the wiki page and make the necessary corrections. Then create [an issue on GitHub](https://github.com/open-energy-transition/validate-my-grid/issues) to update this check.";
 }
@@ -1319,7 +2063,6 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(15000|22
     -osmoseDetail: tr("Each country has its own voltage set used for electricity transmission.");
     -osmoseExample: tr("For example, in Jordan, only 132 kV and 400 kV voltages are used.");
     -osmoseFix: tr("Check the list of possible values for this country on the wiki and correct the `0` tag.", "voltage");
-    -osmoseTags: list("tag", "power");
     -osmoseResource: "https://wiki.openstreetmap.org/wiki/Power_networks/Mongolia";
     -osmoseTrap: "If the voltage in OSM is correct but is showing as an error here, check the wiki page and make the necessary corrections. Then create [an issue on GitHub](https://github.com/open-energy-transition/validate-my-grid/issues) to update this check.";
 }
@@ -1332,7 +2075,6 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(35000|11
     -osmoseDetail: tr("Each country has its own voltage set used for electricity transmission.");
     -osmoseExample: tr("For example, in Jordan, only 132 kV and 400 kV voltages are used.");
     -osmoseFix: tr("Check the list of possible values for this country on the wiki and correct the `0` tag.", "voltage");
-    -osmoseTags: list("tag", "power");
     -osmoseResource: "https://wiki.openstreetmap.org/wiki/Power_networks/Montenegro";
     -osmoseTrap: "If the voltage in OSM is correct but is showing as an error here, check the wiki page and make the necessary corrections. Then create [an issue on GitHub](https://github.com/open-energy-transition/validate-my-grid/issues) to update this check.";
 }
@@ -1345,7 +2087,6 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(20000|22
     -osmoseDetail: tr("Each country has its own voltage set used for electricity transmission.");
     -osmoseExample: tr("For example, in Jordan, only 132 kV and 400 kV voltages are used.");
     -osmoseFix: tr("Check the list of possible values for this country on the wiki and correct the `0` tag.", "voltage");
-    -osmoseTags: list("tag", "power");
     -osmoseResource: "https://wiki.openstreetmap.org/wiki/Power_networks/Morocco";
     -osmoseTrap: "If the voltage in OSM is correct but is showing as an error here, check the wiki page and make the necessary corrections. Then create [an issue on GitHub](https://github.com/open-energy-transition/validate-my-grid/issues) to update this check.";
 }
@@ -1358,7 +2099,6 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(66000|11
     -osmoseDetail: tr("Each country has its own voltage set used for electricity transmission.");
     -osmoseExample: tr("For example, in Jordan, only 132 kV and 400 kV voltages are used.");
     -osmoseFix: tr("Check the list of possible values for this country on the wiki and correct the `0` tag.", "voltage");
-    -osmoseTags: list("tag", "power");
     -osmoseResource: "https://wiki.openstreetmap.org/wiki/Power_networks/Mozambique";
     -osmoseTrap: "If the voltage in OSM is correct but is showing as an error here, check the wiki page and make the necessary corrections. Then create [an issue on GitHub](https://github.com/open-energy-transition/validate-my-grid/issues) to update this check.";
 }
@@ -1371,7 +2111,6 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(11000|20
     -osmoseDetail: tr("Each country has its own voltage set used for electricity transmission.");
     -osmoseExample: tr("For example, in Jordan, only 132 kV and 400 kV voltages are used.");
     -osmoseFix: tr("Check the list of possible values for this country on the wiki and correct the `0` tag.", "voltage");
-    -osmoseTags: list("tag", "power");
     -osmoseResource: "https://wiki.openstreetmap.org/wiki/Power_networks/Myanmar";
     -osmoseTrap: "If the voltage in OSM is correct but is showing as an error here, check the wiki page and make the necessary corrections. Then create [an issue on GitHub](https://github.com/open-energy-transition/validate-my-grid/issues) to update this check.";
 }
@@ -1384,7 +2123,6 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(11000|19
     -osmoseDetail: tr("Each country has its own voltage set used for electricity transmission.");
     -osmoseExample: tr("For example, in Jordan, only 132 kV and 400 kV voltages are used.");
     -osmoseFix: tr("Check the list of possible values for this country on the wiki and correct the `0` tag.", "voltage");
-    -osmoseTags: list("tag", "power");
     -osmoseResource: "https://wiki.openstreetmap.org/wiki/Power_networks/Namibia";
     -osmoseTrap: "If the voltage in OSM is correct but is showing as an error here, check the wiki page and make the necessary corrections. Then create [an issue on GitHub](https://github.com/open-energy-transition/validate-my-grid/issues) to update this check.";
 }
@@ -1397,7 +2135,6 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(33000|66
     -osmoseDetail: tr("Each country has its own voltage set used for electricity transmission.");
     -osmoseExample: tr("For example, in Jordan, only 132 kV and 400 kV voltages are used.");
     -osmoseFix: tr("Check the list of possible values for this country on the wiki and correct the `0` tag.", "voltage");
-    -osmoseTags: list("tag", "power");
     -osmoseResource: "https://wiki.openstreetmap.org/wiki/Power_networks/Nepal";
     -osmoseTrap: "If the voltage in OSM is correct but is showing as an error here, check the wiki page and make the necessary corrections. Then create [an issue on GitHub](https://github.com/open-energy-transition/validate-my-grid/issues) to update this check.";
 }
@@ -1410,7 +2147,6 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(50000|66
     -osmoseDetail: tr("Each country has its own voltage set used for electricity transmission.");
     -osmoseExample: tr("For example, in Jordan, only 132 kV and 400 kV voltages are used.");
     -osmoseFix: tr("Check the list of possible values for this country on the wiki and correct the `0` tag.", "voltage");
-    -osmoseTags: list("tag", "power");
     -osmoseResource: "https://wiki.openstreetmap.org/wiki/Power_networks/New_Zealand";
     -osmoseTrap: "If the voltage in OSM is correct but is showing as an error here, check the wiki page and make the necessary corrections. Then create [an issue on GitHub](https://github.com/open-energy-transition/validate-my-grid/issues) to update this check.";
 }
@@ -1423,7 +2159,6 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(69000|13
     -osmoseDetail: tr("Each country has its own voltage set used for electricity transmission.");
     -osmoseExample: tr("For example, in Jordan, only 132 kV and 400 kV voltages are used.");
     -osmoseFix: tr("Check the list of possible values for this country on the wiki and correct the `0` tag.", "voltage");
-    -osmoseTags: list("tag", "power");
     -osmoseResource: "https://wiki.openstreetmap.org/wiki/Power_networks/Nicaragua";
     -osmoseTrap: "If the voltage in OSM is correct but is showing as an error here, check the wiki page and make the necessary corrections. Then create [an issue on GitHub](https://github.com/open-energy-transition/validate-my-grid/issues) to update this check.";
 }
@@ -1436,7 +2171,6 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(66000|13
     -osmoseDetail: tr("Each country has its own voltage set used for electricity transmission.");
     -osmoseExample: tr("For example, in Jordan, only 132 kV and 400 kV voltages are used.");
     -osmoseFix: tr("Check the list of possible values for this country on the wiki and correct the `0` tag.", "voltage");
-    -osmoseTags: list("tag", "power");
     -osmoseResource: "https://wiki.openstreetmap.org/wiki/Power_networks/Niger";
     -osmoseTrap: "If the voltage in OSM is correct but is showing as an error here, check the wiki page and make the necessary corrections. Then create [an issue on GitHub](https://github.com/open-energy-transition/validate-my-grid/issues) to update this check.";
 }
@@ -1449,7 +2183,6 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(11000|33
     -osmoseDetail: tr("Each country has its own voltage set used for electricity transmission.");
     -osmoseExample: tr("For example, in Jordan, only 132 kV and 400 kV voltages are used.");
     -osmoseFix: tr("Check the list of possible values for this country on the wiki and correct the `0` tag.", "voltage");
-    -osmoseTags: list("tag", "power");
     -osmoseResource: "https://wiki.openstreetmap.org/wiki/Power_networks/Nigeria";
     -osmoseTrap: "If the voltage in OSM is correct but is showing as an error here, check the wiki page and make the necessary corrections. Then create [an issue on GitHub](https://github.com/open-energy-transition/validate-my-grid/issues) to update this check.";
 }
@@ -1462,7 +2195,6 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(11000|66
     -osmoseDetail: tr("Each country has its own voltage set used for electricity transmission.");
     -osmoseExample: tr("For example, in Jordan, only 132 kV and 400 kV voltages are used.");
     -osmoseFix: tr("Check the list of possible values for this country on the wiki and correct the `0` tag.", "voltage");
-    -osmoseTags: list("tag", "power");
     -osmoseResource: "https://wiki.openstreetmap.org/wiki/Power_networks/North_Korea";
     -osmoseTrap: "If the voltage in OSM is correct but is showing as an error here, check the wiki page and make the necessary corrections. Then create [an issue on GitHub](https://github.com/open-energy-transition/validate-my-grid/issues) to update this check.";
 }
@@ -1475,7 +2207,6 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(110000|2
     -osmoseDetail: tr("Each country has its own voltage set used for electricity transmission.");
     -osmoseExample: tr("For example, in Jordan, only 132 kV and 400 kV voltages are used.");
     -osmoseFix: tr("Check the list of possible values for this country on the wiki and correct the `0` tag.", "voltage");
-    -osmoseTags: list("tag", "power");
     -osmoseResource: "https://wiki.openstreetmap.org/wiki/Power_networks/North_Macedonia";
     -osmoseTrap: "If the voltage in OSM is correct but is showing as an error here, check the wiki page and make the necessary corrections. Then create [an issue on GitHub](https://github.com/open-energy-transition/validate-my-grid/issues) to update this check.";
 }
@@ -1488,7 +2219,6 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(11000|12
     -osmoseDetail: tr("Each country has its own voltage set used for electricity transmission.");
     -osmoseExample: tr("For example, in Jordan, only 132 kV and 400 kV voltages are used.");
     -osmoseFix: tr("Check the list of possible values for this country on the wiki and correct the `0` tag.", "voltage");
-    -osmoseTags: list("tag", "power");
     -osmoseResource: "https://wiki.openstreetmap.org/wiki/Power_networks/Norway";
     -osmoseTrap: "If the voltage in OSM is correct but is showing as an error here, check the wiki page and make the necessary corrections. Then create [an issue on GitHub](https://github.com/open-energy-transition/validate-my-grid/issues) to update this check.";
 }
@@ -1501,7 +2231,6 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(132000|2
     -osmoseDetail: tr("Each country has its own voltage set used for electricity transmission.");
     -osmoseExample: tr("For example, in Jordan, only 132 kV and 400 kV voltages are used.");
     -osmoseFix: tr("Check the list of possible values for this country on the wiki and correct the `0` tag.", "voltage");
-    -osmoseTags: list("tag", "power");
     -osmoseResource: "https://wiki.openstreetmap.org/wiki/Power_networks/Oman";
     -osmoseTrap: "If the voltage in OSM is correct but is showing as an error here, check the wiki page and make the necessary corrections. Then create [an issue on GitHub](https://github.com/open-energy-transition/validate-my-grid/issues) to update this check.";
 }
@@ -1514,7 +2243,6 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(11000|33
     -osmoseDetail: tr("Each country has its own voltage set used for electricity transmission.");
     -osmoseExample: tr("For example, in Jordan, only 132 kV and 400 kV voltages are used.");
     -osmoseFix: tr("Check the list of possible values for this country on the wiki and correct the `0` tag.", "voltage");
-    -osmoseTags: list("tag", "power");
     -osmoseResource: "https://wiki.openstreetmap.org/wiki/Power_networks/Pakistan";
     -osmoseTrap: "If the voltage in OSM is correct but is showing as an error here, check the wiki page and make the necessary corrections. Then create [an issue on GitHub](https://github.com/open-energy-transition/validate-my-grid/issues) to update this check.";
 }
@@ -1527,7 +2255,6 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(115000|2
     -osmoseDetail: tr("Each country has its own voltage set used for electricity transmission.");
     -osmoseExample: tr("For example, in Jordan, only 132 kV and 400 kV voltages are used.");
     -osmoseFix: tr("Check the list of possible values for this country on the wiki and correct the `0` tag.", "voltage");
-    -osmoseTags: list("tag", "power");
     -osmoseResource: "https://wiki.openstreetmap.org/wiki/Power_networks/Panama";
     -osmoseTrap: "If the voltage in OSM is correct but is showing as an error here, check the wiki page and make the necessary corrections. Then create [an issue on GitHub](https://github.com/open-energy-transition/validate-my-grid/issues) to update this check.";
 }
@@ -1540,7 +2267,6 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(11000|66
     -osmoseDetail: tr("Each country has its own voltage set used for electricity transmission.");
     -osmoseExample: tr("For example, in Jordan, only 132 kV and 400 kV voltages are used.");
     -osmoseFix: tr("Check the list of possible values for this country on the wiki and correct the `0` tag.", "voltage");
-    -osmoseTags: list("tag", "power");
     -osmoseResource: "https://wiki.openstreetmap.org/wiki/Power_networks/Papua_New_Guinea";
     -osmoseTrap: "If the voltage in OSM is correct but is showing as an error here, check the wiki page and make the necessary corrections. Then create [an issue on GitHub](https://github.com/open-energy-transition/validate-my-grid/issues) to update this check.";
 }
@@ -1553,7 +2279,6 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(12000|34
     -osmoseDetail: tr("Each country has its own voltage set used for electricity transmission.");
     -osmoseExample: tr("For example, in Jordan, only 132 kV and 400 kV voltages are used.");
     -osmoseFix: tr("Check the list of possible values for this country on the wiki and correct the `0` tag.", "voltage");
-    -osmoseTags: list("tag", "power");
     -osmoseResource: "https://wiki.openstreetmap.org/wiki/Power_networks/Paraguay";
     -osmoseTrap: "If the voltage in OSM is correct but is showing as an error here, check the wiki page and make the necessary corrections. Then create [an issue on GitHub](https://github.com/open-energy-transition/validate-my-grid/issues) to update this check.";
 }
@@ -1566,7 +2291,6 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(10500|11
     -osmoseDetail: tr("Each country has its own voltage set used for electricity transmission.");
     -osmoseExample: tr("For example, in Jordan, only 132 kV and 400 kV voltages are used.");
     -osmoseFix: tr("Check the list of possible values for this country on the wiki and correct the `0` tag.", "voltage");
-    -osmoseTags: list("tag", "power");
     -osmoseResource: "https://wiki.openstreetmap.org/wiki/Power_networks/China";
     -osmoseTrap: "If the voltage in OSM is correct but is showing as an error here, check the wiki page and make the necessary corrections. Then create [an issue on GitHub](https://github.com/open-energy-transition/validate-my-grid/issues) to update this check.";
 }
@@ -1579,7 +2303,6 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(30000|33
     -osmoseDetail: tr("Each country has its own voltage set used for electricity transmission.");
     -osmoseExample: tr("For example, in Jordan, only 132 kV and 400 kV voltages are used.");
     -osmoseFix: tr("Check the list of possible values for this country on the wiki and correct the `0` tag.", "voltage");
-    -osmoseTags: list("tag", "power");
     -osmoseResource: "https://wiki.openstreetmap.org/wiki/Power_networks/Peru";
     -osmoseTrap: "If the voltage in OSM is correct but is showing as an error here, check the wiki page and make the necessary corrections. Then create [an issue on GitHub](https://github.com/open-energy-transition/validate-my-grid/issues) to update this check.";
 }
@@ -1592,7 +2315,6 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(13200|13
     -osmoseDetail: tr("Each country has its own voltage set used for electricity transmission.");
     -osmoseExample: tr("For example, in Jordan, only 132 kV and 400 kV voltages are used.");
     -osmoseFix: tr("Check the list of possible values for this country on the wiki and correct the `0` tag.", "voltage");
-    -osmoseTags: list("tag", "power");
     -osmoseResource: "https://wiki.openstreetmap.org/wiki/Power_networks/Philippines";
     -osmoseTrap: "If the voltage in OSM is correct but is showing as an error here, check the wiki page and make the necessary corrections. Then create [an issue on GitHub](https://github.com/open-energy-transition/validate-my-grid/issues) to update this check.";
 }
@@ -1605,7 +2327,6 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(11000|15
     -osmoseDetail: tr("Each country has its own voltage set used for electricity transmission.");
     -osmoseExample: tr("For example, in Jordan, only 132 kV and 400 kV voltages are used.");
     -osmoseFix: tr("Check the list of possible values for this country on the wiki and correct the `0` tag.", "voltage");
-    -osmoseTags: list("tag", "power");
     -osmoseResource: "https://wiki.openstreetmap.org/wiki/Power_networks/Poland";
     -osmoseTrap: "If the voltage in OSM is correct but is showing as an error here, check the wiki page and make the necessary corrections. Then create [an issue on GitHub](https://github.com/open-energy-transition/validate-my-grid/issues) to update this check.";
 }
@@ -1618,7 +2339,6 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(11000|15
     -osmoseDetail: tr("Each country has its own voltage set used for electricity transmission.");
     -osmoseExample: tr("For example, in Jordan, only 132 kV and 400 kV voltages are used.");
     -osmoseFix: tr("Check the list of possible values for this country on the wiki and correct the `0` tag.", "voltage");
-    -osmoseTags: list("tag", "power");
     -osmoseResource: "https://wiki.openstreetmap.org/wiki/Power_networks/Portugal";
     -osmoseTrap: "If the voltage in OSM is correct but is showing as an error here, check the wiki page and make the necessary corrections. Then create [an issue on GitHub](https://github.com/open-energy-transition/validate-my-grid/issues) to update this check.";
 }
@@ -1631,7 +2351,6 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(21000|66
     -osmoseDetail: tr("Each country has its own voltage set used for electricity transmission.");
     -osmoseExample: tr("For example, in Jordan, only 132 kV and 400 kV voltages are used.");
     -osmoseFix: tr("Check the list of possible values for this country on the wiki and correct the `0` tag.", "voltage");
-    -osmoseTags: list("tag", "power");
     -osmoseResource: "https://wiki.openstreetmap.org/wiki/Power_networks/Qatar";
     -osmoseTrap: "If the voltage in OSM is correct but is showing as an error here, check the wiki page and make the necessary corrections. Then create [an issue on GitHub](https://github.com/open-energy-transition/validate-my-grid/issues) to update this check.";
 }
@@ -1644,7 +2363,6 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(110000|2
     -osmoseDetail: tr("Each country has its own voltage set used for electricity transmission.");
     -osmoseExample: tr("For example, in Jordan, only 132 kV and 400 kV voltages are used.");
     -osmoseFix: tr("Check the list of possible values for this country on the wiki and correct the `0` tag.", "voltage");
-    -osmoseTags: list("tag", "power");
     -osmoseResource: "https://wiki.openstreetmap.org/wiki/Power_networks/Republic_of_the_Congo";
     -osmoseTrap: "If the voltage in OSM is correct but is showing as an error here, check the wiki page and make the necessary corrections. Then create [an issue on GitHub](https://github.com/open-energy-transition/validate-my-grid/issues) to update this check.";
 }
@@ -1657,7 +2375,6 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(20000|25
     -osmoseDetail: tr("Each country has its own voltage set used for electricity transmission.");
     -osmoseExample: tr("For example, in Jordan, only 132 kV and 400 kV voltages are used.");
     -osmoseFix: tr("Check the list of possible values for this country on the wiki and correct the `0` tag.", "voltage");
-    -osmoseTags: list("tag", "power");
     -osmoseResource: "https://wiki.openstreetmap.org/wiki/Power_networks/Romania";
     -osmoseTrap: "If the voltage in OSM is correct but is showing as an error here, check the wiki page and make the necessary corrections. Then create [an issue on GitHub](https://github.com/open-energy-transition/validate-my-grid/issues) to update this check.";
 }
@@ -1670,7 +2387,6 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(10500|15
     -osmoseDetail: tr("Each country has its own voltage set used for electricity transmission.");
     -osmoseExample: tr("For example, in Jordan, only 132 kV and 400 kV voltages are used.");
     -osmoseFix: tr("Check the list of possible values for this country on the wiki and correct the `0` tag.", "voltage");
-    -osmoseTags: list("tag", "power");
     -osmoseResource: "https://wiki.openstreetmap.org/wiki/Power_networks/Russia";
     -osmoseTrap: "If the voltage in OSM is correct but is showing as an error here, check the wiki page and make the necessary corrections. Then create [an issue on GitHub](https://github.com/open-energy-transition/validate-my-grid/issues) to update this check.";
 }
@@ -1683,7 +2399,6 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(70000|11
     -osmoseDetail: tr("Each country has its own voltage set used for electricity transmission.");
     -osmoseExample: tr("For example, in Jordan, only 132 kV and 400 kV voltages are used.");
     -osmoseFix: tr("Check the list of possible values for this country on the wiki and correct the `0` tag.", "voltage");
-    -osmoseTags: list("tag", "power");
     -osmoseResource: "https://wiki.openstreetmap.org/wiki/Power_networks/Rwanda";
     -osmoseTrap: "If the voltage in OSM is correct but is showing as an error here, check the wiki page and make the necessary corrections. Then create [an issue on GitHub](https://github.com/open-energy-transition/validate-my-grid/issues) to update this check.";
 }
@@ -1696,7 +2411,6 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(132000)$
     -osmoseDetail: tr("Each country has its own voltage set used for electricity transmission.");
     -osmoseExample: tr("For example, in Jordan, only 132 kV and 400 kV voltages are used.");
     -osmoseFix: tr("Check the list of possible values for this country on the wiki and correct the `0` tag.", "voltage");
-    -osmoseTags: list("tag", "power");
     -osmoseResource: "https://wiki.openstreetmap.org/wiki/Power_networks/San_Marino";
     -osmoseTrap: "If the voltage in OSM is correct but is showing as an error here, check the wiki page and make the necessary corrections. Then create [an issue on GitHub](https://github.com/open-energy-transition/validate-my-grid/issues) to update this check.";
 }
@@ -1709,7 +2423,6 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(25000|33
     -osmoseDetail: tr("Each country has its own voltage set used for electricity transmission.");
     -osmoseExample: tr("For example, in Jordan, only 132 kV and 400 kV voltages are used.");
     -osmoseFix: tr("Check the list of possible values for this country on the wiki and correct the `0` tag.", "voltage");
-    -osmoseTags: list("tag", "power");
     -osmoseResource: "https://wiki.openstreetmap.org/wiki/Power_networks/Saudi_Arabia";
     -osmoseTrap: "If the voltage in OSM is correct but is showing as an error here, check the wiki page and make the necessary corrections. Then create [an issue on GitHub](https://github.com/open-energy-transition/validate-my-grid/issues) to update this check.";
 }
@@ -1722,7 +2435,6 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(90000|22
     -osmoseDetail: tr("Each country has its own voltage set used for electricity transmission.");
     -osmoseExample: tr("For example, in Jordan, only 132 kV and 400 kV voltages are used.");
     -osmoseFix: tr("Check the list of possible values for this country on the wiki and correct the `0` tag.", "voltage");
-    -osmoseTags: list("tag", "power");
     -osmoseResource: "https://wiki.openstreetmap.org/wiki/Power_networks/Senegal";
     -osmoseTrap: "If the voltage in OSM is correct but is showing as an error here, check the wiki page and make the necessary corrections. Then create [an issue on GitHub](https://github.com/open-energy-transition/validate-my-grid/issues) to update this check.";
 }
@@ -1735,7 +2447,6 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(20000|25
     -osmoseDetail: tr("Each country has its own voltage set used for electricity transmission.");
     -osmoseExample: tr("For example, in Jordan, only 132 kV and 400 kV voltages are used.");
     -osmoseFix: tr("Check the list of possible values for this country on the wiki and correct the `0` tag.", "voltage");
-    -osmoseTags: list("tag", "power");
     -osmoseResource: "https://wiki.openstreetmap.org/wiki/Power_networks/Serbia";
     -osmoseTrap: "If the voltage in OSM is correct but is showing as an error here, check the wiki page and make the necessary corrections. Then create [an issue on GitHub](https://github.com/open-energy-transition/validate-my-grid/issues) to update this check.";
 }
@@ -1748,7 +2459,6 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(161000|2
     -osmoseDetail: tr("Each country has its own voltage set used for electricity transmission.");
     -osmoseExample: tr("For example, in Jordan, only 132 kV and 400 kV voltages are used.");
     -osmoseFix: tr("Check the list of possible values for this country on the wiki and correct the `0` tag.", "voltage");
-    -osmoseTags: list("tag", "power");
     -osmoseResource: "https://wiki.openstreetmap.org/wiki/Power_networks/Sierra_Leone";
     -osmoseTrap: "If the voltage in OSM is correct but is showing as an error here, check the wiki page and make the necessary corrections. Then create [an issue on GitHub](https://github.com/open-energy-transition/validate-my-grid/issues) to update this check.";
 }
@@ -1761,7 +2471,6 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(230000)$
     -osmoseDetail: tr("Each country has its own voltage set used for electricity transmission.");
     -osmoseExample: tr("For example, in Jordan, only 132 kV and 400 kV voltages are used.");
     -osmoseFix: tr("Check the list of possible values for this country on the wiki and correct the `0` tag.", "voltage");
-    -osmoseTags: list("tag", "power");
     -osmoseResource: "https://wiki.openstreetmap.org/wiki/Power_networks/Singapore";
     -osmoseTrap: "If the voltage in OSM is correct but is showing as an error here, check the wiki page and make the necessary corrections. Then create [an issue on GitHub](https://github.com/open-energy-transition/validate-my-grid/issues) to update this check.";
 }
@@ -1774,7 +2483,6 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(22000|11
     -osmoseDetail: tr("Each country has its own voltage set used for electricity transmission.");
     -osmoseExample: tr("For example, in Jordan, only 132 kV and 400 kV voltages are used.");
     -osmoseFix: tr("Check the list of possible values for this country on the wiki and correct the `0` tag.", "voltage");
-    -osmoseTags: list("tag", "power");
     -osmoseResource: "https://wiki.openstreetmap.org/wiki/Power_networks/Slovakia";
     -osmoseTrap: "If the voltage in OSM is correct but is showing as an error here, check the wiki page and make the necessary corrections. Then create [an issue on GitHub](https://github.com/open-energy-transition/validate-my-grid/issues) to update this check.";
 }
@@ -1787,7 +2495,6 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(15000|20
     -osmoseDetail: tr("Each country has its own voltage set used for electricity transmission.");
     -osmoseExample: tr("For example, in Jordan, only 132 kV and 400 kV voltages are used.");
     -osmoseFix: tr("Check the list of possible values for this country on the wiki and correct the `0` tag.", "voltage");
-    -osmoseTags: list("tag", "power");
     -osmoseResource: "https://wiki.openstreetmap.org/wiki/Power_networks/Slovenia";
     -osmoseTrap: "If the voltage in OSM is correct but is showing as an error here, check the wiki page and make the necessary corrections. Then create [an issue on GitHub](https://github.com/open-energy-transition/validate-my-grid/issues) to update this check.";
 }
@@ -1800,7 +2507,6 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(11000|20
     -osmoseDetail: tr("Each country has its own voltage set used for electricity transmission.");
     -osmoseExample: tr("For example, in Jordan, only 132 kV and 400 kV voltages are used.");
     -osmoseFix: tr("Check the list of possible values for this country on the wiki and correct the `0` tag.", "voltage");
-    -osmoseTags: list("tag", "power");
     -osmoseResource: "https://wiki.openstreetmap.org/wiki/Power_networks/South_Africa";
     -osmoseTrap: "If the voltage in OSM is correct but is showing as an error here, check the wiki page and make the necessary corrections. Then create [an issue on GitHub](https://github.com/open-energy-transition/validate-my-grid/issues) to update this check.";
 }
@@ -1813,7 +2519,6 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(15000|22
     -osmoseDetail: tr("Each country has its own voltage set used for electricity transmission.");
     -osmoseExample: tr("For example, in Jordan, only 132 kV and 400 kV voltages are used.");
     -osmoseFix: tr("Check the list of possible values for this country on the wiki and correct the `0` tag.", "voltage");
-    -osmoseTags: list("tag", "power");
     -osmoseResource: "https://wiki.openstreetmap.org/wiki/Power_networks/South_Korea";
     -osmoseTrap: "If the voltage in OSM is correct but is showing as an error here, check the wiki page and make the necessary corrections. Then create [an issue on GitHub](https://github.com/open-energy-transition/validate-my-grid/issues) to update this check.";
 }
@@ -1826,7 +2531,6 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(220000)$
     -osmoseDetail: tr("Each country has its own voltage set used for electricity transmission.");
     -osmoseExample: tr("For example, in Jordan, only 132 kV and 400 kV voltages are used.");
     -osmoseFix: tr("Check the list of possible values for this country on the wiki and correct the `0` tag.", "voltage");
-    -osmoseTags: list("tag", "power");
     -osmoseResource: "https://wiki.openstreetmap.org/wiki/Power_networks/South_Sudan";
     -osmoseTrap: "If the voltage in OSM is correct but is showing as an error here, check the wiki page and make the necessary corrections. Then create [an issue on GitHub](https://github.com/open-energy-transition/validate-my-grid/issues) to update this check.";
 }
@@ -1839,7 +2543,6 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(12000|13
     -osmoseDetail: tr("Each country has its own voltage set used for electricity transmission.");
     -osmoseExample: tr("For example, in Jordan, only 132 kV and 400 kV voltages are used.");
     -osmoseFix: tr("Check the list of possible values for this country on the wiki and correct the `0` tag.", "voltage");
-    -osmoseTags: list("tag", "power");
     -osmoseResource: "https://wiki.openstreetmap.org/wiki/Power_networks/Spain";
     -osmoseTrap: "If the voltage in OSM is correct but is showing as an error here, check the wiki page and make the necessary corrections. Then create [an issue on GitHub](https://github.com/open-energy-transition/validate-my-grid/issues) to update this check.";
 }
@@ -1852,7 +2555,6 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(11000|33
     -osmoseDetail: tr("Each country has its own voltage set used for electricity transmission.");
     -osmoseExample: tr("For example, in Jordan, only 132 kV and 400 kV voltages are used.");
     -osmoseFix: tr("Check the list of possible values for this country on the wiki and correct the `0` tag.", "voltage");
-    -osmoseTags: list("tag", "power");
     -osmoseResource: "https://wiki.openstreetmap.org/wiki/Power_networks/Sri_Lanka";
     -osmoseTrap: "If the voltage in OSM is correct but is showing as an error here, check the wiki page and make the necessary corrections. Then create [an issue on GitHub](https://github.com/open-energy-transition/validate-my-grid/issues) to update this check.";
 }
@@ -1865,7 +2567,6 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(161000)$
     -osmoseDetail: tr("Each country has its own voltage set used for electricity transmission.");
     -osmoseExample: tr("For example, in Jordan, only 132 kV and 400 kV voltages are used.");
     -osmoseFix: tr("Check the list of possible values for this country on the wiki and correct the `0` tag.", "voltage");
-    -osmoseTags: list("tag", "power");
     -osmoseResource: "https://wiki.openstreetmap.org/wiki/Power_networks/State_of_Palestine";
     -osmoseTrap: "If the voltage in OSM is correct but is showing as an error here, check the wiki page and make the necessary corrections. Then create [an issue on GitHub](https://github.com/open-energy-transition/validate-my-grid/issues) to update this check.";
 }
@@ -1878,7 +2579,6 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(66000|11
     -osmoseDetail: tr("Each country has its own voltage set used for electricity transmission.");
     -osmoseExample: tr("For example, in Jordan, only 132 kV and 400 kV voltages are used.");
     -osmoseFix: tr("Check the list of possible values for this country on the wiki and correct the `0` tag.", "voltage");
-    -osmoseTags: list("tag", "power");
     -osmoseResource: "https://wiki.openstreetmap.org/wiki/Power_networks/Sudan";
     -osmoseTrap: "If the voltage in OSM is correct but is showing as an error here, check the wiki page and make the necessary corrections. Then create [an issue on GitHub](https://github.com/open-energy-transition/validate-my-grid/issues) to update this check.";
 }
@@ -1891,7 +2591,6 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(161000)$
     -osmoseDetail: tr("Each country has its own voltage set used for electricity transmission.");
     -osmoseExample: tr("For example, in Jordan, only 132 kV and 400 kV voltages are used.");
     -osmoseFix: tr("Check the list of possible values for this country on the wiki and correct the `0` tag.", "voltage");
-    -osmoseTags: list("tag", "power");
     -osmoseResource: "https://wiki.openstreetmap.org/wiki/Power_networks/Suriname";
     -osmoseTrap: "If the voltage in OSM is correct but is showing as an error here, check the wiki page and make the necessary corrections. Then create [an issue on GitHub](https://github.com/open-energy-transition/validate-my-grid/issues) to update this check.";
 }
@@ -1904,7 +2603,6 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(11000|12
     -osmoseDetail: tr("Each country has its own voltage set used for electricity transmission.");
     -osmoseExample: tr("For example, in Jordan, only 132 kV and 400 kV voltages are used.");
     -osmoseFix: tr("Check the list of possible values for this country on the wiki and correct the `0` tag.", "voltage");
-    -osmoseTags: list("tag", "power");
     -osmoseResource: "https://wiki.openstreetmap.org/wiki/Power_networks/Sweden";
     -osmoseTrap: "If the voltage in OSM is correct but is showing as an error here, check the wiki page and make the necessary corrections. Then create [an issue on GitHub](https://github.com/open-energy-transition/validate-my-grid/issues) to update this check.";
 }
@@ -1917,7 +2615,6 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(11000|13
     -osmoseDetail: tr("Each country has its own voltage set used for electricity transmission.");
     -osmoseExample: tr("For example, in Jordan, only 132 kV and 400 kV voltages are used.");
     -osmoseFix: tr("Check the list of possible values for this country on the wiki and correct the `0` tag.", "voltage");
-    -osmoseTags: list("tag", "power");
     -osmoseResource: "https://wiki.openstreetmap.org/wiki/Power_networks/Switzerland";
     -osmoseTrap: "If the voltage in OSM is correct but is showing as an error here, check the wiki page and make the necessary corrections. Then create [an issue on GitHub](https://github.com/open-energy-transition/validate-my-grid/issues) to update this check.";
 }
@@ -1930,7 +2627,6 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(23000|66
     -osmoseDetail: tr("Each country has its own voltage set used for electricity transmission.");
     -osmoseExample: tr("For example, in Jordan, only 132 kV and 400 kV voltages are used.");
     -osmoseFix: tr("Check the list of possible values for this country on the wiki and correct the `0` tag.", "voltage");
-    -osmoseTags: list("tag", "power");
     -osmoseResource: "https://wiki.openstreetmap.org/wiki/Power_networks/Syria";
     -osmoseTrap: "If the voltage in OSM is correct but is showing as an error here, check the wiki page and make the necessary corrections. Then create [an issue on GitHub](https://github.com/open-energy-transition/validate-my-grid/issues) to update this check.";
 }
@@ -1943,7 +2639,6 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(69000|16
     -osmoseDetail: tr("Each country has its own voltage set used for electricity transmission.");
     -osmoseExample: tr("For example, in Jordan, only 132 kV and 400 kV voltages are used.");
     -osmoseFix: tr("Check the list of possible values for this country on the wiki and correct the `0` tag.", "voltage");
-    -osmoseTags: list("tag", "power");
     -osmoseResource: "https://wiki.openstreetmap.org/wiki/Power_networks/Taiwan";
     -osmoseTrap: "If the voltage in OSM is correct but is showing as an error here, check the wiki page and make the necessary corrections. Then create [an issue on GitHub](https://github.com/open-energy-transition/validate-my-grid/issues) to update this check.";
 }
@@ -1956,7 +2651,6 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(35000|11
     -osmoseDetail: tr("Each country has its own voltage set used for electricity transmission.");
     -osmoseExample: tr("For example, in Jordan, only 132 kV and 400 kV voltages are used.");
     -osmoseFix: tr("Check the list of possible values for this country on the wiki and correct the `0` tag.", "voltage");
-    -osmoseTags: list("tag", "power");
     -osmoseResource: "https://wiki.openstreetmap.org/wiki/Power_networks/Tajikistan";
     -osmoseTrap: "If the voltage in OSM is correct but is showing as an error here, check the wiki page and make the necessary corrections. Then create [an issue on GitHub](https://github.com/open-energy-transition/validate-my-grid/issues) to update this check.";
 }
@@ -1969,7 +2663,6 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(11000|33
     -osmoseDetail: tr("Each country has its own voltage set used for electricity transmission.");
     -osmoseExample: tr("For example, in Jordan, only 132 kV and 400 kV voltages are used.");
     -osmoseFix: tr("Check the list of possible values for this country on the wiki and correct the `0` tag.", "voltage");
-    -osmoseTags: list("tag", "power");
     -osmoseResource: "https://wiki.openstreetmap.org/wiki/Power_networks/Tanzania";
     -osmoseTrap: "If the voltage in OSM is correct but is showing as an error here, check the wiki page and make the necessary corrections. Then create [an issue on GitHub](https://github.com/open-energy-transition/validate-my-grid/issues) to update this check.";
 }
@@ -1982,7 +2675,6 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(22000|50
     -osmoseDetail: tr("Each country has its own voltage set used for electricity transmission.");
     -osmoseExample: tr("For example, in Jordan, only 132 kV and 400 kV voltages are used.");
     -osmoseFix: tr("Check the list of possible values for this country on the wiki and correct the `0` tag.", "voltage");
-    -osmoseTags: list("tag", "power");
     -osmoseResource: "https://wiki.openstreetmap.org/wiki/Power_networks/Thailand";
     -osmoseTrap: "If the voltage in OSM is correct but is showing as an error here, check the wiki page and make the necessary corrections. Then create [an issue on GitHub](https://github.com/open-energy-transition/validate-my-grid/issues) to update this check.";
 }
@@ -1995,7 +2687,6 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(132000)$
     -osmoseDetail: tr("Each country has its own voltage set used for electricity transmission.");
     -osmoseExample: tr("For example, in Jordan, only 132 kV and 400 kV voltages are used.");
     -osmoseFix: tr("Check the list of possible values for this country on the wiki and correct the `0` tag.", "voltage");
-    -osmoseTags: list("tag", "power");
     -osmoseResource: "https://wiki.openstreetmap.org/wiki/Power_networks/The_Bahamas";
     -osmoseTrap: "If the voltage in OSM is correct but is showing as an error here, check the wiki page and make the necessary corrections. Then create [an issue on GitHub](https://github.com/open-energy-transition/validate-my-grid/issues) to update this check.";
 }
@@ -2008,7 +2699,6 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(225000)$
     -osmoseDetail: tr("Each country has its own voltage set used for electricity transmission.");
     -osmoseExample: tr("For example, in Jordan, only 132 kV and 400 kV voltages are used.");
     -osmoseFix: tr("Check the list of possible values for this country on the wiki and correct the `0` tag.", "voltage");
-    -osmoseTags: list("tag", "power");
     -osmoseResource: "https://wiki.openstreetmap.org/wiki/Power_networks/The_Gambia";
     -osmoseTrap: "If the voltage in OSM is correct but is showing as an error here, check the wiki page and make the necessary corrections. Then create [an issue on GitHub](https://github.com/open-energy-transition/validate-my-grid/issues) to update this check.";
 }
@@ -2021,7 +2711,6 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(150000)$
     -osmoseDetail: tr("Each country has its own voltage set used for electricity transmission.");
     -osmoseExample: tr("For example, in Jordan, only 132 kV and 400 kV voltages are used.");
     -osmoseFix: tr("Check the list of possible values for this country on the wiki and correct the `0` tag.", "voltage");
-    -osmoseTags: list("tag", "power");
     -osmoseResource: "https://wiki.openstreetmap.org/wiki/Power_networks/Timor-Leste";
     -osmoseTrap: "If the voltage in OSM is correct but is showing as an error here, check the wiki page and make the necessary corrections. Then create [an issue on GitHub](https://github.com/open-energy-transition/validate-my-grid/issues) to update this check.";
 }
@@ -2034,7 +2723,6 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(161000|3
     -osmoseDetail: tr("Each country has its own voltage set used for electricity transmission.");
     -osmoseExample: tr("For example, in Jordan, only 132 kV and 400 kV voltages are used.");
     -osmoseFix: tr("Check the list of possible values for this country on the wiki and correct the `0` tag.", "voltage");
-    -osmoseTags: list("tag", "power");
     -osmoseResource: "https://wiki.openstreetmap.org/wiki/Power_networks/Togo";
     -osmoseTrap: "If the voltage in OSM is correct but is showing as an error here, check the wiki page and make the necessary corrections. Then create [an issue on GitHub](https://github.com/open-energy-transition/validate-my-grid/issues) to update this check.";
 }
@@ -2047,7 +2735,6 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(66000|13
     -osmoseDetail: tr("Each country has its own voltage set used for electricity transmission.");
     -osmoseExample: tr("For example, in Jordan, only 132 kV and 400 kV voltages are used.");
     -osmoseFix: tr("Check the list of possible values for this country on the wiki and correct the `0` tag.", "voltage");
-    -osmoseTags: list("tag", "power");
     -osmoseResource: "https://wiki.openstreetmap.org/wiki/Power_networks/Trinidad_and_Tobago";
     -osmoseTrap: "If the voltage in OSM is correct but is showing as an error here, check the wiki page and make the necessary corrections. Then create [an issue on GitHub](https://github.com/open-energy-transition/validate-my-grid/issues) to update this check.";
 }
@@ -2060,7 +2747,6 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(15000|22
     -osmoseDetail: tr("Each country has its own voltage set used for electricity transmission.");
     -osmoseExample: tr("For example, in Jordan, only 132 kV and 400 kV voltages are used.");
     -osmoseFix: tr("Check the list of possible values for this country on the wiki and correct the `0` tag.", "voltage");
-    -osmoseTags: list("tag", "power");
     -osmoseResource: "https://wiki.openstreetmap.org/wiki/Power_networks/Tunisia";
     -osmoseTrap: "If the voltage in OSM is correct but is showing as an error here, check the wiki page and make the necessary corrections. Then create [an issue on GitHub](https://github.com/open-energy-transition/validate-my-grid/issues) to update this check.";
 }
@@ -2073,7 +2759,6 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(20000|25
     -osmoseDetail: tr("Each country has its own voltage set used for electricity transmission.");
     -osmoseExample: tr("For example, in Jordan, only 132 kV and 400 kV voltages are used.");
     -osmoseFix: tr("Check the list of possible values for this country on the wiki and correct the `0` tag.", "voltage");
-    -osmoseTags: list("tag", "power");
     -osmoseResource: "https://wiki.openstreetmap.org/wiki/Power_networks/Turkey";
     -osmoseTrap: "If the voltage in OSM is correct but is showing as an error here, check the wiki page and make the necessary corrections. Then create [an issue on GitHub](https://github.com/open-energy-transition/validate-my-grid/issues) to update this check.";
 }
@@ -2086,7 +2771,6 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(110000|2
     -osmoseDetail: tr("Each country has its own voltage set used for electricity transmission.");
     -osmoseExample: tr("For example, in Jordan, only 132 kV and 400 kV voltages are used.");
     -osmoseFix: tr("Check the list of possible values for this country on the wiki and correct the `0` tag.", "voltage");
-    -osmoseTags: list("tag", "power");
     -osmoseResource: "https://wiki.openstreetmap.org/wiki/Power_networks/Turkmenistan";
     -osmoseTrap: "If the voltage in OSM is correct but is showing as an error here, check the wiki page and make the necessary corrections. Then create [an issue on GitHub](https://github.com/open-energy-transition/validate-my-grid/issues) to update this check.";
 }
@@ -2099,7 +2783,6 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(11000|15
     -osmoseDetail: tr("Each country has its own voltage set used for electricity transmission.");
     -osmoseExample: tr("For example, in Jordan, only 132 kV and 400 kV voltages are used.");
     -osmoseFix: tr("Check the list of possible values for this country on the wiki and correct the `0` tag.", "voltage");
-    -osmoseTags: list("tag", "power");
     -osmoseResource: "https://wiki.openstreetmap.org/wiki/Power_networks/Uganda";
     -osmoseTrap: "If the voltage in OSM is correct but is showing as an error here, check the wiki page and make the necessary corrections. Then create [an issue on GitHub](https://github.com/open-energy-transition/validate-my-grid/issues) to update this check.";
 }
@@ -2112,7 +2795,6 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(15000|35
     -osmoseDetail: tr("Each country has its own voltage set used for electricity transmission.");
     -osmoseExample: tr("For example, in Jordan, only 132 kV and 400 kV voltages are used.");
     -osmoseFix: tr("Check the list of possible values for this country on the wiki and correct the `0` tag.", "voltage");
-    -osmoseTags: list("tag", "power");
     -osmoseResource: "https://wiki.openstreetmap.org/wiki/Power_networks/Ukraine";
     -osmoseTrap: "If the voltage in OSM is correct but is showing as an error here, check the wiki page and make the necessary corrections. Then create [an issue on GitHub](https://github.com/open-energy-transition/validate-my-grid/issues) to update this check.";
 }
@@ -2125,7 +2807,6 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(33000|13
     -osmoseDetail: tr("Each country has its own voltage set used for electricity transmission.");
     -osmoseExample: tr("For example, in Jordan, only 132 kV and 400 kV voltages are used.");
     -osmoseFix: tr("Check the list of possible values for this country on the wiki and correct the `0` tag.", "voltage");
-    -osmoseTags: list("tag", "power");
     -osmoseResource: "https://wiki.openstreetmap.org/wiki/Power_networks/United_Arab_Emirates";
     -osmoseTrap: "If the voltage in OSM is correct but is showing as an error here, check the wiki page and make the necessary corrections. Then create [an issue on GitHub](https://github.com/open-energy-transition/validate-my-grid/issues) to update this check.";
 }
@@ -2138,7 +2819,6 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(11000|12
     -osmoseDetail: tr("Each country has its own voltage set used for electricity transmission.");
     -osmoseExample: tr("For example, in Jordan, only 132 kV and 400 kV voltages are used.");
     -osmoseFix: tr("Check the list of possible values for this country on the wiki and correct the `0` tag.", "voltage");
-    -osmoseTags: list("tag", "power");
     -osmoseResource: "https://wiki.openstreetmap.org/wiki/Power_networks/Great_Britain";
     -osmoseTrap: "If the voltage in OSM is correct but is showing as an error here, check the wiki page and make the necessary corrections. Then create [an issue on GitHub](https://github.com/open-energy-transition/validate-my-grid/issues) to update this check.";
 }
@@ -2151,7 +2831,6 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(11000|11
     -osmoseDetail: tr("Each country has its own voltage set used for electricity transmission.");
     -osmoseExample: tr("For example, in Jordan, only 132 kV and 400 kV voltages are used.");
     -osmoseFix: tr("Check the list of possible values for this country on the wiki and correct the `0` tag.", "voltage");
-    -osmoseTags: list("tag", "power");
     -osmoseResource: "https://wiki.openstreetmap.org/wiki/Power_networks/United_States";
     -osmoseTrap: "If the voltage in OSM is correct but is showing as an error here, check the wiki page and make the necessary corrections. Then create [an issue on GitHub](https://github.com/open-energy-transition/validate-my-grid/issues) to update this check.";
 }
@@ -2164,7 +2843,6 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(30000|31
     -osmoseDetail: tr("Each country has its own voltage set used for electricity transmission.");
     -osmoseExample: tr("For example, in Jordan, only 132 kV and 400 kV voltages are used.");
     -osmoseFix: tr("Check the list of possible values for this country on the wiki and correct the `0` tag.", "voltage");
-    -osmoseTags: list("tag", "power");
     -osmoseResource: "https://wiki.openstreetmap.org/wiki/Power_networks/Uruguay";
     -osmoseTrap: "If the voltage in OSM is correct but is showing as an error here, check the wiki page and make the necessary corrections. Then create [an issue on GitHub](https://github.com/open-energy-transition/validate-my-grid/issues) to update this check.";
 }
@@ -2177,7 +2855,6 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(35000|75
     -osmoseDetail: tr("Each country has its own voltage set used for electricity transmission.");
     -osmoseExample: tr("For example, in Jordan, only 132 kV and 400 kV voltages are used.");
     -osmoseFix: tr("Check the list of possible values for this country on the wiki and correct the `0` tag.", "voltage");
-    -osmoseTags: list("tag", "power");
     -osmoseResource: "https://wiki.openstreetmap.org/wiki/Power_networks/Uzbekistan";
     -osmoseTrap: "If the voltage in OSM is correct but is showing as an error here, check the wiki page and make the necessary corrections. Then create [an issue on GitHub](https://github.com/open-energy-transition/validate-my-grid/issues) to update this check.";
 }
@@ -2190,7 +2867,6 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(13800|24
     -osmoseDetail: tr("Each country has its own voltage set used for electricity transmission.");
     -osmoseExample: tr("For example, in Jordan, only 132 kV and 400 kV voltages are used.");
     -osmoseFix: tr("Check the list of possible values for this country on the wiki and correct the `0` tag.", "voltage");
-    -osmoseTags: list("tag", "power");
     -osmoseResource: "https://wiki.openstreetmap.org/wiki/Power_networks/Venezuela";
     -osmoseTrap: "If the voltage in OSM is correct but is showing as an error here, check the wiki page and make the necessary corrections. Then create [an issue on GitHub](https://github.com/open-energy-transition/validate-my-grid/issues) to update this check.";
 }
@@ -2203,7 +2879,6 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(22000|50
     -osmoseDetail: tr("Each country has its own voltage set used for electricity transmission.");
     -osmoseExample: tr("For example, in Jordan, only 132 kV and 400 kV voltages are used.");
     -osmoseFix: tr("Check the list of possible values for this country on the wiki and correct the `0` tag.", "voltage");
-    -osmoseTags: list("tag", "power");
     -osmoseResource: "https://wiki.openstreetmap.org/wiki/Power_networks/Vietnam";
     -osmoseTrap: "If the voltage in OSM is correct but is showing as an error here, check the wiki page and make the necessary corrections. Then create [an issue on GitHub](https://github.com/open-energy-transition/validate-my-grid/issues) to update this check.";
 }
@@ -2216,7 +2891,6 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(132000|4
     -osmoseDetail: tr("Each country has its own voltage set used for electricity transmission.");
     -osmoseExample: tr("For example, in Jordan, only 132 kV and 400 kV voltages are used.");
     -osmoseFix: tr("Check the list of possible values for this country on the wiki and correct the `0` tag.", "voltage");
-    -osmoseTags: list("tag", "power");
     -osmoseResource: "https://wiki.openstreetmap.org/wiki/Power_networks/Yemen";
     -osmoseTrap: "If the voltage in OSM is correct but is showing as an error here, check the wiki page and make the necessary corrections. Then create [an issue on GitHub](https://github.com/open-energy-transition/validate-my-grid/issues) to update this check.";
 }
@@ -2229,7 +2903,6 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(11000|33
     -osmoseDetail: tr("Each country has its own voltage set used for electricity transmission.");
     -osmoseExample: tr("For example, in Jordan, only 132 kV and 400 kV voltages are used.");
     -osmoseFix: tr("Check the list of possible values for this country on the wiki and correct the `0` tag.", "voltage");
-    -osmoseTags: list("tag", "power");
     -osmoseResource: "https://wiki.openstreetmap.org/wiki/Power_networks/Zambia";
     -osmoseTrap: "If the voltage in OSM is correct but is showing as an error here, check the wiki page and make the necessary corrections. Then create [an issue on GitHub](https://github.com/open-energy-transition/validate-my-grid/issues) to update this check.";
 }
@@ -2242,7 +2915,6 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(33000|66
     -osmoseDetail: tr("Each country has its own voltage set used for electricity transmission.");
     -osmoseExample: tr("For example, in Jordan, only 132 kV and 400 kV voltages are used.");
     -osmoseFix: tr("Check the list of possible values for this country on the wiki and correct the `0` tag.", "voltage");
-    -osmoseTags: list("tag", "power");
     -osmoseResource: "https://wiki.openstreetmap.org/wiki/Power_networks/Zimbabwe";
     -osmoseTrap: "If the voltage in OSM is correct but is showing as an error here, check the wiki page and make the necessary corrections. Then create [an issue on GitHub](https://github.com/open-energy-transition/validate-my-grid/issues) to update this check.";
 }
