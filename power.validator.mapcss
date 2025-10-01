@@ -1,6 +1,6 @@
 meta {
 	title: "Power QA";
-	version: "0.13";
+	version: "0.14";
 	description: "Validation ruleset for power features (power=*)";
 	icon: "MapYourGrid-favicon.png";
 	author: "nlehuby";

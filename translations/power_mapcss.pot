@@ -310,93 +310,6 @@ msgstr ""
 msgid "power=heliostat must be a node or an area"
 msgstr ""
 
-#: ../voltages.validator.mapcss:4 ../voltages.validator.mapcss:16
-#: ../voltages.validator.mapcss:28 ../voltages.validator.mapcss:40
-#: ../voltages.validator.mapcss:52 ../voltages.validator.mapcss:64
-#: ../voltages.validator.mapcss:76 ../voltages.validator.mapcss:88
-#: ../voltages.validator.mapcss:100 ../voltages.validator.mapcss:112
-#: ../voltages.validator.mapcss:124 ../voltages.validator.mapcss:136
-#: ../voltages.validator.mapcss:148 ../voltages.validator.mapcss:160
-#: ../voltages.validator.mapcss:172 ../voltages.validator.mapcss:184
-#: ../voltages.validator.mapcss:196 ../voltages.validator.mapcss:208
-#: ../voltages.validator.mapcss:220 ../voltages.validator.mapcss:232
-#: ../voltages.validator.mapcss:244 ../voltages.validator.mapcss:256
-#: ../voltages.validator.mapcss:268 ../voltages.validator.mapcss:280
-#: ../voltages.validator.mapcss:292 ../voltages.validator.mapcss:304
-#: ../voltages.validator.mapcss:316 ../voltages.validator.mapcss:328
-#: ../voltages.validator.mapcss:340 ../voltages.validator.mapcss:352
-#: ../voltages.validator.mapcss:364 ../voltages.validator.mapcss:376
-#: ../voltages.validator.mapcss:388 ../voltages.validator.mapcss:400
-#: ../voltages.validator.mapcss:412 ../voltages.validator.mapcss:424
-#: ../voltages.validator.mapcss:436 ../voltages.validator.mapcss:448
-#: ../voltages.validator.mapcss:460 ../voltages.validator.mapcss:472
-#: ../voltages.validator.mapcss:484 ../voltages.validator.mapcss:496
-#: ../voltages.validator.mapcss:508 ../voltages.validator.mapcss:520
-#: ../voltages.validator.mapcss:532 ../voltages.validator.mapcss:544
-#: ../voltages.validator.mapcss:556 ../voltages.validator.mapcss:568
-#: ../voltages.validator.mapcss:580 ../voltages.validator.mapcss:592
-#: ../voltages.validator.mapcss:604 ../voltages.validator.mapcss:616
-#: ../voltages.validator.mapcss:628 ../voltages.validator.mapcss:640
-#: ../voltages.validator.mapcss:652 ../voltages.validator.mapcss:664
-#: ../voltages.validator.mapcss:676 ../voltages.validator.mapcss:688
-#: ../voltages.validator.mapcss:700 ../voltages.validator.mapcss:712
-#: ../voltages.validator.mapcss:724 ../voltages.validator.mapcss:736
-#: ../voltages.validator.mapcss:748 ../voltages.validator.mapcss:760
-#: ../voltages.validator.mapcss:772 ../voltages.validator.mapcss:784
-#: ../voltages.validator.mapcss:796 ../voltages.validator.mapcss:808
-#: ../voltages.validator.mapcss:820 ../voltages.validator.mapcss:832
-#: ../voltages.validator.mapcss:844 ../voltages.validator.mapcss:856
-#: ../voltages.validator.mapcss:868 ../voltages.validator.mapcss:880
-#: ../voltages.validator.mapcss:892 ../voltages.validator.mapcss:904
-#: ../voltages.validator.mapcss:916 ../voltages.validator.mapcss:928
-#: ../voltages.validator.mapcss:940 ../voltages.validator.mapcss:952
-#: ../voltages.validator.mapcss:964 ../voltages.validator.mapcss:976
-#: ../voltages.validator.mapcss:988 ../voltages.validator.mapcss:1000
-#: ../voltages.validator.mapcss:1012 ../voltages.validator.mapcss:1024
-#: ../voltages.validator.mapcss:1036 ../voltages.validator.mapcss:1048
-#: ../voltages.validator.mapcss:1060 ../voltages.validator.mapcss:1072
-#: ../voltages.validator.mapcss:1084 ../voltages.validator.mapcss:1096
-#: ../voltages.validator.mapcss:1108 ../voltages.validator.mapcss:1120
-#: ../voltages.validator.mapcss:1132 ../voltages.validator.mapcss:1144
-#: ../voltages.validator.mapcss:1156 ../voltages.validator.mapcss:1168
-#: ../voltages.validator.mapcss:1180 ../voltages.validator.mapcss:1192
-#: ../voltages.validator.mapcss:1204 ../voltages.validator.mapcss:1216
-#: ../voltages.validator.mapcss:1228 ../voltages.validator.mapcss:1240
-#: ../voltages.validator.mapcss:1252 ../voltages.validator.mapcss:1264
-#: ../voltages.validator.mapcss:1276 ../voltages.validator.mapcss:1288
-#: ../voltages.validator.mapcss:1300 ../voltages.validator.mapcss:1312
-#: ../voltages.validator.mapcss:1324 ../voltages.validator.mapcss:1336
-#: ../voltages.validator.mapcss:1348 ../voltages.validator.mapcss:1360
-#: ../voltages.validator.mapcss:1372 ../voltages.validator.mapcss:1384
-#: ../voltages.validator.mapcss:1396 ../voltages.validator.mapcss:1408
-#: ../voltages.validator.mapcss:1420 ../voltages.validator.mapcss:1432
-#: ../voltages.validator.mapcss:1444 ../voltages.validator.mapcss:1456
-#: ../voltages.validator.mapcss:1468 ../voltages.validator.mapcss:1480
-#: ../voltages.validator.mapcss:1492 ../voltages.validator.mapcss:1504
-#: ../voltages.validator.mapcss:1516 ../voltages.validator.mapcss:1528
-#: ../voltages.validator.mapcss:1540 ../voltages.validator.mapcss:1552
-#: ../voltages.validator.mapcss:1564 ../voltages.validator.mapcss:1576
-#: ../voltages.validator.mapcss:1588 ../voltages.validator.mapcss:1600
-#: ../voltages.validator.mapcss:1612 ../voltages.validator.mapcss:1624
-#: ../voltages.validator.mapcss:1636 ../voltages.validator.mapcss:1648
-#: ../voltages.validator.mapcss:1660 ../voltages.validator.mapcss:1672
-#: ../voltages.validator.mapcss:1684 ../voltages.validator.mapcss:1696
-#: ../voltages.validator.mapcss:1708 ../voltages.validator.mapcss:1720
-#: ../voltages.validator.mapcss:1732 ../voltages.validator.mapcss:1744
-#: ../voltages.validator.mapcss:1756 ../voltages.validator.mapcss:1768
-#: ../voltages.validator.mapcss:1780 ../voltages.validator.mapcss:1792
-#: ../voltages.validator.mapcss:1804 ../voltages.validator.mapcss:1816
-#: ../voltages.validator.mapcss:1828 ../voltages.validator.mapcss:1840
-#: ../voltages.validator.mapcss:1852 ../voltages.validator.mapcss:1864
-#: ../voltages.validator.mapcss:1876 ../voltages.validator.mapcss:1888
-#: ../voltages.validator.mapcss:1900 ../voltages.validator.mapcss:1912
-#: ../voltages.validator.mapcss:1924 ../voltages.validator.mapcss:1936
-#: ../voltages.validator.mapcss:1948 ../voltages.validator.mapcss:1960
-#: ../voltages.validator.mapcss:1972 ../voltages.validator.mapcss:1984
-#: ../voltages.validator.mapcss:1996 ../voltages.validator.mapcss:2008
-#: ../voltages.validator.mapcss:2020 ../voltages.validator.mapcss:2032
-#: ../voltages.validator.mapcss:2044 ../voltages.validator.mapcss:2056
-#: ../voltages.validator.mapcss:2068
 msgid "Invalid voltage value for this country"
 msgstr ""
 
@@ -981,4 +894,697 @@ msgstr ""
 msgid ""
 "The plant:source=* tag can only have certain well-defined values. This is "
 "probably a typo or an deprecated way of tagging."
+msgstr ""
+
+#: ../voltages.validator.mapcss:4
+msgid "Invalid voltage value for this country (Afghanistan)"
+msgstr ""
+
+#: ../voltages.validator.mapcss:16
+msgid "Invalid voltage value for this country (Albania)"
+msgstr ""
+
+#: ../voltages.validator.mapcss:28
+msgid "Invalid voltage value for this country (Algeria)"
+msgstr ""
+
+#: ../voltages.validator.mapcss:40
+msgid "Invalid voltage value for this country (Andorra)"
+msgstr ""
+
+#: ../voltages.validator.mapcss:52
+msgid "Invalid voltage value for this country (Angola)"
+msgstr ""
+
+#: ../voltages.validator.mapcss:64
+msgid "Invalid voltage value for this country (Argentina)"
+msgstr ""
+
+#: ../voltages.validator.mapcss:76
+msgid "Invalid voltage value for this country (Armenia)"
+msgstr ""
+
+#: ../voltages.validator.mapcss:88
+msgid "Invalid voltage value for this country (Australia)"
+msgstr ""
+
+#: ../voltages.validator.mapcss:100
+msgid "Invalid voltage value for this country (Austria)"
+msgstr ""
+
+#: ../voltages.validator.mapcss:112
+msgid "Invalid voltage value for this country (Azerbaijan)"
+msgstr ""
+
+#: ../voltages.validator.mapcss:124
+msgid "Invalid voltage value for this country (Bahrain)"
+msgstr ""
+
+#: ../voltages.validator.mapcss:136
+msgid "Invalid voltage value for this country (Bangladesh)"
+msgstr ""
+
+#: ../voltages.validator.mapcss:148
+msgid "Invalid voltage value for this country (Belarus)"
+msgstr ""
+
+#: ../voltages.validator.mapcss:160
+msgid "Invalid voltage value for this country (Belgium)"
+msgstr ""
+
+#: ../voltages.validator.mapcss:172
+msgid "Invalid voltage value for this country (Belize)"
+msgstr ""
+
+#: ../voltages.validator.mapcss:184
+msgid "Invalid voltage value for this country (Benin)"
+msgstr ""
+
+#: ../voltages.validator.mapcss:196
+msgid "Invalid voltage value for this country (Bhutan)"
+msgstr ""
+
+#: ../voltages.validator.mapcss:208
+msgid "Invalid voltage value for this country (Bolivia)"
+msgstr ""
+
+#: ../voltages.validator.mapcss:220
+msgid "Invalid voltage value for this country (Bosnia and Herzegovina)"
+msgstr ""
+
+#: ../voltages.validator.mapcss:232
+msgid "Invalid voltage value for this country (Botswana)"
+msgstr ""
+
+#: ../voltages.validator.mapcss:244
+msgid "Invalid voltage value for this country (Brazil)"
+msgstr ""
+
+#: ../voltages.validator.mapcss:256
+msgid "Invalid voltage value for this country (Brunei)"
+msgstr ""
+
+#: ../voltages.validator.mapcss:268
+msgid "Invalid voltage value for this country (Bulgaria)"
+msgstr ""
+
+#: ../voltages.validator.mapcss:280
+msgid "Invalid voltage value for this country (Burkina Faso)"
+msgstr ""
+
+#: ../voltages.validator.mapcss:292
+msgid "Invalid voltage value for this country (Burundi)"
+msgstr ""
+
+#: ../voltages.validator.mapcss:304
+msgid "Invalid voltage value for this country (Cambodia)"
+msgstr ""
+
+#: ../voltages.validator.mapcss:316
+msgid "Invalid voltage value for this country (Cameroon)"
+msgstr ""
+
+#: ../voltages.validator.mapcss:328
+msgid "Invalid voltage value for this country (Canada)"
+msgstr ""
+
+#: ../voltages.validator.mapcss:340
+msgid "Invalid voltage value for this country (Cape Verde)"
+msgstr ""
+
+#: ../voltages.validator.mapcss:352
+msgid "Invalid voltage value for this country (Central African Republic)"
+msgstr ""
+
+#: ../voltages.validator.mapcss:364
+msgid "Invalid voltage value for this country (Chad)"
+msgstr ""
+
+#: ../voltages.validator.mapcss:376
+msgid "Invalid voltage value for this country (Chile)"
+msgstr ""
+
+#: ../voltages.validator.mapcss:388
+msgid "Invalid voltage value for this country (Colombia)"
+msgstr ""
+
+#: ../voltages.validator.mapcss:400
+msgid "Invalid voltage value for this country (Costa Rica)"
+msgstr ""
+
+#: ../voltages.validator.mapcss:412
+msgid "Invalid voltage value for this country (Croatia)"
+msgstr ""
+
+#: ../voltages.validator.mapcss:424
+msgid "Invalid voltage value for this country (Cuba)"
+msgstr ""
+
+#: ../voltages.validator.mapcss:436
+msgid "Invalid voltage value for this country (Cyprus)"
+msgstr ""
+
+#: ../voltages.validator.mapcss:448
+msgid "Invalid voltage value for this country (Czech Republic)"
+msgstr ""
+
+#: ../voltages.validator.mapcss:460
+msgid ""
+"Invalid voltage value for this country (Democratic Republic of the Congo)"
+msgstr ""
+
+#: ../voltages.validator.mapcss:472
+msgid "Invalid voltage value for this country (Djibouti)"
+msgstr ""
+
+#: ../voltages.validator.mapcss:484
+msgid "Invalid voltage value for this country (Dominican Republic)"
+msgstr ""
+
+#: ../voltages.validator.mapcss:496
+msgid "Invalid voltage value for this country (Ecuador)"
+msgstr ""
+
+#: ../voltages.validator.mapcss:508
+msgid "Invalid voltage value for this country (Egypt)"
+msgstr ""
+
+#: ../voltages.validator.mapcss:520
+msgid "Invalid voltage value for this country (El Salvador)"
+msgstr ""
+
+#: ../voltages.validator.mapcss:532
+msgid "Invalid voltage value for this country (Equatorial Guinea)"
+msgstr ""
+
+#: ../voltages.validator.mapcss:544
+msgid "Invalid voltage value for this country (Eritrea)"
+msgstr ""
+
+#: ../voltages.validator.mapcss:556
+msgid "Invalid voltage value for this country (Estonia)"
+msgstr ""
+
+#: ../voltages.validator.mapcss:568
+msgid "Invalid voltage value for this country (Eswatini)"
+msgstr ""
+
+#: ../voltages.validator.mapcss:580
+msgid "Invalid voltage value for this country (Ethiopia)"
+msgstr ""
+
+#: ../voltages.validator.mapcss:592
+msgid "Invalid voltage value for this country (Federated States of Micronesia)"
+msgstr ""
+
+#: ../voltages.validator.mapcss:604
+msgid "Invalid voltage value for this country (Fiji)"
+msgstr ""
+
+#: ../voltages.validator.mapcss:616
+msgid "Invalid voltage value for this country (Finland)"
+msgstr ""
+
+#: ../voltages.validator.mapcss:628
+msgid "Invalid voltage value for this country (France)"
+msgstr ""
+
+#: ../voltages.validator.mapcss:640
+msgid "Invalid voltage value for this country (Gabon)"
+msgstr ""
+
+#: ../voltages.validator.mapcss:652
+msgid "Invalid voltage value for this country (Georgia)"
+msgstr ""
+
+#: ../voltages.validator.mapcss:664
+msgid "Invalid voltage value for this country (Germany)"
+msgstr ""
+
+#: ../voltages.validator.mapcss:676
+msgid "Invalid voltage value for this country (Ghana)"
+msgstr ""
+
+#: ../voltages.validator.mapcss:688
+msgid "Invalid voltage value for this country (Greece)"
+msgstr ""
+
+#: ../voltages.validator.mapcss:700
+msgid "Invalid voltage value for this country (Guatemala)"
+msgstr ""
+
+#: ../voltages.validator.mapcss:712
+msgid "Invalid voltage value for this country (Guinea)"
+msgstr ""
+
+#: ../voltages.validator.mapcss:724
+msgid "Invalid voltage value for this country (Guinea-Bissau)"
+msgstr ""
+
+#: ../voltages.validator.mapcss:736
+msgid "Invalid voltage value for this country (Haiti)"
+msgstr ""
+
+#: ../voltages.validator.mapcss:748
+msgid "Invalid voltage value for this country (Honduras)"
+msgstr ""
+
+#: ../voltages.validator.mapcss:760
+msgid "Invalid voltage value for this country (Hungary)"
+msgstr ""
+
+#: ../voltages.validator.mapcss:772
+msgid "Invalid voltage value for this country (Iceland)"
+msgstr ""
+
+#: ../voltages.validator.mapcss:784
+msgid "Invalid voltage value for this country (India)"
+msgstr ""
+
+#: ../voltages.validator.mapcss:796
+msgid "Invalid voltage value for this country (Indonesia)"
+msgstr ""
+
+#: ../voltages.validator.mapcss:808
+msgid "Invalid voltage value for this country (Iran)"
+msgstr ""
+
+#: ../voltages.validator.mapcss:820
+msgid "Invalid voltage value for this country (Iraq)"
+msgstr ""
+
+#: ../voltages.validator.mapcss:832
+msgid "Invalid voltage value for this country (Ireland)"
+msgstr ""
+
+#: ../voltages.validator.mapcss:844
+msgid "Invalid voltage value for this country (Israel)"
+msgstr ""
+
+#: ../voltages.validator.mapcss:856
+msgid "Invalid voltage value for this country (Italy)"
+msgstr ""
+
+#: ../voltages.validator.mapcss:868
+msgid "Invalid voltage value for this country (Ivory Coast)"
+msgstr ""
+
+#: ../voltages.validator.mapcss:880
+msgid "Invalid voltage value for this country (Jamaica)"
+msgstr ""
+
+#: ../voltages.validator.mapcss:892
+msgid "Invalid voltage value for this country (Japan)"
+msgstr ""
+
+#: ../voltages.validator.mapcss:904
+msgid "Invalid voltage value for this country (Jordan)"
+msgstr ""
+
+#: ../voltages.validator.mapcss:916
+msgid "Invalid voltage value for this country (Kazakhstan)"
+msgstr ""
+
+#: ../voltages.validator.mapcss:928
+msgid "Invalid voltage value for this country (Kenya)"
+msgstr ""
+
+#: ../voltages.validator.mapcss:940
+msgid "Invalid voltage value for this country (Kingdom of Denmark)"
+msgstr ""
+
+#: ../voltages.validator.mapcss:952
+msgid "Invalid voltage value for this country (Kingdom of the Netherlands)"
+msgstr ""
+
+#: ../voltages.validator.mapcss:964
+msgid "Invalid voltage value for this country (Kuwait)"
+msgstr ""
+
+#: ../voltages.validator.mapcss:976
+msgid "Invalid voltage value for this country (Kyrgyzstan)"
+msgstr ""
+
+#: ../voltages.validator.mapcss:988
+msgid "Invalid voltage value for this country (Laos)"
+msgstr ""
+
+#: ../voltages.validator.mapcss:1000
+msgid "Invalid voltage value for this country (Latvia)"
+msgstr ""
+
+#: ../voltages.validator.mapcss:1012
+msgid "Invalid voltage value for this country (Lebanon)"
+msgstr ""
+
+#: ../voltages.validator.mapcss:1024
+msgid "Invalid voltage value for this country (Lesotho)"
+msgstr ""
+
+#: ../voltages.validator.mapcss:1036
+msgid "Invalid voltage value for this country (Liberia)"
+msgstr ""
+
+#: ../voltages.validator.mapcss:1048
+msgid "Invalid voltage value for this country (Libya)"
+msgstr ""
+
+#: ../voltages.validator.mapcss:1060
+msgid "Invalid voltage value for this country (Liechtenstein)"
+msgstr ""
+
+#: ../voltages.validator.mapcss:1072
+msgid "Invalid voltage value for this country (Lithuania)"
+msgstr ""
+
+#: ../voltages.validator.mapcss:1084
+msgid "Invalid voltage value for this country (Luxembourg)"
+msgstr ""
+
+#: ../voltages.validator.mapcss:1096
+msgid "Invalid voltage value for this country (Madagascar)"
+msgstr ""
+
+#: ../voltages.validator.mapcss:1108
+msgid "Invalid voltage value for this country (Malawi)"
+msgstr ""
+
+#: ../voltages.validator.mapcss:1120
+msgid "Invalid voltage value for this country (Malaysia)"
+msgstr ""
+
+#: ../voltages.validator.mapcss:1132
+msgid "Invalid voltage value for this country (Maldives)"
+msgstr ""
+
+#: ../voltages.validator.mapcss:1144
+msgid "Invalid voltage value for this country (Mali)"
+msgstr ""
+
+#: ../voltages.validator.mapcss:1156
+msgid "Invalid voltage value for this country (Malta)"
+msgstr ""
+
+#: ../voltages.validator.mapcss:1168
+msgid "Invalid voltage value for this country (Mauritania)"
+msgstr ""
+
+#: ../voltages.validator.mapcss:1180
+msgid "Invalid voltage value for this country (Mauritius)"
+msgstr ""
+
+#: ../voltages.validator.mapcss:1192
+msgid "Invalid voltage value for this country (Mexico)"
+msgstr ""
+
+#: ../voltages.validator.mapcss:1204
+msgid "Invalid voltage value for this country (Moldova)"
+msgstr ""
+
+#: ../voltages.validator.mapcss:1216
+msgid "Invalid voltage value for this country (Mongolia)"
+msgstr ""
+
+#: ../voltages.validator.mapcss:1228
+msgid "Invalid voltage value for this country (Montenegro)"
+msgstr ""
+
+#: ../voltages.validator.mapcss:1240
+msgid "Invalid voltage value for this country (Morocco)"
+msgstr ""
+
+#: ../voltages.validator.mapcss:1252
+msgid "Invalid voltage value for this country (Mozambique)"
+msgstr ""
+
+#: ../voltages.validator.mapcss:1264
+msgid "Invalid voltage value for this country (Myanmar)"
+msgstr ""
+
+#: ../voltages.validator.mapcss:1276
+msgid "Invalid voltage value for this country (Namibia)"
+msgstr ""
+
+#: ../voltages.validator.mapcss:1288
+msgid "Invalid voltage value for this country (Nepal)"
+msgstr ""
+
+#: ../voltages.validator.mapcss:1300
+msgid "Invalid voltage value for this country (New Zealand)"
+msgstr ""
+
+#: ../voltages.validator.mapcss:1312
+msgid "Invalid voltage value for this country (Nicaragua)"
+msgstr ""
+
+#: ../voltages.validator.mapcss:1324
+msgid "Invalid voltage value for this country (Niger)"
+msgstr ""
+
+#: ../voltages.validator.mapcss:1336
+msgid "Invalid voltage value for this country (Nigeria)"
+msgstr ""
+
+#: ../voltages.validator.mapcss:1348
+msgid "Invalid voltage value for this country (North Korea)"
+msgstr ""
+
+#: ../voltages.validator.mapcss:1360
+msgid "Invalid voltage value for this country (North Macedonia)"
+msgstr ""
+
+#: ../voltages.validator.mapcss:1372
+msgid "Invalid voltage value for this country (Norway)"
+msgstr ""
+
+#: ../voltages.validator.mapcss:1384
+msgid "Invalid voltage value for this country (Oman)"
+msgstr ""
+
+#: ../voltages.validator.mapcss:1396
+msgid "Invalid voltage value for this country (Pakistan)"
+msgstr ""
+
+#: ../voltages.validator.mapcss:1408
+msgid "Invalid voltage value for this country (Panama)"
+msgstr ""
+
+#: ../voltages.validator.mapcss:1420
+msgid "Invalid voltage value for this country (Papua New Guinea)"
+msgstr ""
+
+#: ../voltages.validator.mapcss:1432
+msgid "Invalid voltage value for this country (Paraguay)"
+msgstr ""
+
+#: ../voltages.validator.mapcss:1444
+msgid "Invalid voltage value for this country (People's Republic of China)"
+msgstr ""
+
+#: ../voltages.validator.mapcss:1456
+msgid "Invalid voltage value for this country (Peru)"
+msgstr ""
+
+#: ../voltages.validator.mapcss:1468
+msgid "Invalid voltage value for this country (Philippines)"
+msgstr ""
+
+#: ../voltages.validator.mapcss:1480
+msgid "Invalid voltage value for this country (Poland)"
+msgstr ""
+
+#: ../voltages.validator.mapcss:1492
+msgid "Invalid voltage value for this country (Portugal)"
+msgstr ""
+
+#: ../voltages.validator.mapcss:1504
+msgid "Invalid voltage value for this country (Qatar)"
+msgstr ""
+
+#: ../voltages.validator.mapcss:1516
+msgid "Invalid voltage value for this country (Republic of the Congo)"
+msgstr ""
+
+#: ../voltages.validator.mapcss:1528
+msgid "Invalid voltage value for this country (Romania)"
+msgstr ""
+
+#: ../voltages.validator.mapcss:1540
+msgid "Invalid voltage value for this country (Russia)"
+msgstr ""
+
+#: ../voltages.validator.mapcss:1552
+msgid "Invalid voltage value for this country (Rwanda)"
+msgstr ""
+
+#: ../voltages.validator.mapcss:1564
+msgid "Invalid voltage value for this country (San Marino)"
+msgstr ""
+
+#: ../voltages.validator.mapcss:1576
+msgid "Invalid voltage value for this country (Saudi Arabia)"
+msgstr ""
+
+#: ../voltages.validator.mapcss:1588
+msgid "Invalid voltage value for this country (Senegal)"
+msgstr ""
+
+#: ../voltages.validator.mapcss:1600
+msgid "Invalid voltage value for this country (Serbia)"
+msgstr ""
+
+#: ../voltages.validator.mapcss:1612
+msgid "Invalid voltage value for this country (Sierra Leone)"
+msgstr ""
+
+#: ../voltages.validator.mapcss:1624
+msgid "Invalid voltage value for this country (Singapore)"
+msgstr ""
+
+#: ../voltages.validator.mapcss:1636
+msgid "Invalid voltage value for this country (Slovakia)"
+msgstr ""
+
+#: ../voltages.validator.mapcss:1648
+msgid "Invalid voltage value for this country (Slovenia)"
+msgstr ""
+
+#: ../voltages.validator.mapcss:1660
+msgid "Invalid voltage value for this country (South Africa)"
+msgstr ""
+
+#: ../voltages.validator.mapcss:1672
+msgid "Invalid voltage value for this country (South Korea)"
+msgstr ""
+
+#: ../voltages.validator.mapcss:1684
+msgid "Invalid voltage value for this country (South Sudan)"
+msgstr ""
+
+#: ../voltages.validator.mapcss:1696
+msgid "Invalid voltage value for this country (Spain)"
+msgstr ""
+
+#: ../voltages.validator.mapcss:1708
+msgid "Invalid voltage value for this country (Sri Lanka)"
+msgstr ""
+
+#: ../voltages.validator.mapcss:1720
+msgid "Invalid voltage value for this country (State of Palestine)"
+msgstr ""
+
+#: ../voltages.validator.mapcss:1732
+msgid "Invalid voltage value for this country (Sudan)"
+msgstr ""
+
+#: ../voltages.validator.mapcss:1744
+msgid "Invalid voltage value for this country (Suriname)"
+msgstr ""
+
+#: ../voltages.validator.mapcss:1756
+msgid "Invalid voltage value for this country (Sweden)"
+msgstr ""
+
+#: ../voltages.validator.mapcss:1768
+msgid "Invalid voltage value for this country (Switzerland)"
+msgstr ""
+
+#: ../voltages.validator.mapcss:1780
+msgid "Invalid voltage value for this country (Syria)"
+msgstr ""
+
+#: ../voltages.validator.mapcss:1792
+msgid "Invalid voltage value for this country (Taiwan)"
+msgstr ""
+
+#: ../voltages.validator.mapcss:1804
+msgid "Invalid voltage value for this country (Tajikistan)"
+msgstr ""
+
+#: ../voltages.validator.mapcss:1816
+msgid "Invalid voltage value for this country (Tanzania)"
+msgstr ""
+
+#: ../voltages.validator.mapcss:1828
+msgid "Invalid voltage value for this country (Thailand)"
+msgstr ""
+
+#: ../voltages.validator.mapcss:1840
+msgid "Invalid voltage value for this country (The Bahamas)"
+msgstr ""
+
+#: ../voltages.validator.mapcss:1852
+msgid "Invalid voltage value for this country (The Gambia)"
+msgstr ""
+
+#: ../voltages.validator.mapcss:1864
+msgid "Invalid voltage value for this country (Timor-Leste)"
+msgstr ""
+
+#: ../voltages.validator.mapcss:1876
+msgid "Invalid voltage value for this country (Togo)"
+msgstr ""
+
+#: ../voltages.validator.mapcss:1888
+msgid "Invalid voltage value for this country (Trinidad and Tobago)"
+msgstr ""
+
+#: ../voltages.validator.mapcss:1900
+msgid "Invalid voltage value for this country (Tunisia)"
+msgstr ""
+
+#: ../voltages.validator.mapcss:1912
+msgid "Invalid voltage value for this country (Turkey)"
+msgstr ""
+
+#: ../voltages.validator.mapcss:1924
+msgid "Invalid voltage value for this country (Turkmenistan)"
+msgstr ""
+
+#: ../voltages.validator.mapcss:1936
+msgid "Invalid voltage value for this country (Uganda)"
+msgstr ""
+
+#: ../voltages.validator.mapcss:1948
+msgid "Invalid voltage value for this country (Ukraine)"
+msgstr ""
+
+#: ../voltages.validator.mapcss:1960
+msgid "Invalid voltage value for this country (United Arab Emirates)"
+msgstr ""
+
+#: ../voltages.validator.mapcss:1972
+msgid "Invalid voltage value for this country (United Kingdom)"
+msgstr ""
+
+#: ../voltages.validator.mapcss:1984
+msgid "Invalid voltage value for this country (United States)"
+msgstr ""
+
+#: ../voltages.validator.mapcss:1996
+msgid "Invalid voltage value for this country (Uruguay)"
+msgstr ""
+
+#: ../voltages.validator.mapcss:2008
+msgid "Invalid voltage value for this country (Uzbekistan)"
+msgstr ""
+
+#: ../voltages.validator.mapcss:2020
+msgid "Invalid voltage value for this country (Venezuela)"
+msgstr ""
+
+#: ../voltages.validator.mapcss:2032
+msgid "Invalid voltage value for this country (Vietnam)"
+msgstr ""
+
+#: ../voltages.validator.mapcss:2044
+msgid "Invalid voltage value for this country (Yemen)"
+msgstr ""
+
+#: ../voltages.validator.mapcss:2056
+msgid "Invalid voltage value for this country (Zambia)"
+msgstr ""
+
+#: ../voltages.validator.mapcss:2068
+msgid "Invalid voltage value for this country (Zimbabwe)"
 msgstr ""
