@@ -326,93 +326,6 @@ msgstr ""
 msgid "power=heliostat must be a node or an area"
 msgstr ""
 
-#: ../voltages.validator.mapcss:4 ../voltages.validator.mapcss:17
-#: ../voltages.validator.mapcss:30 ../voltages.validator.mapcss:43
-#: ../voltages.validator.mapcss:56 ../voltages.validator.mapcss:69
-#: ../voltages.validator.mapcss:82 ../voltages.validator.mapcss:95
-#: ../voltages.validator.mapcss:108 ../voltages.validator.mapcss:121
-#: ../voltages.validator.mapcss:134 ../voltages.validator.mapcss:147
-#: ../voltages.validator.mapcss:160 ../voltages.validator.mapcss:173
-#: ../voltages.validator.mapcss:186 ../voltages.validator.mapcss:199
-#: ../voltages.validator.mapcss:212 ../voltages.validator.mapcss:225
-#: ../voltages.validator.mapcss:238 ../voltages.validator.mapcss:251
-#: ../voltages.validator.mapcss:264 ../voltages.validator.mapcss:277
-#: ../voltages.validator.mapcss:290 ../voltages.validator.mapcss:303
-#: ../voltages.validator.mapcss:316 ../voltages.validator.mapcss:329
-#: ../voltages.validator.mapcss:342 ../voltages.validator.mapcss:355
-#: ../voltages.validator.mapcss:368 ../voltages.validator.mapcss:381
-#: ../voltages.validator.mapcss:394 ../voltages.validator.mapcss:407
-#: ../voltages.validator.mapcss:420 ../voltages.validator.mapcss:433
-#: ../voltages.validator.mapcss:446 ../voltages.validator.mapcss:459
-#: ../voltages.validator.mapcss:472 ../voltages.validator.mapcss:485
-#: ../voltages.validator.mapcss:498 ../voltages.validator.mapcss:511
-#: ../voltages.validator.mapcss:524 ../voltages.validator.mapcss:537
-#: ../voltages.validator.mapcss:550 ../voltages.validator.mapcss:563
-#: ../voltages.validator.mapcss:576 ../voltages.validator.mapcss:589
-#: ../voltages.validator.mapcss:602 ../voltages.validator.mapcss:615
-#: ../voltages.validator.mapcss:628 ../voltages.validator.mapcss:641
-#: ../voltages.validator.mapcss:654 ../voltages.validator.mapcss:667
-#: ../voltages.validator.mapcss:680 ../voltages.validator.mapcss:693
-#: ../voltages.validator.mapcss:706 ../voltages.validator.mapcss:719
-#: ../voltages.validator.mapcss:732 ../voltages.validator.mapcss:745
-#: ../voltages.validator.mapcss:758 ../voltages.validator.mapcss:771
-#: ../voltages.validator.mapcss:784 ../voltages.validator.mapcss:797
-#: ../voltages.validator.mapcss:810 ../voltages.validator.mapcss:823
-#: ../voltages.validator.mapcss:836 ../voltages.validator.mapcss:849
-#: ../voltages.validator.mapcss:862 ../voltages.validator.mapcss:875
-#: ../voltages.validator.mapcss:888 ../voltages.validator.mapcss:901
-#: ../voltages.validator.mapcss:914 ../voltages.validator.mapcss:927
-#: ../voltages.validator.mapcss:940 ../voltages.validator.mapcss:953
-#: ../voltages.validator.mapcss:966 ../voltages.validator.mapcss:979
-#: ../voltages.validator.mapcss:992 ../voltages.validator.mapcss:1005
-#: ../voltages.validator.mapcss:1018 ../voltages.validator.mapcss:1031
-#: ../voltages.validator.mapcss:1044 ../voltages.validator.mapcss:1057
-#: ../voltages.validator.mapcss:1070 ../voltages.validator.mapcss:1083
-#: ../voltages.validator.mapcss:1096 ../voltages.validator.mapcss:1109
-#: ../voltages.validator.mapcss:1122 ../voltages.validator.mapcss:1135
-#: ../voltages.validator.mapcss:1148 ../voltages.validator.mapcss:1161
-#: ../voltages.validator.mapcss:1174 ../voltages.validator.mapcss:1187
-#: ../voltages.validator.mapcss:1200 ../voltages.validator.mapcss:1213
-#: ../voltages.validator.mapcss:1226 ../voltages.validator.mapcss:1239
-#: ../voltages.validator.mapcss:1252 ../voltages.validator.mapcss:1265
-#: ../voltages.validator.mapcss:1278 ../voltages.validator.mapcss:1291
-#: ../voltages.validator.mapcss:1304 ../voltages.validator.mapcss:1317
-#: ../voltages.validator.mapcss:1330 ../voltages.validator.mapcss:1343
-#: ../voltages.validator.mapcss:1356 ../voltages.validator.mapcss:1369
-#: ../voltages.validator.mapcss:1382 ../voltages.validator.mapcss:1395
-#: ../voltages.validator.mapcss:1408 ../voltages.validator.mapcss:1421
-#: ../voltages.validator.mapcss:1434 ../voltages.validator.mapcss:1447
-#: ../voltages.validator.mapcss:1460 ../voltages.validator.mapcss:1473
-#: ../voltages.validator.mapcss:1486 ../voltages.validator.mapcss:1499
-#: ../voltages.validator.mapcss:1512 ../voltages.validator.mapcss:1525
-#: ../voltages.validator.mapcss:1538 ../voltages.validator.mapcss:1551
-#: ../voltages.validator.mapcss:1564 ../voltages.validator.mapcss:1577
-#: ../voltages.validator.mapcss:1590 ../voltages.validator.mapcss:1603
-#: ../voltages.validator.mapcss:1616 ../voltages.validator.mapcss:1629
-#: ../voltages.validator.mapcss:1642 ../voltages.validator.mapcss:1655
-#: ../voltages.validator.mapcss:1668 ../voltages.validator.mapcss:1681
-#: ../voltages.validator.mapcss:1694 ../voltages.validator.mapcss:1707
-#: ../voltages.validator.mapcss:1720 ../voltages.validator.mapcss:1733
-#: ../voltages.validator.mapcss:1746 ../voltages.validator.mapcss:1759
-#: ../voltages.validator.mapcss:1772 ../voltages.validator.mapcss:1785
-#: ../voltages.validator.mapcss:1798 ../voltages.validator.mapcss:1811
-#: ../voltages.validator.mapcss:1824 ../voltages.validator.mapcss:1837
-#: ../voltages.validator.mapcss:1850 ../voltages.validator.mapcss:1863
-#: ../voltages.validator.mapcss:1876 ../voltages.validator.mapcss:1889
-#: ../voltages.validator.mapcss:1902 ../voltages.validator.mapcss:1915
-#: ../voltages.validator.mapcss:1928 ../voltages.validator.mapcss:1941
-#: ../voltages.validator.mapcss:1954 ../voltages.validator.mapcss:1967
-#: ../voltages.validator.mapcss:1980 ../voltages.validator.mapcss:1993
-#: ../voltages.validator.mapcss:2006 ../voltages.validator.mapcss:2019
-#: ../voltages.validator.mapcss:2032 ../voltages.validator.mapcss:2045
-#: ../voltages.validator.mapcss:2058 ../voltages.validator.mapcss:2071
-#: ../voltages.validator.mapcss:2084 ../voltages.validator.mapcss:2097
-#: ../voltages.validator.mapcss:2110 ../voltages.validator.mapcss:2123
-#: ../voltages.validator.mapcss:2136 ../voltages.validator.mapcss:2149
-#: ../voltages.validator.mapcss:2162 ../voltages.validator.mapcss:2175
-#: ../voltages.validator.mapcss:2188 ../voltages.validator.mapcss:2201
-#: ../voltages.validator.mapcss:2214 ../voltages.validator.mapcss:2227
-#: ../voltages.validator.mapcss:2240
 msgid "Invalid voltage value for this country"
 msgstr ""
 
@@ -721,273 +634,273 @@ msgid ""
 "energy."
 msgstr ""
 
-#: ../voltages.validator.mapcss:6 ../voltages.validator.mapcss:19
-#: ../voltages.validator.mapcss:32 ../voltages.validator.mapcss:45
-#: ../voltages.validator.mapcss:58 ../voltages.validator.mapcss:71
-#: ../voltages.validator.mapcss:84 ../voltages.validator.mapcss:97
-#: ../voltages.validator.mapcss:110 ../voltages.validator.mapcss:123
-#: ../voltages.validator.mapcss:136 ../voltages.validator.mapcss:149
-#: ../voltages.validator.mapcss:162 ../voltages.validator.mapcss:175
-#: ../voltages.validator.mapcss:188 ../voltages.validator.mapcss:201
-#: ../voltages.validator.mapcss:214 ../voltages.validator.mapcss:227
-#: ../voltages.validator.mapcss:240 ../voltages.validator.mapcss:253
-#: ../voltages.validator.mapcss:266 ../voltages.validator.mapcss:279
-#: ../voltages.validator.mapcss:292 ../voltages.validator.mapcss:305
-#: ../voltages.validator.mapcss:318 ../voltages.validator.mapcss:331
-#: ../voltages.validator.mapcss:344 ../voltages.validator.mapcss:357
-#: ../voltages.validator.mapcss:370 ../voltages.validator.mapcss:383
-#: ../voltages.validator.mapcss:396 ../voltages.validator.mapcss:409
-#: ../voltages.validator.mapcss:422 ../voltages.validator.mapcss:435
-#: ../voltages.validator.mapcss:448 ../voltages.validator.mapcss:461
-#: ../voltages.validator.mapcss:474 ../voltages.validator.mapcss:487
-#: ../voltages.validator.mapcss:500 ../voltages.validator.mapcss:513
-#: ../voltages.validator.mapcss:526 ../voltages.validator.mapcss:539
-#: ../voltages.validator.mapcss:552 ../voltages.validator.mapcss:565
-#: ../voltages.validator.mapcss:578 ../voltages.validator.mapcss:591
-#: ../voltages.validator.mapcss:604 ../voltages.validator.mapcss:617
-#: ../voltages.validator.mapcss:630 ../voltages.validator.mapcss:643
-#: ../voltages.validator.mapcss:656 ../voltages.validator.mapcss:669
-#: ../voltages.validator.mapcss:682 ../voltages.validator.mapcss:695
-#: ../voltages.validator.mapcss:708 ../voltages.validator.mapcss:721
-#: ../voltages.validator.mapcss:734 ../voltages.validator.mapcss:747
-#: ../voltages.validator.mapcss:760 ../voltages.validator.mapcss:773
-#: ../voltages.validator.mapcss:786 ../voltages.validator.mapcss:799
-#: ../voltages.validator.mapcss:812 ../voltages.validator.mapcss:825
-#: ../voltages.validator.mapcss:838 ../voltages.validator.mapcss:851
-#: ../voltages.validator.mapcss:864 ../voltages.validator.mapcss:877
-#: ../voltages.validator.mapcss:890 ../voltages.validator.mapcss:903
-#: ../voltages.validator.mapcss:916 ../voltages.validator.mapcss:929
-#: ../voltages.validator.mapcss:942 ../voltages.validator.mapcss:955
-#: ../voltages.validator.mapcss:968 ../voltages.validator.mapcss:981
-#: ../voltages.validator.mapcss:994 ../voltages.validator.mapcss:1007
-#: ../voltages.validator.mapcss:1020 ../voltages.validator.mapcss:1033
-#: ../voltages.validator.mapcss:1046 ../voltages.validator.mapcss:1059
-#: ../voltages.validator.mapcss:1072 ../voltages.validator.mapcss:1085
-#: ../voltages.validator.mapcss:1098 ../voltages.validator.mapcss:1111
-#: ../voltages.validator.mapcss:1124 ../voltages.validator.mapcss:1137
-#: ../voltages.validator.mapcss:1150 ../voltages.validator.mapcss:1163
-#: ../voltages.validator.mapcss:1176 ../voltages.validator.mapcss:1189
-#: ../voltages.validator.mapcss:1202 ../voltages.validator.mapcss:1215
-#: ../voltages.validator.mapcss:1228 ../voltages.validator.mapcss:1241
-#: ../voltages.validator.mapcss:1254 ../voltages.validator.mapcss:1267
-#: ../voltages.validator.mapcss:1280 ../voltages.validator.mapcss:1293
-#: ../voltages.validator.mapcss:1306 ../voltages.validator.mapcss:1319
-#: ../voltages.validator.mapcss:1332 ../voltages.validator.mapcss:1345
-#: ../voltages.validator.mapcss:1358 ../voltages.validator.mapcss:1371
-#: ../voltages.validator.mapcss:1384 ../voltages.validator.mapcss:1397
-#: ../voltages.validator.mapcss:1410 ../voltages.validator.mapcss:1423
-#: ../voltages.validator.mapcss:1436 ../voltages.validator.mapcss:1449
-#: ../voltages.validator.mapcss:1462 ../voltages.validator.mapcss:1475
-#: ../voltages.validator.mapcss:1488 ../voltages.validator.mapcss:1501
-#: ../voltages.validator.mapcss:1514 ../voltages.validator.mapcss:1527
-#: ../voltages.validator.mapcss:1540 ../voltages.validator.mapcss:1553
-#: ../voltages.validator.mapcss:1566 ../voltages.validator.mapcss:1579
-#: ../voltages.validator.mapcss:1592 ../voltages.validator.mapcss:1605
-#: ../voltages.validator.mapcss:1618 ../voltages.validator.mapcss:1631
-#: ../voltages.validator.mapcss:1644 ../voltages.validator.mapcss:1657
-#: ../voltages.validator.mapcss:1670 ../voltages.validator.mapcss:1683
-#: ../voltages.validator.mapcss:1696 ../voltages.validator.mapcss:1709
-#: ../voltages.validator.mapcss:1722 ../voltages.validator.mapcss:1735
-#: ../voltages.validator.mapcss:1748 ../voltages.validator.mapcss:1761
-#: ../voltages.validator.mapcss:1774 ../voltages.validator.mapcss:1787
-#: ../voltages.validator.mapcss:1800 ../voltages.validator.mapcss:1813
-#: ../voltages.validator.mapcss:1826 ../voltages.validator.mapcss:1839
-#: ../voltages.validator.mapcss:1852 ../voltages.validator.mapcss:1865
-#: ../voltages.validator.mapcss:1878 ../voltages.validator.mapcss:1891
-#: ../voltages.validator.mapcss:1904 ../voltages.validator.mapcss:1917
-#: ../voltages.validator.mapcss:1930 ../voltages.validator.mapcss:1943
-#: ../voltages.validator.mapcss:1956 ../voltages.validator.mapcss:1969
-#: ../voltages.validator.mapcss:1982 ../voltages.validator.mapcss:1995
-#: ../voltages.validator.mapcss:2008 ../voltages.validator.mapcss:2021
-#: ../voltages.validator.mapcss:2034 ../voltages.validator.mapcss:2047
-#: ../voltages.validator.mapcss:2060 ../voltages.validator.mapcss:2073
-#: ../voltages.validator.mapcss:2086 ../voltages.validator.mapcss:2099
-#: ../voltages.validator.mapcss:2112 ../voltages.validator.mapcss:2125
-#: ../voltages.validator.mapcss:2138 ../voltages.validator.mapcss:2151
-#: ../voltages.validator.mapcss:2164 ../voltages.validator.mapcss:2177
-#: ../voltages.validator.mapcss:2190 ../voltages.validator.mapcss:2203
-#: ../voltages.validator.mapcss:2216 ../voltages.validator.mapcss:2229
-#: ../voltages.validator.mapcss:2242
+#: ../voltages.validator.mapcss:6 ../voltages.validator.mapcss:18
+#: ../voltages.validator.mapcss:30 ../voltages.validator.mapcss:42
+#: ../voltages.validator.mapcss:54 ../voltages.validator.mapcss:66
+#: ../voltages.validator.mapcss:78 ../voltages.validator.mapcss:90
+#: ../voltages.validator.mapcss:102 ../voltages.validator.mapcss:114
+#: ../voltages.validator.mapcss:126 ../voltages.validator.mapcss:138
+#: ../voltages.validator.mapcss:150 ../voltages.validator.mapcss:162
+#: ../voltages.validator.mapcss:174 ../voltages.validator.mapcss:186
+#: ../voltages.validator.mapcss:198 ../voltages.validator.mapcss:210
+#: ../voltages.validator.mapcss:222 ../voltages.validator.mapcss:234
+#: ../voltages.validator.mapcss:246 ../voltages.validator.mapcss:258
+#: ../voltages.validator.mapcss:270 ../voltages.validator.mapcss:282
+#: ../voltages.validator.mapcss:294 ../voltages.validator.mapcss:306
+#: ../voltages.validator.mapcss:318 ../voltages.validator.mapcss:330
+#: ../voltages.validator.mapcss:342 ../voltages.validator.mapcss:354
+#: ../voltages.validator.mapcss:366 ../voltages.validator.mapcss:378
+#: ../voltages.validator.mapcss:390 ../voltages.validator.mapcss:402
+#: ../voltages.validator.mapcss:414 ../voltages.validator.mapcss:426
+#: ../voltages.validator.mapcss:438 ../voltages.validator.mapcss:450
+#: ../voltages.validator.mapcss:462 ../voltages.validator.mapcss:474
+#: ../voltages.validator.mapcss:486 ../voltages.validator.mapcss:498
+#: ../voltages.validator.mapcss:510 ../voltages.validator.mapcss:522
+#: ../voltages.validator.mapcss:534 ../voltages.validator.mapcss:546
+#: ../voltages.validator.mapcss:558 ../voltages.validator.mapcss:570
+#: ../voltages.validator.mapcss:582 ../voltages.validator.mapcss:594
+#: ../voltages.validator.mapcss:606 ../voltages.validator.mapcss:618
+#: ../voltages.validator.mapcss:630 ../voltages.validator.mapcss:642
+#: ../voltages.validator.mapcss:654 ../voltages.validator.mapcss:666
+#: ../voltages.validator.mapcss:678 ../voltages.validator.mapcss:690
+#: ../voltages.validator.mapcss:702 ../voltages.validator.mapcss:714
+#: ../voltages.validator.mapcss:726 ../voltages.validator.mapcss:738
+#: ../voltages.validator.mapcss:750 ../voltages.validator.mapcss:762
+#: ../voltages.validator.mapcss:774 ../voltages.validator.mapcss:786
+#: ../voltages.validator.mapcss:798 ../voltages.validator.mapcss:810
+#: ../voltages.validator.mapcss:822 ../voltages.validator.mapcss:834
+#: ../voltages.validator.mapcss:846 ../voltages.validator.mapcss:858
+#: ../voltages.validator.mapcss:870 ../voltages.validator.mapcss:882
+#: ../voltages.validator.mapcss:894 ../voltages.validator.mapcss:906
+#: ../voltages.validator.mapcss:918 ../voltages.validator.mapcss:930
+#: ../voltages.validator.mapcss:942 ../voltages.validator.mapcss:954
+#: ../voltages.validator.mapcss:966 ../voltages.validator.mapcss:978
+#: ../voltages.validator.mapcss:990 ../voltages.validator.mapcss:1002
+#: ../voltages.validator.mapcss:1014 ../voltages.validator.mapcss:1026
+#: ../voltages.validator.mapcss:1038 ../voltages.validator.mapcss:1050
+#: ../voltages.validator.mapcss:1062 ../voltages.validator.mapcss:1074
+#: ../voltages.validator.mapcss:1086 ../voltages.validator.mapcss:1098
+#: ../voltages.validator.mapcss:1110 ../voltages.validator.mapcss:1122
+#: ../voltages.validator.mapcss:1134 ../voltages.validator.mapcss:1146
+#: ../voltages.validator.mapcss:1158 ../voltages.validator.mapcss:1170
+#: ../voltages.validator.mapcss:1182 ../voltages.validator.mapcss:1194
+#: ../voltages.validator.mapcss:1206 ../voltages.validator.mapcss:1218
+#: ../voltages.validator.mapcss:1230 ../voltages.validator.mapcss:1242
+#: ../voltages.validator.mapcss:1254 ../voltages.validator.mapcss:1266
+#: ../voltages.validator.mapcss:1278 ../voltages.validator.mapcss:1290
+#: ../voltages.validator.mapcss:1302 ../voltages.validator.mapcss:1314
+#: ../voltages.validator.mapcss:1326 ../voltages.validator.mapcss:1338
+#: ../voltages.validator.mapcss:1350 ../voltages.validator.mapcss:1362
+#: ../voltages.validator.mapcss:1374 ../voltages.validator.mapcss:1386
+#: ../voltages.validator.mapcss:1398 ../voltages.validator.mapcss:1410
+#: ../voltages.validator.mapcss:1422 ../voltages.validator.mapcss:1434
+#: ../voltages.validator.mapcss:1446 ../voltages.validator.mapcss:1458
+#: ../voltages.validator.mapcss:1470 ../voltages.validator.mapcss:1482
+#: ../voltages.validator.mapcss:1494 ../voltages.validator.mapcss:1506
+#: ../voltages.validator.mapcss:1518 ../voltages.validator.mapcss:1530
+#: ../voltages.validator.mapcss:1542 ../voltages.validator.mapcss:1554
+#: ../voltages.validator.mapcss:1566 ../voltages.validator.mapcss:1578
+#: ../voltages.validator.mapcss:1590 ../voltages.validator.mapcss:1602
+#: ../voltages.validator.mapcss:1614 ../voltages.validator.mapcss:1626
+#: ../voltages.validator.mapcss:1638 ../voltages.validator.mapcss:1650
+#: ../voltages.validator.mapcss:1662 ../voltages.validator.mapcss:1674
+#: ../voltages.validator.mapcss:1686 ../voltages.validator.mapcss:1698
+#: ../voltages.validator.mapcss:1710 ../voltages.validator.mapcss:1722
+#: ../voltages.validator.mapcss:1734 ../voltages.validator.mapcss:1746
+#: ../voltages.validator.mapcss:1758 ../voltages.validator.mapcss:1770
+#: ../voltages.validator.mapcss:1782 ../voltages.validator.mapcss:1794
+#: ../voltages.validator.mapcss:1806 ../voltages.validator.mapcss:1818
+#: ../voltages.validator.mapcss:1830 ../voltages.validator.mapcss:1842
+#: ../voltages.validator.mapcss:1854 ../voltages.validator.mapcss:1866
+#: ../voltages.validator.mapcss:1878 ../voltages.validator.mapcss:1890
+#: ../voltages.validator.mapcss:1902 ../voltages.validator.mapcss:1914
+#: ../voltages.validator.mapcss:1926 ../voltages.validator.mapcss:1938
+#: ../voltages.validator.mapcss:1950 ../voltages.validator.mapcss:1962
+#: ../voltages.validator.mapcss:1974 ../voltages.validator.mapcss:1986
+#: ../voltages.validator.mapcss:1998 ../voltages.validator.mapcss:2010
+#: ../voltages.validator.mapcss:2022 ../voltages.validator.mapcss:2034
+#: ../voltages.validator.mapcss:2046 ../voltages.validator.mapcss:2058
+#: ../voltages.validator.mapcss:2070
 msgid "Each country has its own voltage set used for electricity transmission."
 msgstr ""
 
-#: ../voltages.validator.mapcss:7 ../voltages.validator.mapcss:20
-#: ../voltages.validator.mapcss:33 ../voltages.validator.mapcss:46
-#: ../voltages.validator.mapcss:59 ../voltages.validator.mapcss:72
-#: ../voltages.validator.mapcss:85 ../voltages.validator.mapcss:98
-#: ../voltages.validator.mapcss:111 ../voltages.validator.mapcss:124
-#: ../voltages.validator.mapcss:137 ../voltages.validator.mapcss:150
-#: ../voltages.validator.mapcss:163 ../voltages.validator.mapcss:176
-#: ../voltages.validator.mapcss:189 ../voltages.validator.mapcss:202
-#: ../voltages.validator.mapcss:215 ../voltages.validator.mapcss:228
-#: ../voltages.validator.mapcss:241 ../voltages.validator.mapcss:254
-#: ../voltages.validator.mapcss:267 ../voltages.validator.mapcss:280
-#: ../voltages.validator.mapcss:293 ../voltages.validator.mapcss:306
-#: ../voltages.validator.mapcss:319 ../voltages.validator.mapcss:332
-#: ../voltages.validator.mapcss:345 ../voltages.validator.mapcss:358
-#: ../voltages.validator.mapcss:371 ../voltages.validator.mapcss:384
-#: ../voltages.validator.mapcss:397 ../voltages.validator.mapcss:410
-#: ../voltages.validator.mapcss:423 ../voltages.validator.mapcss:436
-#: ../voltages.validator.mapcss:449 ../voltages.validator.mapcss:462
-#: ../voltages.validator.mapcss:475 ../voltages.validator.mapcss:488
-#: ../voltages.validator.mapcss:501 ../voltages.validator.mapcss:514
-#: ../voltages.validator.mapcss:527 ../voltages.validator.mapcss:540
-#: ../voltages.validator.mapcss:553 ../voltages.validator.mapcss:566
-#: ../voltages.validator.mapcss:579 ../voltages.validator.mapcss:592
-#: ../voltages.validator.mapcss:605 ../voltages.validator.mapcss:618
-#: ../voltages.validator.mapcss:631 ../voltages.validator.mapcss:644
-#: ../voltages.validator.mapcss:657 ../voltages.validator.mapcss:670
-#: ../voltages.validator.mapcss:683 ../voltages.validator.mapcss:696
-#: ../voltages.validator.mapcss:709 ../voltages.validator.mapcss:722
-#: ../voltages.validator.mapcss:735 ../voltages.validator.mapcss:748
-#: ../voltages.validator.mapcss:761 ../voltages.validator.mapcss:774
-#: ../voltages.validator.mapcss:787 ../voltages.validator.mapcss:800
-#: ../voltages.validator.mapcss:813 ../voltages.validator.mapcss:826
-#: ../voltages.validator.mapcss:839 ../voltages.validator.mapcss:852
-#: ../voltages.validator.mapcss:865 ../voltages.validator.mapcss:878
-#: ../voltages.validator.mapcss:891 ../voltages.validator.mapcss:904
-#: ../voltages.validator.mapcss:917 ../voltages.validator.mapcss:930
-#: ../voltages.validator.mapcss:943 ../voltages.validator.mapcss:956
-#: ../voltages.validator.mapcss:969 ../voltages.validator.mapcss:982
-#: ../voltages.validator.mapcss:995 ../voltages.validator.mapcss:1008
-#: ../voltages.validator.mapcss:1021 ../voltages.validator.mapcss:1034
-#: ../voltages.validator.mapcss:1047 ../voltages.validator.mapcss:1060
-#: ../voltages.validator.mapcss:1073 ../voltages.validator.mapcss:1086
-#: ../voltages.validator.mapcss:1099 ../voltages.validator.mapcss:1112
-#: ../voltages.validator.mapcss:1125 ../voltages.validator.mapcss:1138
-#: ../voltages.validator.mapcss:1151 ../voltages.validator.mapcss:1164
-#: ../voltages.validator.mapcss:1177 ../voltages.validator.mapcss:1190
-#: ../voltages.validator.mapcss:1203 ../voltages.validator.mapcss:1216
-#: ../voltages.validator.mapcss:1229 ../voltages.validator.mapcss:1242
-#: ../voltages.validator.mapcss:1255 ../voltages.validator.mapcss:1268
-#: ../voltages.validator.mapcss:1281 ../voltages.validator.mapcss:1294
-#: ../voltages.validator.mapcss:1307 ../voltages.validator.mapcss:1320
-#: ../voltages.validator.mapcss:1333 ../voltages.validator.mapcss:1346
-#: ../voltages.validator.mapcss:1359 ../voltages.validator.mapcss:1372
-#: ../voltages.validator.mapcss:1385 ../voltages.validator.mapcss:1398
-#: ../voltages.validator.mapcss:1411 ../voltages.validator.mapcss:1424
-#: ../voltages.validator.mapcss:1437 ../voltages.validator.mapcss:1450
-#: ../voltages.validator.mapcss:1463 ../voltages.validator.mapcss:1476
-#: ../voltages.validator.mapcss:1489 ../voltages.validator.mapcss:1502
-#: ../voltages.validator.mapcss:1515 ../voltages.validator.mapcss:1528
-#: ../voltages.validator.mapcss:1541 ../voltages.validator.mapcss:1554
-#: ../voltages.validator.mapcss:1567 ../voltages.validator.mapcss:1580
-#: ../voltages.validator.mapcss:1593 ../voltages.validator.mapcss:1606
-#: ../voltages.validator.mapcss:1619 ../voltages.validator.mapcss:1632
-#: ../voltages.validator.mapcss:1645 ../voltages.validator.mapcss:1658
-#: ../voltages.validator.mapcss:1671 ../voltages.validator.mapcss:1684
-#: ../voltages.validator.mapcss:1697 ../voltages.validator.mapcss:1710
-#: ../voltages.validator.mapcss:1723 ../voltages.validator.mapcss:1736
-#: ../voltages.validator.mapcss:1749 ../voltages.validator.mapcss:1762
-#: ../voltages.validator.mapcss:1775 ../voltages.validator.mapcss:1788
-#: ../voltages.validator.mapcss:1801 ../voltages.validator.mapcss:1814
-#: ../voltages.validator.mapcss:1827 ../voltages.validator.mapcss:1840
-#: ../voltages.validator.mapcss:1853 ../voltages.validator.mapcss:1866
-#: ../voltages.validator.mapcss:1879 ../voltages.validator.mapcss:1892
-#: ../voltages.validator.mapcss:1905 ../voltages.validator.mapcss:1918
-#: ../voltages.validator.mapcss:1931 ../voltages.validator.mapcss:1944
-#: ../voltages.validator.mapcss:1957 ../voltages.validator.mapcss:1970
-#: ../voltages.validator.mapcss:1983 ../voltages.validator.mapcss:1996
-#: ../voltages.validator.mapcss:2009 ../voltages.validator.mapcss:2022
-#: ../voltages.validator.mapcss:2035 ../voltages.validator.mapcss:2048
-#: ../voltages.validator.mapcss:2061 ../voltages.validator.mapcss:2074
-#: ../voltages.validator.mapcss:2087 ../voltages.validator.mapcss:2100
-#: ../voltages.validator.mapcss:2113 ../voltages.validator.mapcss:2126
-#: ../voltages.validator.mapcss:2139 ../voltages.validator.mapcss:2152
-#: ../voltages.validator.mapcss:2165 ../voltages.validator.mapcss:2178
-#: ../voltages.validator.mapcss:2191 ../voltages.validator.mapcss:2204
-#: ../voltages.validator.mapcss:2217 ../voltages.validator.mapcss:2230
-#: ../voltages.validator.mapcss:2243
+#: ../voltages.validator.mapcss:7 ../voltages.validator.mapcss:19
+#: ../voltages.validator.mapcss:31 ../voltages.validator.mapcss:43
+#: ../voltages.validator.mapcss:55 ../voltages.validator.mapcss:67
+#: ../voltages.validator.mapcss:79 ../voltages.validator.mapcss:91
+#: ../voltages.validator.mapcss:103 ../voltages.validator.mapcss:115
+#: ../voltages.validator.mapcss:127 ../voltages.validator.mapcss:139
+#: ../voltages.validator.mapcss:151 ../voltages.validator.mapcss:163
+#: ../voltages.validator.mapcss:175 ../voltages.validator.mapcss:187
+#: ../voltages.validator.mapcss:199 ../voltages.validator.mapcss:211
+#: ../voltages.validator.mapcss:223 ../voltages.validator.mapcss:235
+#: ../voltages.validator.mapcss:247 ../voltages.validator.mapcss:259
+#: ../voltages.validator.mapcss:271 ../voltages.validator.mapcss:283
+#: ../voltages.validator.mapcss:295 ../voltages.validator.mapcss:307
+#: ../voltages.validator.mapcss:319 ../voltages.validator.mapcss:331
+#: ../voltages.validator.mapcss:343 ../voltages.validator.mapcss:355
+#: ../voltages.validator.mapcss:367 ../voltages.validator.mapcss:379
+#: ../voltages.validator.mapcss:391 ../voltages.validator.mapcss:403
+#: ../voltages.validator.mapcss:415 ../voltages.validator.mapcss:427
+#: ../voltages.validator.mapcss:439 ../voltages.validator.mapcss:451
+#: ../voltages.validator.mapcss:463 ../voltages.validator.mapcss:475
+#: ../voltages.validator.mapcss:487 ../voltages.validator.mapcss:499
+#: ../voltages.validator.mapcss:511 ../voltages.validator.mapcss:523
+#: ../voltages.validator.mapcss:535 ../voltages.validator.mapcss:547
+#: ../voltages.validator.mapcss:559 ../voltages.validator.mapcss:571
+#: ../voltages.validator.mapcss:583 ../voltages.validator.mapcss:595
+#: ../voltages.validator.mapcss:607 ../voltages.validator.mapcss:619
+#: ../voltages.validator.mapcss:631 ../voltages.validator.mapcss:643
+#: ../voltages.validator.mapcss:655 ../voltages.validator.mapcss:667
+#: ../voltages.validator.mapcss:679 ../voltages.validator.mapcss:691
+#: ../voltages.validator.mapcss:703 ../voltages.validator.mapcss:715
+#: ../voltages.validator.mapcss:727 ../voltages.validator.mapcss:739
+#: ../voltages.validator.mapcss:751 ../voltages.validator.mapcss:763
+#: ../voltages.validator.mapcss:775 ../voltages.validator.mapcss:787
+#: ../voltages.validator.mapcss:799 ../voltages.validator.mapcss:811
+#: ../voltages.validator.mapcss:823 ../voltages.validator.mapcss:835
+#: ../voltages.validator.mapcss:847 ../voltages.validator.mapcss:859
+#: ../voltages.validator.mapcss:871 ../voltages.validator.mapcss:883
+#: ../voltages.validator.mapcss:895 ../voltages.validator.mapcss:907
+#: ../voltages.validator.mapcss:919 ../voltages.validator.mapcss:931
+#: ../voltages.validator.mapcss:943 ../voltages.validator.mapcss:955
+#: ../voltages.validator.mapcss:967 ../voltages.validator.mapcss:979
+#: ../voltages.validator.mapcss:991 ../voltages.validator.mapcss:1003
+#: ../voltages.validator.mapcss:1015 ../voltages.validator.mapcss:1027
+#: ../voltages.validator.mapcss:1039 ../voltages.validator.mapcss:1051
+#: ../voltages.validator.mapcss:1063 ../voltages.validator.mapcss:1075
+#: ../voltages.validator.mapcss:1087 ../voltages.validator.mapcss:1099
+#: ../voltages.validator.mapcss:1111 ../voltages.validator.mapcss:1123
+#: ../voltages.validator.mapcss:1135 ../voltages.validator.mapcss:1147
+#: ../voltages.validator.mapcss:1159 ../voltages.validator.mapcss:1171
+#: ../voltages.validator.mapcss:1183 ../voltages.validator.mapcss:1195
+#: ../voltages.validator.mapcss:1207 ../voltages.validator.mapcss:1219
+#: ../voltages.validator.mapcss:1231 ../voltages.validator.mapcss:1243
+#: ../voltages.validator.mapcss:1255 ../voltages.validator.mapcss:1267
+#: ../voltages.validator.mapcss:1279 ../voltages.validator.mapcss:1291
+#: ../voltages.validator.mapcss:1303 ../voltages.validator.mapcss:1315
+#: ../voltages.validator.mapcss:1327 ../voltages.validator.mapcss:1339
+#: ../voltages.validator.mapcss:1351 ../voltages.validator.mapcss:1363
+#: ../voltages.validator.mapcss:1375 ../voltages.validator.mapcss:1387
+#: ../voltages.validator.mapcss:1399 ../voltages.validator.mapcss:1411
+#: ../voltages.validator.mapcss:1423 ../voltages.validator.mapcss:1435
+#: ../voltages.validator.mapcss:1447 ../voltages.validator.mapcss:1459
+#: ../voltages.validator.mapcss:1471 ../voltages.validator.mapcss:1483
+#: ../voltages.validator.mapcss:1495 ../voltages.validator.mapcss:1507
+#: ../voltages.validator.mapcss:1519 ../voltages.validator.mapcss:1531
+#: ../voltages.validator.mapcss:1543 ../voltages.validator.mapcss:1555
+#: ../voltages.validator.mapcss:1567 ../voltages.validator.mapcss:1579
+#: ../voltages.validator.mapcss:1591 ../voltages.validator.mapcss:1603
+#: ../voltages.validator.mapcss:1615 ../voltages.validator.mapcss:1627
+#: ../voltages.validator.mapcss:1639 ../voltages.validator.mapcss:1651
+#: ../voltages.validator.mapcss:1663 ../voltages.validator.mapcss:1675
+#: ../voltages.validator.mapcss:1687 ../voltages.validator.mapcss:1699
+#: ../voltages.validator.mapcss:1711 ../voltages.validator.mapcss:1723
+#: ../voltages.validator.mapcss:1735 ../voltages.validator.mapcss:1747
+#: ../voltages.validator.mapcss:1759 ../voltages.validator.mapcss:1771
+#: ../voltages.validator.mapcss:1783 ../voltages.validator.mapcss:1795
+#: ../voltages.validator.mapcss:1807 ../voltages.validator.mapcss:1819
+#: ../voltages.validator.mapcss:1831 ../voltages.validator.mapcss:1843
+#: ../voltages.validator.mapcss:1855 ../voltages.validator.mapcss:1867
+#: ../voltages.validator.mapcss:1879 ../voltages.validator.mapcss:1891
+#: ../voltages.validator.mapcss:1903 ../voltages.validator.mapcss:1915
+#: ../voltages.validator.mapcss:1927 ../voltages.validator.mapcss:1939
+#: ../voltages.validator.mapcss:1951 ../voltages.validator.mapcss:1963
+#: ../voltages.validator.mapcss:1975 ../voltages.validator.mapcss:1987
+#: ../voltages.validator.mapcss:1999 ../voltages.validator.mapcss:2011
+#: ../voltages.validator.mapcss:2023 ../voltages.validator.mapcss:2035
+#: ../voltages.validator.mapcss:2047 ../voltages.validator.mapcss:2059
+#: ../voltages.validator.mapcss:2071
 msgid "For example, in Jordan, only 132 kV and 400 kV voltages are used."
 msgstr ""
 
-#: ../voltages.validator.mapcss:8 ../voltages.validator.mapcss:21
-#: ../voltages.validator.mapcss:34 ../voltages.validator.mapcss:47
-#: ../voltages.validator.mapcss:60 ../voltages.validator.mapcss:73
-#: ../voltages.validator.mapcss:86 ../voltages.validator.mapcss:99
-#: ../voltages.validator.mapcss:112 ../voltages.validator.mapcss:125
-#: ../voltages.validator.mapcss:138 ../voltages.validator.mapcss:151
-#: ../voltages.validator.mapcss:164 ../voltages.validator.mapcss:177
-#: ../voltages.validator.mapcss:190 ../voltages.validator.mapcss:203
-#: ../voltages.validator.mapcss:216 ../voltages.validator.mapcss:229
-#: ../voltages.validator.mapcss:242 ../voltages.validator.mapcss:255
-#: ../voltages.validator.mapcss:268 ../voltages.validator.mapcss:281
-#: ../voltages.validator.mapcss:294 ../voltages.validator.mapcss:307
-#: ../voltages.validator.mapcss:320 ../voltages.validator.mapcss:333
-#: ../voltages.validator.mapcss:346 ../voltages.validator.mapcss:359
-#: ../voltages.validator.mapcss:372 ../voltages.validator.mapcss:385
-#: ../voltages.validator.mapcss:398 ../voltages.validator.mapcss:411
-#: ../voltages.validator.mapcss:424 ../voltages.validator.mapcss:437
-#: ../voltages.validator.mapcss:450 ../voltages.validator.mapcss:463
-#: ../voltages.validator.mapcss:476 ../voltages.validator.mapcss:489
-#: ../voltages.validator.mapcss:502 ../voltages.validator.mapcss:515
-#: ../voltages.validator.mapcss:528 ../voltages.validator.mapcss:541
-#: ../voltages.validator.mapcss:554 ../voltages.validator.mapcss:567
-#: ../voltages.validator.mapcss:580 ../voltages.validator.mapcss:593
-#: ../voltages.validator.mapcss:606 ../voltages.validator.mapcss:619
-#: ../voltages.validator.mapcss:632 ../voltages.validator.mapcss:645
-#: ../voltages.validator.mapcss:658 ../voltages.validator.mapcss:671
-#: ../voltages.validator.mapcss:684 ../voltages.validator.mapcss:697
-#: ../voltages.validator.mapcss:710 ../voltages.validator.mapcss:723
-#: ../voltages.validator.mapcss:736 ../voltages.validator.mapcss:749
-#: ../voltages.validator.mapcss:762 ../voltages.validator.mapcss:775
-#: ../voltages.validator.mapcss:788 ../voltages.validator.mapcss:801
-#: ../voltages.validator.mapcss:814 ../voltages.validator.mapcss:827
-#: ../voltages.validator.mapcss:840 ../voltages.validator.mapcss:853
-#: ../voltages.validator.mapcss:866 ../voltages.validator.mapcss:879
-#: ../voltages.validator.mapcss:892 ../voltages.validator.mapcss:905
-#: ../voltages.validator.mapcss:918 ../voltages.validator.mapcss:931
-#: ../voltages.validator.mapcss:944 ../voltages.validator.mapcss:957
-#: ../voltages.validator.mapcss:970 ../voltages.validator.mapcss:983
-#: ../voltages.validator.mapcss:996 ../voltages.validator.mapcss:1009
-#: ../voltages.validator.mapcss:1022 ../voltages.validator.mapcss:1035
-#: ../voltages.validator.mapcss:1048 ../voltages.validator.mapcss:1061
-#: ../voltages.validator.mapcss:1074 ../voltages.validator.mapcss:1087
-#: ../voltages.validator.mapcss:1100 ../voltages.validator.mapcss:1113
-#: ../voltages.validator.mapcss:1126 ../voltages.validator.mapcss:1139
-#: ../voltages.validator.mapcss:1152 ../voltages.validator.mapcss:1165
-#: ../voltages.validator.mapcss:1178 ../voltages.validator.mapcss:1191
-#: ../voltages.validator.mapcss:1204 ../voltages.validator.mapcss:1217
-#: ../voltages.validator.mapcss:1230 ../voltages.validator.mapcss:1243
-#: ../voltages.validator.mapcss:1256 ../voltages.validator.mapcss:1269
-#: ../voltages.validator.mapcss:1282 ../voltages.validator.mapcss:1295
-#: ../voltages.validator.mapcss:1308 ../voltages.validator.mapcss:1321
-#: ../voltages.validator.mapcss:1334 ../voltages.validator.mapcss:1347
-#: ../voltages.validator.mapcss:1360 ../voltages.validator.mapcss:1373
-#: ../voltages.validator.mapcss:1386 ../voltages.validator.mapcss:1399
-#: ../voltages.validator.mapcss:1412 ../voltages.validator.mapcss:1425
-#: ../voltages.validator.mapcss:1438 ../voltages.validator.mapcss:1451
-#: ../voltages.validator.mapcss:1464 ../voltages.validator.mapcss:1477
-#: ../voltages.validator.mapcss:1490 ../voltages.validator.mapcss:1503
-#: ../voltages.validator.mapcss:1516 ../voltages.validator.mapcss:1529
-#: ../voltages.validator.mapcss:1542 ../voltages.validator.mapcss:1555
-#: ../voltages.validator.mapcss:1568 ../voltages.validator.mapcss:1581
-#: ../voltages.validator.mapcss:1594 ../voltages.validator.mapcss:1607
-#: ../voltages.validator.mapcss:1620 ../voltages.validator.mapcss:1633
-#: ../voltages.validator.mapcss:1646 ../voltages.validator.mapcss:1659
-#: ../voltages.validator.mapcss:1672 ../voltages.validator.mapcss:1685
-#: ../voltages.validator.mapcss:1698 ../voltages.validator.mapcss:1711
-#: ../voltages.validator.mapcss:1724 ../voltages.validator.mapcss:1737
-#: ../voltages.validator.mapcss:1750 ../voltages.validator.mapcss:1763
-#: ../voltages.validator.mapcss:1776 ../voltages.validator.mapcss:1789
-#: ../voltages.validator.mapcss:1802 ../voltages.validator.mapcss:1815
-#: ../voltages.validator.mapcss:1828 ../voltages.validator.mapcss:1841
-#: ../voltages.validator.mapcss:1854 ../voltages.validator.mapcss:1867
-#: ../voltages.validator.mapcss:1880 ../voltages.validator.mapcss:1893
-#: ../voltages.validator.mapcss:1906 ../voltages.validator.mapcss:1919
-#: ../voltages.validator.mapcss:1932 ../voltages.validator.mapcss:1945
-#: ../voltages.validator.mapcss:1958 ../voltages.validator.mapcss:1971
-#: ../voltages.validator.mapcss:1984 ../voltages.validator.mapcss:1997
-#: ../voltages.validator.mapcss:2010 ../voltages.validator.mapcss:2023
-#: ../voltages.validator.mapcss:2036 ../voltages.validator.mapcss:2049
-#: ../voltages.validator.mapcss:2062 ../voltages.validator.mapcss:2075
-#: ../voltages.validator.mapcss:2088 ../voltages.validator.mapcss:2101
-#: ../voltages.validator.mapcss:2114 ../voltages.validator.mapcss:2127
-#: ../voltages.validator.mapcss:2140 ../voltages.validator.mapcss:2153
-#: ../voltages.validator.mapcss:2166 ../voltages.validator.mapcss:2179
-#: ../voltages.validator.mapcss:2192 ../voltages.validator.mapcss:2205
-#: ../voltages.validator.mapcss:2218 ../voltages.validator.mapcss:2231
-#: ../voltages.validator.mapcss:2244
+#: ../voltages.validator.mapcss:8 ../voltages.validator.mapcss:20
+#: ../voltages.validator.mapcss:32 ../voltages.validator.mapcss:44
+#: ../voltages.validator.mapcss:56 ../voltages.validator.mapcss:68
+#: ../voltages.validator.mapcss:80 ../voltages.validator.mapcss:92
+#: ../voltages.validator.mapcss:104 ../voltages.validator.mapcss:116
+#: ../voltages.validator.mapcss:128 ../voltages.validator.mapcss:140
+#: ../voltages.validator.mapcss:152 ../voltages.validator.mapcss:164
+#: ../voltages.validator.mapcss:176 ../voltages.validator.mapcss:188
+#: ../voltages.validator.mapcss:200 ../voltages.validator.mapcss:212
+#: ../voltages.validator.mapcss:224 ../voltages.validator.mapcss:236
+#: ../voltages.validator.mapcss:248 ../voltages.validator.mapcss:260
+#: ../voltages.validator.mapcss:272 ../voltages.validator.mapcss:284
+#: ../voltages.validator.mapcss:296 ../voltages.validator.mapcss:308
+#: ../voltages.validator.mapcss:320 ../voltages.validator.mapcss:332
+#: ../voltages.validator.mapcss:344 ../voltages.validator.mapcss:356
+#: ../voltages.validator.mapcss:368 ../voltages.validator.mapcss:380
+#: ../voltages.validator.mapcss:392 ../voltages.validator.mapcss:404
+#: ../voltages.validator.mapcss:416 ../voltages.validator.mapcss:428
+#: ../voltages.validator.mapcss:440 ../voltages.validator.mapcss:452
+#: ../voltages.validator.mapcss:464 ../voltages.validator.mapcss:476
+#: ../voltages.validator.mapcss:488 ../voltages.validator.mapcss:500
+#: ../voltages.validator.mapcss:512 ../voltages.validator.mapcss:524
+#: ../voltages.validator.mapcss:536 ../voltages.validator.mapcss:548
+#: ../voltages.validator.mapcss:560 ../voltages.validator.mapcss:572
+#: ../voltages.validator.mapcss:584 ../voltages.validator.mapcss:596
+#: ../voltages.validator.mapcss:608 ../voltages.validator.mapcss:620
+#: ../voltages.validator.mapcss:632 ../voltages.validator.mapcss:644
+#: ../voltages.validator.mapcss:656 ../voltages.validator.mapcss:668
+#: ../voltages.validator.mapcss:680 ../voltages.validator.mapcss:692
+#: ../voltages.validator.mapcss:704 ../voltages.validator.mapcss:716
+#: ../voltages.validator.mapcss:728 ../voltages.validator.mapcss:740
+#: ../voltages.validator.mapcss:752 ../voltages.validator.mapcss:764
+#: ../voltages.validator.mapcss:776 ../voltages.validator.mapcss:788
+#: ../voltages.validator.mapcss:800 ../voltages.validator.mapcss:812
+#: ../voltages.validator.mapcss:824 ../voltages.validator.mapcss:836
+#: ../voltages.validator.mapcss:848 ../voltages.validator.mapcss:860
+#: ../voltages.validator.mapcss:872 ../voltages.validator.mapcss:884
+#: ../voltages.validator.mapcss:896 ../voltages.validator.mapcss:908
+#: ../voltages.validator.mapcss:920 ../voltages.validator.mapcss:932
+#: ../voltages.validator.mapcss:944 ../voltages.validator.mapcss:956
+#: ../voltages.validator.mapcss:968 ../voltages.validator.mapcss:980
+#: ../voltages.validator.mapcss:992 ../voltages.validator.mapcss:1004
+#: ../voltages.validator.mapcss:1016 ../voltages.validator.mapcss:1028
+#: ../voltages.validator.mapcss:1040 ../voltages.validator.mapcss:1052
+#: ../voltages.validator.mapcss:1064 ../voltages.validator.mapcss:1076
+#: ../voltages.validator.mapcss:1088 ../voltages.validator.mapcss:1100
+#: ../voltages.validator.mapcss:1112 ../voltages.validator.mapcss:1124
+#: ../voltages.validator.mapcss:1136 ../voltages.validator.mapcss:1148
+#: ../voltages.validator.mapcss:1160 ../voltages.validator.mapcss:1172
+#: ../voltages.validator.mapcss:1184 ../voltages.validator.mapcss:1196
+#: ../voltages.validator.mapcss:1208 ../voltages.validator.mapcss:1220
+#: ../voltages.validator.mapcss:1232 ../voltages.validator.mapcss:1244
+#: ../voltages.validator.mapcss:1256 ../voltages.validator.mapcss:1268
+#: ../voltages.validator.mapcss:1280 ../voltages.validator.mapcss:1292
+#: ../voltages.validator.mapcss:1304 ../voltages.validator.mapcss:1316
+#: ../voltages.validator.mapcss:1328 ../voltages.validator.mapcss:1340
+#: ../voltages.validator.mapcss:1352 ../voltages.validator.mapcss:1364
+#: ../voltages.validator.mapcss:1376 ../voltages.validator.mapcss:1388
+#: ../voltages.validator.mapcss:1400 ../voltages.validator.mapcss:1412
+#: ../voltages.validator.mapcss:1424 ../voltages.validator.mapcss:1436
+#: ../voltages.validator.mapcss:1448 ../voltages.validator.mapcss:1460
+#: ../voltages.validator.mapcss:1472 ../voltages.validator.mapcss:1484
+#: ../voltages.validator.mapcss:1496 ../voltages.validator.mapcss:1508
+#: ../voltages.validator.mapcss:1520 ../voltages.validator.mapcss:1532
+#: ../voltages.validator.mapcss:1544 ../voltages.validator.mapcss:1556
+#: ../voltages.validator.mapcss:1568 ../voltages.validator.mapcss:1580
+#: ../voltages.validator.mapcss:1592 ../voltages.validator.mapcss:1604
+#: ../voltages.validator.mapcss:1616 ../voltages.validator.mapcss:1628
+#: ../voltages.validator.mapcss:1640 ../voltages.validator.mapcss:1652
+#: ../voltages.validator.mapcss:1664 ../voltages.validator.mapcss:1676
+#: ../voltages.validator.mapcss:1688 ../voltages.validator.mapcss:1700
+#: ../voltages.validator.mapcss:1712 ../voltages.validator.mapcss:1724
+#: ../voltages.validator.mapcss:1736 ../voltages.validator.mapcss:1748
+#: ../voltages.validator.mapcss:1760 ../voltages.validator.mapcss:1772
+#: ../voltages.validator.mapcss:1784 ../voltages.validator.mapcss:1796
+#: ../voltages.validator.mapcss:1808 ../voltages.validator.mapcss:1820
+#: ../voltages.validator.mapcss:1832 ../voltages.validator.mapcss:1844
+#: ../voltages.validator.mapcss:1856 ../voltages.validator.mapcss:1868
+#: ../voltages.validator.mapcss:1880 ../voltages.validator.mapcss:1892
+#: ../voltages.validator.mapcss:1904 ../voltages.validator.mapcss:1916
+#: ../voltages.validator.mapcss:1928 ../voltages.validator.mapcss:1940
+#: ../voltages.validator.mapcss:1952 ../voltages.validator.mapcss:1964
+#: ../voltages.validator.mapcss:1976 ../voltages.validator.mapcss:1988
+#: ../voltages.validator.mapcss:2000 ../voltages.validator.mapcss:2012
+#: ../voltages.validator.mapcss:2024 ../voltages.validator.mapcss:2036
+#: ../voltages.validator.mapcss:2048 ../voltages.validator.mapcss:2060
+#: ../voltages.validator.mapcss:2072
 msgid ""
 "Check the list of possible values for this country on the wiki and correct "
 "the `0` tag."
@@ -997,4 +910,697 @@ msgstr ""
 msgid ""
 "The plant:source=* tag can only have certain well-defined values. This is "
 "probably a typo or an deprecated way of tagging."
+msgstr ""
+
+#: ../voltages.validator.mapcss:4
+msgid "Invalid voltage value for this country (Afghanistan)"
+msgstr ""
+
+#: ../voltages.validator.mapcss:16
+msgid "Invalid voltage value for this country (Albania)"
+msgstr ""
+
+#: ../voltages.validator.mapcss:28
+msgid "Invalid voltage value for this country (Algeria)"
+msgstr ""
+
+#: ../voltages.validator.mapcss:40
+msgid "Invalid voltage value for this country (Andorra)"
+msgstr ""
+
+#: ../voltages.validator.mapcss:52
+msgid "Invalid voltage value for this country (Angola)"
+msgstr ""
+
+#: ../voltages.validator.mapcss:64
+msgid "Invalid voltage value for this country (Argentina)"
+msgstr ""
+
+#: ../voltages.validator.mapcss:76
+msgid "Invalid voltage value for this country (Armenia)"
+msgstr ""
+
+#: ../voltages.validator.mapcss:88
+msgid "Invalid voltage value for this country (Australia)"
+msgstr ""
+
+#: ../voltages.validator.mapcss:100
+msgid "Invalid voltage value for this country (Austria)"
+msgstr ""
+
+#: ../voltages.validator.mapcss:112
+msgid "Invalid voltage value for this country (Azerbaijan)"
+msgstr ""
+
+#: ../voltages.validator.mapcss:124
+msgid "Invalid voltage value for this country (Bahrain)"
+msgstr ""
+
+#: ../voltages.validator.mapcss:136
+msgid "Invalid voltage value for this country (Bangladesh)"
+msgstr ""
+
+#: ../voltages.validator.mapcss:148
+msgid "Invalid voltage value for this country (Belarus)"
+msgstr ""
+
+#: ../voltages.validator.mapcss:160
+msgid "Invalid voltage value for this country (Belgium)"
+msgstr ""
+
+#: ../voltages.validator.mapcss:172
+msgid "Invalid voltage value for this country (Belize)"
+msgstr ""
+
+#: ../voltages.validator.mapcss:184
+msgid "Invalid voltage value for this country (Benin)"
+msgstr ""
+
+#: ../voltages.validator.mapcss:196
+msgid "Invalid voltage value for this country (Bhutan)"
+msgstr ""
+
+#: ../voltages.validator.mapcss:208
+msgid "Invalid voltage value for this country (Bolivia)"
+msgstr ""
+
+#: ../voltages.validator.mapcss:220
+msgid "Invalid voltage value for this country (Bosnia and Herzegovina)"
+msgstr ""
+
+#: ../voltages.validator.mapcss:232
+msgid "Invalid voltage value for this country (Botswana)"
+msgstr ""
+
+#: ../voltages.validator.mapcss:244
+msgid "Invalid voltage value for this country (Brazil)"
+msgstr ""
+
+#: ../voltages.validator.mapcss:256
+msgid "Invalid voltage value for this country (Brunei)"
+msgstr ""
+
+#: ../voltages.validator.mapcss:268
+msgid "Invalid voltage value for this country (Bulgaria)"
+msgstr ""
+
+#: ../voltages.validator.mapcss:280
+msgid "Invalid voltage value for this country (Burkina Faso)"
+msgstr ""
+
+#: ../voltages.validator.mapcss:292
+msgid "Invalid voltage value for this country (Burundi)"
+msgstr ""
+
+#: ../voltages.validator.mapcss:304
+msgid "Invalid voltage value for this country (Cambodia)"
+msgstr ""
+
+#: ../voltages.validator.mapcss:316
+msgid "Invalid voltage value for this country (Cameroon)"
+msgstr ""
+
+#: ../voltages.validator.mapcss:328
+msgid "Invalid voltage value for this country (Canada)"
+msgstr ""
+
+#: ../voltages.validator.mapcss:340
+msgid "Invalid voltage value for this country (Cape Verde)"
+msgstr ""
+
+#: ../voltages.validator.mapcss:352
+msgid "Invalid voltage value for this country (Central African Republic)"
+msgstr ""
+
+#: ../voltages.validator.mapcss:364
+msgid "Invalid voltage value for this country (Chad)"
+msgstr ""
+
+#: ../voltages.validator.mapcss:376
+msgid "Invalid voltage value for this country (Chile)"
+msgstr ""
+
+#: ../voltages.validator.mapcss:388
+msgid "Invalid voltage value for this country (Colombia)"
+msgstr ""
+
+#: ../voltages.validator.mapcss:400
+msgid "Invalid voltage value for this country (Costa Rica)"
+msgstr ""
+
+#: ../voltages.validator.mapcss:412
+msgid "Invalid voltage value for this country (Croatia)"
+msgstr ""
+
+#: ../voltages.validator.mapcss:424
+msgid "Invalid voltage value for this country (Cuba)"
+msgstr ""
+
+#: ../voltages.validator.mapcss:436
+msgid "Invalid voltage value for this country (Cyprus)"
+msgstr ""
+
+#: ../voltages.validator.mapcss:448
+msgid "Invalid voltage value for this country (Czech Republic)"
+msgstr ""
+
+#: ../voltages.validator.mapcss:460
+msgid ""
+"Invalid voltage value for this country (Democratic Republic of the Congo)"
+msgstr ""
+
+#: ../voltages.validator.mapcss:472
+msgid "Invalid voltage value for this country (Djibouti)"
+msgstr ""
+
+#: ../voltages.validator.mapcss:484
+msgid "Invalid voltage value for this country (Dominican Republic)"
+msgstr ""
+
+#: ../voltages.validator.mapcss:496
+msgid "Invalid voltage value for this country (Ecuador)"
+msgstr ""
+
+#: ../voltages.validator.mapcss:508
+msgid "Invalid voltage value for this country (Egypt)"
+msgstr ""
+
+#: ../voltages.validator.mapcss:520
+msgid "Invalid voltage value for this country (El Salvador)"
+msgstr ""
+
+#: ../voltages.validator.mapcss:532
+msgid "Invalid voltage value for this country (Equatorial Guinea)"
+msgstr ""
+
+#: ../voltages.validator.mapcss:544
+msgid "Invalid voltage value for this country (Eritrea)"
+msgstr ""
+
+#: ../voltages.validator.mapcss:556
+msgid "Invalid voltage value for this country (Estonia)"
+msgstr ""
+
+#: ../voltages.validator.mapcss:568
+msgid "Invalid voltage value for this country (Eswatini)"
+msgstr ""
+
+#: ../voltages.validator.mapcss:580
+msgid "Invalid voltage value for this country (Ethiopia)"
+msgstr ""
+
+#: ../voltages.validator.mapcss:592
+msgid "Invalid voltage value for this country (Federated States of Micronesia)"
+msgstr ""
+
+#: ../voltages.validator.mapcss:604
+msgid "Invalid voltage value for this country (Fiji)"
+msgstr ""
+
+#: ../voltages.validator.mapcss:616
+msgid "Invalid voltage value for this country (Finland)"
+msgstr ""
+
+#: ../voltages.validator.mapcss:628
+msgid "Invalid voltage value for this country (France)"
+msgstr ""
+
+#: ../voltages.validator.mapcss:640
+msgid "Invalid voltage value for this country (Gabon)"
+msgstr ""
+
+#: ../voltages.validator.mapcss:652
+msgid "Invalid voltage value for this country (Georgia)"
+msgstr ""
+
+#: ../voltages.validator.mapcss:664
+msgid "Invalid voltage value for this country (Germany)"
+msgstr ""
+
+#: ../voltages.validator.mapcss:676
+msgid "Invalid voltage value for this country (Ghana)"
+msgstr ""
+
+#: ../voltages.validator.mapcss:688
+msgid "Invalid voltage value for this country (Greece)"
+msgstr ""
+
+#: ../voltages.validator.mapcss:700
+msgid "Invalid voltage value for this country (Guatemala)"
+msgstr ""
+
+#: ../voltages.validator.mapcss:712
+msgid "Invalid voltage value for this country (Guinea)"
+msgstr ""
+
+#: ../voltages.validator.mapcss:724
+msgid "Invalid voltage value for this country (Guinea-Bissau)"
+msgstr ""
+
+#: ../voltages.validator.mapcss:736
+msgid "Invalid voltage value for this country (Haiti)"
+msgstr ""
+
+#: ../voltages.validator.mapcss:748
+msgid "Invalid voltage value for this country (Honduras)"
+msgstr ""
+
+#: ../voltages.validator.mapcss:760
+msgid "Invalid voltage value for this country (Hungary)"
+msgstr ""
+
+#: ../voltages.validator.mapcss:772
+msgid "Invalid voltage value for this country (Iceland)"
+msgstr ""
+
+#: ../voltages.validator.mapcss:784
+msgid "Invalid voltage value for this country (India)"
+msgstr ""
+
+#: ../voltages.validator.mapcss:796
+msgid "Invalid voltage value for this country (Indonesia)"
+msgstr ""
+
+#: ../voltages.validator.mapcss:808
+msgid "Invalid voltage value for this country (Iran)"
+msgstr ""
+
+#: ../voltages.validator.mapcss:820
+msgid "Invalid voltage value for this country (Iraq)"
+msgstr ""
+
+#: ../voltages.validator.mapcss:832
+msgid "Invalid voltage value for this country (Ireland)"
+msgstr ""
+
+#: ../voltages.validator.mapcss:844
+msgid "Invalid voltage value for this country (Israel)"
+msgstr ""
+
+#: ../voltages.validator.mapcss:856
+msgid "Invalid voltage value for this country (Italy)"
+msgstr ""
+
+#: ../voltages.validator.mapcss:868
+msgid "Invalid voltage value for this country (Ivory Coast)"
+msgstr ""
+
+#: ../voltages.validator.mapcss:880
+msgid "Invalid voltage value for this country (Jamaica)"
+msgstr ""
+
+#: ../voltages.validator.mapcss:892
+msgid "Invalid voltage value for this country (Japan)"
+msgstr ""
+
+#: ../voltages.validator.mapcss:904
+msgid "Invalid voltage value for this country (Jordan)"
+msgstr ""
+
+#: ../voltages.validator.mapcss:916
+msgid "Invalid voltage value for this country (Kazakhstan)"
+msgstr ""
+
+#: ../voltages.validator.mapcss:928
+msgid "Invalid voltage value for this country (Kenya)"
+msgstr ""
+
+#: ../voltages.validator.mapcss:940
+msgid "Invalid voltage value for this country (Kingdom of Denmark)"
+msgstr ""
+
+#: ../voltages.validator.mapcss:952
+msgid "Invalid voltage value for this country (Kingdom of the Netherlands)"
+msgstr ""
+
+#: ../voltages.validator.mapcss:964
+msgid "Invalid voltage value for this country (Kuwait)"
+msgstr ""
+
+#: ../voltages.validator.mapcss:976
+msgid "Invalid voltage value for this country (Kyrgyzstan)"
+msgstr ""
+
+#: ../voltages.validator.mapcss:988
+msgid "Invalid voltage value for this country (Laos)"
+msgstr ""
+
+#: ../voltages.validator.mapcss:1000
+msgid "Invalid voltage value for this country (Latvia)"
+msgstr ""
+
+#: ../voltages.validator.mapcss:1012
+msgid "Invalid voltage value for this country (Lebanon)"
+msgstr ""
+
+#: ../voltages.validator.mapcss:1024
+msgid "Invalid voltage value for this country (Lesotho)"
+msgstr ""
+
+#: ../voltages.validator.mapcss:1036
+msgid "Invalid voltage value for this country (Liberia)"
+msgstr ""
+
+#: ../voltages.validator.mapcss:1048
+msgid "Invalid voltage value for this country (Libya)"
+msgstr ""
+
+#: ../voltages.validator.mapcss:1060
+msgid "Invalid voltage value for this country (Liechtenstein)"
+msgstr ""
+
+#: ../voltages.validator.mapcss:1072
+msgid "Invalid voltage value for this country (Lithuania)"
+msgstr ""
+
+#: ../voltages.validator.mapcss:1084
+msgid "Invalid voltage value for this country (Luxembourg)"
+msgstr ""
+
+#: ../voltages.validator.mapcss:1096
+msgid "Invalid voltage value for this country (Madagascar)"
+msgstr ""
+
+#: ../voltages.validator.mapcss:1108
+msgid "Invalid voltage value for this country (Malawi)"
+msgstr ""
+
+#: ../voltages.validator.mapcss:1120
+msgid "Invalid voltage value for this country (Malaysia)"
+msgstr ""
+
+#: ../voltages.validator.mapcss:1132
+msgid "Invalid voltage value for this country (Maldives)"
+msgstr ""
+
+#: ../voltages.validator.mapcss:1144
+msgid "Invalid voltage value for this country (Mali)"
+msgstr ""
+
+#: ../voltages.validator.mapcss:1156
+msgid "Invalid voltage value for this country (Malta)"
+msgstr ""
+
+#: ../voltages.validator.mapcss:1168
+msgid "Invalid voltage value for this country (Mauritania)"
+msgstr ""
+
+#: ../voltages.validator.mapcss:1180
+msgid "Invalid voltage value for this country (Mauritius)"
+msgstr ""
+
+#: ../voltages.validator.mapcss:1192
+msgid "Invalid voltage value for this country (Mexico)"
+msgstr ""
+
+#: ../voltages.validator.mapcss:1204
+msgid "Invalid voltage value for this country (Moldova)"
+msgstr ""
+
+#: ../voltages.validator.mapcss:1216
+msgid "Invalid voltage value for this country (Mongolia)"
+msgstr ""
+
+#: ../voltages.validator.mapcss:1228
+msgid "Invalid voltage value for this country (Montenegro)"
+msgstr ""
+
+#: ../voltages.validator.mapcss:1240
+msgid "Invalid voltage value for this country (Morocco)"
+msgstr ""
+
+#: ../voltages.validator.mapcss:1252
+msgid "Invalid voltage value for this country (Mozambique)"
+msgstr ""
+
+#: ../voltages.validator.mapcss:1264
+msgid "Invalid voltage value for this country (Myanmar)"
+msgstr ""
+
+#: ../voltages.validator.mapcss:1276
+msgid "Invalid voltage value for this country (Namibia)"
+msgstr ""
+
+#: ../voltages.validator.mapcss:1288
+msgid "Invalid voltage value for this country (Nepal)"
+msgstr ""
+
+#: ../voltages.validator.mapcss:1300
+msgid "Invalid voltage value for this country (New Zealand)"
+msgstr ""
+
+#: ../voltages.validator.mapcss:1312
+msgid "Invalid voltage value for this country (Nicaragua)"
+msgstr ""
+
+#: ../voltages.validator.mapcss:1324
+msgid "Invalid voltage value for this country (Niger)"
+msgstr ""
+
+#: ../voltages.validator.mapcss:1336
+msgid "Invalid voltage value for this country (Nigeria)"
+msgstr ""
+
+#: ../voltages.validator.mapcss:1348
+msgid "Invalid voltage value for this country (North Korea)"
+msgstr ""
+
+#: ../voltages.validator.mapcss:1360
+msgid "Invalid voltage value for this country (North Macedonia)"
+msgstr ""
+
+#: ../voltages.validator.mapcss:1372
+msgid "Invalid voltage value for this country (Norway)"
+msgstr ""
+
+#: ../voltages.validator.mapcss:1384
+msgid "Invalid voltage value for this country (Oman)"
+msgstr ""
+
+#: ../voltages.validator.mapcss:1396
+msgid "Invalid voltage value for this country (Pakistan)"
+msgstr ""
+
+#: ../voltages.validator.mapcss:1408
+msgid "Invalid voltage value for this country (Panama)"
+msgstr ""
+
+#: ../voltages.validator.mapcss:1420
+msgid "Invalid voltage value for this country (Papua New Guinea)"
+msgstr ""
+
+#: ../voltages.validator.mapcss:1432
+msgid "Invalid voltage value for this country (Paraguay)"
+msgstr ""
+
+#: ../voltages.validator.mapcss:1444
+msgid "Invalid voltage value for this country (People's Republic of China)"
+msgstr ""
+
+#: ../voltages.validator.mapcss:1456
+msgid "Invalid voltage value for this country (Peru)"
+msgstr ""
+
+#: ../voltages.validator.mapcss:1468
+msgid "Invalid voltage value for this country (Philippines)"
+msgstr ""
+
+#: ../voltages.validator.mapcss:1480
+msgid "Invalid voltage value for this country (Poland)"
+msgstr ""
+
+#: ../voltages.validator.mapcss:1492
+msgid "Invalid voltage value for this country (Portugal)"
+msgstr ""
+
+#: ../voltages.validator.mapcss:1504
+msgid "Invalid voltage value for this country (Qatar)"
+msgstr ""
+
+#: ../voltages.validator.mapcss:1516
+msgid "Invalid voltage value for this country (Republic of the Congo)"
+msgstr ""
+
+#: ../voltages.validator.mapcss:1528
+msgid "Invalid voltage value for this country (Romania)"
+msgstr ""
+
+#: ../voltages.validator.mapcss:1540
+msgid "Invalid voltage value for this country (Russia)"
+msgstr ""
+
+#: ../voltages.validator.mapcss:1552
+msgid "Invalid voltage value for this country (Rwanda)"
+msgstr ""
+
+#: ../voltages.validator.mapcss:1564
+msgid "Invalid voltage value for this country (San Marino)"
+msgstr ""
+
+#: ../voltages.validator.mapcss:1576
+msgid "Invalid voltage value for this country (Saudi Arabia)"
+msgstr ""
+
+#: ../voltages.validator.mapcss:1588
+msgid "Invalid voltage value for this country (Senegal)"
+msgstr ""
+
+#: ../voltages.validator.mapcss:1600
+msgid "Invalid voltage value for this country (Serbia)"
+msgstr ""
+
+#: ../voltages.validator.mapcss:1612
+msgid "Invalid voltage value for this country (Sierra Leone)"
+msgstr ""
+
+#: ../voltages.validator.mapcss:1624
+msgid "Invalid voltage value for this country (Singapore)"
+msgstr ""
+
+#: ../voltages.validator.mapcss:1636
+msgid "Invalid voltage value for this country (Slovakia)"
+msgstr ""
+
+#: ../voltages.validator.mapcss:1648
+msgid "Invalid voltage value for this country (Slovenia)"
+msgstr ""
+
+#: ../voltages.validator.mapcss:1660
+msgid "Invalid voltage value for this country (South Africa)"
+msgstr ""
+
+#: ../voltages.validator.mapcss:1672
+msgid "Invalid voltage value for this country (South Korea)"
+msgstr ""
+
+#: ../voltages.validator.mapcss:1684
+msgid "Invalid voltage value for this country (South Sudan)"
+msgstr ""
+
+#: ../voltages.validator.mapcss:1696
+msgid "Invalid voltage value for this country (Spain)"
+msgstr ""
+
+#: ../voltages.validator.mapcss:1708
+msgid "Invalid voltage value for this country (Sri Lanka)"
+msgstr ""
+
+#: ../voltages.validator.mapcss:1720
+msgid "Invalid voltage value for this country (State of Palestine)"
+msgstr ""
+
+#: ../voltages.validator.mapcss:1732
+msgid "Invalid voltage value for this country (Sudan)"
+msgstr ""
+
+#: ../voltages.validator.mapcss:1744
+msgid "Invalid voltage value for this country (Suriname)"
+msgstr ""
+
+#: ../voltages.validator.mapcss:1756
+msgid "Invalid voltage value for this country (Sweden)"
+msgstr ""
+
+#: ../voltages.validator.mapcss:1768
+msgid "Invalid voltage value for this country (Switzerland)"
+msgstr ""
+
+#: ../voltages.validator.mapcss:1780
+msgid "Invalid voltage value for this country (Syria)"
+msgstr ""
+
+#: ../voltages.validator.mapcss:1792
+msgid "Invalid voltage value for this country (Taiwan)"
+msgstr ""
+
+#: ../voltages.validator.mapcss:1804
+msgid "Invalid voltage value for this country (Tajikistan)"
+msgstr ""
+
+#: ../voltages.validator.mapcss:1816
+msgid "Invalid voltage value for this country (Tanzania)"
+msgstr ""
+
+#: ../voltages.validator.mapcss:1828
+msgid "Invalid voltage value for this country (Thailand)"
+msgstr ""
+
+#: ../voltages.validator.mapcss:1840
+msgid "Invalid voltage value for this country (The Bahamas)"
+msgstr ""
+
+#: ../voltages.validator.mapcss:1852
+msgid "Invalid voltage value for this country (The Gambia)"
+msgstr ""
+
+#: ../voltages.validator.mapcss:1864
+msgid "Invalid voltage value for this country (Timor-Leste)"
+msgstr ""
+
+#: ../voltages.validator.mapcss:1876
+msgid "Invalid voltage value for this country (Togo)"
+msgstr ""
+
+#: ../voltages.validator.mapcss:1888
+msgid "Invalid voltage value for this country (Trinidad and Tobago)"
+msgstr ""
+
+#: ../voltages.validator.mapcss:1900
+msgid "Invalid voltage value for this country (Tunisia)"
+msgstr ""
+
+#: ../voltages.validator.mapcss:1912
+msgid "Invalid voltage value for this country (Turkey)"
+msgstr ""
+
+#: ../voltages.validator.mapcss:1924
+msgid "Invalid voltage value for this country (Turkmenistan)"
+msgstr ""
+
+#: ../voltages.validator.mapcss:1936
+msgid "Invalid voltage value for this country (Uganda)"
+msgstr ""
+
+#: ../voltages.validator.mapcss:1948
+msgid "Invalid voltage value for this country (Ukraine)"
+msgstr ""
+
+#: ../voltages.validator.mapcss:1960
+msgid "Invalid voltage value for this country (United Arab Emirates)"
+msgstr ""
+
+#: ../voltages.validator.mapcss:1972
+msgid "Invalid voltage value for this country (United Kingdom)"
+msgstr ""
+
+#: ../voltages.validator.mapcss:1984
+msgid "Invalid voltage value for this country (United States)"
+msgstr ""
+
+#: ../voltages.validator.mapcss:1996
+msgid "Invalid voltage value for this country (Uruguay)"
+msgstr ""
+
+#: ../voltages.validator.mapcss:2008
+msgid "Invalid voltage value for this country (Uzbekistan)"
+msgstr ""
+
+#: ../voltages.validator.mapcss:2020
+msgid "Invalid voltage value for this country (Venezuela)"
+msgstr ""
+
+#: ../voltages.validator.mapcss:2032
+msgid "Invalid voltage value for this country (Vietnam)"
+msgstr ""
+
+#: ../voltages.validator.mapcss:2044
+msgid "Invalid voltage value for this country (Yemen)"
+msgstr ""
+
+#: ../voltages.validator.mapcss:2056
+msgid "Invalid voltage value for this country (Zambia)"
+msgstr ""
+
+#: ../voltages.validator.mapcss:2068
+msgid "Invalid voltage value for this country (Zimbabwe)"
 msgstr ""

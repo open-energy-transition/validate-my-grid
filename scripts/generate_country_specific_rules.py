@@ -4,12 +4,13 @@ with open('../data/voltages.csv', 'r') as csvfile:
     reader = csv.DictReader(csvfile)
     for row in reader:
         country = row['country_code']
+        country_name = row['country_name']
         wiki = row['wiki']
         allowed_voltages = row['allowed_voltages'].split(';')
         rule = f"""
 relation[power=~/line_section|circuit/][voltage][voltage!~/;/][voltage!~ /^({'|'.join(allowed_voltages)})$/ ][inside("{country}")],
 way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^({'|'.join(allowed_voltages)})$/ ][inside("{country}")] {{
-    throwError: tr("Invalid voltage value for this country");
+    throwError: tr("Invalid voltage value for this country ({country_name})");
     suggestAlternative: "{'/'.join(allowed_voltages)}";
     -osmoseDetail: tr("Each country has its own voltage set used for electricity transmission.");
     -osmoseExample: tr("For example, in Jordan, only 132 kV and 400 kV voltages are used.");
