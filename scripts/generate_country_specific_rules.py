@@ -8,6 +8,7 @@ with open('../data/voltages.csv', 'r') as csvfile:
         wiki = row['wiki']
         allowed_voltages = row['allowed_voltages'].split(';')
         rule = f"""
+*[power=substation][voltage][voltage!~/;/][voltage!~ /^({'|'.join(allowed_voltages)})$/ ][inside("{country}")],
 relation[power=~/line_section|circuit/][voltage][voltage!~/;/][voltage!~ /^({'|'.join(allowed_voltages)})$/ ][inside("{country}")],
 way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^({'|'.join(allowed_voltages)})$/ ][inside("{country}")] {{
     throwError: tr("Invalid voltage value for this country ({country_name})");

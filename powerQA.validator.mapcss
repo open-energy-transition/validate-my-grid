@@ -1,6 +1,6 @@
 meta {
 	title: "Power QA";
-	version: "0.14";
+	version: "0.15";
 	description: "Validation ruleset for power features (power=*)";
 	icon: "MapYourGrid-favicon.png";
 	author: "nlehuby";
@@ -223,6 +223,13 @@ way[power=~/line|minor_line|cable/][!voltage] {
     throwWarning: tr("Power lines should have a voltage tag");
     assertMatch: "way power=cable";
     assertNoMatch: "way power=cable voltage=500000";
+	-osmoseItemClassLevel: none; /* not suitable for Osmose */
+}
+
+*[power=substation][!voltage] {
+    throwWarning: tr("Substations should have a voltage tag");
+    assertMatch: "node power=substation";
+    assertNoMatch: "node power=substation voltage=200000";
 	-osmoseItemClassLevel: none; /* not suitable for Osmose */
 }
 
@@ -844,6 +851,7 @@ node[power=transformer][transformer][transformer!~/^(main|auxiliary|generator|co
 	-osmoseResource: "https://wiki.openstreetmap.org/wiki/Key:plant:method";
 }
 
+*[power=substation][voltage][voltage!~/;/][voltage!~ /^(110000|132000|220000|500000)$/ ][inside("AF")],
 relation[power=~/line_section|circuit/][voltage][voltage!~/;/][voltage!~ /^(110000|132000|220000|500000)$/ ][inside("AF")],
 way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(110000|132000|220000|500000)$/ ][inside("AF")] {
     throwError: tr("Invalid voltage value for this country (Afghanistan)");
@@ -856,6 +864,7 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(110000|1
 }
 
 
+*[power=substation][voltage][voltage!~/;/][voltage!~ /^(30000|35000|110000|150000|220000|400000)$/ ][inside("AL")],
 relation[power=~/line_section|circuit/][voltage][voltage!~/;/][voltage!~ /^(30000|35000|110000|150000|220000|400000)$/ ][inside("AL")],
 way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(30000|35000|110000|150000|220000|400000)$/ ][inside("AL")] {
     throwError: tr("Invalid voltage value for this country (Albania)");
@@ -868,6 +877,7 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(30000|35
 }
 
 
+*[power=substation][voltage][voltage!~/;/][voltage!~ /^(30000|60000|66000|90000|150000|220000|225000|400000)$/ ][inside("DZ")],
 relation[power=~/line_section|circuit/][voltage][voltage!~/;/][voltage!~ /^(30000|60000|66000|90000|150000|220000|225000|400000)$/ ][inside("DZ")],
 way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(30000|60000|66000|90000|150000|220000|225000|400000)$/ ][inside("DZ")] {
     throwError: tr("Invalid voltage value for this country (Algeria)");
@@ -880,6 +890,7 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(30000|60
 }
 
 
+*[power=substation][voltage][voltage!~/;/][voltage!~ /^(110000|150000|225000)$/ ][inside("AD")],
 relation[power=~/line_section|circuit/][voltage][voltage!~/;/][voltage!~ /^(110000|150000|225000)$/ ][inside("AD")],
 way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(110000|150000|225000)$/ ][inside("AD")] {
     throwError: tr("Invalid voltage value for this country (Andorra)");
@@ -892,6 +903,7 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(110000|1
 }
 
 
+*[power=substation][voltage][voltage!~/;/][voltage!~ /^(60000|66000|110000|132000|150000|220000|400000)$/ ][inside("AO")],
 relation[power=~/line_section|circuit/][voltage][voltage!~/;/][voltage!~ /^(60000|66000|110000|132000|150000|220000|400000)$/ ][inside("AO")],
 way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(60000|66000|110000|132000|150000|220000|400000)$/ ][inside("AO")] {
     throwError: tr("Invalid voltage value for this country (Angola)");
@@ -904,6 +916,7 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(60000|66
 }
 
 
+*[power=substation][voltage][voltage!~/;/][voltage!~ /^(13200|25000|32000|33000|35000|66000|132000|220000|330000|345000|500000)$/ ][inside("AR")],
 relation[power=~/line_section|circuit/][voltage][voltage!~/;/][voltage!~ /^(13200|25000|32000|33000|35000|66000|132000|220000|330000|345000|500000)$/ ][inside("AR")],
 way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(13200|25000|32000|33000|35000|66000|132000|220000|330000|345000|500000)$/ ][inside("AR")] {
     throwError: tr("Invalid voltage value for this country (Argentina)");
@@ -916,6 +929,7 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(13200|25
 }
 
 
+*[power=substation][voltage][voltage!~/;/][voltage!~ /^(35000|36000|100000|110000|220000|230000|330000|400000|500000)$/ ][inside("AM")],
 relation[power=~/line_section|circuit/][voltage][voltage!~/;/][voltage!~ /^(35000|36000|100000|110000|220000|230000|330000|400000|500000)$/ ][inside("AM")],
 way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(35000|36000|100000|110000|220000|230000|330000|400000|500000)$/ ][inside("AM")] {
     throwError: tr("Invalid voltage value for this country (Armenia)");
@@ -928,6 +942,7 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(35000|36
 }
 
 
+*[power=substation][voltage][voltage!~/;/][voltage!~ /^(10500|11000|12700|19000|19100|22000|33000|35000|44000|50000|66000|80000|110000|132000|150000|220000|275000|330000|400000|500000)$/ ][inside("AU")],
 relation[power=~/line_section|circuit/][voltage][voltage!~/;/][voltage!~ /^(10500|11000|12700|19000|19100|22000|33000|35000|44000|50000|66000|80000|110000|132000|150000|220000|275000|330000|400000|500000)$/ ][inside("AU")],
 way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(10500|11000|12700|19000|19100|22000|33000|35000|44000|50000|66000|80000|110000|132000|150000|220000|275000|330000|400000|500000)$/ ][inside("AU")] {
     throwError: tr("Invalid voltage value for this country (Australia)");
@@ -940,6 +955,7 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(10500|11
 }
 
 
+*[power=substation][voltage][voltage!~/;/][voltage!~ /^(10500|13800|15000|16000|17500|20000|25000|30000|55000|60000|110000|132000|150000|220000|380000|400000)$/ ][inside("AT")],
 relation[power=~/line_section|circuit/][voltage][voltage!~/;/][voltage!~ /^(10500|13800|15000|16000|17500|20000|25000|30000|55000|60000|110000|132000|150000|220000|380000|400000)$/ ][inside("AT")],
 way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(10500|13800|15000|16000|17500|20000|25000|30000|55000|60000|110000|132000|150000|220000|380000|400000)$/ ][inside("AT")] {
     throwError: tr("Invalid voltage value for this country (Austria)");
@@ -952,6 +968,7 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(10500|13
 }
 
 
+*[power=substation][voltage][voltage!~/;/][voltage!~ /^(35000|110000|132000|154000|220000|330000|500000)$/ ][inside("AZ")],
 relation[power=~/line_section|circuit/][voltage][voltage!~/;/][voltage!~ /^(35000|110000|132000|154000|220000|330000|500000)$/ ][inside("AZ")],
 way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(35000|110000|132000|154000|220000|330000|500000)$/ ][inside("AZ")] {
     throwError: tr("Invalid voltage value for this country (Azerbaijan)");
@@ -964,6 +981,7 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(35000|11
 }
 
 
+*[power=substation][voltage][voltage!~/;/][voltage!~ /^(220000|230000|400000)$/ ][inside("BH")],
 relation[power=~/line_section|circuit/][voltage][voltage!~/;/][voltage!~ /^(220000|230000|400000)$/ ][inside("BH")],
 way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(220000|230000|400000)$/ ][inside("BH")] {
     throwError: tr("Invalid voltage value for this country (Bahrain)");
@@ -976,6 +994,7 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(220000|2
 }
 
 
+*[power=substation][voltage][voltage!~/;/][voltage!~ /^(23000|33000|132000|230000|400000)$/ ][inside("BD")],
 relation[power=~/line_section|circuit/][voltage][voltage!~/;/][voltage!~ /^(23000|33000|132000|230000|400000)$/ ][inside("BD")],
 way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(23000|33000|132000|230000|400000)$/ ][inside("BD")] {
     throwError: tr("Invalid voltage value for this country (Bangladesh)");
@@ -988,6 +1007,7 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(23000|33
 }
 
 
+*[power=substation][voltage][voltage!~/;/][voltage!~ /^(35000|40000|100000|110000|220000|330000|750000)$/ ][inside("BY")],
 relation[power=~/line_section|circuit/][voltage][voltage!~/;/][voltage!~ /^(35000|40000|100000|110000|220000|330000|750000)$/ ][inside("BY")],
 way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(35000|40000|100000|110000|220000|330000|750000)$/ ][inside("BY")] {
     throwError: tr("Invalid voltage value for this country (Belarus)");
@@ -1000,6 +1020,7 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(35000|40
 }
 
 
+*[power=substation][voltage][voltage!~/;/][voltage!~ /^(11000|11500|15000|30000|33000|36000|50000|63000|70000|110000|150000|220000|225000|320000|380000|400000)$/ ][inside("BE")],
 relation[power=~/line_section|circuit/][voltage][voltage!~/;/][voltage!~ /^(11000|11500|15000|30000|33000|36000|50000|63000|70000|110000|150000|220000|225000|320000|380000|400000)$/ ][inside("BE")],
 way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(11000|11500|15000|30000|33000|36000|50000|63000|70000|110000|150000|220000|225000|320000|380000|400000)$/ ][inside("BE")] {
     throwError: tr("Invalid voltage value for this country (Belgium)");
@@ -1012,6 +1033,7 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(11000|11
 }
 
 
+*[power=substation][voltage][voltage!~/;/][voltage!~ /^(22000|34500|69000|115000)$/ ][inside("BZ")],
 relation[power=~/line_section|circuit/][voltage][voltage!~/;/][voltage!~ /^(22000|34500|69000|115000)$/ ][inside("BZ")],
 way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(22000|34500|69000|115000)$/ ][inside("BZ")] {
     throwError: tr("Invalid voltage value for this country (Belize)");
@@ -1024,6 +1046,7 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(22000|34
 }
 
 
+*[power=substation][voltage][voltage!~/;/][voltage!~ /^(161000|330000)$/ ][inside("BJ")],
 relation[power=~/line_section|circuit/][voltage][voltage!~/;/][voltage!~ /^(161000|330000)$/ ][inside("BJ")],
 way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(161000|330000)$/ ][inside("BJ")] {
     throwError: tr("Invalid voltage value for this country (Benin)");
@@ -1036,6 +1059,7 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(161000|3
 }
 
 
+*[power=substation][voltage][voltage!~/;/][voltage!~ /^(66000|132000|220000|400000)$/ ][inside("BT")],
 relation[power=~/line_section|circuit/][voltage][voltage!~/;/][voltage!~ /^(66000|132000|220000|400000)$/ ][inside("BT")],
 way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(66000|132000|220000|400000)$/ ][inside("BT")] {
     throwError: tr("Invalid voltage value for this country (Bhutan)");
@@ -1048,6 +1072,7 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(66000|13
 }
 
 
+*[power=substation][voltage][voltage!~/;/][voltage!~ /^(115000|220000|500000)$/ ][inside("BO")],
 relation[power=~/line_section|circuit/][voltage][voltage!~/;/][voltage!~ /^(115000|220000|500000)$/ ][inside("BO")],
 way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(115000|220000|500000)$/ ][inside("BO")] {
     throwError: tr("Invalid voltage value for this country (Bolivia)");
@@ -1060,6 +1085,7 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(115000|2
 }
 
 
+*[power=substation][voltage][voltage!~/;/][voltage!~ /^(35000|110000|220000|400000)$/ ][inside("BA")],
 relation[power=~/line_section|circuit/][voltage][voltage!~/;/][voltage!~ /^(35000|110000|220000|400000)$/ ][inside("BA")],
 way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(35000|110000|220000|400000)$/ ][inside("BA")] {
     throwError: tr("Invalid voltage value for this country (Bosnia and Herzegovina)");
@@ -1072,6 +1098,7 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(35000|11
 }
 
 
+*[power=substation][voltage][voltage!~/;/][voltage!~ /^(66000|132000|220000|400000)$/ ][inside("BW")],
 relation[power=~/line_section|circuit/][voltage][voltage!~/;/][voltage!~ /^(66000|132000|220000|400000)$/ ][inside("BW")],
 way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(66000|132000|220000|400000)$/ ][inside("BW")] {
     throwError: tr("Invalid voltage value for this country (Botswana)");
@@ -1084,6 +1111,7 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(66000|13
 }
 
 
+*[power=substation][voltage][voltage!~/;/][voltage!~ /^(13800|23100|34500|66000|69000|88000|110000|132000|138000|230000|345000|440000|500000|525000|600000|765000|800000)$/ ][inside("BR")],
 relation[power=~/line_section|circuit/][voltage][voltage!~/;/][voltage!~ /^(13800|23100|34500|66000|69000|88000|110000|132000|138000|230000|345000|440000|500000|525000|600000|765000|800000)$/ ][inside("BR")],
 way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(13800|23100|34500|66000|69000|88000|110000|132000|138000|230000|345000|440000|500000|525000|600000|765000|800000)$/ ][inside("BR")] {
     throwError: tr("Invalid voltage value for this country (Brazil)");
@@ -1096,6 +1124,7 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(13800|23
 }
 
 
+*[power=substation][voltage][voltage!~/;/][voltage!~ /^(66000|132000|275000)$/ ][inside("BN")],
 relation[power=~/line_section|circuit/][voltage][voltage!~/;/][voltage!~ /^(66000|132000|275000)$/ ][inside("BN")],
 way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(66000|132000|275000)$/ ][inside("BN")] {
     throwError: tr("Invalid voltage value for this country (Brunei)");
@@ -1108,6 +1137,7 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(66000|13
 }
 
 
+*[power=substation][voltage][voltage!~/;/][voltage!~ /^(20000|22000|25000|35000|110000|220000|400000)$/ ][inside("BG")],
 relation[power=~/line_section|circuit/][voltage][voltage!~/;/][voltage!~ /^(20000|22000|25000|35000|110000|220000|400000)$/ ][inside("BG")],
 way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(20000|22000|25000|35000|110000|220000|400000)$/ ][inside("BG")] {
     throwError: tr("Invalid voltage value for this country (Bulgaria)");
@@ -1120,6 +1150,7 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(20000|22
 }
 
 
+*[power=substation][voltage][voltage!~/;/][voltage!~ /^(90000|132000|225000)$/ ][inside("BF")],
 relation[power=~/line_section|circuit/][voltage][voltage!~/;/][voltage!~ /^(90000|132000|225000)$/ ][inside("BF")],
 way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(90000|132000|225000)$/ ][inside("BF")] {
     throwError: tr("Invalid voltage value for this country (Burkina Faso)");
@@ -1132,6 +1163,7 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(90000|13
 }
 
 
+*[power=substation][voltage][voltage!~/;/][voltage!~ /^(70000|110000|220000)$/ ][inside("BI")],
 relation[power=~/line_section|circuit/][voltage][voltage!~/;/][voltage!~ /^(70000|110000|220000)$/ ][inside("BI")],
 way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(70000|110000|220000)$/ ][inside("BI")] {
     throwError: tr("Invalid voltage value for this country (Burundi)");
@@ -1144,6 +1176,7 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(70000|11
 }
 
 
+*[power=substation][voltage][voltage!~/;/][voltage!~ /^(115000|230000)$/ ][inside("KH")],
 relation[power=~/line_section|circuit/][voltage][voltage!~/;/][voltage!~ /^(115000|230000)$/ ][inside("KH")],
 way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(115000|230000)$/ ][inside("KH")] {
     throwError: tr("Invalid voltage value for this country (Cambodia)");
@@ -1156,6 +1189,7 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(115000|2
 }
 
 
+*[power=substation][voltage][voltage!~/;/][voltage!~ /^(30000|90000|110000|220000|225000)$/ ][inside("CM")],
 relation[power=~/line_section|circuit/][voltage][voltage!~/;/][voltage!~ /^(30000|90000|110000|220000|225000)$/ ][inside("CM")],
 way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(30000|90000|110000|220000|225000)$/ ][inside("CM")] {
     throwError: tr("Invalid voltage value for this country (Cameroon)");
@@ -1168,6 +1202,7 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(30000|90
 }
 
 
+*[power=substation][voltage][voltage!~/;/][voltage!~ /^(11500|12000|12470|12500|13000|13200|13800|14000|14400|16000|17500|23000|24940|25000|26400|27600|28000|34000|34500|35000|42000|44000|46000|49000|60000|63000|66000|69000|72000|110000|115000|120000|132000|138000|144000|150000|161000|200000|220000|230000|240000|260000|280000|287000|315000|345000|350000|360000|450000|500000|735000|765000)$/ ][inside("CA")],
 relation[power=~/line_section|circuit/][voltage][voltage!~/;/][voltage!~ /^(11500|12000|12470|12500|13000|13200|13800|14000|14400|16000|17500|23000|24940|25000|26400|27600|28000|34000|34500|35000|42000|44000|46000|49000|60000|63000|66000|69000|72000|110000|115000|120000|132000|138000|144000|150000|161000|200000|220000|230000|240000|260000|280000|287000|315000|345000|350000|360000|450000|500000|735000|765000)$/ ][inside("CA")],
 way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(11500|12000|12470|12500|13000|13200|13800|14000|14400|16000|17500|23000|24940|25000|26400|27600|28000|34000|34500|35000|42000|44000|46000|49000|60000|63000|66000|69000|72000|110000|115000|120000|132000|138000|144000|150000|161000|200000|220000|230000|240000|260000|280000|287000|315000|345000|350000|360000|450000|500000|735000|765000)$/ ][inside("CA")] {
     throwError: tr("Invalid voltage value for this country (Canada)");
@@ -1180,6 +1215,7 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(11500|12
 }
 
 
+*[power=substation][voltage][voltage!~/;/][voltage!~ /^(20000|60000)$/ ][inside("CV")],
 relation[power=~/line_section|circuit/][voltage][voltage!~/;/][voltage!~ /^(20000|60000)$/ ][inside("CV")],
 way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(20000|60000)$/ ][inside("CV")] {
     throwError: tr("Invalid voltage value for this country (Cape Verde)");
@@ -1192,6 +1228,7 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(20000|60
 }
 
 
+*[power=substation][voltage][voltage!~/;/][voltage!~ /^(110000)$/ ][inside("CF")],
 relation[power=~/line_section|circuit/][voltage][voltage!~/;/][voltage!~ /^(110000)$/ ][inside("CF")],
 way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(110000)$/ ][inside("CF")] {
     throwError: tr("Invalid voltage value for this country (Central African Republic)");
@@ -1204,6 +1241,7 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(110000)$
 }
 
 
+*[power=substation][voltage][voltage!~/;/][voltage!~ /^(20000|66000|90000)$/ ][inside("TD")],
 relation[power=~/line_section|circuit/][voltage][voltage!~/;/][voltage!~ /^(20000|66000|90000)$/ ][inside("TD")],
 way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(20000|66000|90000)$/ ][inside("TD")] {
     throwError: tr("Invalid voltage value for this country (Chad)");
@@ -1216,6 +1254,7 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(20000|66
 }
 
 
+*[power=substation][voltage][voltage!~/;/][voltage!~ /^(13800|15000|23000|33000|34500|66000|69000|100000|110000|154000|220000|345000|500000)$/ ][inside("CL")],
 relation[power=~/line_section|circuit/][voltage][voltage!~/;/][voltage!~ /^(13800|15000|23000|33000|34500|66000|69000|100000|110000|154000|220000|345000|500000)$/ ][inside("CL")],
 way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(13800|15000|23000|33000|34500|66000|69000|100000|110000|154000|220000|345000|500000)$/ ][inside("CL")] {
     throwError: tr("Invalid voltage value for this country (Chile)");
@@ -1228,6 +1267,7 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(13800|15
 }
 
 
+*[power=substation][voltage][voltage!~/;/][voltage!~ /^(15000|25000|34500|66000|110000|115000|138000|220000|230000|500000)$/ ][inside("CO")],
 relation[power=~/line_section|circuit/][voltage][voltage!~/;/][voltage!~ /^(15000|25000|34500|66000|110000|115000|138000|220000|230000|500000)$/ ][inside("CO")],
 way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(15000|25000|34500|66000|110000|115000|138000|220000|230000|500000)$/ ][inside("CO")] {
     throwError: tr("Invalid voltage value for this country (Colombia)");
@@ -1240,6 +1280,7 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(15000|25
 }
 
 
+*[power=substation][voltage][voltage!~/;/][voltage!~ /^(138000|230000)$/ ][inside("CR")],
 relation[power=~/line_section|circuit/][voltage][voltage!~/;/][voltage!~ /^(138000|230000)$/ ][inside("CR")],
 way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(138000|230000)$/ ][inside("CR")] {
     throwError: tr("Invalid voltage value for this country (Costa Rica)");
@@ -1252,6 +1293,7 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(138000|2
 }
 
 
+*[power=substation][voltage][voltage!~/;/][voltage!~ /^(20000|25000|35000|110000|220000|400000|500000)$/ ][inside("HR")],
 relation[power=~/line_section|circuit/][voltage][voltage!~/;/][voltage!~ /^(20000|25000|35000|110000|220000|400000|500000)$/ ][inside("HR")],
 way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(20000|25000|35000|110000|220000|400000|500000)$/ ][inside("HR")] {
     throwError: tr("Invalid voltage value for this country (Croatia)");
@@ -1264,6 +1306,7 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(20000|25
 }
 
 
+*[power=substation][voltage][voltage!~/;/][voltage!~ /^(11000|110000|220000)$/ ][inside("CU")],
 relation[power=~/line_section|circuit/][voltage][voltage!~/;/][voltage!~ /^(11000|110000|220000)$/ ][inside("CU")],
 way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(11000|110000|220000)$/ ][inside("CU")] {
     throwError: tr("Invalid voltage value for this country (Cuba)");
@@ -1276,6 +1319,7 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(11000|11
 }
 
 
+*[power=substation][voltage][voltage!~/;/][voltage!~ /^(66000|132000)$/ ][inside("CY")],
 relation[power=~/line_section|circuit/][voltage][voltage!~/;/][voltage!~ /^(66000|132000)$/ ][inside("CY")],
 way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(66000|132000)$/ ][inside("CY")] {
     throwError: tr("Invalid voltage value for this country (Cyprus)");
@@ -1288,6 +1332,7 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(66000|13
 }
 
 
+*[power=substation][voltage][voltage!~/;/][voltage!~ /^(22000|33000|35000|110000|220000|380000|400000)$/ ][inside("CZ")],
 relation[power=~/line_section|circuit/][voltage][voltage!~/;/][voltage!~ /^(22000|33000|35000|110000|220000|380000|400000)$/ ][inside("CZ")],
 way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(22000|33000|35000|110000|220000|380000|400000)$/ ][inside("CZ")] {
     throwError: tr("Invalid voltage value for this country (Czech Republic)");
@@ -1300,6 +1345,7 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(22000|33
 }
 
 
+*[power=substation][voltage][voltage!~/;/][voltage!~ /^(11000|30000|33000|50000|70000|110000|120000|132000|220000|400000|500000)$/ ][inside("CD")],
 relation[power=~/line_section|circuit/][voltage][voltage!~/;/][voltage!~ /^(11000|30000|33000|50000|70000|110000|120000|132000|220000|400000|500000)$/ ][inside("CD")],
 way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(11000|30000|33000|50000|70000|110000|120000|132000|220000|400000|500000)$/ ][inside("CD")] {
     throwError: tr("Invalid voltage value for this country (Democratic Republic of the Congo)");
@@ -1312,6 +1358,7 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(11000|30
 }
 
 
+*[power=substation][voltage][voltage!~/;/][voltage!~ /^(63000|230000)$/ ][inside("DJ")],
 relation[power=~/line_section|circuit/][voltage][voltage!~/;/][voltage!~ /^(63000|230000)$/ ][inside("DJ")],
 way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(63000|230000)$/ ][inside("DJ")] {
     throwError: tr("Invalid voltage value for this country (Djibouti)");
@@ -1324,6 +1371,7 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(63000|23
 }
 
 
+*[power=substation][voltage][voltage!~/;/][voltage!~ /^(69000|138000|230000|345000)$/ ][inside("DO")],
 relation[power=~/line_section|circuit/][voltage][voltage!~/;/][voltage!~ /^(69000|138000|230000|345000)$/ ][inside("DO")],
 way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(69000|138000|230000|345000)$/ ][inside("DO")] {
     throwError: tr("Invalid voltage value for this country (Dominican Republic)");
@@ -1336,6 +1384,7 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(69000|13
 }
 
 
+*[power=substation][voltage][voltage!~/;/][voltage!~ /^(11000|22000|23000|34500|46000|48000|69000|138000|230000|500000)$/ ][inside("EC")],
 relation[power=~/line_section|circuit/][voltage][voltage!~/;/][voltage!~ /^(11000|22000|23000|34500|46000|48000|69000|138000|230000|500000)$/ ][inside("EC")],
 way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(11000|22000|23000|34500|46000|48000|69000|138000|230000|500000)$/ ][inside("EC")] {
     throwError: tr("Invalid voltage value for this country (Ecuador)");
@@ -1348,6 +1397,7 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(11000|22
 }
 
 
+*[power=substation][voltage][voltage!~/;/][voltage!~ /^(66000|132000|220000|400000|500000)$/ ][inside("EG")],
 relation[power=~/line_section|circuit/][voltage][voltage!~/;/][voltage!~ /^(66000|132000|220000|400000|500000)$/ ][inside("EG")],
 way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(66000|132000|220000|400000|500000)$/ ][inside("EG")] {
     throwError: tr("Invalid voltage value for this country (Egypt)");
@@ -1360,6 +1410,7 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(66000|13
 }
 
 
+*[power=substation][voltage][voltage!~/;/][voltage!~ /^(115000|230000)$/ ][inside("SV")],
 relation[power=~/line_section|circuit/][voltage][voltage!~/;/][voltage!~ /^(115000|230000)$/ ][inside("SV")],
 way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(115000|230000)$/ ][inside("SV")] {
     throwError: tr("Invalid voltage value for this country (El Salvador)");
@@ -1372,6 +1423,7 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(115000|2
 }
 
 
+*[power=substation][voltage][voltage!~/;/][voltage!~ /^(110000|220000)$/ ][inside("GQ")],
 relation[power=~/line_section|circuit/][voltage][voltage!~/;/][voltage!~ /^(110000|220000)$/ ][inside("GQ")],
 way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(110000|220000)$/ ][inside("GQ")] {
     throwError: tr("Invalid voltage value for this country (Equatorial Guinea)");
@@ -1384,6 +1436,7 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(110000|2
 }
 
 
+*[power=substation][voltage][voltage!~/;/][voltage!~ /^(66000|132000)$/ ][inside("ER")],
 relation[power=~/line_section|circuit/][voltage][voltage!~/;/][voltage!~ /^(66000|132000)$/ ][inside("ER")],
 way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(66000|132000)$/ ][inside("ER")] {
     throwError: tr("Invalid voltage value for this country (Eritrea)");
@@ -1396,6 +1449,7 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(66000|13
 }
 
 
+*[power=substation][voltage][voltage!~/;/][voltage!~ /^(15000|20000|24000|35000|110000|150000|330000|450000)$/ ][inside("EE")],
 relation[power=~/line_section|circuit/][voltage][voltage!~/;/][voltage!~ /^(15000|20000|24000|35000|110000|150000|330000|450000)$/ ][inside("EE")],
 way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(15000|20000|24000|35000|110000|150000|330000|450000)$/ ][inside("EE")] {
     throwError: tr("Invalid voltage value for this country (Estonia)");
@@ -1408,6 +1462,7 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(15000|20
 }
 
 
+*[power=substation][voltage][voltage!~/;/][voltage!~ /^(66000|132000|400000)$/ ][inside("SZ")],
 relation[power=~/line_section|circuit/][voltage][voltage!~/;/][voltage!~ /^(66000|132000|400000)$/ ][inside("SZ")],
 way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(66000|132000|400000)$/ ][inside("SZ")] {
     throwError: tr("Invalid voltage value for this country (Eswatini)");
@@ -1420,6 +1475,7 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(66000|13
 }
 
 
+*[power=substation][voltage][voltage!~/;/][voltage!~ /^(25000|45000|66000|132000|220000|230000|400000|500000)$/ ][inside("ET")],
 relation[power=~/line_section|circuit/][voltage][voltage!~/;/][voltage!~ /^(25000|45000|66000|132000|220000|230000|400000|500000)$/ ][inside("ET")],
 way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(25000|45000|66000|132000|220000|230000|400000|500000)$/ ][inside("ET")] {
     throwError: tr("Invalid voltage value for this country (Ethiopia)");
@@ -1432,6 +1488,7 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(25000|45
 }
 
 
+*[power=substation][voltage][voltage!~/;/][voltage!~ /^(13800)$/ ][inside("FM")],
 relation[power=~/line_section|circuit/][voltage][voltage!~/;/][voltage!~ /^(13800)$/ ][inside("FM")],
 way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(13800)$/ ][inside("FM")] {
     throwError: tr("Invalid voltage value for this country (Federated States of Micronesia)");
@@ -1444,6 +1501,7 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(13800)$/
 }
 
 
+*[power=substation][voltage][voltage!~/;/][voltage!~ /^(11000|33000|110000|132000)$/ ][inside("FJ")],
 relation[power=~/line_section|circuit/][voltage][voltage!~/;/][voltage!~ /^(11000|33000|110000|132000)$/ ][inside("FJ")],
 way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(11000|33000|110000|132000)$/ ][inside("FJ")] {
     throwError: tr("Invalid voltage value for this country (Fiji)");
@@ -1456,6 +1514,7 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(11000|33
 }
 
 
+*[power=substation][voltage][voltage!~/;/][voltage!~ /^(20000|22000|25000|45000|80000|100000|110000|150000|220000|400000|450000|500000)$/ ][inside("FI")],
 relation[power=~/line_section|circuit/][voltage][voltage!~/;/][voltage!~ /^(20000|22000|25000|45000|80000|100000|110000|150000|220000|400000|450000|500000)$/ ][inside("FI")],
 way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(20000|22000|25000|45000|80000|100000|110000|150000|220000|400000|450000|500000)$/ ][inside("FI")] {
     throwError: tr("Invalid voltage value for this country (Finland)");
@@ -1468,6 +1527,7 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(20000|22
 }
 
 
+*[power=substation][voltage][voltage!~/;/][voltage!~ /^(10300|10500|13000|15000|15500|16000|17000|17200|17500|20000|25000|30000|33000|42000|45000|50000|52000|63000|66000|90000|110000|150000|200000|220000|225000|270000|320000|380000|400000|500000)$/ ][inside("FR")],
 relation[power=~/line_section|circuit/][voltage][voltage!~/;/][voltage!~ /^(10300|10500|13000|15000|15500|16000|17000|17200|17500|20000|25000|30000|33000|42000|45000|50000|52000|63000|66000|90000|110000|150000|200000|220000|225000|270000|320000|380000|400000|500000)$/ ][inside("FR")],
 way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(10300|10500|13000|15000|15500|16000|17000|17200|17500|20000|25000|30000|33000|42000|45000|50000|52000|63000|66000|90000|110000|150000|200000|220000|225000|270000|320000|380000|400000|500000)$/ ][inside("FR")] {
     throwError: tr("Invalid voltage value for this country (France)");
@@ -1480,6 +1540,7 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(10300|10
 }
 
 
+*[power=substation][voltage][voltage!~/;/][voltage!~ /^(63000|90000|115000|225000)$/ ][inside("GA")],
 relation[power=~/line_section|circuit/][voltage][voltage!~/;/][voltage!~ /^(63000|90000|115000|225000)$/ ][inside("GA")],
 way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(63000|90000|115000|225000)$/ ][inside("GA")] {
     throwError: tr("Invalid voltage value for this country (Gabon)");
@@ -1492,6 +1553,7 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(63000|90
 }
 
 
+*[power=substation][voltage][voltage!~/;/][voltage!~ /^(35000|110000|154000|220000|330000|350000|380000|400000|500000)$/ ][inside("GE")],
 relation[power=~/line_section|circuit/][voltage][voltage!~/;/][voltage!~ /^(35000|110000|154000|220000|330000|350000|380000|400000|500000)$/ ][inside("GE")],
 way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(35000|110000|154000|220000|330000|350000|380000|400000|500000)$/ ][inside("GE")] {
     throwError: tr("Invalid voltage value for this country (Georgia)");
@@ -1504,6 +1566,7 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(35000|11
 }
 
 
+*[power=substation][voltage][voltage!~/;/][voltage!~ /^(10500|11000|15000|16000|20000|21000|22000|25000|27000|30000|33000|35000|50000|55000|60000|63000|65000|110000|132000|150000|155000|200000|220000|225000|250000|300000|320000|362000|380000|400000|450000|525000|600000)$/ ][inside("DE")],
 relation[power=~/line_section|circuit/][voltage][voltage!~/;/][voltage!~ /^(10500|11000|15000|16000|20000|21000|22000|25000|27000|30000|33000|35000|50000|55000|60000|63000|65000|110000|132000|150000|155000|200000|220000|225000|250000|300000|320000|362000|380000|400000|450000|525000|600000)$/ ][inside("DE")],
 way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(10500|11000|15000|16000|20000|21000|22000|25000|27000|30000|33000|35000|50000|55000|60000|63000|65000|110000|132000|150000|155000|200000|220000|225000|250000|300000|320000|362000|380000|400000|450000|525000|600000)$/ ][inside("DE")] {
     throwError: tr("Invalid voltage value for this country (Germany)");
@@ -1516,6 +1579,7 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(10500|11
 }
 
 
+*[power=substation][voltage][voltage!~/;/][voltage!~ /^(11000|161000|225000|330000)$/ ][inside("GH")],
 relation[power=~/line_section|circuit/][voltage][voltage!~/;/][voltage!~ /^(11000|161000|225000|330000)$/ ][inside("GH")],
 way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(11000|161000|225000|330000)$/ ][inside("GH")] {
     throwError: tr("Invalid voltage value for this country (Ghana)");
@@ -1528,6 +1592,7 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(11000|16
 }
 
 
+*[power=substation][voltage][voltage!~/;/][voltage!~ /^(15000|20000|22000|66000|150000|400000|500000)$/ ][inside("GR")],
 relation[power=~/line_section|circuit/][voltage][voltage!~/;/][voltage!~ /^(15000|20000|22000|66000|150000|400000|500000)$/ ][inside("GR")],
 way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(15000|20000|22000|66000|150000|400000|500000)$/ ][inside("GR")] {
     throwError: tr("Invalid voltage value for this country (Greece)");
@@ -1540,6 +1605,7 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(15000|20
 }
 
 
+*[power=substation][voltage][voltage!~/;/][voltage!~ /^(69000|115000|132000|138000|230000|400000)$/ ][inside("GT")],
 relation[power=~/line_section|circuit/][voltage][voltage!~/;/][voltage!~ /^(69000|115000|132000|138000|230000|400000)$/ ][inside("GT")],
 way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(69000|115000|132000|138000|230000|400000)$/ ][inside("GT")] {
     throwError: tr("Invalid voltage value for this country (Guatemala)");
@@ -1552,6 +1618,7 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(69000|11
 }
 
 
+*[power=substation][voltage][voltage!~/;/][voltage!~ /^(30000|110000|225000)$/ ][inside("GN")],
 relation[power=~/line_section|circuit/][voltage][voltage!~/;/][voltage!~ /^(30000|110000|225000)$/ ][inside("GN")],
 way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(30000|110000|225000)$/ ][inside("GN")] {
     throwError: tr("Invalid voltage value for this country (Guinea)");
@@ -1564,6 +1631,7 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(30000|11
 }
 
 
+*[power=substation][voltage][voltage!~/;/][voltage!~ /^(225000)$/ ][inside("GW")],
 relation[power=~/line_section|circuit/][voltage][voltage!~/;/][voltage!~ /^(225000)$/ ][inside("GW")],
 way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(225000)$/ ][inside("GW")] {
     throwError: tr("Invalid voltage value for this country (Guinea-Bissau)");
@@ -1576,6 +1644,7 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(225000)$
 }
 
 
+*[power=substation][voltage][voltage!~/;/][voltage!~ /^(69000|115000)$/ ][inside("HT")],
 relation[power=~/line_section|circuit/][voltage][voltage!~/;/][voltage!~ /^(69000|115000)$/ ][inside("HT")],
 way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(69000|115000)$/ ][inside("HT")] {
     throwError: tr("Invalid voltage value for this country (Haiti)");
@@ -1588,6 +1657,7 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(69000|11
 }
 
 
+*[power=substation][voltage][voltage!~/;/][voltage!~ /^(69000|138000|230000)$/ ][inside("HN")],
 relation[power=~/line_section|circuit/][voltage][voltage!~/;/][voltage!~ /^(69000|138000|230000)$/ ][inside("HN")],
 way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(69000|138000|230000)$/ ][inside("HN")] {
     throwError: tr("Invalid voltage value for this country (Honduras)");
@@ -1600,6 +1670,7 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(69000|13
 }
 
 
+*[power=substation][voltage][voltage!~/;/][voltage!~ /^(11000|18000|20000|22000|25000|35000|110000|132000|220000|400000|750000)$/ ][inside("HU")],
 relation[power=~/line_section|circuit/][voltage][voltage!~/;/][voltage!~ /^(11000|18000|20000|22000|25000|35000|110000|132000|220000|400000|750000)$/ ][inside("HU")],
 way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(11000|18000|20000|22000|25000|35000|110000|132000|220000|400000|750000)$/ ][inside("HU")] {
     throwError: tr("Invalid voltage value for this country (Hungary)");
@@ -1612,6 +1683,7 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(11000|18
 }
 
 
+*[power=substation][voltage][voltage!~/;/][voltage!~ /^(66000|132000|220000)$/ ][inside("IS")],
 relation[power=~/line_section|circuit/][voltage][voltage!~/;/][voltage!~ /^(66000|132000|220000)$/ ][inside("IS")],
 way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(66000|132000|220000)$/ ][inside("IS")] {
     throwError: tr("Invalid voltage value for this country (Iceland)");
@@ -1624,6 +1696,7 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(66000|13
 }
 
 
+*[power=substation][voltage][voltage!~/;/][voltage!~ /^(11000|13200|22000|25000|31000|33000|66000|100000|110000|132000|200000|220000|220001|230000|320000|400000|500000|660000|765000|800000|1200000)$/ ][inside("IN")],
 relation[power=~/line_section|circuit/][voltage][voltage!~/;/][voltage!~ /^(11000|13200|22000|25000|31000|33000|66000|100000|110000|132000|200000|220000|220001|230000|320000|400000|500000|660000|765000|800000|1200000)$/ ][inside("IN")],
 way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(11000|13200|22000|25000|31000|33000|66000|100000|110000|132000|200000|220000|220001|230000|320000|400000|500000|660000|765000|800000|1200000)$/ ][inside("IN")] {
     throwError: tr("Invalid voltage value for this country (India)");
@@ -1636,6 +1709,7 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(11000|13
 }
 
 
+*[power=substation][voltage][voltage!~/;/][voltage!~ /^(20000|70000|150000|230000|275000|500000)$/ ][inside("ID")],
 relation[power=~/line_section|circuit/][voltage][voltage!~/;/][voltage!~ /^(20000|70000|150000|230000|275000|500000)$/ ][inside("ID")],
 way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(20000|70000|150000|230000|275000|500000)$/ ][inside("ID")] {
     throwError: tr("Invalid voltage value for this country (Indonesia)");
@@ -1648,6 +1722,7 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(20000|70
 }
 
 
+*[power=substation][voltage][voltage!~/;/][voltage!~ /^(15000|20000|25000|63000|110000|132000|154000|220000|230000|330000|380000|400000|2300000)$/ ][inside("IR")],
 relation[power=~/line_section|circuit/][voltage][voltage!~/;/][voltage!~ /^(15000|20000|25000|63000|110000|132000|154000|220000|230000|330000|380000|400000|2300000)$/ ][inside("IR")],
 way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(15000|20000|25000|63000|110000|132000|154000|220000|230000|330000|380000|400000|2300000)$/ ][inside("IR")] {
     throwError: tr("Invalid voltage value for this country (Iran)");
@@ -1660,6 +1735,7 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(15000|20
 }
 
 
+*[power=substation][voltage][voltage!~/;/][voltage!~ /^(11000|23000|25000|33000|66000|132000|154000|400000)$/ ][inside("IQ")],
 relation[power=~/line_section|circuit/][voltage][voltage!~/;/][voltage!~ /^(11000|23000|25000|33000|66000|132000|154000|400000)$/ ][inside("IQ")],
 way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(11000|23000|25000|33000|66000|132000|154000|400000)$/ ][inside("IQ")] {
     throwError: tr("Invalid voltage value for this country (Iraq)");
@@ -1672,6 +1748,7 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(11000|23
 }
 
 
+*[power=substation][voltage][voltage!~/;/][voltage!~ /^(10500|19000|20000|22000|33000|38000|110000|200000|220000|275000|320000|380000|400000)$/ ][inside("IE")],
 relation[power=~/line_section|circuit/][voltage][voltage!~/;/][voltage!~ /^(10500|19000|20000|22000|33000|38000|110000|200000|220000|275000|320000|380000|400000)$/ ][inside("IE")],
 way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(10500|19000|20000|22000|33000|38000|110000|200000|220000|275000|320000|380000|400000)$/ ][inside("IE")] {
     throwError: tr("Invalid voltage value for this country (Ireland)");
@@ -1684,6 +1761,7 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(10500|19
 }
 
 
+*[power=substation][voltage][voltage!~/;/][voltage!~ /^(115000|161000|400000)$/ ][inside("IL")],
 relation[power=~/line_section|circuit/][voltage][voltage!~/;/][voltage!~ /^(115000|161000|400000)$/ ][inside("IL")],
 way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(115000|161000|400000)$/ ][inside("IL")] {
     throwError: tr("Invalid voltage value for this country (Israel)");
@@ -1696,6 +1774,7 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(115000|1
 }
 
 
+*[power=substation][voltage][voltage!~/;/][voltage!~ /^(15000|20000|25000|30000|45000|50000|55000|60000|63000|66000|68000|70000|110000|120000|130000|132000|135000|137000|138000|150000|200000|220000|225000|320000|380000|400000|500000)$/ ][inside("IT")],
 relation[power=~/line_section|circuit/][voltage][voltage!~/;/][voltage!~ /^(15000|20000|25000|30000|45000|50000|55000|60000|63000|66000|68000|70000|110000|120000|130000|132000|135000|137000|138000|150000|200000|220000|225000|320000|380000|400000|500000)$/ ][inside("IT")],
 way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(15000|20000|25000|30000|45000|50000|55000|60000|63000|66000|68000|70000|110000|120000|130000|132000|135000|137000|138000|150000|200000|220000|225000|320000|380000|400000|500000)$/ ][inside("IT")] {
     throwError: tr("Invalid voltage value for this country (Italy)");
@@ -1708,6 +1787,7 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(15000|20
 }
 
 
+*[power=substation][voltage][voltage!~/;/][voltage!~ /^(15000|90000|225000|400000)$/ ][inside("CI")],
 relation[power=~/line_section|circuit/][voltage][voltage!~/;/][voltage!~ /^(15000|90000|225000|400000)$/ ][inside("CI")],
 way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(15000|90000|225000|400000)$/ ][inside("CI")] {
     throwError: tr("Invalid voltage value for this country (Ivory Coast)");
@@ -1720,6 +1800,7 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(15000|90
 }
 
 
+*[power=substation][voltage][voltage!~/;/][voltage!~ /^(69000|138000)$/ ][inside("JM")],
 relation[power=~/line_section|circuit/][voltage][voltage!~/;/][voltage!~ /^(69000|138000)$/ ][inside("JM")],
 way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(69000|138000)$/ ][inside("JM")] {
     throwError: tr("Invalid voltage value for this country (Jamaica)");
@@ -1732,6 +1813,7 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(69000|13
 }
 
 
+*[power=substation][voltage][voltage!~/;/][voltage!~ /^(11000|15400|20000|22000|25000|30000|33000|44000|60000|66000|77000|100000|110000|132000|154000|187000|200000|220000|250000|275000|500000|660000)$/ ][inside("JP")],
 relation[power=~/line_section|circuit/][voltage][voltage!~/;/][voltage!~ /^(11000|15400|20000|22000|25000|30000|33000|44000|60000|66000|77000|100000|110000|132000|154000|187000|200000|220000|250000|275000|500000|660000)$/ ][inside("JP")],
 way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(11000|15400|20000|22000|25000|30000|33000|44000|60000|66000|77000|100000|110000|132000|154000|187000|200000|220000|250000|275000|500000|660000)$/ ][inside("JP")] {
     throwError: tr("Invalid voltage value for this country (Japan)");
@@ -1744,6 +1826,7 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(11000|15
 }
 
 
+*[power=substation][voltage][voltage!~/;/][voltage!~ /^(132000|400000)$/ ][inside("JO")],
 relation[power=~/line_section|circuit/][voltage][voltage!~/;/][voltage!~ /^(132000|400000)$/ ][inside("JO")],
 way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(132000|400000)$/ ][inside("JO")] {
     throwError: tr("Invalid voltage value for this country (Jordan)");
@@ -1756,6 +1839,7 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(132000|4
 }
 
 
+*[power=substation][voltage][voltage!~/;/][voltage!~ /^(22000|35000|110000|220000|500000)$/ ][inside("KZ")],
 relation[power=~/line_section|circuit/][voltage][voltage!~/;/][voltage!~ /^(22000|35000|110000|220000|500000)$/ ][inside("KZ")],
 way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(22000|35000|110000|220000|500000)$/ ][inside("KZ")] {
     throwError: tr("Invalid voltage value for this country (Kazakhstan)");
@@ -1768,6 +1852,7 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(22000|35
 }
 
 
+*[power=substation][voltage][voltage!~/;/][voltage!~ /^(11000|15000|132000|220000|400000|500000)$/ ][inside("KE")],
 relation[power=~/line_section|circuit/][voltage][voltage!~/;/][voltage!~ /^(11000|15000|132000|220000|400000|500000)$/ ][inside("KE")],
 way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(11000|15000|132000|220000|400000|500000)$/ ][inside("KE")] {
     throwError: tr("Invalid voltage value for this country (Kenya)");
@@ -1780,6 +1865,7 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(11000|15
 }
 
 
+*[power=substation][voltage][voltage!~/;/][voltage!~ /^(50000|60000|132000|150000|220000|400000)$/ ][inside("DK")],
 relation[power=~/line_section|circuit/][voltage][voltage!~/;/][voltage!~ /^(50000|60000|132000|150000|220000|400000)$/ ][inside("DK")],
 way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(50000|60000|132000|150000|220000|400000)$/ ][inside("DK")] {
     throwError: tr("Invalid voltage value for this country (Kingdom of Denmark)");
@@ -1792,6 +1878,7 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(50000|60
 }
 
 
+*[power=substation][voltage][voltage!~/;/][voltage!~ /^(13000|20000|22000|23000|24000|25000|30000|33000|34000|50000|66000|110000|150000|220000|320000|380000|450000|600000)$/ ][inside("NL")],
 relation[power=~/line_section|circuit/][voltage][voltage!~/;/][voltage!~ /^(13000|20000|22000|23000|24000|25000|30000|33000|34000|50000|66000|110000|150000|220000|320000|380000|450000|600000)$/ ][inside("NL")],
 way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(13000|20000|22000|23000|24000|25000|30000|33000|34000|50000|66000|110000|150000|220000|320000|380000|450000|600000)$/ ][inside("NL")] {
     throwError: tr("Invalid voltage value for this country (Kingdom of the Netherlands)");
@@ -1804,6 +1891,7 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(13000|20
 }
 
 
+*[power=substation][voltage][voltage!~/;/][voltage!~ /^(33000|66000|132000|275000|400000)$/ ][inside("KW")],
 relation[power=~/line_section|circuit/][voltage][voltage!~/;/][voltage!~ /^(33000|66000|132000|275000|400000)$/ ][inside("KW")],
 way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(33000|66000|132000|275000|400000)$/ ][inside("KW")] {
     throwError: tr("Invalid voltage value for this country (Kuwait)");
@@ -1816,6 +1904,7 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(33000|66
 }
 
 
+*[power=substation][voltage][voltage!~/;/][voltage!~ /^(10000|110000|220000|500000)$/ ][inside("KG")],
 relation[power=~/line_section|circuit/][voltage][voltage!~/;/][voltage!~ /^(10000|110000|220000|500000)$/ ][inside("KG")],
 way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(10000|110000|220000|500000)$/ ][inside("KG")] {
     throwError: tr("Invalid voltage value for this country (Kyrgyzstan)");
@@ -1828,6 +1917,7 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(10000|11
 }
 
 
+*[power=substation][voltage][voltage!~/;/][voltage!~ /^(110000|115000|220000|230000|500000)$/ ][inside("LA")],
 relation[power=~/line_section|circuit/][voltage][voltage!~/;/][voltage!~ /^(110000|115000|220000|230000|500000)$/ ][inside("LA")],
 way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(110000|115000|220000|230000|500000)$/ ][inside("LA")] {
     throwError: tr("Invalid voltage value for this country (Laos)");
@@ -1840,6 +1930,7 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(110000|1
 }
 
 
+*[power=substation][voltage][voltage!~/;/][voltage!~ /^(20000|110000|330000)$/ ][inside("LV")],
 relation[power=~/line_section|circuit/][voltage][voltage!~/;/][voltage!~ /^(20000|110000|330000)$/ ][inside("LV")],
 way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(20000|110000|330000)$/ ][inside("LV")] {
     throwError: tr("Invalid voltage value for this country (Latvia)");
@@ -1852,6 +1943,7 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(20000|11
 }
 
 
+*[power=substation][voltage][voltage!~/;/][voltage!~ /^(33000|66000|150000|220000|400000)$/ ][inside("LB")],
 relation[power=~/line_section|circuit/][voltage][voltage!~/;/][voltage!~ /^(33000|66000|150000|220000|400000)$/ ][inside("LB")],
 way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(33000|66000|150000|220000|400000)$/ ][inside("LB")] {
     throwError: tr("Invalid voltage value for this country (Lebanon)");
@@ -1864,6 +1956,7 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(33000|66
 }
 
 
+*[power=substation][voltage][voltage!~/;/][voltage!~ /^(33000|66000|88000|132000)$/ ][inside("LS")],
 relation[power=~/line_section|circuit/][voltage][voltage!~/;/][voltage!~ /^(33000|66000|88000|132000)$/ ][inside("LS")],
 way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(33000|66000|88000|132000)$/ ][inside("LS")] {
     throwError: tr("Invalid voltage value for this country (Lesotho)");
@@ -1876,6 +1969,7 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(33000|66
 }
 
 
+*[power=substation][voltage][voltage!~/;/][voltage!~ /^(66000|225000)$/ ][inside("LR")],
 relation[power=~/line_section|circuit/][voltage][voltage!~/;/][voltage!~ /^(66000|225000)$/ ][inside("LR")],
 way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(66000|225000)$/ ][inside("LR")] {
     throwError: tr("Invalid voltage value for this country (Liberia)");
@@ -1888,6 +1982,7 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(66000|22
 }
 
 
+*[power=substation][voltage][voltage!~/;/][voltage!~ /^(22500|25000|30000|66000|69000|132000|220000|400000|500000)$/ ][inside("LY")],
 relation[power=~/line_section|circuit/][voltage][voltage!~/;/][voltage!~ /^(22500|25000|30000|66000|69000|132000|220000|400000|500000)$/ ][inside("LY")],
 way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(22500|25000|30000|66000|69000|132000|220000|400000|500000)$/ ][inside("LY")] {
     throwError: tr("Invalid voltage value for this country (Libya)");
@@ -1900,6 +1995,7 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(22500|25
 }
 
 
+*[power=substation][voltage][voltage!~/;/][voltage!~ /^(220000)$/ ][inside("LI")],
 relation[power=~/line_section|circuit/][voltage][voltage!~/;/][voltage!~ /^(220000)$/ ][inside("LI")],
 way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(220000)$/ ][inside("LI")] {
     throwError: tr("Invalid voltage value for this country (Liechtenstein)");
@@ -1912,6 +2008,7 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(220000)$
 }
 
 
+*[power=substation][voltage][voltage!~/;/][voltage!~ /^(15000|35000|110000|300000|330000|400000)$/ ][inside("LT")],
 relation[power=~/line_section|circuit/][voltage][voltage!~/;/][voltage!~ /^(15000|35000|110000|300000|330000|400000)$/ ][inside("LT")],
 way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(15000|35000|110000|300000|330000|400000)$/ ][inside("LT")] {
     throwError: tr("Invalid voltage value for this country (Lithuania)");
@@ -1924,6 +2021,7 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(15000|35
 }
 
 
+*[power=substation][voltage][voltage!~/;/][voltage!~ /^(63000|65000|150000|220000|225000)$/ ][inside("LU")],
 relation[power=~/line_section|circuit/][voltage][voltage!~/;/][voltage!~ /^(63000|65000|150000|220000|225000)$/ ][inside("LU")],
 way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(63000|65000|150000|220000|225000)$/ ][inside("LU")] {
     throwError: tr("Invalid voltage value for this country (Luxembourg)");
@@ -1936,6 +2034,7 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(63000|65
 }
 
 
+*[power=substation][voltage][voltage!~/;/][voltage!~ /^(63000|138000)$/ ][inside("MG")],
 relation[power=~/line_section|circuit/][voltage][voltage!~/;/][voltage!~ /^(63000|138000)$/ ][inside("MG")],
 way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(63000|138000)$/ ][inside("MG")] {
     throwError: tr("Invalid voltage value for this country (Madagascar)");
@@ -1948,6 +2047,7 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(63000|13
 }
 
 
+*[power=substation][voltage][voltage!~/;/][voltage!~ /^(11000|33000|66000|110000|132000|400000)$/ ][inside("MW")],
 relation[power=~/line_section|circuit/][voltage][voltage!~/;/][voltage!~ /^(11000|33000|66000|110000|132000|400000)$/ ][inside("MW")],
 way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(11000|33000|66000|110000|132000|400000)$/ ][inside("MW")] {
     throwError: tr("Invalid voltage value for this country (Malawi)");
@@ -1960,6 +2060,7 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(11000|33
 }
 
 
+*[power=substation][voltage][voltage!~/;/][voltage!~ /^(11000|33000|66000|132000|275000|300000|500000)$/ ][inside("MY")],
 relation[power=~/line_section|circuit/][voltage][voltage!~/;/][voltage!~ /^(11000|33000|66000|132000|275000|300000|500000)$/ ][inside("MY")],
 way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(11000|33000|66000|132000|275000|300000|500000)$/ ][inside("MY")] {
     throwError: tr("Invalid voltage value for this country (Malaysia)");
@@ -1972,6 +2073,7 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(11000|33
 }
 
 
+*[power=substation][voltage][voltage!~/;/][voltage!~ /^(132000)$/ ][inside("MV")],
 relation[power=~/line_section|circuit/][voltage][voltage!~/;/][voltage!~ /^(132000)$/ ][inside("MV")],
 way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(132000)$/ ][inside("MV")] {
     throwError: tr("Invalid voltage value for this country (Maldives)");
@@ -1984,6 +2086,7 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(132000)$
 }
 
 
+*[power=substation][voltage][voltage!~/;/][voltage!~ /^(63000|150000|225000)$/ ][inside("ML")],
 relation[power=~/line_section|circuit/][voltage][voltage!~/;/][voltage!~ /^(63000|150000|225000)$/ ][inside("ML")],
 way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(63000|150000|225000)$/ ][inside("ML")] {
     throwError: tr("Invalid voltage value for this country (Mali)");
@@ -1996,6 +2099,7 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(63000|15
 }
 
 
+*[power=substation][voltage][voltage!~/;/][voltage!~ /^(11000|33000|132000|220000)$/ ][inside("MT")],
 relation[power=~/line_section|circuit/][voltage][voltage!~/;/][voltage!~ /^(11000|33000|132000|220000)$/ ][inside("MT")],
 way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(11000|33000|132000|220000)$/ ][inside("MT")] {
     throwError: tr("Invalid voltage value for this country (Malta)");
@@ -2008,6 +2112,7 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(11000|33
 }
 
 
+*[power=substation][voltage][voltage!~/;/][voltage!~ /^(90000|225000)$/ ][inside("MR")],
 relation[power=~/line_section|circuit/][voltage][voltage!~/;/][voltage!~ /^(90000|225000)$/ ][inside("MR")],
 way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(90000|225000)$/ ][inside("MR")] {
     throwError: tr("Invalid voltage value for this country (Mauritania)");
@@ -2020,6 +2125,7 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(90000|22
 }
 
 
+*[power=substation][voltage][voltage!~/;/][voltage!~ /^(66000)$/ ][inside("MU")],
 relation[power=~/line_section|circuit/][voltage][voltage!~/;/][voltage!~ /^(66000)$/ ][inside("MU")],
 way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(66000)$/ ][inside("MU")] {
     throwError: tr("Invalid voltage value for this country (Mauritius)");
@@ -2032,6 +2138,7 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(66000)$/
 }
 
 
+*[power=substation][voltage][voltage!~/;/][voltage!~ /^(13800|15000|25000|34500|65000|69000|85000|113000|115000|138000|161000|230000|400000)$/ ][inside("MX")],
 relation[power=~/line_section|circuit/][voltage][voltage!~/;/][voltage!~ /^(13800|15000|25000|34500|65000|69000|85000|113000|115000|138000|161000|230000|400000)$/ ][inside("MX")],
 way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(13800|15000|25000|34500|65000|69000|85000|113000|115000|138000|161000|230000|400000)$/ ][inside("MX")] {
     throwError: tr("Invalid voltage value for this country (Mexico)");
@@ -2044,6 +2151,7 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(13800|15
 }
 
 
+*[power=substation][voltage][voltage!~/;/][voltage!~ /^(33000|35000|110000|330000|400000)$/ ][inside("MD")],
 relation[power=~/line_section|circuit/][voltage][voltage!~/;/][voltage!~ /^(33000|35000|110000|330000|400000)$/ ][inside("MD")],
 way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(33000|35000|110000|330000|400000)$/ ][inside("MD")] {
     throwError: tr("Invalid voltage value for this country (Moldova)");
@@ -2056,6 +2164,7 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(33000|35
 }
 
 
+*[power=substation][voltage][voltage!~/;/][voltage!~ /^(15000|22000|35000|110000|220000)$/ ][inside("MN")],
 relation[power=~/line_section|circuit/][voltage][voltage!~/;/][voltage!~ /^(15000|22000|35000|110000|220000)$/ ][inside("MN")],
 way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(15000|22000|35000|110000|220000)$/ ][inside("MN")] {
     throwError: tr("Invalid voltage value for this country (Mongolia)");
@@ -2068,6 +2177,7 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(15000|22
 }
 
 
+*[power=substation][voltage][voltage!~/;/][voltage!~ /^(35000|110000|220000|400000|500000)$/ ][inside("ME")],
 relation[power=~/line_section|circuit/][voltage][voltage!~/;/][voltage!~ /^(35000|110000|220000|400000|500000)$/ ][inside("ME")],
 way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(35000|110000|220000|400000|500000)$/ ][inside("ME")] {
     throwError: tr("Invalid voltage value for this country (Montenegro)");
@@ -2080,6 +2190,7 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(35000|11
 }
 
 
+*[power=substation][voltage][voltage!~/;/][voltage!~ /^(20000|22000|22500|30000|33000|60000|110000|132000|150000|220000|225000|400000)$/ ][inside("MA")],
 relation[power=~/line_section|circuit/][voltage][voltage!~/;/][voltage!~ /^(20000|22000|22500|30000|33000|60000|110000|132000|150000|220000|225000|400000)$/ ][inside("MA")],
 way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(20000|22000|22500|30000|33000|60000|110000|132000|150000|220000|225000|400000)$/ ][inside("MA")] {
     throwError: tr("Invalid voltage value for this country (Morocco)");
@@ -2092,6 +2203,7 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(20000|22
 }
 
 
+*[power=substation][voltage][voltage!~/;/][voltage!~ /^(66000|110000|132000|220000|275000|330000|400000|533000)$/ ][inside("MZ")],
 relation[power=~/line_section|circuit/][voltage][voltage!~/;/][voltage!~ /^(66000|110000|132000|220000|275000|330000|400000|533000)$/ ][inside("MZ")],
 way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(66000|110000|132000|220000|275000|330000|400000|533000)$/ ][inside("MZ")] {
     throwError: tr("Invalid voltage value for this country (Mozambique)");
@@ -2104,6 +2216,7 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(66000|11
 }
 
 
+*[power=substation][voltage][voltage!~/;/][voltage!~ /^(11000|20000|33000|66000|110000|132000|230000|500000)$/ ][inside("MM")],
 relation[power=~/line_section|circuit/][voltage][voltage!~/;/][voltage!~ /^(11000|20000|33000|66000|110000|132000|230000|500000)$/ ][inside("MM")],
 way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(11000|20000|33000|66000|110000|132000|230000|500000)$/ ][inside("MM")] {
     throwError: tr("Invalid voltage value for this country (Myanmar)");
@@ -2116,6 +2229,7 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(11000|20
 }
 
 
+*[power=substation][voltage][voltage!~/;/][voltage!~ /^(11000|19000|22000|33000|66000|132000|220000|330000|350000|400000)$/ ][inside("NA")],
 relation[power=~/line_section|circuit/][voltage][voltage!~/;/][voltage!~ /^(11000|19000|22000|33000|66000|132000|220000|330000|350000|400000)$/ ][inside("NA")],
 way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(11000|19000|22000|33000|66000|132000|220000|330000|350000|400000)$/ ][inside("NA")] {
     throwError: tr("Invalid voltage value for this country (Namibia)");
@@ -2128,6 +2242,7 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(11000|19
 }
 
 
+*[power=substation][voltage][voltage!~/;/][voltage!~ /^(33000|66000|132000|220000|400000)$/ ][inside("NP")],
 relation[power=~/line_section|circuit/][voltage][voltage!~/;/][voltage!~ /^(33000|66000|132000|220000|400000)$/ ][inside("NP")],
 way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(33000|66000|132000|220000|400000)$/ ][inside("NP")] {
     throwError: tr("Invalid voltage value for this country (Nepal)");
@@ -2140,6 +2255,7 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(33000|66
 }
 
 
+*[power=substation][voltage][voltage!~/;/][voltage!~ /^(50000|66000|110000|220000)$/ ][inside("NZ")],
 relation[power=~/line_section|circuit/][voltage][voltage!~/;/][voltage!~ /^(50000|66000|110000|220000)$/ ][inside("NZ")],
 way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(50000|66000|110000|220000)$/ ][inside("NZ")] {
     throwError: tr("Invalid voltage value for this country (New Zealand)");
@@ -2152,6 +2268,7 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(50000|66
 }
 
 
+*[power=substation][voltage][voltage!~/;/][voltage!~ /^(69000|138000|230000)$/ ][inside("NI")],
 relation[power=~/line_section|circuit/][voltage][voltage!~/;/][voltage!~ /^(69000|138000|230000)$/ ][inside("NI")],
 way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(69000|138000|230000)$/ ][inside("NI")] {
     throwError: tr("Invalid voltage value for this country (Nicaragua)");
@@ -2164,6 +2281,7 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(69000|13
 }
 
 
+*[power=substation][voltage][voltage!~/;/][voltage!~ /^(66000|132000)$/ ][inside("NE")],
 relation[power=~/line_section|circuit/][voltage][voltage!~/;/][voltage!~ /^(66000|132000)$/ ][inside("NE")],
 way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(66000|132000)$/ ][inside("NE")] {
     throwError: tr("Invalid voltage value for this country (Niger)");
@@ -2176,6 +2294,7 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(66000|13
 }
 
 
+*[power=substation][voltage][voltage!~/;/][voltage!~ /^(11000|33000|132000|330000)$/ ][inside("NG")],
 relation[power=~/line_section|circuit/][voltage][voltage!~/;/][voltage!~ /^(11000|33000|132000|330000)$/ ][inside("NG")],
 way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(11000|33000|132000|330000)$/ ][inside("NG")] {
     throwError: tr("Invalid voltage value for this country (Nigeria)");
@@ -2188,6 +2307,7 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(11000|33
 }
 
 
+*[power=substation][voltage][voltage!~/;/][voltage!~ /^(11000|66000|110000|154000|220000)$/ ][inside("KP")],
 relation[power=~/line_section|circuit/][voltage][voltage!~/;/][voltage!~ /^(11000|66000|110000|154000|220000)$/ ][inside("KP")],
 way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(11000|66000|110000|154000|220000)$/ ][inside("KP")] {
     throwError: tr("Invalid voltage value for this country (North Korea)");
@@ -2200,6 +2320,7 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(11000|66
 }
 
 
+*[power=substation][voltage][voltage!~/;/][voltage!~ /^(110000|220000|400000)$/ ][inside("MK")],
 relation[power=~/line_section|circuit/][voltage][voltage!~/;/][voltage!~ /^(110000|220000|400000)$/ ][inside("MK")],
 way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(110000|220000|400000)$/ ][inside("MK")] {
     throwError: tr("Invalid voltage value for this country (North Macedonia)");
@@ -2212,6 +2333,7 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(110000|2
 }
 
 
+*[power=substation][voltage][voltage!~/;/][voltage!~ /^(11000|12000|13000|15000|16000|17000|20000|22000|24000|25000|33000|45000|47000|50000|55000|60000|66000|80000|90000|100000|110000|132000|150000|220000|250000|300000|350000|400000|420000|450000|500000|515000|525000|825000)$/ ][inside("NO")],
 relation[power=~/line_section|circuit/][voltage][voltage!~/;/][voltage!~ /^(11000|12000|13000|15000|16000|17000|20000|22000|24000|25000|33000|45000|47000|50000|55000|60000|66000|80000|90000|100000|110000|132000|150000|220000|250000|300000|350000|400000|420000|450000|500000|515000|525000|825000)$/ ][inside("NO")],
 way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(11000|12000|13000|15000|16000|17000|20000|22000|24000|25000|33000|45000|47000|50000|55000|60000|66000|80000|90000|100000|110000|132000|150000|220000|250000|300000|350000|400000|420000|450000|500000|515000|525000|825000)$/ ][inside("NO")] {
     throwError: tr("Invalid voltage value for this country (Norway)");
@@ -2224,6 +2346,7 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(11000|12
 }
 
 
+*[power=substation][voltage][voltage!~/;/][voltage!~ /^(132000|220000|400000)$/ ][inside("OM")],
 relation[power=~/line_section|circuit/][voltage][voltage!~/;/][voltage!~ /^(132000|220000|400000)$/ ][inside("OM")],
 way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(132000|220000|400000)$/ ][inside("OM")] {
     throwError: tr("Invalid voltage value for this country (Oman)");
@@ -2236,6 +2359,7 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(132000|2
 }
 
 
+*[power=substation][voltage][voltage!~/;/][voltage!~ /^(11000|33000|66000|110000|132000|220000|230000|500000|660000)$/ ][inside("PK")],
 relation[power=~/line_section|circuit/][voltage][voltage!~/;/][voltage!~ /^(11000|33000|66000|110000|132000|220000|230000|500000|660000)$/ ][inside("PK")],
 way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(11000|33000|66000|110000|132000|220000|230000|500000|660000)$/ ][inside("PK")] {
     throwError: tr("Invalid voltage value for this country (Pakistan)");
@@ -2248,6 +2372,7 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(11000|33
 }
 
 
+*[power=substation][voltage][voltage!~/;/][voltage!~ /^(115000|230000)$/ ][inside("PA")],
 relation[power=~/line_section|circuit/][voltage][voltage!~/;/][voltage!~ /^(115000|230000)$/ ][inside("PA")],
 way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(115000|230000)$/ ][inside("PA")] {
     throwError: tr("Invalid voltage value for this country (Panama)");
@@ -2260,6 +2385,7 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(115000|2
 }
 
 
+*[power=substation][voltage][voltage!~/;/][voltage!~ /^(11000|66000|132000)$/ ][inside("PG")],
 relation[power=~/line_section|circuit/][voltage][voltage!~/;/][voltage!~ /^(11000|66000|132000)$/ ][inside("PG")],
 way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(11000|66000|132000)$/ ][inside("PG")] {
     throwError: tr("Invalid voltage value for this country (Papua New Guinea)");
@@ -2272,6 +2398,7 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(11000|66
 }
 
 
+*[power=substation][voltage][voltage!~/;/][voltage!~ /^(12000|34500|66000|69000|132000|138000|220000|500000)$/ ][inside("PY")],
 relation[power=~/line_section|circuit/][voltage][voltage!~/;/][voltage!~ /^(12000|34500|66000|69000|132000|138000|220000|500000)$/ ][inside("PY")],
 way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(12000|34500|66000|69000|132000|138000|220000|500000)$/ ][inside("PY")] {
     throwError: tr("Invalid voltage value for this country (Paraguay)");
@@ -2284,6 +2411,7 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(12000|34
 }
 
 
+*[power=substation][voltage][voltage!~/;/][voltage!~ /^(10500|11000|22000|23000|25000|27000|27500|33000|35000|50000|63000|66000|100000|110000|132000|160000|220000|230000|275000|320000|330000|400000|500000|544000|660000|750000|800000|1000000|1100000|1150000|2200001|2200002|22000011)$/ ][inside("CN")],
 relation[power=~/line_section|circuit/][voltage][voltage!~/;/][voltage!~ /^(10500|11000|22000|23000|25000|27000|27500|33000|35000|50000|63000|66000|100000|110000|132000|160000|220000|230000|275000|320000|330000|400000|500000|544000|660000|750000|800000|1000000|1100000|1150000|2200001|2200002|22000011)$/ ][inside("CN")],
 way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(10500|11000|22000|23000|25000|27000|27500|33000|35000|50000|63000|66000|100000|110000|132000|160000|220000|230000|275000|320000|330000|400000|500000|544000|660000|750000|800000|1000000|1100000|1150000|2200001|2200002|22000011)$/ ][inside("CN")] {
     throwError: tr("Invalid voltage value for this country (People's Republic of China)");
@@ -2296,6 +2424,7 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(10500|11
 }
 
 
+*[power=substation][voltage][voltage!~/;/][voltage!~ /^(30000|33000|60000|66000|138000|220000|230000|500000)$/ ][inside("PE")],
 relation[power=~/line_section|circuit/][voltage][voltage!~/;/][voltage!~ /^(30000|33000|60000|66000|138000|220000|230000|500000)$/ ][inside("PE")],
 way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(30000|33000|60000|66000|138000|220000|230000|500000)$/ ][inside("PE")] {
     throwError: tr("Invalid voltage value for this country (Peru)");
@@ -2308,6 +2437,7 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(30000|33
 }
 
 
+*[power=substation][voltage][voltage!~/;/][voltage!~ /^(13200|13800|20000|23000|30000|34500|60000|69000|70000|115000|138000|220000|230000|345000|350000|500000)$/ ][inside("PH")],
 relation[power=~/line_section|circuit/][voltage][voltage!~/;/][voltage!~ /^(13200|13800|20000|23000|30000|34500|60000|69000|70000|115000|138000|220000|230000|345000|350000|500000)$/ ][inside("PH")],
 way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(13200|13800|20000|23000|30000|34500|60000|69000|70000|115000|138000|220000|230000|345000|350000|500000)$/ ][inside("PH")] {
     throwError: tr("Invalid voltage value for this country (Philippines)");
@@ -2320,6 +2450,7 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(13200|13
 }
 
 
+*[power=substation][voltage][voltage!~/;/][voltage!~ /^(11000|15000|20000|21000|22000|25000|27000|30000|100000|110000|200000|220000|400000|450000)$/ ][inside("PL")],
 relation[power=~/line_section|circuit/][voltage][voltage!~/;/][voltage!~ /^(11000|15000|20000|21000|22000|25000|27000|30000|100000|110000|200000|220000|400000|450000)$/ ][inside("PL")],
 way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(11000|15000|20000|21000|22000|25000|27000|30000|100000|110000|200000|220000|400000|450000)$/ ][inside("PL")] {
     throwError: tr("Invalid voltage value for this country (Poland)");
@@ -2332,6 +2463,7 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(11000|15
 }
 
 
+*[power=substation][voltage][voltage!~/;/][voltage!~ /^(11000|15000|18000|20000|25000|30000|50000|60000|130000|150000|220000|400000)$/ ][inside("PT")],
 relation[power=~/line_section|circuit/][voltage][voltage!~/;/][voltage!~ /^(11000|15000|18000|20000|25000|30000|50000|60000|130000|150000|220000|400000)$/ ][inside("PT")],
 way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(11000|15000|18000|20000|25000|30000|50000|60000|130000|150000|220000|400000)$/ ][inside("PT")] {
     throwError: tr("Invalid voltage value for this country (Portugal)");
@@ -2344,6 +2476,7 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(11000|15
 }
 
 
+*[power=substation][voltage][voltage!~/;/][voltage!~ /^(21000|66000|110000|132000|220000|400000)$/ ][inside("QA")],
 relation[power=~/line_section|circuit/][voltage][voltage!~/;/][voltage!~ /^(21000|66000|110000|132000|220000|400000)$/ ][inside("QA")],
 way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(21000|66000|110000|132000|220000|400000)$/ ][inside("QA")] {
     throwError: tr("Invalid voltage value for this country (Qatar)");
@@ -2356,6 +2489,7 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(21000|66
 }
 
 
+*[power=substation][voltage][voltage!~/;/][voltage!~ /^(110000|220000)$/ ][inside("CG")],
 relation[power=~/line_section|circuit/][voltage][voltage!~/;/][voltage!~ /^(110000|220000)$/ ][inside("CG")],
 way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(110000|220000)$/ ][inside("CG")] {
     throwError: tr("Invalid voltage value for this country (Republic of the Congo)");
@@ -2368,6 +2502,7 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(110000|2
 }
 
 
+*[power=substation][voltage][voltage!~/;/][voltage!~ /^(20000|25000|38000|55000|110000|220000|380000|400000)$/ ][inside("RO")],
 relation[power=~/line_section|circuit/][voltage][voltage!~/;/][voltage!~ /^(20000|25000|38000|55000|110000|220000|380000|400000)$/ ][inside("RO")],
 way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(20000|25000|38000|55000|110000|220000|380000|400000)$/ ][inside("RO")] {
     throwError: tr("Invalid voltage value for this country (Romania)");
@@ -2380,6 +2515,7 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(20000|25
 }
 
 
+*[power=substation][voltage][voltage!~/;/][voltage!~ /^(10500|15000|16000|20000|30000|35000|60000|66000|100000|110000|138000|150000|154000|220000|330000|350000|400000|500000|750000|800000|1100000)$/ ][inside("RU")],
 relation[power=~/line_section|circuit/][voltage][voltage!~/;/][voltage!~ /^(10500|15000|16000|20000|30000|35000|60000|66000|100000|110000|138000|150000|154000|220000|330000|350000|400000|500000|750000|800000|1100000)$/ ][inside("RU")],
 way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(10500|15000|16000|20000|30000|35000|60000|66000|100000|110000|138000|150000|154000|220000|330000|350000|400000|500000|750000|800000|1100000)$/ ][inside("RU")] {
     throwError: tr("Invalid voltage value for this country (Russia)");
@@ -2392,6 +2528,7 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(10500|15
 }
 
 
+*[power=substation][voltage][voltage!~/;/][voltage!~ /^(70000|110000|220000)$/ ][inside("RW")],
 relation[power=~/line_section|circuit/][voltage][voltage!~/;/][voltage!~ /^(70000|110000|220000)$/ ][inside("RW")],
 way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(70000|110000|220000)$/ ][inside("RW")] {
     throwError: tr("Invalid voltage value for this country (Rwanda)");
@@ -2404,6 +2541,7 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(70000|11
 }
 
 
+*[power=substation][voltage][voltage!~/;/][voltage!~ /^(132000)$/ ][inside("SM")],
 relation[power=~/line_section|circuit/][voltage][voltage!~/;/][voltage!~ /^(132000)$/ ][inside("SM")],
 way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(132000)$/ ][inside("SM")] {
     throwError: tr("Invalid voltage value for this country (San Marino)");
@@ -2416,6 +2554,7 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(132000)$
 }
 
 
+*[power=substation][voltage][voltage!~/;/][voltage!~ /^(25000|33000|110000|115000|132000|230000|380000|400000)$/ ][inside("SA")],
 relation[power=~/line_section|circuit/][voltage][voltage!~/;/][voltage!~ /^(25000|33000|110000|115000|132000|230000|380000|400000)$/ ][inside("SA")],
 way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(25000|33000|110000|115000|132000|230000|380000|400000)$/ ][inside("SA")] {
     throwError: tr("Invalid voltage value for this country (Saudi Arabia)");
@@ -2428,6 +2567,7 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(25000|33
 }
 
 
+*[power=substation][voltage][voltage!~/;/][voltage!~ /^(90000|225000)$/ ][inside("SN")],
 relation[power=~/line_section|circuit/][voltage][voltage!~/;/][voltage!~ /^(90000|225000)$/ ][inside("SN")],
 way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(90000|225000)$/ ][inside("SN")] {
     throwError: tr("Invalid voltage value for this country (Senegal)");
@@ -2440,6 +2580,7 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(90000|22
 }
 
 
+*[power=substation][voltage][voltage!~/;/][voltage!~ /^(20000|25000|30000|35000|110000|220000|380000|400000)$/ ][inside("RS")],
 relation[power=~/line_section|circuit/][voltage][voltage!~/;/][voltage!~ /^(20000|25000|30000|35000|110000|220000|380000|400000)$/ ][inside("RS")],
 way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(20000|25000|30000|35000|110000|220000|380000|400000)$/ ][inside("RS")] {
     throwError: tr("Invalid voltage value for this country (Serbia)");
@@ -2452,6 +2593,7 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(20000|25
 }
 
 
+*[power=substation][voltage][voltage!~/;/][voltage!~ /^(161000|225000)$/ ][inside("SL")],
 relation[power=~/line_section|circuit/][voltage][voltage!~/;/][voltage!~ /^(161000|225000)$/ ][inside("SL")],
 way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(161000|225000)$/ ][inside("SL")] {
     throwError: tr("Invalid voltage value for this country (Sierra Leone)");
@@ -2464,6 +2606,7 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(161000|2
 }
 
 
+*[power=substation][voltage][voltage!~/;/][voltage!~ /^(230000)$/ ][inside("SG")],
 relation[power=~/line_section|circuit/][voltage][voltage!~/;/][voltage!~ /^(230000)$/ ][inside("SG")],
 way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(230000)$/ ][inside("SG")] {
     throwError: tr("Invalid voltage value for this country (Singapore)");
@@ -2476,6 +2619,7 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(230000)$
 }
 
 
+*[power=substation][voltage][voltage!~/;/][voltage!~ /^(22000|110000|220000|400000)$/ ][inside("SK")],
 relation[power=~/line_section|circuit/][voltage][voltage!~/;/][voltage!~ /^(22000|110000|220000|400000)$/ ][inside("SK")],
 way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(22000|110000|220000|400000)$/ ][inside("SK")] {
     throwError: tr("Invalid voltage value for this country (Slovakia)");
@@ -2488,6 +2632,7 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(22000|11
 }
 
 
+*[power=substation][voltage][voltage!~/;/][voltage!~ /^(15000|20000|35000|100000|110000|220000|400000)$/ ][inside("SI")],
 relation[power=~/line_section|circuit/][voltage][voltage!~/;/][voltage!~ /^(15000|20000|35000|100000|110000|220000|400000)$/ ][inside("SI")],
 way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(15000|20000|35000|100000|110000|220000|400000)$/ ][inside("SI")] {
     throwError: tr("Invalid voltage value for this country (Slovenia)");
@@ -2500,6 +2645,7 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(15000|20
 }
 
 
+*[power=substation][voltage][voltage!~/;/][voltage!~ /^(11000|20000|22000|33000|44000|66000|88000|110000|132000|220000|275000|380000|400000|533000|765000)$/ ][inside("ZA")],
 relation[power=~/line_section|circuit/][voltage][voltage!~/;/][voltage!~ /^(11000|20000|22000|33000|44000|66000|88000|110000|132000|220000|275000|380000|400000|533000|765000)$/ ][inside("ZA")],
 way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(11000|20000|22000|33000|44000|66000|88000|110000|132000|220000|275000|380000|400000|533000|765000)$/ ][inside("ZA")] {
     throwError: tr("Invalid voltage value for this country (South Africa)");
@@ -2512,6 +2658,7 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(11000|20
 }
 
 
+*[power=substation][voltage][voltage!~/;/][voltage!~ /^(15000|22900|145000|150000|154000|180000|250000|345000|354000|380000|765000)$/ ][inside("KR")],
 relation[power=~/line_section|circuit/][voltage][voltage!~/;/][voltage!~ /^(15000|22900|145000|150000|154000|180000|250000|345000|354000|380000|765000)$/ ][inside("KR")],
 way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(15000|22900|145000|150000|154000|180000|250000|345000|354000|380000|765000)$/ ][inside("KR")] {
     throwError: tr("Invalid voltage value for this country (South Korea)");
@@ -2524,6 +2671,7 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(15000|22
 }
 
 
+*[power=substation][voltage][voltage!~/;/][voltage!~ /^(220000)$/ ][inside("SS")],
 relation[power=~/line_section|circuit/][voltage][voltage!~/;/][voltage!~ /^(220000)$/ ][inside("SS")],
 way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(220000)$/ ][inside("SS")] {
     throwError: tr("Invalid voltage value for this country (South Sudan)");
@@ -2536,6 +2684,7 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(220000)$
 }
 
 
+*[power=substation][voltage][voltage!~/;/][voltage!~ /^(12000|13000|13200|15000|17000|20000|22000|24000|25000|30000|33000|35000|45000|50000|55000|60000|65000|66000|66600|100000|110000|120000|130000|132000|138000|150000|200000|220000|225000|240000|250000|320000|400000)$/ ][inside("ES")],
 relation[power=~/line_section|circuit/][voltage][voltage!~/;/][voltage!~ /^(12000|13000|13200|15000|17000|20000|22000|24000|25000|30000|33000|35000|45000|50000|55000|60000|65000|66000|66600|100000|110000|120000|130000|132000|138000|150000|200000|220000|225000|240000|250000|320000|400000)$/ ][inside("ES")],
 way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(12000|13000|13200|15000|17000|20000|22000|24000|25000|30000|33000|35000|45000|50000|55000|60000|65000|66000|66600|100000|110000|120000|130000|132000|138000|150000|200000|220000|225000|240000|250000|320000|400000)$/ ][inside("ES")] {
     throwError: tr("Invalid voltage value for this country (Spain)");
@@ -2548,6 +2697,7 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(12000|13
 }
 
 
+*[power=substation][voltage][voltage!~/;/][voltage!~ /^(11000|33000|132000|220000)$/ ][inside("LK")],
 relation[power=~/line_section|circuit/][voltage][voltage!~/;/][voltage!~ /^(11000|33000|132000|220000)$/ ][inside("LK")],
 way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(11000|33000|132000|220000)$/ ][inside("LK")] {
     throwError: tr("Invalid voltage value for this country (Sri Lanka)");
@@ -2560,6 +2710,7 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(11000|33
 }
 
 
+*[power=substation][voltage][voltage!~/;/][voltage!~ /^(161000)$/ ][inside("PS")],
 relation[power=~/line_section|circuit/][voltage][voltage!~/;/][voltage!~ /^(161000)$/ ][inside("PS")],
 way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(161000)$/ ][inside("PS")] {
     throwError: tr("Invalid voltage value for this country (State of Palestine)");
@@ -2572,6 +2723,7 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(161000)$
 }
 
 
+*[power=substation][voltage][voltage!~/;/][voltage!~ /^(66000|110000|220000|500000)$/ ][inside("SD")],
 relation[power=~/line_section|circuit/][voltage][voltage!~/;/][voltage!~ /^(66000|110000|220000|500000)$/ ][inside("SD")],
 way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(66000|110000|220000|500000)$/ ][inside("SD")] {
     throwError: tr("Invalid voltage value for this country (Sudan)");
@@ -2584,6 +2736,7 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(66000|11
 }
 
 
+*[power=substation][voltage][voltage!~/;/][voltage!~ /^(161000)$/ ][inside("SR")],
 relation[power=~/line_section|circuit/][voltage][voltage!~/;/][voltage!~ /^(161000)$/ ][inside("SR")],
 way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(161000)$/ ][inside("SR")] {
     throwError: tr("Invalid voltage value for this country (Suriname)");
@@ -2596,6 +2749,7 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(161000)$
 }
 
 
+*[power=substation][voltage][voltage!~/;/][voltage!~ /^(11000|12000|15000|20000|22000|24000|30000|36000|40000|45000|50000|52000|55000|60000|66000|70000|72500|77000|80000|110000|130000|132000|138000|145000|150000|160000|170000|220000|230000|236000|285000|300000|400000|412000|420000|450000|500000)$/ ][inside("SE")],
 relation[power=~/line_section|circuit/][voltage][voltage!~/;/][voltage!~ /^(11000|12000|15000|20000|22000|24000|30000|36000|40000|45000|50000|52000|55000|60000|66000|70000|72500|77000|80000|110000|130000|132000|138000|145000|150000|160000|170000|220000|230000|236000|285000|300000|400000|412000|420000|450000|500000)$/ ][inside("SE")],
 way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(11000|12000|15000|20000|22000|24000|30000|36000|40000|45000|50000|52000|55000|60000|66000|70000|72500|77000|80000|110000|130000|132000|138000|145000|150000|160000|170000|220000|230000|236000|285000|300000|400000|412000|420000|450000|500000)$/ ][inside("SE")] {
     throwError: tr("Invalid voltage value for this country (Sweden)");
@@ -2608,6 +2762,7 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(11000|12
 }
 
 
+*[power=substation][voltage][voltage!~/;/][voltage!~ /^(11000|13000|15000|15500|16000|17000|18000|20000|21000|22000|23000|25000|50000|60000|63000|65000|66000|110000|125000|130000|132000|138000|145000|150000|220000|222000|225000|380000|400000)$/ ][inside("CH")],
 relation[power=~/line_section|circuit/][voltage][voltage!~/;/][voltage!~ /^(11000|13000|15000|15500|16000|17000|18000|20000|21000|22000|23000|25000|50000|60000|63000|65000|66000|110000|125000|130000|132000|138000|145000|150000|220000|222000|225000|380000|400000)$/ ][inside("CH")],
 way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(11000|13000|15000|15500|16000|17000|18000|20000|21000|22000|23000|25000|50000|60000|63000|65000|66000|110000|125000|130000|132000|138000|145000|150000|220000|222000|225000|380000|400000)$/ ][inside("CH")] {
     throwError: tr("Invalid voltage value for this country (Switzerland)");
@@ -2620,6 +2775,7 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(11000|13
 }
 
 
+*[power=substation][voltage][voltage!~/;/][voltage!~ /^(23000|66000|154000|161000|220000|230000|380000|400000)$/ ][inside("SY")],
 relation[power=~/line_section|circuit/][voltage][voltage!~/;/][voltage!~ /^(23000|66000|154000|161000|220000|230000|380000|400000)$/ ][inside("SY")],
 way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(23000|66000|154000|161000|220000|230000|380000|400000)$/ ][inside("SY")] {
     throwError: tr("Invalid voltage value for this country (Syria)");
@@ -2632,6 +2788,7 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(23000|66
 }
 
 
+*[power=substation][voltage][voltage!~/;/][voltage!~ /^(69000|161000|345000|690000)$/ ][inside("TW")],
 relation[power=~/line_section|circuit/][voltage][voltage!~/;/][voltage!~ /^(69000|161000|345000|690000)$/ ][inside("TW")],
 way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(69000|161000|345000|690000)$/ ][inside("TW")] {
     throwError: tr("Invalid voltage value for this country (Taiwan)");
@@ -2644,6 +2801,7 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(69000|16
 }
 
 
+*[power=substation][voltage][voltage!~/;/][voltage!~ /^(35000|110000|138000|220000|500000)$/ ][inside("TJ")],
 relation[power=~/line_section|circuit/][voltage][voltage!~/;/][voltage!~ /^(35000|110000|138000|220000|500000)$/ ][inside("TJ")],
 way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(35000|110000|138000|220000|500000)$/ ][inside("TJ")] {
     throwError: tr("Invalid voltage value for this country (Tajikistan)");
@@ -2656,6 +2814,7 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(35000|11
 }
 
 
+*[power=substation][voltage][voltage!~/;/][voltage!~ /^(11000|33000|66000|132000|220000|222000|400000)$/ ][inside("TZ")],
 relation[power=~/line_section|circuit/][voltage][voltage!~/;/][voltage!~ /^(11000|33000|66000|132000|220000|222000|400000)$/ ][inside("TZ")],
 way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(11000|33000|66000|132000|220000|222000|400000)$/ ][inside("TZ")] {
     throwError: tr("Invalid voltage value for this country (Tanzania)");
@@ -2668,6 +2827,7 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(11000|33
 }
 
 
+*[power=substation][voltage][voltage!~/;/][voltage!~ /^(22000|50000|69000|115000|132000|230000|300000|500000)$/ ][inside("TH")],
 relation[power=~/line_section|circuit/][voltage][voltage!~/;/][voltage!~ /^(22000|50000|69000|115000|132000|230000|300000|500000)$/ ][inside("TH")],
 way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(22000|50000|69000|115000|132000|230000|300000|500000)$/ ][inside("TH")] {
     throwError: tr("Invalid voltage value for this country (Thailand)");
@@ -2680,6 +2840,7 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(22000|50
 }
 
 
+*[power=substation][voltage][voltage!~/;/][voltage!~ /^(132000)$/ ][inside("BS")],
 relation[power=~/line_section|circuit/][voltage][voltage!~/;/][voltage!~ /^(132000)$/ ][inside("BS")],
 way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(132000)$/ ][inside("BS")] {
     throwError: tr("Invalid voltage value for this country (The Bahamas)");
@@ -2692,6 +2853,7 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(132000)$
 }
 
 
+*[power=substation][voltage][voltage!~/;/][voltage!~ /^(225000)$/ ][inside("GM")],
 relation[power=~/line_section|circuit/][voltage][voltage!~/;/][voltage!~ /^(225000)$/ ][inside("GM")],
 way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(225000)$/ ][inside("GM")] {
     throwError: tr("Invalid voltage value for this country (The Gambia)");
@@ -2704,6 +2866,7 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(225000)$
 }
 
 
+*[power=substation][voltage][voltage!~/;/][voltage!~ /^(150000)$/ ][inside("TL")],
 relation[power=~/line_section|circuit/][voltage][voltage!~/;/][voltage!~ /^(150000)$/ ][inside("TL")],
 way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(150000)$/ ][inside("TL")] {
     throwError: tr("Invalid voltage value for this country (Timor-Leste)");
@@ -2716,6 +2879,7 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(150000)$
 }
 
 
+*[power=substation][voltage][voltage!~/;/][voltage!~ /^(161000|330000)$/ ][inside("TG")],
 relation[power=~/line_section|circuit/][voltage][voltage!~/;/][voltage!~ /^(161000|330000)$/ ][inside("TG")],
 way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(161000|330000)$/ ][inside("TG")] {
     throwError: tr("Invalid voltage value for this country (Togo)");
@@ -2728,6 +2892,7 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(161000|3
 }
 
 
+*[power=substation][voltage][voltage!~/;/][voltage!~ /^(66000|132000|220000)$/ ][inside("TT")],
 relation[power=~/line_section|circuit/][voltage][voltage!~/;/][voltage!~ /^(66000|132000|220000)$/ ][inside("TT")],
 way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(66000|132000|220000)$/ ][inside("TT")] {
     throwError: tr("Invalid voltage value for this country (Trinidad and Tobago)");
@@ -2740,6 +2905,7 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(66000|13
 }
 
 
+*[power=substation][voltage][voltage!~/;/][voltage!~ /^(15000|22500|30000|33000|90000|150000|220000|225000|400000)$/ ][inside("TN")],
 relation[power=~/line_section|circuit/][voltage][voltage!~/;/][voltage!~ /^(15000|22500|30000|33000|90000|150000|220000|225000|400000)$/ ][inside("TN")],
 way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(15000|22500|30000|33000|90000|150000|220000|225000|400000)$/ ][inside("TN")] {
     throwError: tr("Invalid voltage value for this country (Tunisia)");
@@ -2752,6 +2918,7 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(15000|22
 }
 
 
+*[power=substation][voltage][voltage!~/;/][voltage!~ /^(20000|25000|31500|34000|34500|35000|36000|66000|150000|154000|170000|220000|345005|380000|400000|1000000)$/ ][inside("TR")],
 relation[power=~/line_section|circuit/][voltage][voltage!~/;/][voltage!~ /^(20000|25000|31500|34000|34500|35000|36000|66000|150000|154000|170000|220000|345005|380000|400000|1000000)$/ ][inside("TR")],
 way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(20000|25000|31500|34000|34500|35000|36000|66000|150000|154000|170000|220000|345005|380000|400000|1000000)$/ ][inside("TR")] {
     throwError: tr("Invalid voltage value for this country (Turkey)");
@@ -2764,6 +2931,7 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(20000|25
 }
 
 
+*[power=substation][voltage][voltage!~/;/][voltage!~ /^(110000|220000|230000|500000)$/ ][inside("TM")],
 relation[power=~/line_section|circuit/][voltage][voltage!~/;/][voltage!~ /^(110000|220000|230000|500000)$/ ][inside("TM")],
 way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(110000|220000|230000|500000)$/ ][inside("TM")] {
     throwError: tr("Invalid voltage value for this country (Turkmenistan)");
@@ -2776,6 +2944,7 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(110000|2
 }
 
 
+*[power=substation][voltage][voltage!~/;/][voltage!~ /^(11000|15000|33000|66000|132000|220000|400000)$/ ][inside("UG")],
 relation[power=~/line_section|circuit/][voltage][voltage!~/;/][voltage!~ /^(11000|15000|33000|66000|132000|220000|400000)$/ ][inside("UG")],
 way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(11000|15000|33000|66000|132000|220000|400000)$/ ][inside("UG")] {
     throwError: tr("Invalid voltage value for this country (Uganda)");
@@ -2788,6 +2957,7 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(11000|15
 }
 
 
+*[power=substation][voltage][voltage!~/;/][voltage!~ /^(15000|35000|110000|150000|154000|220000|330000|400000|500000|750000|800000)$/ ][inside("UA")],
 relation[power=~/line_section|circuit/][voltage][voltage!~/;/][voltage!~ /^(15000|35000|110000|150000|154000|220000|330000|400000|500000|750000|800000)$/ ][inside("UA")],
 way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(15000|35000|110000|150000|154000|220000|330000|400000|500000|750000|800000)$/ ][inside("UA")] {
     throwError: tr("Invalid voltage value for this country (Ukraine)");
@@ -2800,6 +2970,7 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(15000|35
 }
 
 
+*[power=substation][voltage][voltage!~/;/][voltage!~ /^(33000|132000|220000|400000)$/ ][inside("AE")],
 relation[power=~/line_section|circuit/][voltage][voltage!~/;/][voltage!~ /^(33000|132000|220000|400000)$/ ][inside("AE")],
 way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(33000|132000|220000|400000)$/ ][inside("AE")] {
     throwError: tr("Invalid voltage value for this country (United Arab Emirates)");
@@ -2812,6 +2983,7 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(33000|13
 }
 
 
+*[power=substation][voltage][voltage!~/;/][voltage!~ /^(11000|12300|13800|15000|16000|20000|22000|24000|25000|27000|32000|33000|33300|35000|36000|66000|90000|110000|132000|145000|150000|170000|200000|220000|250000|254000|270000|275000|320000|400000|450000|515000|525000|600000)$/ ][inside("GB")],
 relation[power=~/line_section|circuit/][voltage][voltage!~/;/][voltage!~ /^(11000|12300|13800|15000|16000|20000|22000|24000|25000|27000|32000|33000|33300|35000|36000|66000|90000|110000|132000|145000|150000|170000|200000|220000|250000|254000|270000|275000|320000|400000|450000|515000|525000|600000)$/ ][inside("GB")],
 way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(11000|12300|13800|15000|16000|20000|22000|24000|25000|27000|32000|33000|33300|35000|36000|66000|90000|110000|132000|145000|150000|170000|200000|220000|250000|254000|270000|275000|320000|400000|450000|515000|525000|600000)$/ ][inside("GB")] {
     throwError: tr("Invalid voltage value for this country (United Kingdom)");
@@ -2824,6 +2996,7 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(11000|12
 }
 
 
+*[power=substation][voltage][voltage!~/;/][voltage!~ /^(11000|11500|12000|12370|12400|12470|12500|13000|13200|13800|13860|14000|14400|14750|15000|16000|17500|18000|19920|19935|20000|20800|21000|21800|22000|23000|23900|24000|24900|24940|25000|26000|26400|27000|27600|32000|33000|34000|34500|34599|35000|35400|37500|38000|40000|41600|43000|43800|44000|46000|49000|50000|55000|57000|57100|60000|66000|69000|70000|71000|87000|88000|92000|100000|110000|111500|115000|120000|125000|130000|132000|138000|150000|160000|161000|200000|220000|230000|235000|250000|260000|276000|287000|320000|345000|400000|450000|460000|500000|690002|765000|1100000|1150003|1333000|1380000)$/ ][inside("US")],
 relation[power=~/line_section|circuit/][voltage][voltage!~/;/][voltage!~ /^(11000|11500|12000|12370|12400|12470|12500|13000|13200|13800|13860|14000|14400|14750|15000|16000|17500|18000|19920|19935|20000|20800|21000|21800|22000|23000|23900|24000|24900|24940|25000|26000|26400|27000|27600|32000|33000|34000|34500|34599|35000|35400|37500|38000|40000|41600|43000|43800|44000|46000|49000|50000|55000|57000|57100|60000|66000|69000|70000|71000|87000|88000|92000|100000|110000|111500|115000|120000|125000|130000|132000|138000|150000|160000|161000|200000|220000|230000|235000|250000|260000|276000|287000|320000|345000|400000|450000|460000|500000|690002|765000|1100000|1150003|1333000|1380000)$/ ][inside("US")],
 way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(11000|11500|12000|12370|12400|12470|12500|13000|13200|13800|13860|14000|14400|14750|15000|16000|17500|18000|19920|19935|20000|20800|21000|21800|22000|23000|23900|24000|24900|24940|25000|26000|26400|27000|27600|32000|33000|34000|34500|34599|35000|35400|37500|38000|40000|41600|43000|43800|44000|46000|49000|50000|55000|57000|57100|60000|66000|69000|70000|71000|87000|88000|92000|100000|110000|111500|115000|120000|125000|130000|132000|138000|150000|160000|161000|200000|220000|230000|235000|250000|260000|276000|287000|320000|345000|400000|450000|460000|500000|690002|765000|1100000|1150003|1333000|1380000)$/ ][inside("US")] {
     throwError: tr("Invalid voltage value for this country (United States)");
@@ -2836,6 +3009,7 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(11000|11
 }
 
 
+*[power=substation][voltage][voltage!~/;/][voltage!~ /^(30000|31500|60000|63000|132000|150000|230000|500000)$/ ][inside("UY")],
 relation[power=~/line_section|circuit/][voltage][voltage!~/;/][voltage!~ /^(30000|31500|60000|63000|132000|150000|230000|500000)$/ ][inside("UY")],
 way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(30000|31500|60000|63000|132000|150000|230000|500000)$/ ][inside("UY")] {
     throwError: tr("Invalid voltage value for this country (Uruguay)");
@@ -2848,6 +3022,7 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(30000|31
 }
 
 
+*[power=substation][voltage][voltage!~/;/][voltage!~ /^(35000|75000|110000|220000|350000|380000|500000)$/ ][inside("UZ")],
 relation[power=~/line_section|circuit/][voltage][voltage!~/;/][voltage!~ /^(35000|75000|110000|220000|350000|380000|500000)$/ ][inside("UZ")],
 way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(35000|75000|110000|220000|350000|380000|500000)$/ ][inside("UZ")] {
     throwError: tr("Invalid voltage value for this country (Uzbekistan)");
@@ -2860,6 +3035,7 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(35000|75
 }
 
 
+*[power=substation][voltage][voltage!~/;/][voltage!~ /^(13800|24000|30000|69000|115000|138000|230000|400000|765000)$/ ][inside("VE")],
 relation[power=~/line_section|circuit/][voltage][voltage!~/;/][voltage!~ /^(13800|24000|30000|69000|115000|138000|230000|400000|765000)$/ ][inside("VE")],
 way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(13800|24000|30000|69000|115000|138000|230000|400000|765000)$/ ][inside("VE")] {
     throwError: tr("Invalid voltage value for this country (Venezuela)");
@@ -2872,6 +3048,7 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(13800|24
 }
 
 
+*[power=substation][voltage][voltage!~/;/][voltage!~ /^(22000|50000|110000|115000|220000|230000|500000)$/ ][inside("VN")],
 relation[power=~/line_section|circuit/][voltage][voltage!~/;/][voltage!~ /^(22000|50000|110000|115000|220000|230000|500000)$/ ][inside("VN")],
 way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(22000|50000|110000|115000|220000|230000|500000)$/ ][inside("VN")] {
     throwError: tr("Invalid voltage value for this country (Vietnam)");
@@ -2884,6 +3061,7 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(22000|50
 }
 
 
+*[power=substation][voltage][voltage!~/;/][voltage!~ /^(132000|400000)$/ ][inside("YE")],
 relation[power=~/line_section|circuit/][voltage][voltage!~/;/][voltage!~ /^(132000|400000)$/ ][inside("YE")],
 way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(132000|400000)$/ ][inside("YE")] {
     throwError: tr("Invalid voltage value for this country (Yemen)");
@@ -2896,6 +3074,7 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(132000|4
 }
 
 
+*[power=substation][voltage][voltage!~/;/][voltage!~ /^(11000|33000|66000|88000|132000|220000|330000)$/ ][inside("ZM")],
 relation[power=~/line_section|circuit/][voltage][voltage!~/;/][voltage!~ /^(11000|33000|66000|88000|132000|220000|330000)$/ ][inside("ZM")],
 way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(11000|33000|66000|88000|132000|220000|330000)$/ ][inside("ZM")] {
     throwError: tr("Invalid voltage value for this country (Zambia)");
@@ -2908,6 +3087,7 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(11000|33
 }
 
 
+*[power=substation][voltage][voltage!~/;/][voltage!~ /^(33000|66000|88000|110000|132000|220000|330000|400000)$/ ][inside("ZW")],
 relation[power=~/line_section|circuit/][voltage][voltage!~/;/][voltage!~ /^(33000|66000|88000|110000|132000|220000|330000|400000)$/ ][inside("ZW")],
 way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(33000|66000|88000|110000|132000|220000|330000|400000)$/ ][inside("ZW")] {
     throwError: tr("Invalid voltage value for this country (Zimbabwe)");
