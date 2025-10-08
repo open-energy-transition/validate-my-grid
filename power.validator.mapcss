@@ -1,6 +1,6 @@
 meta {
 	title: "Power QA";
-	version: "0.14";
+	version: "0.15";
 	description: "Validation ruleset for power features (power=*)";
 	icon: "MapYourGrid-favicon.png";
 	author: "nlehuby";
@@ -223,6 +223,13 @@ way[power=~/line|minor_line|cable/][!voltage] {
     throwWarning: tr("Power lines should have a voltage tag");
     assertMatch: "way power=cable";
     assertNoMatch: "way power=cable voltage=500000";
+	-osmoseItemClassLevel: none; /* not suitable for Osmose */
+}
+
+*[power=substation][!voltage] {
+    throwWarning: tr("Substations should have a voltage tag");
+    assertMatch: "node power=substation";
+    assertNoMatch: "node power=substation voltage=200000";
 	-osmoseItemClassLevel: none; /* not suitable for Osmose */
 }
 
