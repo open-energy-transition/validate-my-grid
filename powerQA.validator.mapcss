@@ -1,6 +1,6 @@
 meta {
 	title: "Power QA";
-	version: "0.15";
+	version: "0.16";
 	description: "Validation ruleset for power features (power=*)";
 	icon: "MapYourGrid-favicon.png";
 	author: "nlehuby";
@@ -331,9 +331,9 @@ relation[power=circuit] >[role!~/^(tap|substation)$/] node {
    -osmoseItemClassLevel: none; /* The rule involves multiple objects, which is not yet supported by Osmose */
 }
 
-relation[power=circuit] >[role!~/^(section)$/] relation {  
+relation[power=circuit] >[role!~/^(section|substation)$/] relation {  
    throwError: tr("Wrong role for node in power=circuit relations");
-   suggestAlternative: "section";
+   suggestAlternative: "section/substation";
    -osmoseItemClassLevel: none; /* The rule involves multiple objects, which is not yet supported by Osmose */
 }
 
@@ -1527,11 +1527,11 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(20000|22
 }
 
 
-*[power=substation][voltage][voltage!~/;/][voltage!~ /^(10300|10500|13000|15000|15500|16000|17000|17200|17500|20000|25000|30000|33000|42000|45000|50000|52000|63000|66000|90000|110000|150000|200000|220000|225000|270000|320000|380000|400000|500000)$/ ][inside("FR")],
-relation[power=~/line_section|circuit/][voltage][voltage!~/;/][voltage!~ /^(10300|10500|13000|15000|15500|16000|17000|17200|17500|20000|25000|30000|33000|42000|45000|50000|52000|63000|66000|90000|110000|150000|200000|220000|225000|270000|320000|380000|400000|500000)$/ ][inside("FR")],
-way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(10300|10500|13000|15000|15500|16000|17000|17200|17500|20000|25000|30000|33000|42000|45000|50000|52000|63000|66000|90000|110000|150000|200000|220000|225000|270000|320000|380000|400000|500000)$/ ][inside("FR")] {
+*[power=substation][voltage][voltage!~/;/][voltage!~ /^(230|400|410|600|750|800|850|1500|10000|15000|17500|20000|25000|-25000|33000|42000|45000|50000|63000|90000|150000|220000|225000|270000|320000|400000)$/ ][inside("FR")],
+relation[power=~/line_section|circuit/][voltage][voltage!~/;/][voltage!~ /^(230|400|410|600|750|800|850|1500|10000|15000|17500|20000|25000|-25000|33000|42000|45000|50000|63000|90000|150000|220000|225000|270000|320000|400000)$/ ][inside("FR")],
+way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(230|400|410|600|750|800|850|1500|10000|15000|17500|20000|25000|-25000|33000|42000|45000|50000|63000|90000|150000|220000|225000|270000|320000|400000)$/ ][inside("FR")] {
     throwError: tr("Invalid voltage value for this country (France)");
-    suggestAlternative: "10300/10500/13000/15000/15500/16000/17000/17200/17500/20000/25000/30000/33000/42000/45000/50000/52000/63000/66000/90000/110000/150000/200000/220000/225000/270000/320000/380000/400000/500000";
+    suggestAlternative: "230/400/410/600/750/800/850/1500/10000/15000/17500/20000/25000/-25000/33000/42000/45000/50000/63000/90000/150000/220000/225000/270000/320000/400000";
     -osmoseDetail: tr("Each country has its own voltage set used for electricity transmission.");
     -osmoseExample: tr("For example, in Jordan, only 132 kV and 400 kV voltages are used.");
     -osmoseFix: tr("Check the list of possible values for this country on the wiki and correct the `0` tag.", "voltage");

@@ -1608,3 +1608,11 @@ msgstr ""
 #: ../power.validator.mapcss:230
 msgid "Substations should have a voltage tag"
 msgstr ""
+
+msgid "Power circuits and sections should have a voltage tag"
+msgstr ""
+
+msgid ""
+"The voltage tag should be the same for the circuits and its members : {0} vs "
+"{1}"
+msgstr ""
