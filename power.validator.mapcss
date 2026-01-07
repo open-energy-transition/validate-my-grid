@@ -331,9 +331,9 @@ relation[power=circuit] >[role!~/^(tap|substation)$/] node {
    -osmoseItemClassLevel: none; /* The rule involves multiple objects, which is not yet supported by Osmose */
 }
 
-relation[power=circuit] >[role!~/^(section)$/] relation {  
+relation[power=circuit] >[role!~/^(section|substation)$/] relation {  
    throwError: tr("Wrong role for node in power=circuit relations");
-   suggestAlternative: "section";
+   suggestAlternative: "section/substation";
    -osmoseItemClassLevel: none; /* The rule involves multiple objects, which is not yet supported by Osmose */
 }
 
