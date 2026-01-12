@@ -78,7 +78,7 @@ JO,Jordan,132000;400000,https://wiki.openstreetmap.org/wiki/Power_networks/Jorda
 KZ,Kazakhstan,22000;35000;110000;220000;500000,https://wiki.openstreetmap.org/wiki/Power_networks/Kazakhstan
 KE,Kenya,11000;15000;132000;220000;400000;500000,https://wiki.openstreetmap.org/wiki/Power_networks/Kenya
 DK,Kingdom of Denmark,50000;60000;132000;150000;220000;400000,https://wiki.openstreetmap.org/wiki/Power_networks/Denmark
-NL,Kingdom of the Netherlands,13000;20000;22000;23000;24000;25000;30000;33000;34000;50000;66000;110000;150000;220000;320000;380000;450000;600000,https://wiki.openstreetmap.org/wiki/Power_networks/Netherlands
+NL,Kingdom of the Netherlands,230;400;690;10000;13000;20000;22000;23000;24000;25000;30000;33000;34000;50000;66000;110000;150000;220000;320000;380000;450000;600000,https://wiki.openstreetmap.org/wiki/Power_networks/Netherlands
 KW,Kuwait,33000;66000;132000;275000;400000,https://wiki.openstreetmap.org/wiki/Power_networks/Kuwait
 KG,Kyrgyzstan,10000;110000;220000;500000,https://wiki.openstreetmap.org/wiki/Power_networks/Kyrgyzstan
 LA,Laos,110000;115000;220000;230000;500000,https://wiki.openstreetmap.org/wiki/Power_networks/Laos
