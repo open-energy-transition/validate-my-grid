@@ -1,6 +1,6 @@
 meta {
 	title: "Power QA";
-	version: "0.18";
+	version: "0.19";
 	description: "Validation ruleset for power features (power=*)";
 	icon: "MapYourGrid-favicon.png";
 	author: "nlehuby";
@@ -2957,11 +2957,11 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(11000|15
 }
 
 
-*[power=substation][voltage][voltage!~/;/][voltage!~ /^(3000|6000|10000|20000|35000|110000|150000|154000|220000|330000|400000|500000|750000|800000)$/ ][inside("UA")],
-relation[power=~/line_section|circuit/][voltage][voltage!~/;/][voltage!~ /^(3000|6000|10000|20000|35000|110000|150000|154000|220000|330000|400000|500000|750000|800000)$/ ][inside("UA")],
-way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(3000|6000|10000|20000|35000|110000|150000|154000|220000|330000|400000|500000|750000|800000)$/ ][inside("UA")] {
+*[power=substation][voltage][voltage!~/;/][voltage!~ /^(230|400|3000|6000|10000|20000|35000|110000|150000|154000|220000|330000|400000|500000|750000|800000)$/ ][inside("UA")],
+relation[power=~/line_section|circuit/][voltage][voltage!~/;/][voltage!~ /^(230|400|3000|6000|10000|20000|35000|110000|150000|154000|220000|330000|400000|500000|750000|800000)$/ ][inside("UA")],
+way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(230|400|3000|6000|10000|20000|35000|110000|150000|154000|220000|330000|400000|500000|750000|800000)$/ ][inside("UA")] {
     throwError: tr("Invalid voltage value for this country (Ukraine)");
-    suggestAlternative: "3000/6000/10000/20000/35000/110000/150000/154000/220000/330000/400000/500000/750000/800000";
+    suggestAlternative: "230/400/3000/6000/10000/20000/35000/110000/150000/154000/220000/330000/400000/500000/750000/800000";
     -osmoseDetail: tr("Each country has its own voltage set used for electricity transmission.");
     -osmoseExample: tr("For example, in Jordan, only 132 kV and 400 kV voltages are used.");
     -osmoseFix: tr("Check the list of possible values for this country on the wiki and correct the `{0}` tag.", "voltage");
