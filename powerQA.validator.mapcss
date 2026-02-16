@@ -851,6 +851,49 @@ node[power=transformer][transformer][transformer!~/^(main|auxiliary|generator|co
 	-osmoseResource: "https://wiki.openstreetmap.org/wiki/Key:plant:method";
 }
 
+*[power=plant][plant:output:electricity][plant:output:electricity!~/^(?i)(([0-9]+(\.[0-9]+)? *(W|kW|MW|GW))|yes)$/] {
+	throwError: tr("plant:output:electricity value has invalid format");
+	assertMatch: "way power=plant plant:output:electricity=\"700,0 MW\"";
+	assertMatch: "way power=plant plant:output:electricity=\"700 M\"";
+	assertMatch: "way power=plant plant:output:electricity=\"700 asdf\"";
+	assertNoMatch: "way power=plant plant:output:electricity=yes";
+	assertNoMatch: "way power=plant plant:output:electricity=\"700 MW\"";
+	assertNoMatch: "way power=plant plant:output:electricity=\"700 mw\"";
+	assertNoMatch: "way power=plant plant:output:electricity=\"700GW\"";
+	assertNoMatch: "way power=plant plant:output:electricity=\"700.0 MW\"";
+	-osmoseDetail: tr("The output tag should be a number with the '.' as a decimal separator and units in W/KW/MW/GW.");
+	-osmoseResource: "https://wiki.openstreetmap.org/wiki/Key:plant:output";
+}
+
+*[power=plant][plant:storage][plant:storage!~/^(?i)(([0-9]+(\.[0-9]+)? *(|k|M|G|T)Wh)|yes)$/] {
+	throwError: tr("plant:storage value has invalid format");
+	assertMatch: "way power=plant plant:storage=\"700,0 MWh\"";
+	assertMatch: "way power=plant plant:storage=\"700 M\"";
+	assertMatch: "way power=plant plant:storage=\"700 asdf\"";
+	assertNoMatch: "way power=plant plant:storage=yes";
+	assertNoMatch: "way power=plant plant:storage=\"700 MWh\"";
+	assertNoMatch: "way power=plant plant:storage=\"700 Wh\"";
+	assertNoMatch: "way power=plant plant:storage=\"700 mwh\"";
+	assertNoMatch: "way power=plant plant:storage=\"700GWh\"";
+	assertNoMatch: "way power=plant plant:storage=\"700.0 MWh\"";
+	-osmoseDetail: tr("The storage tag should be a number with the '.' as a decimal separator and units in Wh/kWh/MWh/GWh.");
+	-osmoseResource: "https://wiki.openstreetmap.org/wiki/Key:plant:storage";
+}
+
+*[power=generator][generator:output:electricity][generator:output:electricity!~/^(?i)(([0-9]+(\.[0-9]+)? *(W|kW|MW|GW))|yes)$/] {
+	throwError: tr("generator:output:electricity value has invalid format");
+	assertMatch: "way power=generator generator:output:electricity=\"700,0 MW\"";
+	assertMatch: "way power=generator generator:output:electricity=\"700 M\"";
+	assertMatch: "way power=generator generator:output:electricity=\"700 asdf\"";
+	assertNoMatch: "way power=generator generator:output:electricity=yes";
+	assertNoMatch: "way power=generator generator:output:electricity=\"700 MW\"";
+	assertNoMatch: "way power=generator generator:output:electricity=\"700 mw\"";
+	assertNoMatch: "way power=generator generator:output:electricity=\"700GW\"";
+	assertNoMatch: "way power=generator generator:output:electricity=\"700.0 MW\"";
+	-osmoseDetail: tr("The output tag should be a number with the '.' as a decimal separator and units in W/KW/MW/GW.");
+	-osmoseResource: "https://wiki.openstreetmap.org/wiki/Key:generator:output";
+}
+
 *[power=substation][voltage][voltage!~/;/][voltage!~ /^(110000|132000|220000|500000)$/ ][inside("AF")],
 relation[power=~/line_section|circuit/][voltage][voltage!~/;/][voltage!~ /^(110000|132000|220000|500000)$/ ][inside("AF")],
 way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(110000|132000|220000|500000)$/ ][inside("AF")] {
