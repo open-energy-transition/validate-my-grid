@@ -1,6 +1,6 @@
 meta {
 	title: "Power QA";
-	version: "0.19";
+	version: "0.20";
 	description: "Validation ruleset for power features (power=*)";
 	icon: "MapYourGrid-favicon.png";
 	author: "nlehuby";
@@ -90,7 +90,7 @@ area[power=substation] ∈ area[power=substation] {
 	-osmoseItemClassLevel: none; /* The rule involves multiple objects, which is not yet supported by Osmose */
 }
 
-*[power][power!~/^(cable|catenary_mast|circuit|compensator|connection|converter|generator|heliostat|insulator|inverter|line|line_section|minor_line|plant|pole|portal|substation|switch|switchgear|terminal|tower|transformer)$/] {
+*[power][power!~/^(cable|catenary_mast|catenary_portal|circuit|compensator|connection|converter|generator|heliostat|insulator|inverter|line|line_section|minor_line|plant|pole|portal|substation|switch|switchgear|terminal|tower|transformer)$/] {
 	throwError: tr("Unsuitable value for power=* tag");
 	assertMatch: "relation power=route";
 	assertMatch: "relation power=circuits";
@@ -2506,11 +2506,11 @@ way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(11000|15
 }
 
 
-*[power=substation][voltage][voltage!~/;/][voltage!~ /^(11000|15000|18000|20000|25000|30000|50000|60000|130000|150000|220000|400000)$/ ][inside("PT")],
-relation[power=~/line_section|circuit/][voltage][voltage!~/;/][voltage!~ /^(11000|15000|18000|20000|25000|30000|50000|60000|130000|150000|220000|400000)$/ ][inside("PT")],
-way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(11000|15000|18000|20000|25000|30000|50000|60000|130000|150000|220000|400000)$/ ][inside("PT")] {
+*[power=substation][voltage][voltage!~/;/][voltage!~ /^(400|6000|10000|15000|25000|30000|60000|130000|150000|220000|400000)$/ ][inside("PT")],
+relation[power=~/line_section|circuit/][voltage][voltage!~/;/][voltage!~ /^(400|6000|10000|15000|25000|30000|60000|130000|150000|220000|400000)$/ ][inside("PT")],
+way[power=~/line|minor_line|cable/][voltage][voltage!~/;/][voltage!~ /^(400|6000|10000|15000|25000|30000|60000|130000|150000|220000|400000)$/ ][inside("PT")] {
     throwError: tr("Invalid voltage value for this country (Portugal)");
-    suggestAlternative: "11000/15000/18000/20000/25000/30000/50000/60000/130000/150000/220000/400000";
+    suggestAlternative: "400/6000/10000/15000/25000/30000/60000/130000/150000/220000/400000";
     -osmoseDetail: tr("Each country has its own voltage set used for electricity transmission.");
     -osmoseExample: tr("For example, in Jordan, only 132 kV and 400 kV voltages are used.");
     -osmoseFix: tr("Check the list of possible values for this country on the wiki and correct the `{0}` tag.", "voltage");
