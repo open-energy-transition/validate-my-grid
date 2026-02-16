@@ -865,7 +865,7 @@ node[power=transformer][transformer][transformer!~/^(main|auxiliary|generator|co
 	-osmoseResource: "https://wiki.openstreetmap.org/wiki/Key:plant:output";
 }
 
-*[power=plant][plant:storage][plant:storage!~/^(?i)(([0-9]+(\.[0-9]+)? *(|k|M|G|T)(Wh|J))|yes)$/] {
+*[power=plant][plant:storage][plant:storage!~/^(?i)(([0-9]+(\.[0-9]+)? *(|k|M|G|T)Wh)|yes)$/] {
 	throwError: tr("plant:storage value has invalid format");
 	assertMatch: "way power=plant plant:storage=\"700,0 MWh\"";
 	assertMatch: "way power=plant plant:storage=\"700 M\"";
