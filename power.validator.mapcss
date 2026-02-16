@@ -90,7 +90,7 @@ area[power=substation] ∈ area[power=substation] {
 	-osmoseItemClassLevel: none; /* The rule involves multiple objects, which is not yet supported by Osmose */
 }
 
-*[power][power!~/^(cable|catenary_mast|circuit|compensator|connection|converter|generator|heliostat|insulator|inverter|line|line_section|minor_line|plant|pole|portal|substation|switch|switchgear|terminal|tower|transformer)$/] {
+*[power][power!~/^(cable|catenary_mast|catenary_portal|circuit|compensator|connection|converter|generator|heliostat|insulator|inverter|line|line_section|minor_line|plant|pole|portal|substation|switch|switchgear|terminal|tower|transformer)$/] {
 	throwError: tr("Unsuitable value for power=* tag");
 	assertMatch: "relation power=route";
 	assertMatch: "relation power=circuits";
