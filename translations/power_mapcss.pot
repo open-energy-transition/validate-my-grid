@@ -1521,7 +1521,7 @@ msgstr ""
 #: ../power.validator.mapcss:864 ../power.validator.mapcss:893
 msgid ""
 "The output tag should be a number with the '.' as a decimal separator and "
-"units in W/KW/MW/GW."
+"units in W/kW/MW/GW."
 msgstr ""
 
 #: ../power.validator.mapcss:869
