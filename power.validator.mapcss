@@ -1,6 +1,6 @@
 meta {
 	title: "Power QA";
-	version: "0.20";
+	version: "0.21";
 	description: "Validation ruleset for power features (power=*)";
 	icon: "MapYourGrid-favicon.png";
 	author: "nlehuby";
@@ -861,7 +861,7 @@ node[power=transformer][transformer][transformer!~/^(main|auxiliary|generator|co
 	assertNoMatch: "way power=plant plant:output:electricity=\"700 mw\"";
 	assertNoMatch: "way power=plant plant:output:electricity=\"700GW\"";
 	assertNoMatch: "way power=plant plant:output:electricity=\"700.0 MW\"";
-	-osmoseDetail: tr("The output tag should be a number with the '.' as a decimal separator and units in W/KW/MW/GW.");
+	-osmoseDetail: tr("The output tag should be a number with the '.' as a decimal separator and units in W/kW/MW/GW.");
 	-osmoseResource: "https://wiki.openstreetmap.org/wiki/Key:plant:output";
 }
 
@@ -890,6 +890,6 @@ node[power=transformer][transformer][transformer!~/^(main|auxiliary|generator|co
 	assertNoMatch: "way power=generator generator:output:electricity=\"700 mw\"";
 	assertNoMatch: "way power=generator generator:output:electricity=\"700GW\"";
 	assertNoMatch: "way power=generator generator:output:electricity=\"700.0 MW\"";
-	-osmoseDetail: tr("The output tag should be a number with the '.' as a decimal separator and units in W/KW/MW/GW.");
+	-osmoseDetail: tr("The output tag should be a number with the '.' as a decimal separator and units in W/kW/MW/GW.");
 	-osmoseResource: "https://wiki.openstreetmap.org/wiki/Key:generator:output";
 }
