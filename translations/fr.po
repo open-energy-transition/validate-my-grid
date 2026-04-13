@@ -1534,23 +1534,23 @@ msgstr ""
 msgid "plant:output:electricity value has invalid format"
 msgstr ""
 
-#: ../power.validator.mapcss:864 ../power.validator.mapcss:893
+#: ../power.validator.mapcss:867 ../power.validator.mapcss:903
 msgid ""
 "The output tag should be a number with the '.' as a decimal separator and "
 "units in W/kW/MW/GW."
 msgstr ""
 
-#: ../power.validator.mapcss:869
+#: ../power.validator.mapcss:872
 msgid "plant:storage value has invalid format"
 msgstr ""
 
-#: ../power.validator.mapcss:879
+#: ../power.validator.mapcss:886
 msgid ""
 "The storage tag should be a number with the '.' as a decimal separator and "
 "units in Wh/kWh/MWh/GWh."
 msgstr ""
 
-#: ../power.validator.mapcss:884
+#: ../power.validator.mapcss:891
 msgid "generator:output:electricity value has invalid format"
 msgstr ""
 

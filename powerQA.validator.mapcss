@@ -851,43 +851,53 @@ node[power=transformer][transformer][transformer!~/^(main|auxiliary|generator|co
 	-osmoseResource: "https://wiki.openstreetmap.org/wiki/Key:plant:method";
 }
 
-*[power=plant][plant:output:electricity][plant:output:electricity!~/^(?i)(([0-9]+(\.[0-9]+)? *(W|kW|MW|GW))|yes)$/] {
+*[power=plant][plant:output:electricity][plant:output:electricity!~/^(([0-9]+(\.[0-9]+)? *(W|kW|MW|GW))|yes)$/] {
 	throwError: tr("plant:output:electricity value has invalid format");
 	assertMatch: "way power=plant plant:output:electricity=\"700,0 MW\"";
 	assertMatch: "way power=plant plant:output:electricity=\"700 M\"";
 	assertMatch: "way power=plant plant:output:electricity=\"700 asdf\"";
+	assertMatch: "way power=plant plant:output:electricity=\"700 mw\"";
+	assertMatch: "way power=plant plant:output:electricity=\"700 gW\"";
 	assertNoMatch: "way power=plant plant:output:electricity=yes";
+	assertNoMatch: "way power=plant plant:output:electricity=\"700000000 W\"";
+	assertNoMatch: "way power=plant plant:output:electricity=\"700000 kW\"";
 	assertNoMatch: "way power=plant plant:output:electricity=\"700 MW\"";
-	assertNoMatch: "way power=plant plant:output:electricity=\"700 mw\"";
 	assertNoMatch: "way power=plant plant:output:electricity=\"700GW\"";
 	assertNoMatch: "way power=plant plant:output:electricity=\"700.0 MW\"";
 	-osmoseDetail: tr("The output tag should be a number with the '.' as a decimal separator and units in W/kW/MW/GW.");
 	-osmoseResource: "https://wiki.openstreetmap.org/wiki/Key:plant:output";
 }
 
-*[power=plant][plant:storage][plant:storage!~/^(?i)(([0-9]+(\.[0-9]+)? *(|k|M|G|T)Wh)|yes)$/] {
+*[power=plant][plant:storage][plant:storage!~/^(([0-9]+(\.[0-9]+)? *(|k|M|G|T)Wh)|yes)$/] {
 	throwError: tr("plant:storage value has invalid format");
 	assertMatch: "way power=plant plant:storage=\"700,0 MWh\"";
 	assertMatch: "way power=plant plant:storage=\"700 M\"";
 	assertMatch: "way power=plant plant:storage=\"700 asdf\"";
+	assertMatch: "way power=plant plant:storage=\"700 mwh\"";
+	assertMatch: "way power=plant plant:storage=\"700 gWh\"";
 	assertNoMatch: "way power=plant plant:storage=yes";
 	assertNoMatch: "way power=plant plant:storage=\"700 MWh\"";
+	assertNoMatch: "way power=plant plant:storage=\"700 GWh\"";
+	assertNoMatch: "way power=plant plant:storage=\"700 TWh\"";
+	assertNoMatch: "way power=plant plant:storage=\"700 kWh\"";
 	assertNoMatch: "way power=plant plant:storage=\"700 Wh\"";
-	assertNoMatch: "way power=plant plant:storage=\"700 mwh\"";
 	assertNoMatch: "way power=plant plant:storage=\"700GWh\"";
 	assertNoMatch: "way power=plant plant:storage=\"700.0 MWh\"";
 	-osmoseDetail: tr("The storage tag should be a number with the '.' as a decimal separator and units in Wh/kWh/MWh/GWh.");
 	-osmoseResource: "https://wiki.openstreetmap.org/wiki/Key:plant:storage";
 }
 
-*[power=generator][generator:output:electricity][generator:output:electricity!~/^(?i)(([0-9]+(\.[0-9]+)? *(W|kW|MW|GW))|yes)$/] {
+*[power=generator][generator:output:electricity][generator:output:electricity!~/^(([0-9]+(\.[0-9]+)? *(W|kW|MW|GW))|yes)$/] {
 	throwError: tr("generator:output:electricity value has invalid format");
 	assertMatch: "way power=generator generator:output:electricity=\"700,0 MW\"";
 	assertMatch: "way power=generator generator:output:electricity=\"700 M\"";
 	assertMatch: "way power=generator generator:output:electricity=\"700 asdf\"";
+	assertMatch: "way power=generator generator:output:electricity=\"700 mw\"";
+	assertMatch: "way power=generator generator:output:electricity=\"700 gW\"";
 	assertNoMatch: "way power=generator generator:output:electricity=yes";
+	assertNoMatch: "way power=generator generator:output:electricity=\"700000000 W\"";
+	assertNoMatch: "way power=generator generator:output:electricity=\"700000 kW\"";
 	assertNoMatch: "way power=generator generator:output:electricity=\"700 MW\"";
-	assertNoMatch: "way power=generator generator:output:electricity=\"700 mw\"";
 	assertNoMatch: "way power=generator generator:output:electricity=\"700GW\"";
 	assertNoMatch: "way power=generator generator:output:electricity=\"700.0 MW\"";
 	-osmoseDetail: tr("The output tag should be a number with the '.' as a decimal separator and units in W/kW/MW/GW.");
